@@ -1,0 +1,9 @@
+.action-icons {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+}
+.action-icons i {
+  cursor: pointer;
+  font-size: 14px;
+}
