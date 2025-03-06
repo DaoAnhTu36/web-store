@@ -98,12 +98,51 @@
 <script src="<?= base_url($libUrl . '/js/plugin/datatables/dataTables.bootstrap.min.js'); ?>"></script>
 <script src="<?= base_url($libUrl . '/js/plugin/datatable-responsive/datatables.responsive.min.js'); ?>"></script>
 <script src="<?= base_url($libUrl . '/js/plugin/ckeditor/ckeditor.js'); ?>"></script>
+<!-- <script src="<?= base_url($libUrl . '/js/plugin/superbox/superbox.min.js'); ?>"></script> -->
 
 <script>
     $(document).ready(function() {
 
         // DO NOT REMOVE : GLOBAL FUNCTIONS!
         pageSetUp();
+        !(function(a) {
+            a.fn.SuperBox = function(b) {
+                var c = a('<div class="superbox-show"></div>'),
+                    d = a(
+                        '<div id="imgInfoBox" class="superbox-imageinfo inline-block"> <span><p><a href="javascript:void(0);" class="btn btn-danger btn-sm">Delete</a></p></span> </div>'
+                    ),
+                    e = a('');
+                c.append(d).append(e);
+                a('.superbox-imageinfo');
+                return this.each(function() {
+                    a('.superbox-list').click(function() {
+                        $this = a(this);
+                        var b = $this.find('.superbox-img'),
+                            e = b.data('img'),
+                            f = b.attr('alt'),
+                            g = e,
+                            h = b.attr('title');
+                        d.attr('src', e),
+                            a('.superbox-list').removeClass('active'),
+                            $this.addClass('active'),
+                            d.find('em').text(g),
+                            d.find('>:first-child').text(h),
+                            d.find('.superbox-img-description').text(f),
+                            0 == a('.superbox-current-img').css('opacity') && a('.superbox-current-img').animate({
+                                opacity: 1
+                            }),
+                            a(this).next().hasClass('superbox-show') ?
+                            (c.is(':visible') && a('.superbox-list').removeClass('active'), c.toggle()) :
+                            (c.insertAfter(this).css('display', 'block'), $this.addClass('active')),
+                            a('html, body').animate({
+                                scrollTop: c.position().top - b.width()
+                            }, 'medium');
+                    })
+                });
+            };
+        })(jQuery);
+
+        $('.superbox').SuperBox();
 
         /*
          * PAGE RELATED SCRIPTS
@@ -920,8 +959,9 @@
     })();
 
     CKEDITOR.replace('description_record', {
-        height: '500px',
-        startupFocus: true
+        height: '720px',
+        filebrowserUploadUrl: "<?= base_url('/upload'); ?>",
+        filebrowserUploadMethod: 'form'
     });
 </script>
 

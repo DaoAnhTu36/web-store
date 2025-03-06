@@ -107,10 +107,12 @@ class CategoryController extends BaseController
 
     public function updateView($id)
     {
-        $lang = service('request')->getLocale();
-        $data['welcome'] = lang('App.welcome_message'); // Lấy chuỗi dịch
         $categoryModel = new \App\Models\CategoryModel();
-        $data = $categoryModel->find($id);
+        $data = $categoryModel->getCategoriesWithImagesById($id);
+
+        if (!$data) {
+            return redirect()->to('admin/category')->with('error', 'Danh mục không tồn tại.');
+        }
         $data_view = [
             "controller" => "Danh mục",
             "method" => "Cập nhật",

@@ -8,7 +8,7 @@ class ProductModel extends Model
 {
     protected $table = 'products';
     protected $primaryKey = 'id';
-
+    protected $useAutoIncrement = true;
     protected $allowedFields = [
         'name',
         'category_id',

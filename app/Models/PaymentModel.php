@@ -8,7 +8,7 @@ class PaymentModel extends Model
 {
     protected $table = 'payments';
     protected $primaryKey = 'id';
-
+    protected $useAutoIncrement = true;
     protected $allowedFields = [
         'order_id',
         'user_id',

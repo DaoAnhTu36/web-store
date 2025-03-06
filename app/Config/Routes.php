@@ -7,9 +7,10 @@ use CodeIgniter\Router\RouteCollection;
  */
 $routes->get('/', 'Portal\HomeController::index');
 $routes->get('/home', 'Portal\HomeController::index');
-
+$routes->post('/upload', 'Admin\UploadController::uploadImage');
 
 $routes->group('admin', function ($routes) {
+
 
     $routes->get('language/(:segment)', 'Admin\LanguageController::switch/$1');
 

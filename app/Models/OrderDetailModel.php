@@ -8,7 +8,7 @@ class OrderDetailModel extends Model
 {
     protected $table = 'order_details';
     protected $primaryKey = 'id';
-
+    protected $useAutoIncrement = true;
     protected $allowedFields = [
         'order_id',
         'product_id',

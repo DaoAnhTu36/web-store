@@ -8,7 +8,7 @@ class OrderModel extends Model
 {
     protected $table = 'orders';
     protected $primaryKey = 'id';
-
+    protected $useAutoIncrement = true;
     protected $allowedFields = [
         'user_id',
         'total_price',

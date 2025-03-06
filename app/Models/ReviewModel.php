@@ -8,7 +8,7 @@ class ReviewModel extends Model
 {
     protected $table = 'reviews';
     protected $primaryKey = 'id';
-
+    protected $useAutoIncrement = true;
     protected $allowedFields = [
         'user_id',
         'product_id',
