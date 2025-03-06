@@ -15,7 +15,7 @@ $method = isset($path_array[2]) ? $path_array[2] : '';
         <span> <!-- User image size is adjusted inside CSS, it should stay as it -->
 
             <a href="<?= site_url('admin/dashboard') ?>" id="show-shortcut" data-action="toggleShortcut">
-                <img src="<?= base_url($libUrl . '/img/avatars/sunny.png'); ?>" alt="me" class="online" />
+                <img src="<?= base_url($libUrl . '/img/avatars/android-chrome-512x512.png'); ?>" alt="me" class="online" />
                 <span>
                     Administrator
                 </span>

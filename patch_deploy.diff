@@ -1,0 +1,34 @@
+diff --git a/app/Config/App.php b/app/Config/App.php
+index f8329cf..30bcf54 100644
+--- a/app/Config/App.php
++++ b/app/Config/App.php
+@@ -16,8 +16,8 @@ class App extends BaseConfig
+      *
+      * E.g., http://example.com/
+      */
+-    // public $baseURL = 'https://taphoagiadinh.info.vn/public/';
+-    public $baseURL = 'http://localhost/web-store/public/';
++    public $baseURL = 'https://taphoagiadinh.info.vn/public/';
++    // public $baseURL = 'http://localhost/web-store/public/';
+ 
+     /**
+      * Allowed Hostnames in the Site URL other than the hostname in the baseURL.
+diff --git a/app/Config/Database.php b/app/Config/Database.php
+index c5ddb27..8679e15 100644
+--- a/app/Config/Database.php
++++ b/app/Config/Database.php
+@@ -29,10 +29,10 @@ class Database extends Config
+     public array $default = [
+         'DSN'          => '',
+         'hostname'     => 'localhost',
+-        // 'username'     => 'taphoagi',
+-        // 'password'     => 'Daoanhtu020996@@#',
+-        'username'     => 'root',
+-        'password'     => '',
++        'username'     => 'taphoagi',
++        'password'     => 'Daoanhtu020996@@#',
++        // 'username'     => 'root',
++        // 'password'     => '',
+         'database'     => 'taphoagi_store_web',
+         'DBDriver'     => 'MySQLi',
+         'DBPrefix'     => '',
