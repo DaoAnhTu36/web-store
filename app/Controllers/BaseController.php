@@ -46,6 +46,7 @@ abstract class BaseController extends Controller
     /**
      * @return void
      */
+    protected $lang;
     public function initController(RequestInterface $request, ResponseInterface $response, LoggerInterface $logger)
     {
         // Do Not Edit This Line
@@ -55,5 +56,15 @@ abstract class BaseController extends Controller
 
         // E.g.: $this->session = \Config\Services::session();
         helper("url");
+
+
+        $session = session();
+        if ($session->has('site_lang')) {
+            $this->lang = $session->get('site_lang');
+        } else {
+            $this->lang = $this->request->getLocale();
+        }
+
+        service('request')->setLocale($this->lang);
     }
 }

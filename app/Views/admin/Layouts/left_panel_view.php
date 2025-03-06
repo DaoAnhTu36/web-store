@@ -14,7 +14,7 @@ $method = isset($path_array[2]) ? $path_array[2] : '';
     <div class="login-info">
         <span> <!-- User image size is adjusted inside CSS, it should stay as it -->
 
-            <a href="javascript:void(0);" id="show-shortcut" data-action="toggleShortcut">
+            <a href="<?= site_url('admin/dashboard') ?>" id="show-shortcut" data-action="toggleShortcut">
                 <img src="<?= base_url($libUrl . '/img/avatars/sunny.png'); ?>" alt="me" class="online" />
                 <span>
                     Administrator
@@ -30,16 +30,16 @@ $method = isset($path_array[2]) ? $path_array[2] : '';
     <nav>
         <ul>
             <li class="<?= $controller == 'dashboard' ? 'active open' : ''; ?>">
-                <a href="" title=""><i class="fa fa-lg fa-fw fa-cube"></i> <span class="menu-item-parent">Dashboard</span></a>
+                <a href="<?= site_url('admin/dashboard') ?>" title=""><i class="fa fa-lg fa-fw fa-cube"></i> <span class="menu-item-parent">Dashboard</span></a>
             </li>
             <li class="<?= $controller == 'category' ? 'active open' : ''; ?>">
                 <a href="#" title=""><i class="fa fa-lg fa-fw fa-cube"></i> <span class="menu-item-parent">Danh mục</span></a>
                 <ul>
                     <li class="<?= $controller == 'category' && ($method == 'index' || $method == '') ? 'active' : ''; ?>">
-                        <a href="javascript:void(0)" onclick="redirectTo('<?= base_url('admin') ?>','category')" title=""><span class="menu-item-parent">Danh mục</span></a>
+                        <a href="<?= site_url('admin/category') ?>" title=""><span class="menu-item-parent">Danh mục</span></a>
                     </li>
-                    <li class="<?= $controller == 'category' && $method == 'create' ? 'active' : ''; ?>">
-                        <a href="javascript:void(0)" onclick="redirectTo('<?= base_url('admin') ?>','category/create')" title=""><span class="menu-item-parent">Thêm danh mục mới</span></a>
+                    <li class="<?= $controller == 'category' && $method == 'createView' ? 'active' : ''; ?>">
+                        <a href="<?= site_url('admin/category/createView') ?>" title=""><span class="menu-item-parent">Thêm danh mục mới</span></a>
                     </li>
                 </ul>
             </li>
@@ -47,10 +47,10 @@ $method = isset($path_array[2]) ? $path_array[2] : '';
                 <a href="#" title=""><i class="fa fa-lg fa-fw fa-cube"></i> <span class="menu-item-parent">Sản phẩm</span></a>
                 <ul>
                     <li class="<?= $controller == 'product' && ($method == 'index' || $method == '') ? 'active' : ''; ?>">
-                        <a href="javascript:void(0)" onclick="redirectTo('<?= base_url('admin') ?>','product')" title=""><span class="menu-item-parent">Sản phẩm</span></a>
+                        <a href="<?= site_url('admin/product') ?>" title=""><span class="menu-item-parent">Sản phẩm</span></a>
                     </li>
-                    <li class="<?= $controller == 'product' && $method == 'create' ? 'active' : ''; ?>">
-                        <a href="javascript:void(0)" onclick="redirectTo('<?= base_url('admin') ?>','product/create')" title=""><span class="menu-item-parent">Thêm sản phẩm mới</span></a>
+                    <li class="<?= $controller == 'product' && $method == 'createView' ? 'active' : ''; ?>">
+                        <a href="<?= site_url('admin/product/createView') ?>" title=""><span class="menu-item-parent">Thêm sản phẩm mới</span></a>
                     </li>
                 </ul>
             </li>

@@ -3,12 +3,14 @@
 namespace App\Controllers\Admin;
 
 use App\Controllers\BaseController;
+use CodeIgniter\I18n\Time;
 
 class CategoryController extends BaseController
 {
     public function __construct()
     {
         helper("common");
+        helper("language");
     }
 
     public function index()
@@ -25,39 +27,23 @@ class CategoryController extends BaseController
         return view('admin/category_view/index_view', $data_view);
     }
 
-    public function create()
+    public function createView()
     {
         $data = [
-            "controller" => "Danh mục",
-            "method" => "Thêm mới",
+            "controller" => lang("Validation.category_controller_label"),
+            "method" => lang("Validation.category_method_label"),
+            "title_label" => lang("Validation.category_title_label"),
+            "title_info_label" => lang("Validation.category_title_infor_label"),
+            "name_label" => lang("Validation.category_name_label"),
+            "image_label" => lang("Validation.image_label"),
+            "description_label" => lang("Validation.description_label"),
+            "cancel_button_label" => lang("Validation.cancel_button_label"),
+            "save_button_label" => lang("Validation.save_button_label"),
         ];
         return view('admin/category_view/add_view', $data);
     }
 
-    public function delete($id)
-    {
-        $categoryModel = new \App\Models\CategoryModel();
-
-        if ($categoryModel->find($id)) {
-            $categoryModel->deleteCategory($id);
-            return redirect()->to('admin/category')->with('success', 'Xóa danh mục thành công.');
-        } else {
-            return redirect()->to('admin/category')->with('error', 'Danh mục không tồn tại.');
-        }
-    }
-
-    public function detail($id)
-    {
-        $categoryModel = new \App\Models\CategoryModel();
-        $item = $categoryModel->find($id);
-        if ($item) {
-            EchoCommon($item);
-        } else {
-            return redirect()->to('admin/category')->with('error', 'Danh mục không tồn tại.');
-        }
-    }
-
-    public function insert()
+    public function createMethod()
     {
         helper(['form', 'url']);
         $validation = \Config\Services::validation();
@@ -95,4 +81,50 @@ class CategoryController extends BaseController
 
         return redirect()->to('admin/category')->with('success', 'Danh mục đã được thêm!');
     }
+
+    public function deleteViewMethod($id)
+    {
+        $categoryModel = new \App\Models\CategoryModel();
+
+        if ($categoryModel->find($id)) {
+            $categoryModel->deleteCategory($id);
+            return redirect()->to('admin/category')->with('success', 'Xóa danh mục thành công.');
+        } else {
+            return redirect()->to('admin/category')->with('error', 'Danh mục không tồn tại.');
+        }
+    }
+
+    public function detailView($id)
+    {
+        $categoryModel = new \App\Models\CategoryModel();
+        $item = $categoryModel->find($id);
+        if ($item) {
+            EchoCommon($item);
+        } else {
+            return redirect()->to('admin/category')->with('error', 'Danh mục không tồn tại.');
+        }
+    }
+
+    public function updateView($id)
+    {
+        $lang = service('request')->getLocale();
+        $data['welcome'] = lang('App.welcome_message'); // Lấy chuỗi dịch
+        $categoryModel = new \App\Models\CategoryModel();
+        $data = $categoryModel->find($id);
+        $data_view = [
+            "controller" => "Danh mục",
+            "method" => "Cập nhật",
+            "title_label" => "Cập nhật danh mục",
+            "title_info_label" => "Thông tin danh mục",
+            "name_label" => "Tên",
+            "image_label" => lang("Validation.image_label"),
+            "description_label" => lang("Validation.description_label"),
+            "cancel_button_label" => lang("Validation.cancel_button_label"),
+            "save_button_label" => lang("Validation.save_button_label"),
+            "data" => $data,
+        ];
+        return view('admin/category_view/update_view', $data_view);
+    }
+
+    public function updateMethod() {}
 }

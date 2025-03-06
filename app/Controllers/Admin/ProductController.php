@@ -25,32 +25,19 @@ class ProductController extends BaseController
         return view('admin/product_view/index_view', $data_view);
     }
 
-    public function create()
+    public function createView()
     {
         $categoryModel = new \App\Models\CategoryModel();
         $categories = $categoryModel->findAll();
         return view('admin/product_view/add_view', [
             'controller' => 'Product',
             'method' => 'Create',
+            'title' => 'Thêm mới sản phẩm',
             'data' => $categories,
         ]);
     }
 
-    public function delete($id)
-    {
-        $model = new \App\Models\ProductModel();
-        $model->where('id', $id)->delete();
-        return redirect()->to('admin/product')->with('success', 'Sản phẩm đã được xóa!');
-    }
-
-    public function detail($id)
-    {
-        $model = new \App\Models\ProductModel();
-        $item = $model->find($id);
-        EchoCommon($item);
-    }
-
-    public function insert()
+    public function createMethod()
     {
         helper(['form', 'url']);
         $validation = \Config\Services::validation();
@@ -93,5 +80,33 @@ class ProductController extends BaseController
         }
 
         return redirect()->to('admin/product/create')->with('success', 'Sản phẩm đã được thêm!');
+    }
+
+    public function deleteViewMethod($id)
+    {
+        $model = new \App\Models\ProductModel();
+        $model->where('id', $id)->delete();
+        return redirect()->to('admin/product')->with('success', 'Sản phẩm đã được xóa!');
+    }
+
+    public function detailView($id)
+    {
+        $model = new \App\Models\ProductModel();
+        $item = $model->find($id);
+        EchoCommon($item);
+    }
+
+    public function updateView($id)
+    {
+        $model = new \App\Models\ProductModel();
+        $item = $model->find($id);
+        EchoCommon($item);
+    }
+
+    public function updateMethod($id)
+    {
+        $model = new \App\Models\ProductModel();
+        $item = $model->find($id);
+        EchoCommon($item);
     }
 }

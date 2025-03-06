@@ -16,13 +16,10 @@
 <!-- MAIN CONTENT -->
 <div id="content">
     <div class="row">
-        <div class="col-xs-12 col-sm-7 col-md-7 col-lg-4">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
             <h1 class="page-title txt-color-blueDark">
-                <i class="fa fa-table fa-fw "></i>
-                Danh sách sản phẩm
-                <!-- <span>>
-                    Normal Tables
-                </span> -->
+                <i class="fa fa-list-alt fa-fw "></i>
+                <?= $title ?>
             </h1>
         </div>
         <!-- <div class="col-xs-12 col-sm-5 col-md-5 col-lg-8">
@@ -120,9 +117,9 @@
                                         </td>
                                         <td><?= $item['created_at'] ?></td>
                                         <td class="action-icons">
-                                            <a href="<?= site_url('admin/product/detail/' . $item['id']); ?>" class="btn btn-default"><i class="fa fa-eye" aria-hidden="true"></i></a>
-                                            <a href="<?= site_url('admin/product/detail/' . $item['id']); ?>" class="btn btn-default"><i class="fa fa-pencil" aria-hidden="true"></i></a>
-                                            <a href="<?= site_url('admin/product/delete/' . $item['id']); ?>" class="btn btn-default" onclick="return confirm('Bạn có chắc muốn xóa?');"><i class="fa fa-trash" aria-hidden="true"></i></a>
+                                            <a href="<?= site_url('admin/product/detailView/' . $item['id']); ?>" class="btn btn-default"><i class="fa fa-eye" aria-hidden="true"></i></a>
+                                            <a href="<?= site_url('admin/product/detailView/' . $item['id']); ?>" class="btn btn-default"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                                            <a href="<?= site_url('admin/product/deleteViewMethod/' . $item['id']); ?>" class="btn btn-default" onclick="return confirm('Bạn có chắc muốn xóa?');"><i class="fa fa-trash" aria-hidden="true"></i></a>
 
                                         </td>
                                     </tr>

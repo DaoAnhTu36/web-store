@@ -4,7 +4,7 @@
 <div class="page-footer">
     <div class="row">
         <div class="col-xs-12 col-sm-6">
-            <span class="txt-color-white">Store DAT <span class="hidden-xs"> - Web Application Framework</span> © 2017-2019</span>
+            <span class="txt-color-white">Store DAT <span class="hidden-xs"> - Ứng dụng quản lý website</span> © 2025</span>
         </div>
 
         <div class="col-xs-6 col-sm-6 text-right hidden-xs">

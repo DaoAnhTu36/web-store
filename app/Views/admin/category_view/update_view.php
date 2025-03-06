@@ -64,13 +64,13 @@
                         <!-- widget content -->
                         <div class="widget-body">
 
-                            <form class="form-horizontal" action="<?= base_url('admin/category/createMethod'); ?>" method="POST" enctype="multipart/form-data">
+                            <form class="form-horizontal" action="<?= base_url('admin/category/updateMethod'); ?>" method="POST" enctype="multipart/form-data">
                                 <fieldset>
-                                    <!-- <legend>Thêm mới danh mục</legend> -->
+                                    <legend><?= $title_info_label ?></legend>
                                     <div class="form-group">
                                         <label class="col-md-2 control-label"><?= $name_label ?></label>
                                         <div class="col-md-10">
-                                            <input class="form-control" value="" placeholder="" type="text" id="name" name="name">
+                                            <input class="form-control" value="<?= $data['name'] ?>" placeholder="" type="text" id="name" name="name">
                                         </div>
                                     </div>
 
@@ -84,7 +84,9 @@
                                     <div class="form-group">
                                         <label class="col-md-2 control-label"><?= $description_label ?></label>
                                         <div class="col-md-10">
-                                            <textarea class="form-control" id="description_record" name="description_record"></textarea>
+                                            <textarea class="form-control" id="description_record" name="description_record">
+                                            <?= $data['description'] ?>
+                                            </textarea>
                                         </div>
                                     </div>
                                 </fieldset>
