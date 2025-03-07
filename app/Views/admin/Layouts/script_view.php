@@ -968,18 +968,21 @@
         //     filebrowserImageBrowseUrl: '<?= base_url('/libs/js/plugin/ckfinder/ckfinder.html?type=Images'); ?>',
         // });
 
-        ClassicEditor
-            .create(document.querySelector('#description_record'), {
-                ckfinder: {
-                    uploadUrl: '<?= base_url('/upload'); ?>',
-                    options: {
-                        resourceType: 'Images'
+        if (document.querySelector('#description_record')) {
+            ClassicEditor
+                .create(document.querySelector('#description_record'), {
+                    ckfinder: {
+                        uploadUrl: '<?= base_url('/upload'); ?>',
+                        options: {
+                            resourceType: 'Images'
+                        }
                     }
-                }
-            })
-            .catch(error => {
-                console.error(error);
-            });
+                })
+                .catch(error => {
+                    console.error(error);
+                });
+        }
+
     });
 </script>
 <!-- Your GOOGLE ANALYTICS CODE Below -->
