@@ -97,9 +97,10 @@
 <script src="<?= base_url($libUrl . '/js/plugin/datatables/dataTables.tableTools.min.js'); ?>"></script>
 <script src="<?= base_url($libUrl . '/js/plugin/datatables/dataTables.bootstrap.min.js'); ?>"></script>
 <script src="<?= base_url($libUrl . '/js/plugin/datatable-responsive/datatables.responsive.min.js'); ?>"></script>
-<script src="<?= base_url($libUrl . '/js/plugin/ckeditor/ckeditor.js'); ?>"></script>
-<!-- <script src="<?= base_url($libUrl . '/js/plugin/superbox/superbox.min.js'); ?>"></script> -->
-<script src="<?= base_url($libUrl . '/js/plugin/ckfinder/ckfinder.js'); ?>"></script>
+<script src="<?= base_url($libUrl . '/js/ckeditor.js'); ?>"></script>
+<!-- <script src="<?= base_url($libUrl . '/js/plugin/ckeditor/ckeditor.js'); ?>"></script> -->
+<!-- <script src="<?= base_url($libUrl . '/js/plugin/ckfinder/ckfinder.js'); ?>"></script> -->
+
 
 <script>
     $(document).ready(function() {
@@ -943,7 +944,44 @@
         })
     });
 </script>
+<script>
+    $(document).ready(function() {
 
+        // CKEDITOR.on('dialogDefinition', function(ev) {
+        //     var dialogName = ev.data.name;
+        //     var dialogDefinition = ev.data.definition;
+
+        //     if (dialogName === 'image') {
+        //         dialogDefinition.width = 700;
+        //         dialogDefinition.height = 500;
+        //     }
+        // });
+
+        // CKEDITOR.replace('description_record', {
+        //     height: '720px',
+        //     filebrowserUploadUrl: "<?= base_url('/upload'); ?>",
+        //     filebrowserUploadMethod: 'form',
+        //     // filebrowserBrowseUrl: '<?= base_url('/manager-file'); ?>',
+        //     // filebrowserImageBrowseUrl: '<?= base_url('/manager-file'); ?>?type=Images',
+
+        //     filebrowserBrowseUrl: '<?= base_url('/libs/js/plugin/ckfinder/ckfinder.html?type=Images'); ?>',
+        //     filebrowserImageBrowseUrl: '<?= base_url('/libs/js/plugin/ckfinder/ckfinder.html?type=Images'); ?>',
+        // });
+
+        ClassicEditor
+            .create(document.querySelector('#description_record'), {
+                ckfinder: {
+                    uploadUrl: '<?= base_url('/upload'); ?>',
+                    options: {
+                        resourceType: 'Images'
+                    }
+                }
+            })
+            .catch(error => {
+                console.error(error);
+            });
+    });
+</script>
 <!-- Your GOOGLE ANALYTICS CODE Below -->
 <script>
     var _gaq = _gaq || [];
@@ -958,26 +996,6 @@
         var s = document.getElementsByTagName('script')[0];
         s.parentNode.insertBefore(ga, s);
     })();
-    CKEDITOR.on('dialogDefinition', function(ev) {
-        var dialogName = ev.data.name;
-        var dialogDefinition = ev.data.definition;
-
-        if (dialogName === 'image') {
-            dialogDefinition.width = 700;
-            dialogDefinition.height = 500;
-        }
-    });
-
-    CKEDITOR.replace('description_record', {
-        height: '720px',
-        filebrowserUploadUrl: "<?= base_url('/upload'); ?>",
-        filebrowserUploadMethod: 'form',
-        // filebrowserBrowseUrl: '<?= base_url('/manager-file'); ?>',
-        // filebrowserImageBrowseUrl: '<?= base_url('/manager-file'); ?>?type=Images',
-
-        filebrowserBrowseUrl: '/web-store/public/libs/js/plugin/ckfinder/ckfinder.html?type=Images',
-        filebrowserImageBrowseUrl: '/web-store/public/libs/js/plugin/ckfinder/ckfinder.html?type=Images',
-    });
 </script>
 
 </body>
