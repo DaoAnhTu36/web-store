@@ -80,6 +80,12 @@
                                             <input type="file" class="btn btn-default" id="images" name="images[]" multiple>
                                         </div>
                                     </div>
+                                    <div class="form-group">
+                                        <label class="col-md-2 control-label"></label>
+                                        <div class="col-md-10" id="previewImage">
+
+                                        </div>
+                                    </div>
 
                                     <div class="form-group">
                                         <label class="col-md-2 control-label"><?= $description_label ?></label>

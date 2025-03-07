@@ -7,3 +7,39 @@
   cursor: pointer;
   font-size: 14px;
 }
+#previewImage {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.item_preview {
+  margin: 10px 0 10px 10px;
+  padding: 10px;
+  border-radius: 5px;
+  position: relative;
+}
+
+.item_preview img {
+  /* transition: all 0.1s ease-in-out; */
+}
+.item_preview:hover {
+  cursor: pointer;
+  /* box-shadow: 1px 1px 5px 1px gray; */
+}
+.item_preview:hover img {
+  /* transform: scale(1.1); */
+}
+
+.item_preview_button_x {
+  width: 25px;
+  position: absolute;
+  top: 0;
+  right: 0;
+  background-color: rgb(255 103 0);
+  color: white;
+  border-radius: 50%;
+  padding: 2px;
+  cursor: pointer;
+  height: 25px;
+  text-align: center;
+}
