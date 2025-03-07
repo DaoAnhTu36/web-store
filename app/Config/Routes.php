@@ -8,6 +8,7 @@ use CodeIgniter\Router\RouteCollection;
 $routes->get('/', 'Portal\HomeController::index');
 $routes->get('/home', 'Portal\HomeController::index');
 $routes->post('/upload', 'Admin\UploadController::uploadImage');
+$routes->get('/manager-file', 'Admin\UploadController::managerFile');
 
 $routes->group('admin', function ($routes) {
 

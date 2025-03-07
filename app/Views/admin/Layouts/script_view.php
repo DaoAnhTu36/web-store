@@ -99,6 +99,7 @@
 <script src="<?= base_url($libUrl . '/js/plugin/datatable-responsive/datatables.responsive.min.js'); ?>"></script>
 <script src="<?= base_url($libUrl . '/js/plugin/ckeditor/ckeditor.js'); ?>"></script>
 <!-- <script src="<?= base_url($libUrl . '/js/plugin/superbox/superbox.min.js'); ?>"></script> -->
+<script src="<?= base_url($libUrl . '/js/plugin/ckfinder/ckfinder.js'); ?>"></script>
 
 <script>
     $(document).ready(function() {
@@ -957,11 +958,25 @@
         var s = document.getElementsByTagName('script')[0];
         s.parentNode.insertBefore(ga, s);
     })();
+    CKEDITOR.on('dialogDefinition', function(ev) {
+        var dialogName = ev.data.name;
+        var dialogDefinition = ev.data.definition;
+
+        if (dialogName === 'image') {
+            dialogDefinition.width = 700;
+            dialogDefinition.height = 500;
+        }
+    });
 
     CKEDITOR.replace('description_record', {
         height: '720px',
         filebrowserUploadUrl: "<?= base_url('/upload'); ?>",
-        filebrowserUploadMethod: 'form'
+        filebrowserUploadMethod: 'form',
+        // filebrowserBrowseUrl: '<?= base_url('/manager-file'); ?>',
+        // filebrowserImageBrowseUrl: '<?= base_url('/manager-file'); ?>?type=Images',
+
+        filebrowserBrowseUrl: '/web-store/public/libs/js/plugin/ckfinder/ckfinder.html?type=Images',
+        filebrowserImageBrowseUrl: '/web-store/public/libs/js/plugin/ckfinder/ckfinder.html?type=Images',
     });
 </script>
 
