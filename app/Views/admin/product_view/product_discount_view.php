@@ -71,14 +71,30 @@
                                 <thead>
                                     <tr>
                                         <th>STT</th>
-                                        <!-- <th>ID</th> -->
-                                        <th>Tên danh mục</th>
-                                        <th>Ảnh</th>
+                                        <th>Mã sản phẩm</th>
+                                        <th>Tên sản phẩm</th>
+                                        <th>Thời gian bắt đầu</th>
+                                        <th>Thời gian kết thúc</th>
+                                        <th>Loại giảm giá</th>
+                                        <th>Giá trị</th>
                                         <th>Thời gian tạo</th>
-                                        <th>#</th>
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    <?php $idx = 1;
+                                    foreach ($data as $item) { ?>
+                                        <tr>
+                                            <td><?= $idx ?></td>
+                                            <td><?= $item['product_id'] ?></td>
+                                            <td><?= $item['product_name'] ?></td>
+                                            <td><?= $item['start_date'] ?></td>
+                                            <td><?= $item['end_date'] ?></td>
+                                            <td><?= $item['discount_type'] === 'percentage' ? 'Phần trăm' : 'Cố định' ?></td>
+                                            <td><?= $item['discount_value'] ?>
+                                            <td><?= $item['created_at'] ?></td>
+                                        </tr>
+                                    <?php $idx++;
+                                    } ?>
                                 </tbody>
                             </table>
 

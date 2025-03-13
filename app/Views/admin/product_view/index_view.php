@@ -69,6 +69,7 @@
                                 <thead>
                                     <tr>
                                         <th>STT</th>
+                                        <th>Mã sản phẩm</th>
                                         <th>Tên sản phẩm</th>
                                         <th>Danh mục</th>
                                         <th>Giá nhập</th>
@@ -85,6 +86,7 @@
                                     ?>
                                         <tr>
                                             <td><?= $i ?></td>
+                                            <td><?= $item['id'] ?></td>
                                             <td><?= $item['name'] ?></td>
                                             <td><?= $item['category_name'] ?></td>
                                             <td><?= number_format($item['price'], 0, ',', '.'); ?> ₫</td>

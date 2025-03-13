@@ -18,8 +18,10 @@ class ProductDiscountController extends BaseController
 
     public function indexView()
     {
+        $data = $this->discountModel->getAllDiscount();
         $data_view = [
             'title' => 'Danh sách sản phẩm giảm giá',
+            'data' => $data,
         ];
         return view('admin/product_view/product_discount_view', $data_view);
     }

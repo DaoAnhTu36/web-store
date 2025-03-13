@@ -17,4 +17,11 @@ class ProductDiscountModel extends Model
             ->where('end_date >=', date('Y-m-d'))
             ->findAll();
     }
+    public function getAllDiscount()
+    {
+        return $this->select('product_discounts.*, products.name as product_name')
+            ->join('products', 'products.id = product_discounts.product_id', 'left')
+            ->where('products.id IS NOT NULL')
+            ->findAll();
+    }
 }
