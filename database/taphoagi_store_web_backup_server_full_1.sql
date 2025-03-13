@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: localhost:3306
--- Thời gian đã tạo: Th3 14, 2025 lúc 12:08 AM
+-- Thời gian đã tạo: Th3 14, 2025 lúc 12:25 AM
 -- Phiên bản máy phục vụ: 10.11.11-MariaDB
 -- Phiên bản PHP: 8.3.15
 
@@ -20,6 +20,19 @@ SET time_zone = "+00:00";
 --
 -- Cơ sở dữ liệu: `taphoagi_store_web`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Cấu trúc bảng cho bảng `best_selling_products`
+--
+
+CREATE TABLE `best_selling_products` (
+  `record_id` int(11) NOT NULL,
+  `product_id` int(11) NOT NULL,
+  `total_sold` int(11) NOT NULL DEFAULT 0,
+  `last_updated` timestamp NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 -- --------------------------------------------------------
 
@@ -80,6 +93,22 @@ INSERT INTO `images` (`id`, `record_id`, `image_path`, `created_at`) VALUES
 (22, 6, 'uploads/1741748219_f498d78490fe70423ad5.jpg', '2025-03-12 02:56:59'),
 (23, 6, 'uploads/1741748219_b126e7b5621b4fa7adce.jpg', '2025-03-12 02:56:59'),
 (24, 6, 'uploads/1741748219_536e02890dd3cbc350c0.jpg', '2025-03-12 02:56:59');
+
+-- --------------------------------------------------------
+
+--
+-- Cấu trúc bảng cho bảng `inventory_movements`
+--
+
+CREATE TABLE `inventory_movements` (
+  `movement_id` int(11) NOT NULL,
+  `product_id` int(11) NOT NULL,
+  `warehouse_id` int(11) NOT NULL,
+  `quantity` int(11) NOT NULL,
+  `movement_type` enum('import','export') NOT NULL,
+  `reference` varchar(255) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 -- --------------------------------------------------------
 
@@ -156,6 +185,37 @@ INSERT INTO `products` (`id`, `name`, `category_id`, `description`, `price`, `st
 -- --------------------------------------------------------
 
 --
+-- Cấu trúc bảng cho bảng `product_discounts`
+--
+
+CREATE TABLE `product_discounts` (
+  `discount_id` int(11) NOT NULL,
+  `product_id` int(11) NOT NULL,
+  `discount_type` enum('percentage','fixed') NOT NULL,
+  `discount_value` decimal(10,2) NOT NULL,
+  `start_date` date NOT NULL,
+  `end_date` date NOT NULL,
+  `created_at` timestamp NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Cấu trúc bảng cho bảng `product_prices`
+--
+
+CREATE TABLE `product_prices` (
+  `price_id` int(11) NOT NULL,
+  `product_id` int(11) NOT NULL,
+  `price` decimal(10,2) NOT NULL,
+  `start_date` date NOT NULL,
+  `end_date` date DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Cấu trúc bảng cho bảng `reviews`
 --
 
@@ -167,6 +227,20 @@ CREATE TABLE `reviews` (
   `comment` text DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Cấu trúc bảng cho bảng `stock`
+--
+
+CREATE TABLE `stock` (
+  `stock_id` int(11) NOT NULL,
+  `product_id` int(11) NOT NULL,
+  `warehouse_id` int(11) NOT NULL,
+  `quantity` int(11) NOT NULL DEFAULT 0,
+  `last_updated` timestamp NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 -- --------------------------------------------------------
 
@@ -193,9 +267,29 @@ INSERT INTO `users` (`id`, `name`, `email`, `password`, `phone`, `address`, `rol
 (1, 'Nguyễn Văn A', 'a@gmail.com', 'hashed_password_here', '0901234567', 'Hà Nội', 'customer', '2025-03-03 10:44:41'),
 (2, 'Trần Thị B', 'b@gmail.com', 'hashed_password_here', '0912345678', 'TP HCM', 'admin', '2025-03-03 10:44:41');
 
+-- --------------------------------------------------------
+
+--
+-- Cấu trúc bảng cho bảng `warehouses`
+--
+
+CREATE TABLE `warehouses` (
+  `warehouse_id` int(11) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `location` text NOT NULL,
+  `manager` varchar(255) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
 --
 -- Chỉ mục cho các bảng đã đổ
 --
+
+--
+-- Chỉ mục cho bảng `best_selling_products`
+--
+ALTER TABLE `best_selling_products`
+  ADD PRIMARY KEY (`record_id`);
 
 --
 -- Chỉ mục cho bảng `categories`
@@ -208,6 +302,12 @@ ALTER TABLE `categories`
 --
 ALTER TABLE `images`
   ADD PRIMARY KEY (`id`);
+
+--
+-- Chỉ mục cho bảng `inventory_movements`
+--
+ALTER TABLE `inventory_movements`
+  ADD PRIMARY KEY (`movement_id`);
 
 --
 -- Chỉ mục cho bảng `orders`
@@ -239,12 +339,30 @@ ALTER TABLE `products`
   ADD KEY `category_id` (`category_id`);
 
 --
+-- Chỉ mục cho bảng `product_discounts`
+--
+ALTER TABLE `product_discounts`
+  ADD PRIMARY KEY (`discount_id`);
+
+--
+-- Chỉ mục cho bảng `product_prices`
+--
+ALTER TABLE `product_prices`
+  ADD PRIMARY KEY (`price_id`);
+
+--
 -- Chỉ mục cho bảng `reviews`
 --
 ALTER TABLE `reviews`
   ADD PRIMARY KEY (`id`),
   ADD KEY `user_id` (`user_id`),
   ADD KEY `product_id` (`product_id`);
+
+--
+-- Chỉ mục cho bảng `stock`
+--
+ALTER TABLE `stock`
+  ADD PRIMARY KEY (`stock_id`);
 
 --
 -- Chỉ mục cho bảng `users`
@@ -254,8 +372,20 @@ ALTER TABLE `users`
   ADD UNIQUE KEY `email` (`email`);
 
 --
+-- Chỉ mục cho bảng `warehouses`
+--
+ALTER TABLE `warehouses`
+  ADD PRIMARY KEY (`warehouse_id`);
+
+--
 -- AUTO_INCREMENT cho các bảng đã đổ
 --
+
+--
+-- AUTO_INCREMENT cho bảng `best_selling_products`
+--
+ALTER TABLE `best_selling_products`
+  MODIFY `record_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT cho bảng `categories`
@@ -268,6 +398,12 @@ ALTER TABLE `categories`
 --
 ALTER TABLE `images`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+
+--
+-- AUTO_INCREMENT cho bảng `inventory_movements`
+--
+ALTER TABLE `inventory_movements`
+  MODIFY `movement_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT cho bảng `orders`
@@ -294,16 +430,40 @@ ALTER TABLE `products`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
+-- AUTO_INCREMENT cho bảng `product_discounts`
+--
+ALTER TABLE `product_discounts`
+  MODIFY `discount_id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT cho bảng `product_prices`
+--
+ALTER TABLE `product_prices`
+  MODIFY `price_id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT cho bảng `reviews`
 --
 ALTER TABLE `reviews`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT cho bảng `stock`
+--
+ALTER TABLE `stock`
+  MODIFY `stock_id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT cho bảng `users`
 --
 ALTER TABLE `users`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT cho bảng `warehouses`
+--
+ALTER TABLE `warehouses`
+  MODIFY `warehouse_id` int(11) NOT NULL AUTO_INCREMENT;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
