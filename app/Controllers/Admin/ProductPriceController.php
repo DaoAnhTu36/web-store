@@ -18,8 +18,10 @@ class ProductPriceController extends BaseController
 
     public function indexView()
     {
+        $data = $this->priceModel->getPriceListByProduct();
         $data_view = [
             'title' => 'Danh sách giá sản phẩm',
+            'data' => $data,
         ];
         return view('admin/product_view/product_price_view', $data_view);
     }

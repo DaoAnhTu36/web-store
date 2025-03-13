@@ -21,13 +21,6 @@
                 <?= $title ?>
             </h1>
         </div>
-        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-            <div class="well">
-                <div class="btn-group">
-                    <a href="<?= site_url('admin/best-selling-management/createView'); ?>" class="btn btn-default"><i class="fa fa-plus" aria-hidden="true"></i> Thêm mới</a>
-                </div>
-            </div>
-        </div>
     </div>
     <!-- widget grid -->
     <section id="widget-grid" class="">
@@ -68,14 +61,20 @@
                                 <thead>
                                     <tr>
                                         <th>STT</th>
-                                        <!-- <th>ID</th> -->
-                                        <th>Tên danh mục</th>
-                                        <th>Ảnh</th>
-                                        <th>Thời gian tạo</th>
-                                        <th>#</th>
+                                        <th>Tên sản phẩm</th>
+                                        <th>Số lượng đã bán</th>
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    <?php $stt = 1; ?>
+                                    <?php foreach ($data as $item) : ?>
+                                        <tr>
+                                            <td><?= $stt; ?></td>
+                                            <td><?= $item['product_name']; ?></td>
+                                            <td><?= $item['total_sold']; ?></td>
+                                        </tr>
+                                        <?php $stt++; ?>
+                                    <?php endforeach ?>
                                 </tbody>
                             </table>
 

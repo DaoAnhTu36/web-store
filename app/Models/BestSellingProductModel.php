@@ -13,7 +13,12 @@ class BestSellingProductModel extends Model
 
     public function getTopSellingProducts($limit = 10)
     {
-        return $this->orderBy('total_sold', 'DESC')
+        return
+            $this
+            ->select('products.name as product_name, 
+            best_selling_products.total_sold')
+            ->join('products', 'products.id = best_selling_products.product_id', 'left')
+            ->orderBy('best_selling_products.total_sold', 'DESC')
             ->limit($limit)
             ->findAll();
     }

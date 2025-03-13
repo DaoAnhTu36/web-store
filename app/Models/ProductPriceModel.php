@@ -11,10 +11,37 @@ class ProductPriceModel extends Model
 
     protected $allowedFields = ['product_id', 'price', 'start_date', 'end_date', 'created_at'];
 
-    public function getLatestPrice($product_id)
+    // Lấy giá mới nhất của mỗi sản phẩm
+    public function getLatestPriceByProduct()
     {
-        return $this->where('product_id', $product_id)
-            ->orderBy('start_date', 'DESC')
-            ->first();
+        return $this->select('product_id, price, start_date, end_date')
+            ->where('start_date = (SELECT MAX(start_date) FROM product_prices AS pp WHERE pp.product_id = product_prices.product_id)', null, false)
+            ->groupBy('product_id')
+            ->findAll();
+    }
+
+    // Lấy giá cao nhất của mỗi sản phẩm
+    public function getHighestPriceByProduct()
+    {
+        return $this->select('product_id, MAX(price) as highest_price')
+            ->groupBy('product_id')
+            ->findAll();
+    }
+
+    // Lấy giá thấp nhất của mỗi sản phẩm
+    public function getLowestPriceByProduct()
+    {
+        return $this->select('product_id, MIN(price) as lowest_price')
+            ->groupBy('product_id')
+            ->findAll();
+    }
+
+    // Lấy danh sách giá theo sản phẩm
+    public function getPriceListByProduct()
+    {
+        return $this->select("product_prices.*, products.name as product_name, GROUP_CONCAT(product_prices.price ORDER BY product_prices.start_date DESC SEPARATOR ', ') as price_list")
+            ->join("products", "products.id = product_prices.product_id", "left")
+            ->groupBy('product_id')
+            ->findAll();
     }
 }

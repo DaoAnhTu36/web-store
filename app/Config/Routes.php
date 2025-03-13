@@ -25,12 +25,10 @@ $routes->group('admin', function ($routes) {
     $routes->get('stock-management', 'Admin\StockController::indexView');
     $routes->get('warehouse-management', 'Admin\WarehouseController::indexView');
 
-    // Routes cho Dashboard
     $routes->group('dashboard', function ($routes) {
         $routes->get('/', 'Admin\DashboardController::index');
     });
 
-    // Routes cho Product
     $routes->group('product', function ($routes) {
         $routes->get('/', 'Admin\ProductController::index');
 
@@ -45,7 +43,6 @@ $routes->group('admin', function ($routes) {
         $routes->get('deleteViewMethod/(:num)', 'Admin\ProductController::deleteViewMethod/$1');
     });
 
-    // Routes cho Category
     $routes->group('category', function ($routes) {
         $routes->get('/', 'Admin\CategoryController::index');
 
@@ -61,10 +58,7 @@ $routes->group('admin', function ($routes) {
     });
 
 
-    // Routes cho Product
-    $routes->group('warehouse', function ($routes) {
-        $routes->get('best-selling-management', 'Admin\BestSellingProductController::indexView');
-        $routes->get('price-management', 'Admin\ProductPriceController::indexView');
-        $routes->get('discount-management', 'Admin\ProductDiscountController::indexView');
+    $routes->group('order', function ($routes) {
+        $routes->get('', 'Admin\OrderController::indexView');
     });
 });

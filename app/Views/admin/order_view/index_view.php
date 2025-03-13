@@ -19,23 +19,11 @@
             <h1 class="page-title txt-color-blueDark">
                 <i class="fa fa-list-alt fa-fw "></i>
                 <?= $title ?>
-                <!-- <span>>
-                    Normal Tables
-                </span> -->
             </h1>
         </div>
-        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-            <div class="well">
-                <div class="btn-group">
-                    <a href="<?= site_url('admin/category/createView'); ?>" class="btn btn-default"><i class="fa fa-plus" aria-hidden="true"></i> Thêm mới</a>
-                </div>
-            </div>
-        </div>
     </div>
-
     <!-- widget grid -->
     <section id="widget-grid" class="">
-
         <!-- row -->
         <div class="row">
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
@@ -73,32 +61,11 @@
                                 <thead>
                                     <tr>
                                         <th>STT</th>
-                                        <th>Mã sản phẩm</th>
                                         <th>Tên sản phẩm</th>
-                                        <th>Thời gian bắt đầu</th>
-                                        <th>Thời gian kết thúc</th>
-                                        <th>Danh sách giá</th>
+                                        <th>Số lượng đã bán</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <?php $idx = 1;
-                                    foreach ($data as $item) { ?>
-                                        <tr>
-                                            <td><?= $idx ?></td>
-                                            <td><?= $item['product_id'] ?></td>
-                                            <td><?= $item['product_name'] ?></td>
-                                            <td><?= $item['start_date'] ?></td>
-                                            <td><?= $item['end_date'] ?></td>
-                                            <td>
-                                                <select style="width: 150px;" class="form-control" name="price_list" id="price_list">
-                                                    <?php foreach (explode(',', $item['price_list']) as $priceItem): ?>
-                                                        <option><?= $priceItem ?></option>
-                                                    <?php endforeach ?>
-                                                </select>
-                                            </td>
-                                        </tr>
-                                    <?php $idx++;
-                                    } ?>
                                 </tbody>
                             </table>
 

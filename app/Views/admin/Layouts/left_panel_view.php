@@ -32,12 +32,12 @@ $method = isset($path_array[2]) ? $path_array[2] : '';
             <li class="<?= $controller == 'dashboard' ? 'active open' : ''; ?>">
                 <a href="<?= site_url('admin/dashboard') ?>" title=""><i class="fa fa-lg fa-fw fa-cube"></i> <span class="menu-item-parent">Dashboard</span></a>
             </li>
-            <li class="<?= $controller == 'category' && ($method == 'index' || $method == '') ? 'active' : ''; ?>">
+            <li class="<?= $controller == 'category' ? 'active' : ''; ?>">
                 <a href="<?= site_url('admin/category') ?>" title="">
                     <i class="fa fa-lg fa-fw fa-cube"></i><span class="menu-item-parent">Danh mục</span>
                 </a>
             </li>
-            <li>
+            <li class="<?= $controller == 'product' || $controller == 'best-selling-management' || $controller == 'price-management' || $controller == 'discount-management' ? 'active' : ''; ?>">
                 <a href="javscript:void(0)" title=""><i class="fa fa-lg fa-fw fa-cube"></i><span class="menu-item-parent">Sản phẩm</span></a>
                 <ul>
                     <li class="<?= $controller == 'product' && ($method == 'index' || $method == '') ? 'active' : ''; ?>">
@@ -73,20 +73,8 @@ $method = isset($path_array[2]) ? $path_array[2] : '';
                     </li>
                 </ul>
             </li>
-            <li>
-                <a href="javscript:void(0)" title=""><i class="fa fa-lg fa-fw fa-cube"></i><span class="menu-item-parent">Đơn hàng</span></a>
-                <ul>
-                    <li class="<?= $controller == 'product' && ($method == 'index' || $method == '') ? 'active' : ''; ?>">
-                        <a href="<?= site_url('admin/category') ?>" title="">
-                            <span class="menu-item-parent">Đơn hàng</span>
-                        </a>
-                    </li>
-                    <li class="<?= $controller == 'product' && ($method == 'index' || $method == '') ? 'active' : ''; ?>">
-                        <a href="<?= site_url('admin/category') ?>" title="">
-                            <span class="menu-item-parent">Chi tiết đơn hàng</span>
-                        </a>
-                    </li>
-                </ul>
+            <li class="<?= $controller == 'order' ? 'active' : ''; ?>">
+                <a href="<?= site_url('admin/order') ?>" title=""><i class="fa fa-lg fa-fw fa-cube"></i><span class="menu-item-parent">Đơn hàng</span></a>
             </li>
         </ul>
     </nav>
