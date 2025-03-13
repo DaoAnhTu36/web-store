@@ -99,7 +99,7 @@
                                     <div class="form-group">
                                         <label class="col-md-2 control-label">Danh mục</label>
                                         <div class="col-md-10">
-                                            <input class="form-control" value="1" placeholder="" type="text" list="list" id="category_id" name="category_id">
+                                            <input class="form-control" value="" placeholder="" type="text" list="list" id="category_id" name="category_id">
                                             <datalist id="list">
                                                 ?<?php foreach ($data as $category): ?>
                                                 <option value="<?= $category['id']; ?>"><?= $category['name']; ?></option>

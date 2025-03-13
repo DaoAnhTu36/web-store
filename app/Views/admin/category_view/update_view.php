@@ -148,7 +148,7 @@
                                 <?php $images = explode(', ', $data['images']);
                                 foreach ($images as $img) : ?>
                                     <div class="superbox-list">
-                                        <img src="<?= base_url($img) ?>" data-img="<?= base_url($img) ?>" alt="<?= base_url($img) ?>" title="<?= base_url($img) ?>" width="100px" height="100px" />;
+                                        <img src="<?= base_url($img) ?>" data-img="<?= base_url($img) ?>" alt="<?= base_url($img) ?>" title="<?= base_url($img) ?>" width="100px" height="100px" />
                                     <?php endforeach
                                     ?>
                                     </div>

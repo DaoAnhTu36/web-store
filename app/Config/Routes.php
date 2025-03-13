@@ -10,6 +10,11 @@ $routes->get('/home', 'Portal\HomeController::index');
 $routes->post('/upload', 'Admin\UploadController::uploadImage');
 $routes->get('/manager-file', 'Admin\UploadController::managerFile');
 
+$routes->group('portal', function ($routes) {
+    $routes->get('/', 'Portal\HomeController::index');
+    $routes->get('product/detail_product/(:num)', 'Portal\ProductController::detail_product/$1');
+});
+
 $routes->group('admin', function ($routes) {
 
 

@@ -19,17 +19,18 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="product-grid row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-3 row-cols-xl-4 row-cols-xxl-5">
-                    <?php for ($i = 0; $i < 10; $i++) { ?>
-
+                    <?php foreach ($data as $item): ?>
                         <div class="col">
                             <div class="product-item">
                                 <figure>
-                                    <a href="#" title="Product Title">
-                                        <img src="images/product-thumb-1.png" alt="Product Thumbnail" class="tab-image" />
+                                    <a href="<?= site_url('portal/product/detail_product/' . $item['id']) ?>" title="Product Title">
+
+                                        <img src="<?= $images = trim(explode(', ', $item['images'])[0]);
+                                                    base_url($images) ?>" alt="Product Thumbnail" class="tab-image" />
                                     </a>
                                 </figure>
                                 <div class="d-flex flex-column text-center">
-                                    <h3 class="fs-6 fw-normal">Whole Wheat Sandwich Bread</h3>
+                                    <h3 class="fs-6 fw-normal"><?= $item['name'] ?></h3>
                                     <div>
                                         <span class="rating">
                                             <svg width="18" height="18" class="text-warning">
@@ -51,11 +52,11 @@
                                         <span>(222)</span>
                                     </div>
                                     <div class="d-flex justify-content-center align-items-center gap-2">
-                                        <del>$24.00</del>
-                                        <span class="text-dark fw-semibold">$18.00</span>
-                                        <span
+                                        <!-- <del>$24.00</del> -->
+                                        <span class="text-dark fw-semibold"><?= number_format($item['price'], 0, ',', '.'); ?> ₫</span>
+                                        <!-- <span
                                             class="badge border border-dark-subtle rounded-0 fw-normal px-1 fs-7 lh-1 text-body-tertiary">10%
-                                            OFF</span>
+                                            OFF</span> -->
                                     </div>
                                     <div class="button-area p-3 pt-0">
                                         <div class="row g-1 mt-2">
@@ -79,7 +80,7 @@
                             </div>
                         </div>
 
-                    <?php } ?>
+                    <?php endforeach ?>
                     <!-- / product-grid -->
                 </div>
             </div>

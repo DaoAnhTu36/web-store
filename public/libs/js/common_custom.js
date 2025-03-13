@@ -26,6 +26,7 @@ document.getElementById('images').addEventListener('change', function () {
 });
 
 function updateFileList() {
+  document.getElementById('image_preview_container').style.display = 'block';
   const input = document.getElementById('images');
   const files = Array.from(input.files); // Chuyển FileList thành mảng
   const fileListContainer = document.getElementById('item_preview');
@@ -34,7 +35,15 @@ function updateFileList() {
 
   files.forEach((file, index) => {
     const listItem = document.createElement('div');
-    listItem.textContent = file.name;
+
+    const element = event.target.files[index];
+    if (element) {
+      const reader = new FileReader();
+      reader.onload = function (e) {
+        listItem.innerHTML = `<div class="item_preview"><span>${index + 1}.</span><img src="${e.target.result}" style="width: 250px; margin: 5px;"></div>`;
+      };
+      reader.readAsDataURL(element); // Đọc file dưới dạng URL
+    }
 
     const removeButton = document.createElement('button');
     removeButton.textContent = 'Xóa';
@@ -45,6 +54,10 @@ function updateFileList() {
     listItem.appendChild(removeButton);
     fileListContainer.appendChild(listItem);
   });
+
+  if (files.length === 0) {
+    document.getElementById('image_preview_container').style.display = 'none';
+  }
 }
 
 function removeFile(indexToRemove) {

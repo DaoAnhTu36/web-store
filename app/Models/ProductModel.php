@@ -38,4 +38,21 @@ class ProductModel extends Model
     {
         return $this->delete($id);
     }
+
+    public function getProductsWithImagesByProductId($productId)
+    {
+        return $this->select("products.id
+            , products.name
+            , products.price
+            , products.stock
+            , products.description
+            , products.created_at
+            , products.category_id
+            , GROUP_CONCAT(images.image_path SEPARATOR ', ') AS images")
+            ->join('images', 'images.record_id = products.id', 'left')
+            ->groupBy('products.id')
+            ->orderBy('products.created_at', 'DESC')
+            ->where('products.id', $productId)
+            ->first();
+    }
 }

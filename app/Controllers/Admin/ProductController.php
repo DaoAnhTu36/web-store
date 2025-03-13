@@ -47,7 +47,8 @@ class ProductController extends BaseController
             'stock' => 'required|integer',
             'category_id' => 'required',
             'description_record' => 'required',
-            'images' => 'uploaded[images]|max_size[images,2048]|is_image[images]|mime_in[images,image/jpg,image/jpeg,image/png]',
+            // 'images' => 'uploaded[images]|max_size[images,2048]|is_image[images]|mime_in[images,image/jpg,image/jpeg,image/png]',
+            'images' => 'uploaded[images]|is_image[images]|mime_in[images,image/jpg,image/jpeg,image/png]',
         ]);
 
         if (!$validation->withRequest($this->request)->run()) {
@@ -79,7 +80,7 @@ class ProductController extends BaseController
             }
         }
 
-        return redirect()->to('admin/product/create')->with('success', 'Sản phẩm đã được thêm!');
+        return redirect()->to('admin/product/createView')->with('success', 'Sản phẩm đã được thêm!');
     }
 
     public function deleteViewMethod($id)
@@ -92,8 +93,15 @@ class ProductController extends BaseController
     public function detailView($id)
     {
         $model = new \App\Models\ProductModel();
-        $item = $model->find($id);
-        EchoCommon($item);
+        $item = $model->getProductsWithImagesByProductId($id);
+        $categoryModel = new \App\Models\CategoryModel();
+        $categories = $categoryModel->findAll();
+        $data_view = [
+            'title' => 'Chi tiết sản phẩm',
+            'data' => $item,
+            'categories' => $categories
+        ];
+        return view('admin/product_view/update_view', $data_view);
     }
 
     public function updateView($id)

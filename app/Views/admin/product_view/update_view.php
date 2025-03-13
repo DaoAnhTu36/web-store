@@ -70,19 +70,19 @@
                                     <div class="form-group">
                                         <label class="col-md-2 control-label">Tên</label>
                                         <div class="col-md-10">
-                                            <input class="form-control" value="" placeholder="" type="text" id="name" name="name">
+                                            <input class="form-control" value="<?= $data['name'] ?>" placeholder="" type="text" id="name" name="name">
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-md-2 control-label">Giá</label>
                                         <div class="col-md-10">
-                                            <input class="form-control" value="" placeholder="" type="text" id="price" name="price">
+                                            <input class="form-control" value="<?= $data['price'] ?>" placeholder="" type="text" id="price" name="price">
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-md-2 control-label">Số lượng</label>
                                         <div class="col-md-10">
-                                            <input class="form-control" value="" placeholder="" type="text" id="stock" name="stock">
+                                            <input class="form-control" value="<?= $data['stock'] ?>" placeholder="" type="text" id="stock" name="stock">
                                         </div>
                                     </div>
 
@@ -99,9 +99,9 @@
                                     <div class="form-group">
                                         <label class="col-md-2 control-label">Danh mục</label>
                                         <div class="col-md-10">
-                                            <input class="form-control" value="1" placeholder="" type="text" list="list" id="category_id" name="category_id">
+                                            <input class="form-control" value="<?= $data['category_id'] ?>" placeholder="" type="text" list="list" id="category_id" name="category_id">
                                             <datalist id="list">
-                                                ?<?php foreach ($data as $category): ?>
+                                                ?<?php foreach ($categories as $category): ?>
                                                 <option value="<?= $category['id']; ?>"><?= $category['name']; ?></option>
                                             <?php endforeach; ?>
                                             </datalist>
@@ -113,7 +113,7 @@
                                     <div class="form-group">
                                         <label class="col-md-2 control-label">Mô tả</label>
                                         <div class="col-md-10">
-                                            <textarea class="form-control" id="description_record" name="description_record"></textarea>
+                                            <textarea class="form-control" id="description_record" name="description_record"><?= $data['description'] ?></textarea>
                                         </div>
                                     </div>
                                 </fieldset>

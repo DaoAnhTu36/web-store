@@ -8,6 +8,11 @@ class HomeController extends BaseController
 {
     public function index()
     {
-        return view('portal/home_view');
+        $model = new \App\Models\ProductModel();
+        $data = $model->getProductsWithImages();
+        $data_view = [
+            'data' => $data,
+        ];
+        return view('portal/home_view', $data_view);
     }
 }

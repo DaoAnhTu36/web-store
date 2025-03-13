@@ -32,7 +32,7 @@ class CategoryController extends BaseController
         $data = [
             "controller" => lang("Validation.category_controller_label"),
             "method" => lang("Validation.category_method_label"),
-            "title_label" => lang("Validation.category_title_label"),
+            "title_label" => lang("Validation.category_create_title_label"),
             "title_info_label" => lang("Validation.category_title_infor_label"),
             "name_label" => lang("Validation.category_name_label"),
             "image_label" => lang("Validation.image_label"),
@@ -116,9 +116,9 @@ class CategoryController extends BaseController
         $data_view = [
             "controller" => "Danh mục",
             "method" => "Cập nhật",
-            "title_label" => "Cập nhật danh mục",
-            "title_info_label" => "Thông tin danh mục",
-            "name_label" => "Tên",
+            "title_label" => lang("Validation.category_update_title_label"),
+            "title_info_label" => lang("Validation.category_title_infor_label"),
+            "name_label" => lang("Validation.category_name_label"),
             "image_label" => lang("Validation.image_label"),
             "description_label" => lang("Validation.description_label"),
             "cancel_button_label" => lang("Validation.cancel_button_label"),

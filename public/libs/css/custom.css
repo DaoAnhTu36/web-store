@@ -43,3 +43,7 @@
   height: 25px;
   text-align: center;
 }
+
+#image_preview_container {
+  display: none;
+}
