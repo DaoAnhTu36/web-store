@@ -19,6 +19,11 @@ $routes->group('admin', function ($routes) {
 
 
     $routes->get('language/(:segment)', 'Admin\LanguageController::switch/$1');
+    $routes->get('best-selling-management', 'Admin\BestSellingProductController::indexView');
+    $routes->get('price-management', 'Admin\ProductPriceController::indexView');
+    $routes->get('discount-management', 'Admin\ProductDiscountController::indexView');
+    $routes->get('stock-management', 'Admin\StockController::indexView');
+    $routes->get('warehouse-management', 'Admin\WarehouseController::indexView');
 
     // Routes cho Dashboard
     $routes->group('dashboard', function ($routes) {
@@ -53,5 +58,13 @@ $routes->group('admin', function ($routes) {
         $routes->post('updateMethod/(:num)', 'Admin\CategoryController::updateMethod/$1');
 
         $routes->get('deleteViewMethod/(:num)', 'Admin\CategoryController::deleteViewMethod/$1');
+    });
+
+
+    // Routes cho Product
+    $routes->group('warehouse', function ($routes) {
+        $routes->get('best-selling-management', 'Admin\BestSellingProductController::indexView');
+        $routes->get('price-management', 'Admin\ProductPriceController::indexView');
+        $routes->get('discount-management', 'Admin\ProductDiscountController::indexView');
     });
 });

@@ -26,9 +26,10 @@ class ProductModel extends Model
             , products.stock
             , products.description
             , products.created_at
-            , products.category_id
+            , categories.name AS category_name
             , GROUP_CONCAT(images.image_path SEPARATOR ', ') AS images")
             ->join('images', 'images.record_id = products.id', 'left')
+            ->join('categories', 'categories.id = products.category_id', 'left')
             ->groupBy('products.id')
             ->orderBy('products.created_at', 'DESC')
             ->findAll();

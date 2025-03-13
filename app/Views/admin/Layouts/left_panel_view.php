@@ -32,36 +32,59 @@ $method = isset($path_array[2]) ? $path_array[2] : '';
             <li class="<?= $controller == 'dashboard' ? 'active open' : ''; ?>">
                 <a href="<?= site_url('admin/dashboard') ?>" title=""><i class="fa fa-lg fa-fw fa-cube"></i> <span class="menu-item-parent">Dashboard</span></a>
             </li>
-            <li class="<?= $controller == 'category' ? 'active open' : ''; ?>">
-                <a href="#" title=""><i class="fa fa-lg fa-fw fa-cube"></i> <span class="menu-item-parent">Danh mục</span></a>
-                <ul>
-                    <li class="<?= $controller == 'category' && ($method == 'index' || $method == '') ? 'active' : ''; ?>">
-                        <a href="<?= site_url('admin/category') ?>" title=""><span class="menu-item-parent">Danh mục</span></a>
-                    </li>
-                    <li class="<?= $controller == 'category' && $method == 'createView' ? 'active' : ''; ?>">
-                        <a href="<?= site_url('admin/category/createView') ?>" title=""><span class="menu-item-parent">Thêm danh mục mới</span></a>
-                    </li>
-                </ul>
+            <li class="<?= $controller == 'category' && ($method == 'index' || $method == '') ? 'active' : ''; ?>">
+                <a href="<?= site_url('admin/category') ?>" title="">
+                    <i class="fa fa-lg fa-fw fa-cube"></i><span class="menu-item-parent">Danh mục</span>
+                </a>
             </li>
-            <li class="<?= $controller == 'product' ? 'active open' : ''; ?>">
-                <a href="#" title=""><i class="fa fa-lg fa-fw fa-cube"></i> <span class="menu-item-parent">Sản phẩm</span></a>
+            <li>
+                <a href="javscript:void(0)" title=""><i class="fa fa-lg fa-fw fa-cube"></i><span class="menu-item-parent">Sản phẩm</span></a>
                 <ul>
                     <li class="<?= $controller == 'product' && ($method == 'index' || $method == '') ? 'active' : ''; ?>">
-                        <a href="<?= site_url('admin/product') ?>" title=""><span class="menu-item-parent">Sản phẩm</span></a>
+                        <a href="<?= site_url('admin/product') ?>" title="">
+                            <span class="menu-item-parent">Sản phẩm</span>
+                        </a>
                     </li>
-                    <li class="<?= $controller == 'product' && $method == 'createView' ? 'active' : ''; ?>">
-                        <a href="<?= site_url('admin/product/createView') ?>" title=""><span class="menu-item-parent">Thêm sản phẩm mới</span></a>
+                    <li class="<?= $controller == 'best-selling-management' && $method == '' ? 'active' : ''; ?>">
+                        <a href="<?= site_url('admin/best-selling-management') ?>" title="">
+                            <span class="menu-item-parent">Sản phẩm bán chạy</span>
+                        </a>
+                    </li>
+                    <li class="<?= $controller == 'price-management' && $method == '' ? 'active' : ''; ?>">
+                        <a href="<?= site_url('admin/price-management') ?>" title="">
+                            <span class="menu-item-parent">Quản lý giá</span>
+                        </a>
+                    </li>
+                    <li class="<?= $controller == 'discount-management' && $method == '' ? 'active' : ''; ?>">
+                        <a href="<?= site_url('admin/discount-management') ?>" title="">
+                            <span class="menu-item-parent">Khuyến mại</span>
+                        </a>
                     </li>
                 </ul>
             </li>
-            <li class="">
-                <a href="#" title=""><i class="fa fa-lg fa-fw fa-cube"></i> <span class="menu-item-parent">Đơn hàng</span></a>
+            <li>
+                <a href="javscript:void(0)" title=""><i class="fa fa-lg fa-fw fa-cube"></i><span class="menu-item-parent">Kho hàng</span></a>
                 <ul>
-                    <li>
-                        <a href="#" title=""><span class="menu-item-parent">Đơn hàng</span></a>
+                    <li class="<?= $controller == 'stock-management' ? 'active open' : ''; ?>">
+                        <a href="<?= site_url('admin/stock-management') ?>" title=""></i> <span class="menu-item-parent">Quản lý kho hàng</span></a>
                     </li>
-                    <li>
-                        <a href="#" title=""><span class="menu-item-parent">Chi tiết đơn hàng</span></a>
+                    <li class="<?= $controller == 'warehouse-management' ? 'active open' : ''; ?>">
+                        <a href="<?= site_url('admin/warehouse-management') ?>" title=""></i> <span class="menu-item-parent">Quản lý hàng tồn kho</span></a>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="javscript:void(0)" title=""><i class="fa fa-lg fa-fw fa-cube"></i><span class="menu-item-parent">Đơn hàng</span></a>
+                <ul>
+                    <li class="<?= $controller == 'product' && ($method == 'index' || $method == '') ? 'active' : ''; ?>">
+                        <a href="<?= site_url('admin/category') ?>" title="">
+                            <span class="menu-item-parent">Đơn hàng</span>
+                        </a>
+                    </li>
+                    <li class="<?= $controller == 'product' && ($method == 'index' || $method == '') ? 'active' : ''; ?>">
+                        <a href="<?= site_url('admin/category') ?>" title="">
+                            <span class="menu-item-parent">Chi tiết đơn hàng</span>
+                        </a>
                     </li>
                 </ul>
             </li>

@@ -1,6 +1,5 @@
 <?= $this->extend('admin/Layouts/main_view.php'); ?>
 <?= $this->section('content'); ?>
-
 <?php if (session()->getFlashdata('errors')): ?>
     <div class="alert alert-danger">
         <?= implode('<br>', session()->getFlashdata('errors')); ?>
@@ -20,6 +19,9 @@
             <h1 class="page-title txt-color-blueDark">
                 <i class="fa fa-list-alt fa-fw "></i>
                 <?= $title ?>
+                <!-- <span>>
+                    Normal Tables
+                </span> -->
             </h1>
         </div>
         <!-- <div class="col-xs-12 col-sm-5 col-md-5 col-lg-8">
@@ -87,44 +89,14 @@
                             <thead>
                                 <tr>
                                     <th>STT</th>
-                                    <th>Tên sản phẩm</th>
-                                    <th>Danh mục</th>
-                                    <th>Giá nhập</th>
-                                    <th>Số lượng tồn</th>
-                                    <!-- <th>Mô tả</th> -->
+                                    <!-- <th>ID</th> -->
+                                    <th>Tên danh mục</th>
                                     <th>Ảnh</th>
                                     <th>Thời gian tạo</th>
                                     <th>#</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <?php $i = 1;
-                                foreach ($data as $item) {
-                                ?>
-                                    <tr>
-                                        <td><?= $i ?></td>
-                                        <td><?= $item['name'] ?></td>
-                                        <td><?= $item['category_name'] ?></td>
-                                        <td><?= number_format($item['price'], 0, ',', '.'); ?> ₫</td>
-                                        <td><?= number_format($item['stock'], 0, ',', '.'); ?></td>
-                                        <!-- <td><?= $item['description'] ?></td> -->
-                                        <td>
-                                            <?php
-                                            $images = trim(explode(', ', $item['images'])[0]);
-                                            ?>
-                                            <img src="<?= base_url($images) ?>" alt="" width="50">
-                                            <?php  ?>
-                                        </td>
-                                        <td><?= $item['created_at'] ?></td>
-                                        <td class="action-icons">
-                                            <a href="<?= site_url('admin/product/detailView/' . $item['id']); ?>" class="btn btn-default"><i class="fa fa-eye" aria-hidden="true"></i></a>
-                                            <a href="<?= site_url('admin/product/detailView/' . $item['id']); ?>" class="btn btn-default"><i class="fa fa-pencil" aria-hidden="true"></i></a>
-                                            <a href="<?= site_url('admin/product/deleteViewMethod/' . $item['id']); ?>" class="btn btn-default" onclick="return confirm('Bạn có chắc muốn xóa?');"><i class="fa fa-trash" aria-hidden="true"></i></a>
-
-                                        </td>
-                                    </tr>
-                                <?php $i++;
-                                }  ?>
                             </tbody>
                         </table>
 
