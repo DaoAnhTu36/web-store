@@ -1,8 +1,8 @@
 <?php
 
-$string = $_SERVER['PATH_INFO'];
+$string = isset($_SERVER['PATH_INFO']) ? $_SERVER['PATH_INFO'] : '';
 $path_array =  preg_split('/\/+/', $string, -1, PREG_SPLIT_NO_EMPTY);
-$controller = $path_array[1];
+$controller = isset($path_array[1]) ? $path_array[1] : '';
 $method = isset($path_array[2]) ? $path_array[2] : '';
 ?>
 
