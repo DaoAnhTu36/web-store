@@ -101,9 +101,9 @@
                                             </td>
                                             <td><?= $item['created_at'] ?></td>
                                             <td class="action-icons">
-                                                <a href="<?= site_url('admin/product/detailView/' . $item['id']); ?>" class="btn btn-default"><i class="fa fa-eye" aria-hidden="true"></i></a>
-                                                <a href="<?= site_url('admin/product/detailView/' . $item['id']); ?>" class="btn btn-default"><i class="fa fa-pencil" aria-hidden="true"></i></a>
-                                                <a href="<?= site_url('admin/product/deleteViewMethod/' . $item['id']); ?>" class="btn btn-default" onclick="return confirm('Bạn có chắc muốn xóa?');"><i class="fa fa-trash" aria-hidden="true"></i></a>
+                                                <a href="<?= site_url('admin/product/detail/' . $item['id']); ?>" class="btn btn-default"><i class="fa fa-eye" aria-hidden="true"></i></a>
+                                                <a href="<?= site_url('admin/product/detail/' . $item['id']); ?>" class="btn btn-default"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                                                <a href="<?= site_url('admin/product/delete/' . $item['id']); ?>" class="btn btn-default" onclick="return confirm('Bạn có chắc muốn xóa?');"><i class="fa fa-trash" aria-hidden="true"></i></a>
 
                                             </td>
                                         </tr>

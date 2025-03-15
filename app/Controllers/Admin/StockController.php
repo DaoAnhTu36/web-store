@@ -16,11 +16,21 @@ class StockController extends BaseController
         helper("language");
     }
 
-    public function indexView()
+    public function index()
     {
         $data_view = [
             'title' => 'Danh sách sản phẩm tồn kho',
         ];
         return view('admin/stock_view/index_view', $data_view);
     }
+
+    public function create() {}
+
+    public function save() {}
+
+    public function detail($id) {}
+
+    public function update($id) {}
+
+    public function delete($id) {}
 }

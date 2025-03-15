@@ -25,7 +25,7 @@ class ProductController extends BaseController
         return view('admin/product_view/index_view', $data_view);
     }
 
-    public function createView()
+    public function create()
     {
         $categoryModel = new \App\Models\CategoryModel();
         $categories = $categoryModel->findAll();
@@ -37,7 +37,7 @@ class ProductController extends BaseController
         ]);
     }
 
-    public function createMethod()
+    public function save()
     {
         helper(['form', 'url']);
         $validation = \Config\Services::validation();
@@ -80,17 +80,17 @@ class ProductController extends BaseController
             }
         }
 
-        return redirect()->to('admin/product/createView')->with('success', 'Sản phẩm đã được thêm!');
+        return redirect()->to('admin/product/create')->with('success', 'Sản phẩm đã được thêm!');
     }
 
-    public function deleteViewMethod($id)
+    public function delete($id)
     {
         $model = new \App\Models\ProductModel();
         $model->where('id', $id)->delete();
         return redirect()->to('admin/product')->with('success', 'Sản phẩm đã được xóa!');
     }
 
-    public function detailView($id)
+    public function detail($id)
     {
         $model = new \App\Models\ProductModel();
         $item = $model->getProductsWithImagesByProductId($id);
@@ -104,14 +104,7 @@ class ProductController extends BaseController
         return view('admin/product_view/update_view', $data_view);
     }
 
-    public function updateView($id)
-    {
-        $model = new \App\Models\ProductModel();
-        $item = $model->find($id);
-        EchoCommon($item);
-    }
-
-    public function updateMethod($id)
+    public function update($id)
     {
         $model = new \App\Models\ProductModel();
         $item = $model->find($id);

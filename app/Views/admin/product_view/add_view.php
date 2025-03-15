@@ -64,7 +64,7 @@
                         <!-- widget content -->
                         <div class="widget-body">
 
-                            <form class="form-horizontal" action="<?= base_url('admin/product/createMethod'); ?>" method="POST" enctype="multipart/form-data">
+                            <form class="form-horizontal" action="<?= base_url('admin/product/save'); ?>" method="POST" enctype="multipart/form-data">
                                 <fieldset>
                                     <!-- <legend>Thêm mới sản phẩm</legend> -->
                                     <div class="form-group">

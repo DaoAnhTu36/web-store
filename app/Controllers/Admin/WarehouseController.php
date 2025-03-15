@@ -16,11 +16,21 @@ class WarehouseController extends BaseController
         helper("language");
     }
 
-    public function indexView()
+    public function index()
     {
         $data_view = [
             'title' => 'Danh sách kho hàng',
         ];
         return view('admin/warehouse_view/index_view', $data_view);
     }
+
+    public function create() {}
+
+    public function save() {}
+
+    public function detail($id) {}
+
+    public function update($id) {}
+
+    public function delete($id) {}
 }

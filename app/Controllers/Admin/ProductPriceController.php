@@ -16,7 +16,7 @@ class ProductPriceController extends BaseController
         helper("language");
     }
 
-    public function indexView()
+    public function index()
     {
         $data = $this->priceModel->getPriceListByProduct();
         $data_view = [
@@ -25,4 +25,14 @@ class ProductPriceController extends BaseController
         ];
         return view('admin/product_view/product_price_view', $data_view);
     }
+
+    public function create() {}
+
+    public function save() {}
+
+    public function detail($id) {}
+
+    public function update($id) {}
+
+    public function delete($id) {}
 }

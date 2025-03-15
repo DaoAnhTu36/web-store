@@ -16,10 +16,9 @@ class BestSellingProductController extends BaseController
         helper("language");
     }
 
-    public function indexView()
+    public function index()
     {
         $data = $this->bestSellingModel->getTopSellingProducts();
-        // EchoCommon($data);
         $data_view = [
             'title' => 'Danh sách sản phẩm bán chạy',
             'data' => $data,

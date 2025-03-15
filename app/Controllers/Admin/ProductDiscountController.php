@@ -16,7 +16,7 @@ class ProductDiscountController extends BaseController
         helper("language");
     }
 
-    public function indexView()
+    public function index()
     {
         $data = $this->discountModel->getAllDiscount();
         $data_view = [
@@ -25,4 +25,14 @@ class ProductDiscountController extends BaseController
         ];
         return view('admin/product_view/product_discount_view', $data_view);
     }
+
+    public function create() {}
+
+    public function save() {}
+
+    public function detail($id) {}
+
+    public function update($id) {}
+
+    public function delete($id) {}
 }

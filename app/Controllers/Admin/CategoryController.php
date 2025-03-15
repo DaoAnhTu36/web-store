@@ -27,7 +27,7 @@ class CategoryController extends BaseController
         return view('admin/category_view/index_view', $data_view);
     }
 
-    public function createView()
+    public function create()
     {
         $data = [
             "controller" => lang("Validation.category_controller_label"),
@@ -43,14 +43,14 @@ class CategoryController extends BaseController
         return view('admin/category_view/add_view', $data);
     }
 
-    public function createMethod()
+    public function save()
     {
         helper(['form', 'url']);
         $validation = \Config\Services::validation();
         $validation->setRules([
             'name' => 'required|min_length[3]',
             'description_record' => 'required',
-            'images' => 'uploaded[images]|max_size[images,2048]|is_image[images]|mime_in[images,image/jpg,image/jpeg,image/png]',
+            'images' => 'uploaded[images]|is_image[images]|mime_in[images,image/jpg,image/jpeg,image/png]',
         ]);
 
         if (!$validation->withRequest($this->request)->run()) {
@@ -82,7 +82,7 @@ class CategoryController extends BaseController
         return redirect()->to('admin/category')->with('success', 'Danh mục đã được thêm!');
     }
 
-    public function deleteViewMethod($id)
+    public function delete($id)
     {
         $categoryModel = new \App\Models\CategoryModel();
 
@@ -94,7 +94,7 @@ class CategoryController extends BaseController
         }
     }
 
-    public function detailView($id)
+    public function detail($id)
     {
         $categoryModel = new \App\Models\CategoryModel();
         $item = $categoryModel->find($id);
@@ -105,7 +105,7 @@ class CategoryController extends BaseController
         }
     }
 
-    public function updateView($id)
+    public function update($id)
     {
         $categoryModel = new \App\Models\CategoryModel();
         $data = $categoryModel->getCategoriesWithImagesById($id);
@@ -127,6 +127,4 @@ class CategoryController extends BaseController
         ];
         return view('admin/category_view/update_view', $data_view);
     }
-
-    public function updateMethod() {}
 }

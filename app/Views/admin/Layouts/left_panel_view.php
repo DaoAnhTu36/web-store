@@ -73,8 +73,25 @@ $method = isset($path_array[2]) ? $path_array[2] : '';
                     </li>
                 </ul>
             </li>
+            <li>
+                <a href="javscript:void(0)" title=""><i class="fa fa-lg fa-fw fa-cube"></i><span class="menu-item-parent">Giao dịch</span></a>
+                <ul>
+                    <li class="<?= $controller == 'transaction' && $method == 'import-list' ? 'active open' : ''; ?>">
+                        <a href="<?= site_url('admin/transaction/import-list') ?>" title=""></i> <span class="menu-item-parent">Giao dịch nhập hàng</span></a>
+                    </li>
+                    <li class="<?= $controller == 'transaction' && $method == 'export-list' ? 'active open' : ''; ?>">
+                        <a href="<?= site_url('admin/transaction/export-list') ?>" title=""></i> <span class="menu-item-parent">Giao dịch xuất hàng</span></a>
+                    </li>
+                </ul>
+            </li>
             <li class="<?= $controller == 'order' ? 'active' : ''; ?>">
                 <a href="<?= site_url('admin/order') ?>" title=""><i class="fa fa-lg fa-fw fa-cube"></i><span class="menu-item-parent">Đơn hàng</span></a>
+            </li>
+            <li class="<?= $controller == 'customer' ? 'active' : ''; ?>">
+                <a href="<?= site_url('admin/customer') ?>" title=""><i class="fa fa-lg fa-fw fa-cube"></i><span class="menu-item-parent">Khách hàng</span></a>
+            </li>
+            <li class="<?= $controller == 'supplier' ? 'active' : ''; ?>">
+                <a href="<?= site_url('admin/supplier') ?>" title=""><i class="fa fa-lg fa-fw fa-cube"></i><span class="menu-item-parent">Nhà cung cấp</span></a>
             </li>
         </ul>
     </nav>

@@ -64,7 +64,7 @@
                         <!-- widget content -->
                         <div class="widget-body">
 
-                            <form class="form-horizontal" action="<?= base_url('admin/category/createMethod'); ?>" method="POST" enctype="multipart/form-data">
+                            <form class="form-horizontal" action="<?= base_url('admin/category/save'); ?>" method="POST" enctype="multipart/form-data">
                                 <fieldset>
                                     <!-- <legend>Thêm mới danh mục</legend> -->
                                     <div class="form-group">
