@@ -20,7 +20,13 @@ class TransactionController extends BaseController
 
     public function index() {}
 
-    public function create() {}
+    public function create()
+    {
+        $data_view = [
+            "title" => "Thêm mới giao dịch hàng hóa",
+        ];
+        return view("admin/transaction_view/create_view", $data_view);
+    }
 
     public function save() {}
 

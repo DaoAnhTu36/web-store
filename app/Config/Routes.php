@@ -42,7 +42,6 @@ $routes->group('admin', function ($routes) {
         $routes->get('', 'Admin\OrderController::indexView');
     });
     $routes->group('transaction', function ($routes) {
-        $routes->get('/', 'Admin\TransactionController::index');
         $routes->get('create', 'Admin\TransactionController::create');
         $routes->post('save', 'Admin\TransactionController::save');
         $routes->get('detail/(:num)', 'Admin\TransactionController::detail/$1');

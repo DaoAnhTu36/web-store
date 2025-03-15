@@ -24,6 +24,13 @@
                 </span> -->
             </h1>
         </div>
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <div class="well">
+                <div class="btn-group">
+                    <a href="<?= site_url('admin/transaction/create'); ?>" class="btn btn-default"><i class="fa fa-plus" aria-hidden="true"></i> Thêm mới</a>
+                </div>
+            </div>
+        </div>
     </div>
 
     <!-- widget grid -->

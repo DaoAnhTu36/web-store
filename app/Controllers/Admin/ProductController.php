@@ -75,6 +75,7 @@ class ProductController extends BaseController
                     $imageModel->insert([
                         'record_id' => $productId,
                         'image_path' => 'uploads/' . $newName,
+                        'type' => 'product',
                     ]);
                 }
             }

@@ -24,6 +24,7 @@ class CategoryModel extends Model
             , categories.created_at
             , GROUP_CONCAT(images.image_path SEPARATOR ', ') AS images")
             ->join('images', 'images.record_id = categories.id', 'left')
+            ->where('images.type', 'category')
             ->groupBy('categories.id')
             ->orderBy('categories.created_at', 'DESC')
             ->findAll();
@@ -41,8 +42,9 @@ class CategoryModel extends Model
         , categories.description
         , categories.created_at
         , GROUP_CONCAT(images.image_path SEPARATOR ', ') AS images")
-            ->where("categories.id", $id)
             ->join('images', 'images.record_id = categories.id', 'left')
+            ->where("categories.id", $id)
+            ->where('images.type', 'category')
             ->groupBy('categories.id')
             ->orderBy('categories.created_at', 'DESC')
             ->first();

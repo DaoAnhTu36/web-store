@@ -12,9 +12,20 @@ class SupplierModel extends Model
     protected $allowedFields = ['name', 'email', 'phone', 'address', 'created_at', 'updated_at'];
 
     // Lấy danh sách nhà cung cấp
-    public function getAllSuppliers()
+    public function getAllSupplierWithImage()
     {
-        return $this->findAll();
+        return $this->select("suppliers.id
+            , suppliers.name
+            , suppliers.email
+            , suppliers.phone
+            , suppliers.address
+            , suppliers.created_at
+            , suppliers.updated_at
+            , IFNULL(GROUP_CONCAT(images.image_path SEPARATOR ', '), '') AS images")
+            ->join('images', 'images.record_id = suppliers.id', 'left')
+            ->groupBy('suppliers.id')
+            ->orderBy('suppliers.created_at', 'DESC')
+            ->findAll();
     }
 
     // Thêm nhà cung cấp mới

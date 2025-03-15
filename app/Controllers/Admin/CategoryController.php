@@ -74,6 +74,7 @@ class CategoryController extends BaseController
                     $imageModel->save([
                         'record_id' => $record_id,
                         'image_path' => 'uploads/' . $newName,
+                        'type' => 'category',
                     ]);
                 }
             }

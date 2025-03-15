@@ -30,6 +30,7 @@ class ProductModel extends Model
             , GROUP_CONCAT(images.image_path SEPARATOR ', ') AS images")
             ->join('images', 'images.record_id = products.id', 'left')
             ->join('categories', 'categories.id = products.category_id', 'left')
+            ->where('images.type', 'product')
             ->groupBy('products.id')
             ->orderBy('products.created_at', 'DESC')
             ->findAll();
@@ -54,6 +55,7 @@ class ProductModel extends Model
             ->groupBy('products.id')
             ->orderBy('products.created_at', 'DESC')
             ->where('products.id', $productId)
+            ->where('images.type', 'product')
             ->first();
     }
 }
