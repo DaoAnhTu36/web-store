@@ -37,7 +37,7 @@ $method = isset($path_array[2]) ? $path_array[2] : '';
                     <i class="fa fa-lg fa-fw fa-cube"></i><span class="menu-item-parent">Danh mục</span>
                 </a>
             </li>
-            <li class="<?= $controller == 'product' || $controller == 'best-selling-management' || $controller == 'price-management' || $controller == 'discount-management' ? 'active' : ''; ?>">
+            <li class="<?= $controller == 'product' ? 'active' : ''; ?>">
                 <a href="javscript:void(0)" title=""><i class="fa fa-lg fa-fw fa-cube"></i><span class="menu-item-parent">Sản phẩm</span></a>
                 <ul>
                     <li class="<?= $controller == 'product' && ($method == 'index' || $method == '') ? 'active' : ''; ?>">
@@ -45,18 +45,18 @@ $method = isset($path_array[2]) ? $path_array[2] : '';
                             <span class="menu-item-parent">Sản phẩm</span>
                         </a>
                     </li>
-                    <li class="<?= $controller == 'best-selling-management' && $method == '' ? 'active' : ''; ?>">
-                        <a href="<?= site_url('admin/best-selling-management') ?>" title="">
+                    <li class="<?= $controller == 'product' && $method == 'best-selling-management' ? 'active' : ''; ?>">
+                        <a href="<?= site_url('admin/product/best-selling-management') ?>" title="">
                             <span class="menu-item-parent">Sản phẩm bán chạy</span>
                         </a>
                     </li>
-                    <li class="<?= $controller == 'price-management' && $method == '' ? 'active' : ''; ?>">
-                        <a href="<?= site_url('admin/price-management') ?>" title="">
+                    <li class="<?= $controller == 'product' && $method == 'price-management' ? 'active' : ''; ?>">
+                        <a href="<?= site_url('admin/product/price-management') ?>" title="">
                             <span class="menu-item-parent">Quản lý giá</span>
                         </a>
                     </li>
-                    <li class="<?= $controller == 'discount-management' && $method == '' ? 'active' : ''; ?>">
-                        <a href="<?= site_url('admin/discount-management') ?>" title="">
+                    <li class="<?= $controller == 'product' && $method == 'discount-management' ? 'active' : ''; ?>">
+                        <a href="<?= site_url('admin/product/discount-management') ?>" title="">
                             <span class="menu-item-parent">Khuyến mại</span>
                         </a>
                     </li>
@@ -65,11 +65,8 @@ $method = isset($path_array[2]) ? $path_array[2] : '';
             <li>
                 <a href="javscript:void(0)" title=""><i class="fa fa-lg fa-fw fa-cube"></i><span class="menu-item-parent">Kho hàng</span></a>
                 <ul>
-                    <li class="<?= $controller == 'stock-management' ? 'active open' : ''; ?>">
-                        <a href="<?= site_url('admin/stock-management') ?>" title=""></i> <span class="menu-item-parent">Quản lý kho hàng</span></a>
-                    </li>
-                    <li class="<?= $controller == 'warehouse-management' ? 'active open' : ''; ?>">
-                        <a href="<?= site_url('admin/warehouse-management') ?>" title=""></i> <span class="menu-item-parent">Quản lý hàng tồn kho</span></a>
+                    <li class="<?= $controller == 'warehouse' ? 'active open' : ''; ?>">
+                        <a href="<?= site_url('admin/warehouse') ?>" title=""></i> <span class="menu-item-parent">Danh sách kho hàng</span></a>
                     </li>
                 </ul>
             </li>
@@ -95,6 +92,17 @@ $method = isset($path_array[2]) ? $path_array[2] : '';
             </li>
             <li class="<?= $controller == 'supplier' ? 'active' : ''; ?>">
                 <a href="<?= site_url('admin/supplier') ?>" title=""><i class="fa fa-lg fa-fw fa-cube"></i><span class="menu-item-parent">Nhà cung cấp</span></a>
+            </li>
+            <li>
+                <a href="javscript:void(0)" title=""><i class="fa fa-lg fa-fw fa-cube"></i><span class="menu-item-parent">Quản lý tài khoản</span></a>
+                <ul>
+                    <li class="<?= $controller == 'account' && $method == 'customer-list' ? 'active open' : ''; ?>">
+                        <a href="<?= site_url('admin/account/customer-list') ?>" title=""></i> <span class="menu-item-parent">Người dùng</span></a>
+                    </li>
+                    <li class="<?= $controller == 'account' && $method == 'administrator-list' ? 'active open' : ''; ?>">
+                        <a href="<?= site_url('admin/account/administrator-list') ?>" title=""></i> <span class="menu-item-parent">Quản trị viên</span></a>
+                    </li>
+                </ul>
             </li>
         </ul>
     </nav>

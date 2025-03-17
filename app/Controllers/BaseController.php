@@ -67,4 +67,14 @@ abstract class BaseController extends Controller
 
         service('request')->setLocale($this->lang);
     }
+
+    // app/Controllers/BaseController.php
+
+    protected function checkLogin()
+    {
+        $session = session();
+        if (!$session->get('is_logged_in')) {
+            return redirect()->to('admin/account/login')->send();
+        }
+    }
 }

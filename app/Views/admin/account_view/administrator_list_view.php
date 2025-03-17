@@ -24,28 +24,13 @@
                 </span> -->
             </h1>
         </div>
-        <!-- <div class="col-xs-12 col-sm-5 col-md-5 col-lg-8">
-            <ul id="sparks" class="">
-                <li class="sparks-info">
-                    <h5> My Income <span class="txt-color-blue">$47,171</span></h5>
-                    <div class="sparkline txt-color-blue hidden-mobile hidden-md hidden-sm">
-                        1300, 1877, 2500, 2577, 2000, 2100, 3000, 2700, 3631, 2471, 2700, 3631, 2471
-                    </div>
-                </li>
-                <li class="sparks-info">
-                    <h5> Site Traffic <span class="txt-color-purple"><i class="fa fa-arrow-circle-up" data-rel="bootstrap-tooltip" title="Increased"></i>&nbsp;45%</span></h5>
-                    <div class="sparkline txt-color-purple hidden-mobile hidden-md hidden-sm">
-                        110,150,300,130,400,240,220,310,220,300, 270, 210
-                    </div>
-                </li>
-                <li class="sparks-info">
-                    <h5> Site Orders <span class="txt-color-greenDark"><i class="fa fa-shopping-cart"></i>&nbsp;2447</span></h5>
-                    <div class="sparkline txt-color-greenDark hidden-mobile hidden-md hidden-sm">
-                        110,150,300,130,400,240,220,310,220,300, 270, 210
-                    </div>
-                </li>
-            </ul>
-        </div> -->
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <div class="well">
+                <div class="btn-group">
+                    <a href="<?= site_url('admin/account/create'); ?>" class="btn btn-default"><i class="fa fa-plus" aria-hidden="true"></i> Thêm mới</a>
+                </div>
+            </div>
+        </div>
     </div>
 
     <!-- widget grid -->
@@ -89,14 +74,28 @@
                             <thead>
                                 <tr>
                                     <th>STT</th>
-                                    <!-- <th>ID</th> -->
-                                    <th>Tên danh mục</th>
-                                    <th>Ảnh</th>
-                                    <th>Thời gian tạo</th>
-                                    <th>#</th>
+                                    <th>ID</th>
+                                    <th>Tên đăng nhập</th>
+                                    <th>Họ và tên</th>
+                                    <th>Email</th>
+                                    <th>Số điện thoại</th>
+                                    <th>Địa chỉ</th>
                                 </tr>
                             </thead>
                             <tbody>
+                                <?php $idx = 1;
+                                foreach ($data as $item) { ?>
+                                    <tr>
+                                        <td><?= $idx ?></td>
+                                        <td><?= $item['id'] ?></td>
+                                        <td><?= $item['user_name'] ?></td>
+                                        <td><?= $item['full_name'] ?></td>
+                                        <td><?= $item['email'] ?></td>
+                                        <td><?= $item['phone'] ?></td>
+                                        <td><?= $item['address'] ?></td>
+                                    </tr>
+                                <?php $idx++;
+                                } ?>
                             </tbody>
                         </table>
 

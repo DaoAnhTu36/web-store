@@ -24,7 +24,13 @@ class WarehouseController extends BaseController
         return view('admin/warehouse_view/index_view', $data_view);
     }
 
-    public function create() {}
+    public function create()
+    {
+        $data_view = [
+            'title' => 'Thêm mới kho hàng',
+        ];
+        return view('admin/warehouse_view/create_view', $data_view);
+    }
 
     public function save() {}
 

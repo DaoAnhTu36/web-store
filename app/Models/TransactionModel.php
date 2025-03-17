@@ -14,7 +14,8 @@ class TransactionModel extends Model
         'transaction_date',
         'supplier_id',
         'customer_id',
-        'note'
+        'note',
+        'stock_id',
     ];
 
     protected $useTimestamps = true;

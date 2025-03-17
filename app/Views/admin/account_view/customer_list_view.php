@@ -27,7 +27,7 @@
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
             <div class="well">
                 <div class="btn-group">
-                    <a href="<?= site_url('admin/warehouse/create'); ?>" class="btn btn-default"><i class="fa fa-plus" aria-hidden="true"></i> Thêm mới</a>
+                    <a href="<?= site_url('admin/account/create'); ?>" class="btn btn-default"><i class="fa fa-plus" aria-hidden="true"></i> Thêm mới</a>
                 </div>
             </div>
         </div>
@@ -74,14 +74,28 @@
                             <thead>
                                 <tr>
                                     <th>STT</th>
-                                    <!-- <th>ID</th> -->
-                                    <th>Tên danh mục</th>
-                                    <th>Ảnh</th>
-                                    <th>Thời gian tạo</th>
-                                    <th>#</th>
+                                    <th>ID</th>
+                                    <th>Tên đăng nhập</th>
+                                    <th>Họ và tên</th>
+                                    <th>Email</th>
+                                    <th>Số điện thoại</th>
+                                    <th>Địa chỉ</th>
                                 </tr>
                             </thead>
                             <tbody>
+                                <?php $idx = 1;
+                                foreach ($data as $item) { ?>
+                                    <tr>
+                                        <td><?= $idx ?></td>
+                                        <td><?= $item['id'] ?></td>
+                                        <td><?= $item['user_name'] ?></td>
+                                        <td><?= $item['full_name'] ?></td>
+                                        <td><?= $item['email'] ?></td>
+                                        <td><?= $item['phone'] ?></td>
+                                        <td><?= $item['address'] ?></td>
+                                    </tr>
+                                <?php $idx++;
+                                } ?>
                             </tbody>
                         </table>
 

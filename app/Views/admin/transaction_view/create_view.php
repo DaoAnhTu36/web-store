@@ -299,7 +299,6 @@
                 console.log('Error:', error);
             }
         });
-
     }
 </script>
 <!-- END MAIN CONTENT -->

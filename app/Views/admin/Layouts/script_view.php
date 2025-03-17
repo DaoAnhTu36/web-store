@@ -101,7 +101,7 @@
 <!-- <script src="<?= base_url($libUrl . '/js/plugin/ckeditor/ckeditor.js'); ?>"></script> -->
 <!-- <script src="<?= base_url($libUrl . '/js/plugin/ckfinder/ckfinder.js'); ?>"></script> -->
 <script src="<?= base_url($libUrl . '/js/common_custom.js'); ?>"></script>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+<script src="<?= base_url($libUrl . '/js/toastify-js.js'); ?>"></script>
 
 <script>
     $(document).ready(function() {

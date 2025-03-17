@@ -3,12 +3,22 @@
 namespace App\Controllers\Admin;
 
 use App\Controllers\BaseController;
+use App\Models\BestSellingProductModel;
+use App\Models\ProductPriceModel;
+use App\Models\ProductDiscountModel;
 
 class ProductController extends BaseController
 {
+    protected $bestSellingModel;
+    protected $priceModel;
+    protected $discountModel;
     public function __construct()
     {
         helper("common");
+        helper("language");
+        $this->bestSellingModel = new BestSellingProductModel();
+        $this->priceModel = new ProductPriceModel();
+        $this->discountModel = new ProductDiscountModel();
     }
 
     public function index()
@@ -110,5 +120,35 @@ class ProductController extends BaseController
         $model = new \App\Models\ProductModel();
         $item = $model->find($id);
         EchoCommon($item);
+    }
+
+    public function bestSellingProduct()
+    {
+        $data = $this->bestSellingModel->getTopSellingProducts();
+        $data_view = [
+            'title' => 'Danh sách sản phẩm bán chạy',
+            'data' => $data,
+        ];
+        return view('admin/product_view/best_selling_product_view', $data_view);
+    }
+
+    public function priceProductManagement()
+    {
+        $data = $this->priceModel->getPriceListByProduct();
+        $data_view = [
+            'title' => 'Danh sách giá sản phẩm',
+            'data' => $data,
+        ];
+        return view('admin/product_view/price_product_view', $data_view);
+    }
+
+    public function discountProductManagement()
+    {
+        $data = $this->discountModel->getAllDiscount();
+        $data_view = [
+            'title' => 'Danh sách sản phẩm giảm giá',
+            'data' => $data,
+        ];
+        return view('admin/product_view/discount_product_view', $data_view);
     }
 }
