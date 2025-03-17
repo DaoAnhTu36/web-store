@@ -62,6 +62,7 @@
                                     <th>Mã khách hàng</th>
                                     <th>Ngày tạo</th>
                                     <th>Ngày cập nhật</th>
+                                    <th>#</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -71,10 +72,16 @@
                                         <td><?= $idx ?></td>
                                         <td><?= $item['id'] ?></td>
                                         <td><?= $item['transaction_date'] ?></td>
-                                        <td><?= $item['supplier_id'] ?></td>
-                                        <td><?= $item['customer_id'] ?></td>
+                                        <td><?= $item['supplier_name'] ?></td>
+                                        <td><?= $item['customer_name'] ?></td>
                                         <td><?= $item['created_at'] ?></td>
                                         <td><?= $item['updated_at'] ?></td>
+                                        <td class="action-icons">
+                                            <a href="<?= site_url('admin/transaction/detail/' . $item['id']); ?>" class="btn btn-default"><i class="fa fa-eye" aria-hidden="true"></i></a>
+                                            <a href="<?= site_url('admin/transaction/detail/' . $item['id']); ?>" class="btn btn-default"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                                            <a href="<?= site_url('admin/transaction/delete/' . $item['id']); ?>" class="btn btn-default" onclick="return confirm('Bạn có chắc muốn xóa?');"><i class="fa fa-trash" aria-hidden="true"></i></a>
+
+                                        </td>
                                     </tr>
                                 <?php $idx++;
                                 } ?>

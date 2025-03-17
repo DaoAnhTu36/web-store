@@ -76,6 +76,9 @@ $method = isset($path_array[2]) ? $path_array[2] : '';
             <li>
                 <a href="javscript:void(0)" title=""><i class="fa fa-lg fa-fw fa-cube"></i><span class="menu-item-parent">Giao dịch</span></a>
                 <ul>
+                    <li class="<?= $controller == 'transaction' && $method == 'create' ? 'active open' : ''; ?>">
+                        <a href="<?= site_url('admin/transaction/create') ?>" title=""></i> <span class="menu-item-parent">Thêm mới</span></a>
+                    </li>
                     <li class="<?= $controller == 'transaction' && $method == 'import-list' ? 'active open' : ''; ?>">
                         <a href="<?= site_url('admin/transaction/import-list') ?>" title=""></i> <span class="menu-item-parent">Giao dịch nhập hàng</span></a>
                     </li>

@@ -43,6 +43,23 @@ class TransactionModel extends Model
 
     public function getAllTransByType($type)
     {
-        return $this->select('*')->where('transaction_type', $type)->findAll();
+        return $this->select('transactions.id
+        , transactions.transaction_type
+        , transactions.transaction_date
+        , transactions.note
+        , transactions.created_at
+        , transactions.updated_at
+        , IFNULL(customers.name, "") as customer_name
+        , IFNULL(suppliers.name, "") as supplier_name')
+            ->join('customers', 'customers.id = transactions.customer_id', 'left')
+            ->join('suppliers', 'suppliers.id = transactions.supplier_id', 'left')
+            ->where('transaction_type', $type)
+            ->orderBy('transactions.created_at', 'desc')
+            ->findAll();
+    }
+
+    public function deleteById($id)
+    {
+        return $this->where('id', $id)->delete();
     }
 }

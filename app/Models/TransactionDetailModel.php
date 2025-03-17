@@ -31,4 +31,32 @@ class TransactionDetailModel extends Model
     {
         return $this->insertBatch($details);
     }
+
+    public function getDetailTrans($id)
+    {
+        return $this->select('transactions.id as trans_id
+        , transactions.transaction_type
+        , transactions.transaction_date
+        , transactions.note
+        , transactions.created_at
+        , transactions.updated_at
+        , transaction_details.product_id
+        , transaction_details.quantity
+        , transaction_details.unit_price
+        , transaction_details.subtotal
+        , transaction_details.id as trans_detail_id
+        , products.name as product_name
+        , IFNULL(customers.name, "") as customer_name
+        , IFNULL(suppliers.name, "") as supplier_name')
+            ->join('transactions', 'transactions.id = transaction_details.transaction_id', 'left')
+            ->join('customers', 'customers.id = transactions.customer_id', 'left')
+            ->join('suppliers', 'suppliers.id = transactions.supplier_id', 'left')
+            ->join('products', 'products.id = transaction_details.product_id', 'left')
+            ->where('transaction_details.transaction_id', $id)->findAll();
+    }
+
+    public function deleteById($id)
+    {
+        return $this->where('transaction_id', $id)->delete();
+    }
 }
