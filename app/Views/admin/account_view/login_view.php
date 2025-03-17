@@ -76,20 +76,32 @@ $data = [
                         <form action="<?= base_url('admin/account/sign-in'); ?>" method="POST" id="login-form" class="smart-form client-form">
                             <header>
                                 Đăng nhập quản trị viên
-                            </header>
 
+                            </header>
+                            <?php if (session()->getFlashdata('errors')): ?>
+                                <div class="alert alert-danger">
+                                    <?php
+                                    $errors = session()->getFlashdata('errors');
+                                    if (is_array($errors)) {
+                                        echo implode('<br>', $errors);
+                                    } else {
+                                        echo $errors;
+                                    }
+                                    ?>
+                                </div>
+                            <?php endif; ?>
                             <fieldset>
 
                                 <section>
                                     <label class="label">Tên đăng nhập</label>
                                     <label class="input"> <i class="icon-append fa fa-user"></i>
-                                        <input type="text" name="user_name">
+                                        <input type="text" value="tester1" name="user_name">
                                 </section>
 
                                 <section>
                                     <label class="label">Mật khẩu</label>
                                     <label class="input"> <i class="icon-append fa fa-lock"></i>
-                                        <input type="password" name="password">
+                                        <input type="password" value="123@123" name="password">
                                         <div class="note">
                                             <a href="forgotpassword.html">Quên mật khẩu?</a>
                                         </div>

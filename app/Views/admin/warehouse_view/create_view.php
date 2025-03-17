@@ -68,27 +68,25 @@
                                 <fieldset>
                                     <!-- <legend>Thêm mới sản phẩm</legend> -->
                                     <div class="form-group">
-                                        <label class="col-md-2 control-label">Tên</label>
+                                        <label class="col-md-2 control-label">Tên kho</label>
                                         <div class="col-md-10">
-                                            <input class="form-control" value="" placeholder="" type="text" id="name" name="name">
+                                            <input class="form-control" value="Kho Yên Xá" placeholder="" type="text" id="name" name="name">
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label class="col-md-2 control-label">Giá</label>
+                                        <label class="col-md-2 control-label">Địa chỉ</label>
                                         <div class="col-md-10">
-                                            <input class="form-control" value="" placeholder="" type="text" id="price" name="price">
+                                            <input class="form-control" value="Số 5A ngõ 221 Yên Xá Tân Triều Thanh Trì Hà Nội" placeholder="" type="text" id="location" name="location">
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label class="col-md-2 control-label">Số lượng</label>
+                                        <label class="col-md-2 control-label">Người quản lý</label>
                                         <div class="col-md-10">
-                                            <input class="form-control" value="" placeholder="" type="text" id="stock" name="stock">
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-md-2 control-label">Mô tả</label>
-                                        <div class="col-md-10">
-                                            <textarea class="form-control" id="description_record" name="description_record"></textarea>
+                                            <select class="form-control" name="account_id" id="account_id">
+                                                <?php foreach ($lstAdmin as $account): ?>
+                                                    <option value="<?= $account['id'] ?>"><?= $account['full_name'] ?> - <?= $account['user_name'] ?></option>
+                                                <?php endforeach; ?>
+                                            </select>
                                         </div>
                                     </div>
                                 </fieldset>

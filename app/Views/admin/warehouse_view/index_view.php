@@ -67,21 +67,37 @@
                     <!-- end widget edit box -->
 
                     <!-- widget content -->
-                    <div class="widget-body no-padding">
+                    <div class="widget-body">
 
                         <table id="dt_basic" class="table table-striped table-bordered table-hover" width="100%">
 
                             <thead>
                                 <tr>
                                     <th>STT</th>
-                                    <!-- <th>ID</th> -->
-                                    <th>Tên danh mục</th>
-                                    <th>Ảnh</th>
+                                    <th>Tên kho hàng</th>
+                                    <th>Địa chỉ</th>
+                                    <th>Người đại diện</th>
                                     <th>Thời gian tạo</th>
                                     <th>#</th>
                                 </tr>
                             </thead>
                             <tbody>
+                                <?php $idx = 1;
+                                foreach ($lstWarehouse as $item): ?>
+                                    <tr>
+                                        <td><?= $idx ?></td>
+                                        <td><?= $item['name'] ?></td>
+                                        <td><?= $item['location'] ?></td>
+                                        <td><?= $item['full_name'] ?></td>
+                                        <td><?= $item['created_at'] ?></td>
+                                        <td class="action-icons">
+                                            <a href="<?= site_url('admin/warehouse/detail/' . $item['id']); ?>" class="btn btn-default"><i class="fa fa-eye" aria-hidden="true"></i></a>
+                                            <a href="<?= site_url('admin/warehouse/detail/' . $item['id']); ?>" class="btn btn-default"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                                            <a href="<?= site_url('admin/warehouse/delete/' . $item['id']); ?>" class="btn btn-default" onclick="return confirm('Bạn có chắc muốn xóa?');"><i class="fa fa-trash" aria-hidden="true"></i></a>
+                                        </td>
+                                    </tr>
+                                <?php $idx++;
+                                endforeach ?>
                             </tbody>
                         </table>
 

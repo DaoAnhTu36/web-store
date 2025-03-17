@@ -38,7 +38,7 @@ class Filters extends BaseConfig
             // 'honeypot',
             // 'csrf',
             // 'invalidchars',
-            'auth' => ['except' => ['admin/account/login', 'admin/account/create', 'admin/account/sign-in']], // Exclude login/register
+            'auth' => ['except' => ['/', 'portal/', 'portal/*', 'admin/account/login', 'admin/account/create', 'admin/account/sign-in']], // Exclude login/register
         ],
         'after' => [
             'toolbar',

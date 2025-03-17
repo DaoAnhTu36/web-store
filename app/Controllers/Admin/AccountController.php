@@ -87,7 +87,7 @@ class AccountController extends BaseController
         $remember = $this->request->getPost('remember');
         $user_name = $this->request->getPost('user_name');
         $password = $this->request->getPost('password');
-        $user = $this->accountModel->where('user_name', $user_name)->first();
+        $user = $this->accountModel->where('user_name', $user_name)->where('role', 'admin')->first();
         if ($user && password_verify($password, $user['password'])) {
             $session = session();
             $session->set([
@@ -108,7 +108,7 @@ class AccountController extends BaseController
 
             return redirect()->to('admin/dashboard');
         } else {
-            return redirect()->back()->with('error', 'Sai thông tin đăng nhập!');
+            return redirect()->back()->with('errors', 'Thông tin đăng nhập sai. Hãy thử lại!');
         }
     }
 
