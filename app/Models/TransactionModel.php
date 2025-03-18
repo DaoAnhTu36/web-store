@@ -53,12 +53,12 @@ class TransactionModel extends Model
         , transactions.note
         , transactions.created_at
         , transactions.updated_at
+        , transactions.is_active
         , IFNULL(customers.name, "") as customer_name
         , IFNULL(suppliers.name, "") as supplier_name')
             ->join('customers', 'customers.id = transactions.customer_id', 'left')
             ->join('suppliers', 'suppliers.id = transactions.supplier_id', 'left')
             ->where('transaction_type', $type)
-            ->where('transactions.is_active', true)
             ->orderBy('transactions.created_at', 'desc')
             ->findAll();
     }

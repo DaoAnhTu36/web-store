@@ -78,6 +78,7 @@
                                         <th>Ảnh</th>
                                         <th>Thời gian tạo</th>
                                         <th>#</th>
+                                        <th>Trạng thái</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -100,6 +101,16 @@
                                                 <?php  ?>
                                             </td>
                                             <td><?= $item['created_at'] ?></td>
+                                            <td>
+                                                <label class="switch1">
+                                                    <?php if ($item['is_active']) { ?>
+                                                        <input type="checkbox" checked onclick="onChangeStatus(<?= $item['id'] ?>)">
+                                                    <?php } else { ?>
+                                                        <input type="checkbox" onclick="onChangeStatus(<?= $item['id'] ?>)">
+                                                    <?php } ?>
+                                                    <span class="slider1"></span>
+                                                </label>
+                                            </td>
                                             <td class="action-icons">
                                                 <a href="<?= site_url('admin/product/detail/' . $item['id']); ?>" class="btn btn-default"><i class="fa fa-eye" aria-hidden="true"></i></a>
                                                 <a href="<?= site_url('admin/product/detail/' . $item['id']); ?>" class="btn btn-default"><i class="fa fa-pencil" aria-hidden="true"></i></a>

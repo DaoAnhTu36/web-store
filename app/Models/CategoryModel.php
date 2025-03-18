@@ -25,10 +25,10 @@ class CategoryModel extends Model
             , categories.name
             , categories.description
             , categories.created_at
+            , categories.is_active
             , GROUP_CONCAT(images.image_path SEPARATOR ', ') AS images")
             ->join('images', 'images.record_id = categories.id', 'left')
             ->where('images.type', 'category')
-            ->where('categories.is_active', true)
             ->groupBy('categories.id')
             ->orderBy('categories.created_at', 'DESC')
             ->findAll();
@@ -45,11 +45,11 @@ class CategoryModel extends Model
         , categories.name
         , categories.description
         , categories.created_at
+        , categories.is_active
         , GROUP_CONCAT(images.image_path SEPARATOR ', ') AS images")
             ->join('images', 'images.record_id = categories.id', 'left')
             ->where("categories.id", $id)
             ->where('images.type', 'category')
-            ->where('categories.is_active', true)
             ->groupBy('categories.id')
             ->orderBy('categories.created_at', 'DESC')
             ->first();

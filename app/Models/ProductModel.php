@@ -29,12 +29,12 @@ class ProductModel extends Model
             , products.stock
             , products.description
             , products.created_at
+            , products.is_active
             , categories.name AS category_name
             , GROUP_CONCAT(images.image_path SEPARATOR ', ') AS images")
             ->join('images', 'images.record_id = products.id', 'left')
             ->join('categories', 'categories.id = products.category_id', 'left')
             ->where('images.type', 'product')
-            ->where('products.is_active', true)
             ->groupBy('products.id')
             ->orderBy('products.created_at', 'DESC')
             ->findAll();
@@ -54,13 +54,13 @@ class ProductModel extends Model
             , products.description
             , products.created_at
             , products.category_id
+            , products.is_active
             , GROUP_CONCAT(images.image_path SEPARATOR ', ') AS images")
             ->join('images', 'images.record_id = products.id', 'left')
             ->groupBy('products.id')
             ->orderBy('products.created_at', 'DESC')
             ->where('products.id', $productId)
             ->where('images.type', 'product')
-            ->where('products.is_active', true)
             ->first();
     }
 }

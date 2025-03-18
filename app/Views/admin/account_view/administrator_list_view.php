@@ -80,6 +80,7 @@
                                     <th>Email</th>
                                     <th>Số điện thoại</th>
                                     <th>Địa chỉ</th>
+                                    <th>Trạng thái</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -93,6 +94,16 @@
                                         <td><?= $item['email'] ?></td>
                                         <td><?= $item['phone'] ?></td>
                                         <td><?= $item['address'] ?></td>
+                                        <td>
+                                            <label class="switch1">
+                                                <?php if ($item['is_active']) { ?>
+                                                    <input type="checkbox" checked onclick="onChangeStatus(<?= $item['id'] ?>)">
+                                                <?php } else { ?>
+                                                    <input type="checkbox" onclick="onChangeStatus(<?= $item['id'] ?>)">
+                                                <?php } ?>
+                                                <span class="slider1"></span>
+                                            </label>
+                                        </td>
                                     </tr>
                                 <?php $idx++;
                                 } ?>
@@ -116,5 +127,4 @@
     <!-- end widget grid -->
 </div>
 <!-- END MAIN CONTENT -->
-
 <?= $this->endSection(); ?>

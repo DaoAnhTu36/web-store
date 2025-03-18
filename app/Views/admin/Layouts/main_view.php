@@ -6,11 +6,13 @@ $config = new App();
 $libUrl = $config->libUrlAdmin;
 $urlAdmin = $config->urlAdmin;
 $urlFullCurrent = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+$server_current = $_SERVER['REQUEST_URI'] ?? "";
 $data = [
     "libUrl" => $libUrl,
     "urlAdmin" => $urlAdmin,
     "urlFullCurrent" => $urlFullCurrent,
-]
+    "server_current" => $server_current
+];
 ?>
 
 <?= view("admin/Layouts/head_view.php", $data) ?>

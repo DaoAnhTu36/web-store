@@ -18,6 +18,9 @@ $routes->group('admin', function ($routes) {
     $routes->get('/', 'Admin\DashboardController::index');
     $routes->get('dashboard', 'Admin\DashboardController::index');
     $routes->get('language/(:segment)', 'Admin\LanguageController::switch/$1');
+    $routes->group('common', function ($routes) {
+        $routes->post('change-status', 'Admin\CommonController::changeStatusRecordCommon');
+    });
     $routes->group('warehouse', function ($routes) {
         $routes->get('/', 'Admin\WarehouseController::index');
         $routes->get('create', 'Admin\WarehouseController::create');
@@ -87,5 +90,6 @@ $routes->group('admin', function ($routes) {
         $routes->get('login', 'Admin\AccountController::login');
         $routes->get('logout', 'Admin\AccountController::logout');
         $routes->post('sign-in', 'Admin\AccountController::signIn');
+        $routes->post('change-status', 'Admin\AccountController::changeStatus');
     });
 });

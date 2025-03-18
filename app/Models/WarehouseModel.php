@@ -16,7 +16,6 @@ class WarehouseModel extends Model
         return $this
             ->select('accounts.full_name, warehouses.*')
             ->join('accounts', 'accounts.id = warehouses.account_id', 'left')
-            ->where('warehouses.is_active', true)
             ->orderBy('warehouses.created_at', 'desc')
             ->findAll();
     }

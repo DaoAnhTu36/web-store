@@ -21,9 +21,9 @@ class SupplierModel extends Model
             , suppliers.address
             , suppliers.created_at
             , suppliers.updated_at
+            , suppliers.is_active
             , IFNULL(GROUP_CONCAT(images.image_path SEPARATOR ', '), '') AS images")
             ->join('images', 'images.record_id = suppliers.id', 'left')
-            ->where('suppliers.is_active', true)
             ->groupBy('suppliers.id')
             ->orderBy('suppliers.created_at', 'DESC')
             ->findAll();

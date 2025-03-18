@@ -62,6 +62,7 @@
                                     <th>Mã khách hàng</th>
                                     <th>Ngày tạo</th>
                                     <th>Ngày cập nhật</th>
+                                    <th>Trạng thái</th>
                                     <th>#</th>
                                 </tr>
                             </thead>
@@ -76,6 +77,16 @@
                                         <td><?= $item['customer_name'] ?></td>
                                         <td><?= $item['created_at'] ?></td>
                                         <td><?= $item['updated_at'] ?></td>
+                                        <td>
+                                            <label class="switch1">
+                                                <?php if ($item['is_active']) { ?>
+                                                    <input type="checkbox" checked onclick="onChangeStatus(<?= $item['id'] ?>)">
+                                                <?php } else { ?>
+                                                    <input type="checkbox" onclick="onChangeStatus(<?= $item['id'] ?>)">
+                                                <?php } ?>
+                                                <span class="slider1"></span>
+                                            </label>
+                                        </td>
                                         <td class="action-icons">
                                             <a href="<?= site_url('admin/transaction/detail/' . $item['id']); ?>" class="btn btn-default"><i class="fa fa-eye" aria-hidden="true"></i></a>
                                             <a href="<?= site_url('admin/transaction/detail/' . $item['id']); ?>" class="btn btn-default"><i class="fa fa-pencil" aria-hidden="true"></i></a>

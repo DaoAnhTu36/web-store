@@ -104,6 +104,27 @@
 <script src="<?= base_url($libUrl . '/js/toastify-js.js'); ?>"></script>
 
 <script>
+    function onChangeStatus(id) {
+        $.ajax({
+            url: '<?= base_url('admin/common/change-status') ?>',
+            type: 'POST',
+            data: {
+                'id': id,
+                'server_current': '<?= $server_current ?>'
+            },
+            success: function(response) {
+                Toastify({
+                    text: response.message ?? 'tutv19',
+                    duration: 1500,
+                }).showToast();
+            },
+            error: function(xhr, status, error) {
+                console.log('Error:', error);
+            }
+        });
+    }
+</script>
+<script>
     $(document).ready(function() {
 
         // DO NOT REMOVE : GLOBAL FUNCTIONS!

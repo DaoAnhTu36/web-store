@@ -15,7 +15,16 @@ class AccountModel extends Model
     {
         return $this
             ->where('role', $role)
-            ->where('is_active', true)
             ->findAll();
+    }
+
+    public function updateStatus($id, $status)
+    {
+        $this->update($id, ['is_active' => $status]);
+    }
+
+    public function getAccountById($id)
+    {
+        return $this->where('id', $id)->first();
     }
 }

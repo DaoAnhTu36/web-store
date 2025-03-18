@@ -117,4 +117,24 @@ class AccountController extends BaseController
     public function update($id) {}
 
     public function delete($id) {}
+
+    public function changeStatus()
+    {
+        try {
+            $id = $this->request->getPost('id');
+            $record = $this->accountModel->getAccountById($id);
+            if ($record) {
+                $this->accountModel->updateStatus($id, !$record['is_active']);
+                return $this->response->setJSON([
+                    'status' => 'success',
+                    'message' => 'Thay đổi trạng thái thành công'
+                ]);
+            }
+        } catch (\Throwable $th) {
+            return $this->response->setJSON([
+                'status' => 'fail',
+                'message' => $th->getMessage()
+            ]);
+        }
+    }
 }

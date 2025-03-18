@@ -79,7 +79,8 @@
                                     <th>Email</th>
                                     <th>Số điện thoại</th>
                                     <th>Địa chỉ</th>
-                                    <th>Logo</th>
+                                    <!-- <th>Logo</th> -->
+                                    <th>Trạng thái</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -92,13 +93,24 @@
                                         <td><?= $item['email'] ?></td>
                                         <td><?= $item['phone'] ?></td>
                                         <td><?= $item['address'] ?></td>
-                                        <td>
+                                        <!-- <td>
                                             <?php
                                             $images = trim(explode(', ', $item['images'])[0]);
                                             ?>
                                             <img src="<?= base_url($images) ?>" alt="" width="50">
                                             <?php  ?>
+                                        </td> -->
+                                        <td>
+                                            <label class="switch1">
+                                                <?php if ($item['is_active']) { ?>
+                                                    <input type="checkbox" checked onclick="onChangeStatus(<?= $item['id'] ?>)">
+                                                <?php } else { ?>
+                                                    <input type="checkbox" onclick="onChangeStatus(<?= $item['id'] ?>)">
+                                                <?php } ?>
+                                                <span class="slider1"></span>
+                                            </label>
                                         </td>
+
                                     </tr>
                                 <?php $idx++;
                                 } ?>
