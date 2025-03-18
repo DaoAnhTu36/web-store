@@ -96,26 +96,26 @@ $routes->group('admin', function ($routes) {
         $routes->get('', 'Admin\RoleController::index');
         $routes->get('index', 'Admin\RoleController::index');
         $routes->get('create', 'Admin\RoleController::create');
-        $routes->get('save', 'Admin\RoleController::save');
+        $routes->post('save', 'Admin\RoleController::save');
         $routes->get('detail/(:num)', 'Admin\RoleController::detail/$1');
-        $routes->get('update/(:num)', 'Admin\RoleController::update/$1');
+        $routes->post('update/(:num)', 'Admin\RoleController::update/$1');
     });
 
     $routes->group('permission', function ($routes) {
         $routes->get('', 'Admin\PermissionController::index');
         $routes->get('index', 'Admin\PermissionController::index');
         $routes->get('create', 'Admin\PermissionController::create');
-        $routes->get('save', 'Admin\PermissionController::save');
+        $routes->post('save', 'Admin\PermissionController::save');
         $routes->get('detail/(:num)', 'Admin\PermissionController::detail/$1');
-        $routes->get('update/(:num)', 'Admin\PermissionController::update/$1');
+        $routes->post('update/(:num)', 'Admin\PermissionController::update/$1');
     });
 
     $routes->group('role-permission', function ($routes) {
         $routes->get('', 'Admin\RolePermissionController::index');
         $routes->get('index', 'Admin\RolePermissionController::index');
         $routes->get('create', 'Admin\RolePermissionController::create');
-        $routes->get('save', 'Admin\RolePermissionController::save');
+        $routes->post('save', 'Admin\RolePermissionController::save');
         $routes->get('detail/(:num)', 'Admin\RolePermissionController::detail/$1');
-        $routes->get('update/(:num)', 'Admin\RolePermissionController::update/$1');
+        $routes->post('update/(:num)', 'Admin\RolePermissionController::update/$1');
     });
 });

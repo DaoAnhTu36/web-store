@@ -27,12 +27,12 @@
                         <div class="jarviswidget-editbox">
                         </div>
                         <div class="widget-body">
-                            <form class="form-horizontal" action="<?= base_url(''); ?>" method="POST" enctype="multipart/form-data">
+                            <form class="form-horizontal" action="<?= base_url('admin/role/save'); ?>" method="POST" enctype="multipart/form-data">
                                 <fieldset>
                                     <div class="form-group">
-                                        <label class="col-md-2 control-label"></label>
+                                        <label class="col-md-2 control-label">Tên vai trò, chức vụ</label>
                                         <div class="col-md-10">
-                                            <input class="form-control" value="" placeholder="" type="text" id="" name="">
+                                            <input class="form-control" value="" placeholder="" type="text" id="name" name="name">
                                         </div>
                                     </div>
                                 </fieldset>

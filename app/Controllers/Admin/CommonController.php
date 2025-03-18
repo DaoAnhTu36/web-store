@@ -44,6 +44,18 @@ class CommonController extends BaseController
                     case 'supplier':
                         $this->updateStatusCommon($id, 'suppliers');
                         break;
+                    case 'role':
+                    case 'role/index':
+                        $this->updateStatusCommon($id, 'roles');
+                        break;
+                    case 'permission':
+                    case 'permission/index':
+                        $this->updateStatusCommon($id, 'permissions');
+                        break;
+                    case 'role-permission':
+                    case 'role-permission/index':
+                        $this->updateStatusCommon($id, 'role_permissions');
+                        break;
                     default:
                         $result = false;
                         break;

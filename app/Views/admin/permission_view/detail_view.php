@@ -27,12 +27,12 @@
                         <div class="jarviswidget-editbox">
                         </div>
                         <div class="widget-body">
-                            <form class="form-horizontal" action="<?= base_url(''); ?>" method="POST" enctype="multipart/form-data">
+                            <form class="form-horizontal" action="<?= base_url('admin/permission/update/' . $data['id']); ?>" method="POST" enctype="multipart/form-data">
                                 <fieldset>
                                     <div class="form-group">
-                                        <label class="col-md-2 control-label"></label>
+                                        <label class="col-md-2 control-label">Tên quyền hạn</label>
                                         <div class="col-md-10">
-                                            <input class="form-control" value="" placeholder="" type="text" id="" name="">
+                                            <input class="form-control" value="<?= $data['name'] ?>" placeholder="" type="text" id="name" name="name">
                                         </div>
                                     </div>
                                 </fieldset>
@@ -44,7 +44,7 @@
                                             </button>
                                             <button class="btn btn-primary" type="submit">
                                                 <i class="fa fa-save"></i>
-                                                Lưu
+                                                Cập nhật
                                             </button>
                                         </div>
                                     </div>
