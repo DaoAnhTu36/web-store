@@ -9,7 +9,7 @@ class SupplierModel extends Model
     protected $table = 'suppliers'; // Tên bảng
     protected $primaryKey = 'id'; // Khóa chính
 
-    protected $allowedFields = ['name', 'email', 'phone', 'address', 'created_at', 'updated_at'];
+    protected $allowedFields = ['name', 'email', 'phone', 'address', 'created_at', 'updated_at', 'created_by', 'updated_by', 'is_active'];
 
     // Lấy danh sách nhà cung cấp
     public function getAllSupplierWithImage()
@@ -23,6 +23,7 @@ class SupplierModel extends Model
             , suppliers.updated_at
             , IFNULL(GROUP_CONCAT(images.image_path SEPARATOR ', '), '') AS images")
             ->join('images', 'images.record_id = suppliers.id', 'left')
+            ->where('suppliers.is_active', true)
             ->groupBy('suppliers.id')
             ->orderBy('suppliers.created_at', 'DESC')
             ->findAll();

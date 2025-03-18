@@ -14,7 +14,10 @@ class ReviewModel extends Model
         'product_id',
         'rating',
         'review',
-        'created_at'
+        'created_at',
+        'created_by',
+        'updated_by',
+        'is_active'
     ];
 
     protected $returnType = 'array';

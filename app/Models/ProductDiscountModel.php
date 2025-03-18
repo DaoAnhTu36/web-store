@@ -9,7 +9,7 @@ class ProductDiscountModel extends Model
     protected $table      = 'product_discounts';
     protected $primaryKey = 'discount_id';
 
-    protected $allowedFields = ['product_id', 'discount_type', 'discount_value', 'start_date', 'end_date', 'created_at'];
+    protected $allowedFields = ['product_id', 'discount_type', 'discount_value', 'start_date', 'end_date', 'created_at', 'created_by', 'updated_by', 'is_active'];
 
     public function getActiveDiscounts()
     {

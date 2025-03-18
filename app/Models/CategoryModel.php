@@ -13,7 +13,10 @@ class CategoryModel extends Model
     protected $allowedFields = [
         'name',
         'description',
-        'created_at'
+        'created_at',
+        'created_by',
+        'updated_by',
+        'is_active'
     ];
 
     public function getCategoriesWithImages()
@@ -25,6 +28,7 @@ class CategoryModel extends Model
             , GROUP_CONCAT(images.image_path SEPARATOR ', ') AS images")
             ->join('images', 'images.record_id = categories.id', 'left')
             ->where('images.type', 'category')
+            ->where('categories.is_active', true)
             ->groupBy('categories.id')
             ->orderBy('categories.created_at', 'DESC')
             ->findAll();
@@ -45,6 +49,7 @@ class CategoryModel extends Model
             ->join('images', 'images.record_id = categories.id', 'left')
             ->where("categories.id", $id)
             ->where('images.type', 'category')
+            ->where('categories.is_active', true)
             ->groupBy('categories.id')
             ->orderBy('categories.created_at', 'DESC')
             ->first();

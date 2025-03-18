@@ -9,7 +9,7 @@ class CustomerModel extends Model
     protected $table = 'customers';
     protected $primaryKey = 'id';
 
-    protected $allowedFields = ['name', 'email', 'phone', 'address', 'created_at', 'updated_at'];
+    protected $allowedFields = ['name', 'email', 'phone', 'address', 'created_at', 'updated_at', 'created_by', 'updated_by', 'is_active'];
 
     public function getAllCustomers()
     {

@@ -15,7 +15,10 @@ class TransactionModel extends Model
         'supplier_id',
         'customer_id',
         'note',
-        'stock_id',
+        'warehouse_id',
+        'created_by',
+        'updated_by',
+        'is_active'
     ];
 
     protected $useTimestamps = true;
@@ -55,6 +58,7 @@ class TransactionModel extends Model
             ->join('customers', 'customers.id = transactions.customer_id', 'left')
             ->join('suppliers', 'suppliers.id = transactions.supplier_id', 'left')
             ->where('transaction_type', $type)
+            ->where('transactions.is_active', true)
             ->orderBy('transactions.created_at', 'desc')
             ->findAll();
     }

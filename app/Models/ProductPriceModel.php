@@ -9,7 +9,7 @@ class ProductPriceModel extends Model
     protected $table      = 'product_prices';
     protected $primaryKey = 'price_id';
 
-    protected $allowedFields = ['product_id', 'price', 'start_date', 'end_date', 'created_at'];
+    protected $allowedFields = ['product_id', 'price', 'start_date', 'end_date', 'created_at', 'created_by', 'updated_by', 'is_active'];
 
     // Lấy giá mới nhất của mỗi sản phẩm
     public function getLatestPriceByProduct()

@@ -13,7 +13,10 @@ class TransactionDetailModel extends Model
         'transaction_id',
         'product_id',
         'quantity',
-        'unit_price'
+        'unit_price',
+        'created_by',
+        'updated_by',
+        'is_active'
     ];
 
     protected $useTimestamps = true;
@@ -52,7 +55,9 @@ class TransactionDetailModel extends Model
             ->join('customers', 'customers.id = transactions.customer_id', 'left')
             ->join('suppliers', 'suppliers.id = transactions.supplier_id', 'left')
             ->join('products', 'products.id = transaction_details.product_id', 'left')
-            ->where('transaction_details.transaction_id', $id)->findAll();
+            ->where('transaction_details.transaction_id', $id)
+            ->where('transaction_details.is_active', true)
+            ->findAll();
     }
 
     public function deleteById($id)

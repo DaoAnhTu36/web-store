@@ -15,6 +15,7 @@ $routes->group('portal', function ($routes) {
 });
 
 $routes->group('admin', function ($routes) {
+    $routes->get('/', 'Admin\DashboardController::index');
     $routes->get('dashboard', 'Admin\DashboardController::index');
     $routes->get('language/(:segment)', 'Admin\LanguageController::switch/$1');
     $routes->group('warehouse', function ($routes) {

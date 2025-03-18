@@ -9,7 +9,7 @@ class BestSellingProductModel extends Model
     protected $table      = 'best_selling_products';
     protected $primaryKey = 'record_id';
 
-    protected $allowedFields = ['product_id', 'total_sold', 'last_updated'];
+    protected $allowedFields = ['product_id', 'total_sold', 'last_updated', 'created_by', 'updated_by', 'is_active'];
 
     public function getTopSellingProducts($limit = 10)
     {

@@ -13,7 +13,10 @@ class OrderDetailModel extends Model
         'order_id',
         'product_id',
         'quantity',
-        'price'
+        'price',
+        'created_by',
+        'updated_by',
+        'is_active'
     ];
 
     protected $returnType = 'array';

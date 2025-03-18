@@ -13,7 +13,10 @@ class OrderModel extends Model
         'user_id',
         'total_price',
         'status',
-        'created_at'
+        'created_at',
+        'created_by',
+        'updated_by',
+        'is_active'
     ];
 
     protected $returnType = 'array';

@@ -15,7 +15,10 @@ class ProductModel extends Model
         'description',
         'price',
         'stock',
-        'created_at'
+        'created_at',
+        'created_by',
+        'updated_by',
+        'is_active'
     ];
 
     public function getProductsWithImages()
@@ -31,6 +34,7 @@ class ProductModel extends Model
             ->join('images', 'images.record_id = products.id', 'left')
             ->join('categories', 'categories.id = products.category_id', 'left')
             ->where('images.type', 'product')
+            ->where('products.is_active', true)
             ->groupBy('products.id')
             ->orderBy('products.created_at', 'DESC')
             ->findAll();
@@ -56,6 +60,7 @@ class ProductModel extends Model
             ->orderBy('products.created_at', 'DESC')
             ->where('products.id', $productId)
             ->where('images.type', 'product')
+            ->where('products.is_active', true)
             ->first();
     }
 }
