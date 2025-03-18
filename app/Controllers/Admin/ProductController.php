@@ -53,10 +53,7 @@ class ProductController extends BaseController
         $validation = \Config\Services::validation();
         $validation->setRules([
             'name' => 'required|min_length[3]',
-            'price' => 'required|decimal',
-            'stock' => 'required|integer',
             'category_id' => 'required',
-            'description_record' => 'required',
             // 'images' => 'uploaded[images]|max_size[images,2048]|is_image[images]|mime_in[images,image/jpg,image/jpeg,image/png]',
             'images' => 'uploaded[images]|is_image[images]|mime_in[images,image/jpg,image/jpeg,image/png]',
         ]);
@@ -68,17 +65,16 @@ class ProductController extends BaseController
         $productModel = new \App\Models\ProductModel();
         $productId = $productModel->insert([
             'name' => $this->request->getPost('name'),
-            'price' => $this->request->getPost('price'),
-            'stock' => $this->request->getPost('stock'),
             'category_id' => $this->request->getPost('category_id'),
-            'description' => $this->request->getPost('description_record'),
         ]);
 
         $files = $this->request->getFiles();
+        $image_list = [];
         if ($files) {
             foreach ($files['images'] as $img) {
                 if ($img->isValid() && !$img->hasMoved()) {
                     $newName = $img->getRandomName();
+                    array_push($image_list, $newName);
                     $img->move('uploads/', $newName);
 
                     $imageModel = new \App\Models\ImageModel();
@@ -89,6 +85,12 @@ class ProductController extends BaseController
                     ]);
                 }
             }
+        }
+        if (count($image_list) > 0) {
+            $data_update = [
+                'image' => 'uploads/' . reset($image_list)
+            ];
+            $productModel->update($productId, $data_update);
         }
 
         return redirect()->to('admin/product/create')->with('success', 'Sản phẩm đã được thêm!');
@@ -112,7 +114,7 @@ class ProductController extends BaseController
             'data' => $item,
             'categories' => $categories
         ];
-        return view('admin/product_view/update_view', $data_view);
+        return view('admin/product_view/detail_view', $data_view);
     }
 
     public function update($id)

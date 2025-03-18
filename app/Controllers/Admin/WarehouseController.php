@@ -50,9 +50,28 @@ class WarehouseController extends BaseController
         return redirect()->to('admin/warehouse')->with('success', 'Thêm mới thành công kho hàng');
     }
 
-    public function detail($id) {}
+    public function detail($id)
+    {
+        $warehouse = $this->warehouseModel->find($id);
+        $lstAdmin = $this->accountModel->where('role', 'admin')->findAll();
+        $data_view = [
+            'title' => 'Chi tiết kho hàng',
+            'data' => $warehouse,
+            'lstAdmin' => $lstAdmin
+        ];
+        return view('admin/warehouse_view/detail_view', $data_view);
+    }
 
-    public function update($id) {}
+    public function update($id)
+    {
+        $data = [
+            'name' => $this->request->getPost('name'),
+            'location' => $this->request->getPost('location'),
+            'account_id' => $this->request->getPost('account_id'),
+        ];
+        $this->warehouseModel->update($id, $data);
+        return redirect()->to('admin/warehouse')->with('success', 'Cập nhật thành công kho hàng');
+    }
 
     public function delete($id) {}
 }

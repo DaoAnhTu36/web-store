@@ -96,3 +96,6 @@
 .switch1 input:checked + .slider1::before {
   transform: translateX(26px);
 }
+th,
+td {
+}

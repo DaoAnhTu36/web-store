@@ -64,33 +64,42 @@
                         <!-- widget content -->
                         <div class="widget-body">
 
-                            <form class="form-horizontal" action="<?= base_url('admin/warehouse/save'); ?>" method="POST" enctype="multipart/form-data">
+                            <form class="form-horizontal" action="<?= base_url('admin/product/createMethod'); ?>" method="POST" enctype="multipart/form-data">
                                 <fieldset>
                                     <!-- <legend>Thêm mới sản phẩm</legend> -->
                                     <div class="form-group">
-                                        <label class="col-md-2 control-label">Tên kho</label>
+                                        <label class="col-md-2 control-label">Tên</label>
                                         <div class="col-md-10">
-                                            <input class="form-control" value="Kho Yên Xá" placeholder="" type="text" id="name" name="name">
+                                            <input readonly class="form-control" value="<?= $data['name'] ?>" placeholder="" type="text" id="name" name="name">
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label class="col-md-2 control-label">Địa chỉ</label>
+                                        <label class="col-md-2 control-label">Hình ảnh</label>
                                         <div class="col-md-10">
-                                            <input class="form-control" value="Số 5A ngõ 221 Yên Xá Tân Triều Thanh Trì Hà Nội" placeholder="" type="text" id="location" name="location">
+                                            <div class="row">
+                                                <?php $array_image = explode(',', $data['images']);
+                                                foreach ($array_image as $image): ?>
+                                                    <div class="col-md-4">
+                                                        <img width="100%" src="<?= base_url($image) ?>" alt="" srcset="">
+                                                    </div>
+                                                <?php endforeach; ?>
+                                            </div>
                                         </div>
                                     </div>
+
                                     <div class="form-group">
-                                        <label class="col-md-2 control-label">Người quản lý</label>
+                                        <label class="col-md-2 control-label">Danh mục</label>
                                         <div class="col-md-10">
-                                            <select class="form-control" name="account_id" id="account_id">
-                                                <?php foreach ($lstAdmin as $account): ?>
-                                                    <option value="<?= $account['id'] ?>"><?= $account['full_name'] ?> - <?= $account['user_name'] ?></option>
+                                            <select disabled name="category_id" id="category_id" class="form-control">
+                                                <?php foreach ($categories as $category): ?>
+                                                    <option <?= $category['id'] == $data['category_id'] ? 'selected' : '' ?> value="<?= $category['id']; ?>"><?= $category['name']; ?></option>
                                                 <?php endforeach; ?>
                                             </select>
                                         </div>
+
                                     </div>
                                 </fieldset>
-                                <div class="form-actions">
+                                <!-- <div class="form-actions">
                                     <div class="row">
                                         <div class="col-md-12">
                                             <button class="btn btn-default" type="submit">
@@ -102,7 +111,7 @@
                                             </button>
                                         </div>
                                     </div>
-                                </div>
+                                </div> -->
 
                             </form>
 

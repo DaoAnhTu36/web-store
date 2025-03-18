@@ -17,34 +17,42 @@ class CommonController extends BaseController
 
     public function changeStatusRecordCommon()
     {
+        $result = true;
         $id = $this->request->getPost('id');
         $server_current = $this->request->getPost('server_current');
-        echo $server_current;
-        switch ($server_current) {
-            case '/web-store/admin/account/administrator-list':
-            case '/web-store/admin/account/customer-list':
-                $this->updateStatusCommon($id, 'accounts');
-                break;
-            case '/web-store/admin/category':
-                $this->updateStatusCommon($id, 'categories');
-                break;
-            case '/web-store/admin/product':
-                $this->updateStatusCommon($id, 'products');
-                break;
-            case '/web-store/admin/warehouse':
-                $this->updateStatusCommon($id, 'warehouses');
-                break;
-            case '/web-store/admin/transaction/import-list':
-            case '/web-store/admin/transaction/export-list':
-                $this->updateStatusCommon($id, 'transactions');
-                break;
-            case '/web-store/admin/supplier':
-                $this->updateStatusCommon($id, 'suppliers');
-                break;
+        if (isset($server_current)) {
+            $controller = explode('admin/', $server_current);
+            if (isset($controller[1])) {
+                switch ($controller[1]) {
+                    case 'account/administrator-list':
+                    case 'account/customer-list':
+                        $this->updateStatusCommon($id, 'accounts');
+                        break;
+                    case 'category':
+                        $this->updateStatusCommon($id, 'categories');
+                        break;
+                    case 'product':
+                        $this->updateStatusCommon($id, 'products');
+                        break;
+                    case 'warehouse':
+                        $this->updateStatusCommon($id, 'warehouses');
+                        break;
+                    case 'transaction/import-list':
+                    case 'transaction/export-list':
+                        $this->updateStatusCommon($id, 'transactions');
+                        break;
+                    case 'supplier':
+                        $this->updateStatusCommon($id, 'suppliers');
+                        break;
+                    default:
+                        $result = false;
+                        break;
+                }
+            }
         }
         return $this->response->setJSON([
-            'status' => 'success',
-            'message' => 'Thay đổi trạng thái thành công'
+            'status' => $result ? 'success' : 'error',
+            'message' => $result ? 'Thay đổi trạng thái thành công' : 'Có lỗi xảy ra'
         ]);
     }
 

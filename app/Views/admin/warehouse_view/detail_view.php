@@ -64,19 +64,18 @@
                         <!-- widget content -->
                         <div class="widget-body">
 
-                            <form class="form-horizontal" action="<?= base_url('admin/warehouse/save'); ?>" method="POST" enctype="multipart/form-data">
+                            <form class="form-horizontal" method="POST" action="<?= base_url('admin/warehouse/update/' . $data['id']) ?>">
                                 <fieldset>
-                                    <!-- <legend>Thêm mới sản phẩm</legend> -->
                                     <div class="form-group">
                                         <label class="col-md-2 control-label">Tên kho</label>
                                         <div class="col-md-10">
-                                            <input class="form-control" value="Kho Yên Xá" placeholder="" type="text" id="name" name="name">
+                                            <input class="form-control" value="<?= $data['name'] ?>" placeholder="" type="text" id="name" name="name">
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-md-2 control-label">Địa chỉ</label>
                                         <div class="col-md-10">
-                                            <input class="form-control" value="Số 5A ngõ 221 Yên Xá Tân Triều Thanh Trì Hà Nội" placeholder="" type="text" id="location" name="location">
+                                            <input class="form-control" value="<?= $data['location'] ?>" placeholder="" type="text" id="location" name="location">
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -84,7 +83,7 @@
                                         <div class="col-md-10">
                                             <select class="form-control" name="account_id" id="account_id">
                                                 <?php foreach ($lstAdmin as $account): ?>
-                                                    <option value="<?= $account['id'] ?>"><?= $account['full_name'] ?> - <?= $account['user_name'] ?></option>
+                                                    <option <?= $data['account_id'] == $account['id'] ? 'selected' : '' ?> value="<?= $account['id'] ?>"><?= $account['full_name'] ?> - <?= $account['user_name'] ?></option>
                                                 <?php endforeach; ?>
                                             </select>
                                         </div>
@@ -98,7 +97,7 @@
                                             </button>
                                             <button class="btn btn-primary" type="submit">
                                                 <i class="fa fa-save"></i>
-                                                Lưu
+                                                Cập nhật
                                             </button>
                                         </div>
                                     </div>

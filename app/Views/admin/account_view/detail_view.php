@@ -41,37 +41,37 @@
                                     <div class="form-group">
                                         <label class="col-md-2 control-label">Họ và tên</label>
                                         <div class="col-md-10">
-                                            <input class="form-control" value="Nguyen Thi Dao" placeholder="" type="text" id="full_name" name="full_name">
+                                            <input class="form-control" value="<?= $data['full_name'] ?>" placeholder="" type="text" id="full_name" name="full_name">
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-md-2 control-label">Tên đăng nhập</label>
                                         <div class="col-md-10">
-                                            <input class="form-control" value="ntd060404" placeholder="" type="text" id="user_name" name="user_name">
+                                            <input class="form-control" value="<?= $data['user_name'] ?>" placeholder="" type="text" id="user_name" name="user_name">
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-md-2 control-label">Mật khẩu</label>
                                         <div class="col-md-10">
-                                            <input class="form-control" value="123456@b" placeholder="" type="password" id="password" name="password">
+                                            <input class="form-control" value="" placeholder="" type="password" id="password" name="password">
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-md-2 control-label">Email</label>
                                         <div class="col-md-10">
-                                            <input class="form-control" value="nguyenthidao@gmail.com" placeholder="" type="text" id="email" name="email">
+                                            <input class="form-control" value="<?= $data['email'] ?>" placeholder="" type="text" id="email" name="email">
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-md-2 control-label">Số điện thoại</label>
                                         <div class="col-md-10">
-                                            <input class="form-control" value="0947270032" placeholder="" type="text" id="phone" name="phone">
+                                            <input class="form-control" value="<?= $data['phone'] ?>" placeholder="" type="text" id="phone" name="phone">
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-md-2 control-label">Địa chỉ</label>
                                         <div class="col-md-10">
-                                            <input class="form-control" value="Số 5a ngõ 221 Yên Xá Tân Triều Thanh Trì Hà Nội" placeholder="" type="text" id="address" name="address">
+                                            <input class="form-control" value="<?= $data['address'] ?>" placeholder="" type="text" id="address" name="address">
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -87,12 +87,12 @@
                                 <div class="form-actions">
                                     <div class="row">
                                         <div class="col-md-12">
-                                            <button class="btn btn-default" type="button">
+                                            <button class="btn btn-default" type="button" onclick="window.history.back();">
                                                 Hủy
                                             </button>
-                                            <button class="btn btn-primary" type="button" onclick="onSubmit()">
+                                            <button class="btn btn-primary" type="button" onclick="onSubmit(<?= $data['id'] ?>)">
                                                 <i class="fa fa-save"></i>
-                                                Lưu
+                                                Cập nhật
                                             </button>
                                         </div>
                                     </div>
@@ -116,7 +116,7 @@
 </div>
 <!-- END MAIN CONTENT -->
 <script>
-    function onSubmit() {
+    function onSubmit(id) {
         let full_name = $("#full_name").val();
         let user_name = $("#user_name").val();
         let password = $("#password").val();
@@ -132,7 +132,7 @@
             return;
         }
         $.ajax({
-            url: '<?= base_url('admin/account/save') ?>',
+            url: '<?= base_url('admin/account/update') ?>',
             type: 'POST',
             data: {
                 full_name,
@@ -142,6 +142,7 @@
                 phone,
                 address,
                 role,
+                id
             },
             success: function(response) {
                 if (response.status == 'fail') {
@@ -154,7 +155,7 @@
                         text: response.message,
                         duration: 1500,
                         callback: function() {
-                            window.location.reload(true);
+                            window.history.back();
                         }
                     }).showToast();
                 }

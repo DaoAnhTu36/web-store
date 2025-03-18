@@ -21,9 +21,11 @@ function removeImagePreview(index) {
   //   itemPreview[index].remove();
   // }
 }
-document.getElementById('images').addEventListener('change', function () {
-  updateFileList();
-});
+if (document.getElementById('images')) {
+  document.getElementById('images').addEventListener('change', function () {
+    updateFileList();
+  });
+}
 
 function updateFileList() {
   document.getElementById('image_preview_container').style.display = 'block';
@@ -74,3 +76,12 @@ function removeFile(indexToRemove) {
   input.files = dataTransfer.files; // Gán danh sách file mới vào input
   updateFileList(); // Cập nhật lại danh sách hiển thị
 }
+
+setTimeout(function () {
+  let flash = document.getElementById('flash-message');
+  if (flash) {
+    flash.style.transition = 'opacity 0.5s ease';
+    flash.style.opacity = 0;
+    setTimeout(() => (flash.style.display = 'none'), 500); // Ẩn hẳn sau fade-out
+  }
+}, 2000); // 3 giây

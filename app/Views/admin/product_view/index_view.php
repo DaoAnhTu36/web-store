@@ -2,13 +2,13 @@
 <?= $this->section('content'); ?>
 
 <?php if (session()->getFlashdata('errors')): ?>
-    <div class="alert alert-danger">
+    <div id="flash-message" class="alert alert-danger">
         <?= implode('<br>', session()->getFlashdata('errors')); ?>
     </div>
 <?php endif; ?>
 
 <?php if (session()->getFlashdata('success')): ?>
-    <div class="alert alert-success">
+    <div id="flash-message" class="alert alert-success">
         <?= session()->getFlashdata('success'); ?>
     </div>
 <?php endif; ?>
@@ -25,7 +25,7 @@
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
             <div class="well">
                 <div class="btn-group">
-                    <a href="<?= site_url('admin/category/create'); ?>" class="btn btn-default"><i class="fa fa-plus" aria-hidden="true"></i> Thêm mới</a>
+                    <a href="<?= site_url('admin/product/create'); ?>" class="btn btn-default"><i class="fa fa-plus" aria-hidden="true"></i> Thêm mới</a>
                 </div>
             </div>
         </div>
@@ -72,13 +72,9 @@
                                         <th>Mã sản phẩm</th>
                                         <th>Tên sản phẩm</th>
                                         <th>Danh mục</th>
-                                        <th>Giá nhập</th>
-                                        <th>Số lượng tồn</th>
-                                        <!-- <th>Mô tả</th> -->
                                         <th>Ảnh</th>
-                                        <th>Thời gian tạo</th>
-                                        <th>#</th>
                                         <th>Trạng thái</th>
+                                        <th>#</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -90,17 +86,11 @@
                                             <td><?= $item['id'] ?></td>
                                             <td><?= $item['name'] ?></td>
                                             <td><?= $item['category_name'] ?></td>
-                                            <td><?= number_format($item['price'], 0, ',', '.'); ?> ₫</td>
-                                            <td><?= number_format($item['stock'], 0, ',', '.'); ?></td>
-                                            <!-- <td><?= $item['description'] ?></td> -->
                                             <td>
-                                                <?php
-                                                $images = trim(explode(', ', $item['images'])[0]);
-                                                ?>
-                                                <img src="<?= base_url($images) ?>" alt="" width="50">
-                                                <?php  ?>
+                                                <?php if ($item['image'] != '') : ?>
+                                                    <img src="<?= base_url($item['image']) ?>" alt="" width="50">
+                                                <?php endif; ?>
                                             </td>
-                                            <td><?= $item['created_at'] ?></td>
                                             <td>
                                                 <label class="switch1">
                                                     <?php if ($item['is_active']) { ?>
@@ -112,10 +102,9 @@
                                                 </label>
                                             </td>
                                             <td class="action-icons">
-                                                <a href="<?= site_url('admin/product/detail/' . $item['id']); ?>" class="btn btn-default"><i class="fa fa-eye" aria-hidden="true"></i></a>
-                                                <a href="<?= site_url('admin/product/detail/' . $item['id']); ?>" class="btn btn-default"><i class="fa fa-pencil" aria-hidden="true"></i></a>
-                                                <a href="<?= site_url('admin/product/delete/' . $item['id']); ?>" class="btn btn-default" onclick="return confirm('Bạn có chắc muốn xóa?');"><i class="fa fa-trash" aria-hidden="true"></i></a>
-
+                                                <a href="<?= site_url('admin/product/detail/' . $item['id']); ?>" class="btn btn-info"><i class="fa fa-eye" aria-hidden="true"></i></a>
+                                                <!-- <a href="<?= site_url('admin/product/detail/' . $item['id']); ?>" class="btn btn-warning"><i class="fa fa-pencil" aria-hidden="true"></i></a> -->
+                                                <a href="<?= site_url('admin/product/delete/' . $item['id']); ?>" class="btn btn-danger" onclick="return confirm('Bạn có chắc muốn xóa?');"><i class="fa fa-trash" aria-hidden="true"></i></a>
                                             </td>
                                         </tr>
                                     <?php $i++;

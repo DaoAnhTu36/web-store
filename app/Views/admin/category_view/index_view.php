@@ -1,13 +1,13 @@
 <?= $this->extend('admin/Layouts/main_view.php'); ?>
 <?= $this->section('content'); ?>
 <?php if (session()->getFlashdata('errors')): ?>
-    <div class="alert alert-danger">
+    <div id="flash-message" class="alert alert-danger">
         <?= implode('<br>', session()->getFlashdata('errors')); ?>
     </div>
 <?php endif; ?>
 
 <?php if (session()->getFlashdata('success')): ?>
-    <div class="alert alert-success">
+    <div id="flash-message" class="alert alert-success">
         <?= session()->getFlashdata('success'); ?>
     </div>
 <?php endif; ?>
@@ -110,7 +110,6 @@
                                                 <a href="<?= site_url('admin/category/detail/' . $item['id']); ?>" class="btn btn-default"><i class="fa fa-eye" aria-hidden="true"></i></a>
                                                 <a href="<?= site_url('admin/category/detail/' . $item['id']); ?>" class="btn btn-default"><i class="fa fa-pencil" aria-hidden="true"></i></a>
                                                 <a href="<?= site_url('admin/category/delete/' . $item['id']); ?>" class="btn btn-default" onclick="return confirm('Bạn có chắc muốn xóa?');"><i class="fa fa-trash" aria-hidden="true"></i></a>
-
                                             </td>
                                         </tr>
                                     <?php $i++;

@@ -112,29 +112,48 @@ class AccountController extends BaseController
         }
     }
 
-    public function detail($id) {}
+    public function detail($id)
+    {
+        $data = $this->accountModel->where('id', $id)->first();
+        $data_view = [
+            'title' => 'Thông tin chi tiết',
+            'data' => $data,
+        ];
+        return view('admin/account_view/detail_view', $data_view);
+    }
 
-    public function update($id) {}
-
-    public function delete($id) {}
-
-    public function changeStatus()
+    public function update()
     {
         try {
             $id = $this->request->getPost('id');
-            $record = $this->accountModel->getAccountById($id);
-            if ($record) {
-                $this->accountModel->updateStatus($id, !$record['is_active']);
-                return $this->response->setJSON([
-                    'status' => 'success',
-                    'message' => 'Thay đổi trạng thái thành công'
-                ]);
-            }
+            $data = [
+                "full_name" => $this->request->getPost('full_name'),
+                "user_name" => $this->request->getPost('user_name'),
+                "password" => password_hash($this->request->getPost('password'), PASSWORD_DEFAULT),
+                "email" => $this->request->getPost('email'),
+                "phone" => $this->request->getPost('phone'),
+                "address" => $this->request->getPost('address'),
+                "role" => $this->request->getPost('role'),
+            ];
+            $this->accountModel->update($id, $data);
+            return $this->response->setJSON([
+                'status' => 'success',
+                'message' => 'Cập nhật thông tin người dùng thành công',
+            ]);
         } catch (\Throwable $th) {
             return $this->response->setJSON([
                 'status' => 'fail',
-                'message' => $th->getMessage()
+                'message' => $th->getMessage(),
             ]);
+        }
+    }
+
+    public function delete($id)
+    {
+        if ($this->accountModel->delete($id)) {
+            return redirect()->back()->with('success', 'Xóa thành công!');
+        } else {
+            return redirect()->back()->with('errors', 'Xóa thất bại');
         }
     }
 }

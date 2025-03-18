@@ -1,13 +1,13 @@
 <?= $this->extend('admin/Layouts/main_view.php'); ?>
 <?= $this->section('content'); ?>
 <?php if (session()->getFlashdata('errors')): ?>
-    <div class="alert alert-danger">
+    <div id="flash-message" class="alert alert-danger">
         <?= implode('<br>', session()->getFlashdata('errors')); ?>
     </div>
 <?php endif; ?>
 
 <?php if (session()->getFlashdata('success')): ?>
-    <div class="alert alert-success">
+    <div id="flash-message" class="alert alert-success">
         <?= session()->getFlashdata('success'); ?>
     </div>
 <?php endif; ?>

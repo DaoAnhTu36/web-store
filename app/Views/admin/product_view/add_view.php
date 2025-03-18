@@ -2,13 +2,13 @@
 <?= $this->section('content'); ?>
 
 <?php if (session()->getFlashdata('errors')): ?>
-    <div class="alert alert-danger">
+    <div id="flash-message" class="alert alert-danger">
         <?= implode('<br>', session()->getFlashdata('errors')); ?>
     </div>
 <?php endif; ?>
 
 <?php if (session()->getFlashdata('success')): ?>
-    <div class="alert alert-success">
+    <div id="flash-message" class="alert alert-success">
         <?= session()->getFlashdata('success'); ?>
     </div>
 <?php endif; ?>
@@ -74,19 +74,6 @@
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label class="col-md-2 control-label">Giá</label>
-                                        <div class="col-md-10">
-                                            <input class="form-control" value="" placeholder="" type="text" id="price" name="price">
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-md-2 control-label">Số lượng</label>
-                                        <div class="col-md-10">
-                                            <input class="form-control" value="" placeholder="" type="text" id="stock" name="stock">
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group">
                                         <label class="col-md-2 control-label">Hình ảnh</label>
                                         <div class="col-md-10">
                                             <input type="file" class="btn btn-default" id="images" name="images[]" multiple>
@@ -95,25 +82,15 @@
                                             </p>
                                         </div>
                                     </div>
-
                                     <div class="form-group">
                                         <label class="col-md-2 control-label">Danh mục</label>
                                         <div class="col-md-10">
-                                            <input class="form-control" value="" placeholder="" type="text" list="list" id="category_id" name="category_id">
+                                            <input class="form-control" placeholder="" type="text" list="list" id="category_id" name="category_id">
                                             <datalist id="list">
                                                 ?<?php foreach ($data as $category): ?>
                                                 <option value="<?= $category['id']; ?>"><?= $category['name']; ?></option>
                                             <?php endforeach; ?>
                                             </datalist>
-                                            <!-- <p class="note"><strong>Note:</strong> works in Chrome, Firefox, Opera and IE10.</p> -->
-                                        </div>
-
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label class="col-md-2 control-label">Mô tả</label>
-                                        <div class="col-md-10">
-                                            <textarea class="form-control" id="description_record" name="description_record"></textarea>
                                         </div>
                                     </div>
                                 </fieldset>

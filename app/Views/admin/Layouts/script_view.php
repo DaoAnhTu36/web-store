@@ -114,7 +114,7 @@
             },
             success: function(response) {
                 Toastify({
-                    text: response.message ?? 'tutv19',
+                    text: response.message ?? 'Thành công',
                     duration: 1500,
                 }).showToast();
             },
@@ -122,6 +122,10 @@
                 console.log('Error:', error);
             }
         });
+    }
+
+    function onDetailRecord(id) {
+
     }
 </script>
 <script>

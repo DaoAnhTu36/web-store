@@ -85,11 +85,10 @@ $routes->group('admin', function ($routes) {
         $routes->get('create', 'Admin\AccountController::create');
         $routes->post('save', 'Admin\AccountController::save');
         $routes->get('detail/(:num)', 'Admin\AccountController::detail/$1');
-        $routes->post('update/(:num)', 'Admin\AccountController::update/$1');
+        $routes->post('update', 'Admin\AccountController::update');
         $routes->get('delete/(:num)', 'Admin\AccountController::delete/$1');
         $routes->get('login', 'Admin\AccountController::login');
         $routes->get('logout', 'Admin\AccountController::logout');
         $routes->post('sign-in', 'Admin\AccountController::signIn');
-        $routes->post('change-status', 'Admin\AccountController::changeStatus');
     });
 });

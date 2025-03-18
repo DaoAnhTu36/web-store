@@ -1,13 +1,13 @@
 <?= $this->extend('admin/Layouts/main_view.php'); ?>
 <?= $this->section('content'); ?>
 <?php if (session()->getFlashdata('errors')): ?>
-    <div class="alert alert-danger">
+    <div id="flash-message" class="alert alert-danger">
         <?= implode('<br>', session()->getFlashdata('errors')); ?>
     </div>
 <?php endif; ?>
 
 <?php if (session()->getFlashdata('success')): ?>
-    <div class="alert alert-success">
+    <div id="flash-message" class="alert alert-success">
         <?= session()->getFlashdata('success'); ?>
     </div>
 <?php endif; ?>
@@ -81,6 +81,7 @@
                                     <th>Số điện thoại</th>
                                     <th>Địa chỉ</th>
                                     <th>Trạng thái</th>
+                                    <th>#</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -103,6 +104,11 @@
                                                 <?php } ?>
                                                 <span class="slider1"></span>
                                             </label>
+                                        </td>
+                                        <td class="action-icons">
+                                            <a href="<?= site_url('admin/account/detail/' . $item['id']); ?>" class="btn btn-info"><i class="fa fa-eye" aria-hidden="true"></i></a>
+                                            <a href="<?= site_url('admin/account/detail/' . $item['id']); ?>" class="btn btn-warning"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                                            <a href="<?= site_url('admin/account/delete/' . $item['id']); ?>" class="btn btn-danger" onclick="return confirm('Bạn có chắc muốn xóa?');"><i class="fa fa-trash" aria-hidden="true"></i></a>
                                         </td>
                                     </tr>
                                 <?php $idx++;

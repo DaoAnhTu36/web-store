@@ -12,24 +12,20 @@ class ProductModel extends Model
     protected $allowedFields = [
         'name',
         'category_id',
-        'description',
-        'price',
-        'stock',
         'created_at',
         'created_by',
         'updated_by',
-        'is_active'
+        'is_active',
+        'image',
     ];
 
     public function getProductsWithImages()
     {
         return $this->select("products.id
             , products.name
-            , products.price
-            , products.stock
-            , products.description
             , products.created_at
             , products.is_active
+            , products.image
             , categories.name AS category_name
             , GROUP_CONCAT(images.image_path SEPARATOR ', ') AS images")
             ->join('images', 'images.record_id = products.id', 'left')
@@ -49,12 +45,10 @@ class ProductModel extends Model
     {
         return $this->select("products.id
             , products.name
-            , products.price
-            , products.stock
-            , products.description
             , products.created_at
             , products.category_id
             , products.is_active
+            , products.image
             , GROUP_CONCAT(images.image_path SEPARATOR ', ') AS images")
             ->join('images', 'images.record_id = products.id', 'left')
             ->groupBy('products.id')
