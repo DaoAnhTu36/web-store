@@ -35,25 +35,33 @@
                                             <input class="form-control" value="" placeholder="" type="text" id="name" name="name">
                                         </div>
                                     </div>
-                                    <div class="form-group">
-                                        <label class="col-md-2 control-label">Danh sách quyền</label>
-                                        <div class="col-md-10">
-                                            <div class="row">
-                                                <?php foreach ($permissions as $permission): ?>
-                                                    <div class="col-md-3">
-                                                        <div class="row">
-                                                            <div class="col-sm-12 col-md-6 col-lg-6">
-                                                                <?= $permission['name'] ?>
-                                                            </div>
-                                                            <div class="col-sm-12 col-md-6 col-lg-6">
-                                                                <input class="form-control" value="<?= $permission['id'] ?>" placeholder="" type="checkbox" id="<?= $permission['id'] ?>" name="permission_id[]">
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                <?php endforeach ?>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    <table id="dt_basic" class="table table-striped table-bordered table-hover" width="100%">
+                                        <thead>
+                                            <tr>
+                                                <td>#</td>
+                                                <td>Tên quyền</td>
+                                                <td>Trạng thái</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <?php $idx = 1;
+                                            foreach ($permissions as $permission): ?>
+                                                <tr>
+                                                    <td><?= $idx ?></td>
+                                                    <td>
+                                                        <div class="col-md-12"><?= $permission['name'] ?></div>
+                                                    </td>
+                                                    <td>
+                                                        <label class="switch1">
+                                                            <input type="checkbox" value="<?= $permission['id'] ?>" id="<?= $permission['id'] ?>" name="permission_id[]">
+                                                            <span class="slider1"></span>
+                                                        </label>
+                                                    </td>
+                                                </tr>
+                                            <?php $idx++;
+                                            endforeach ?>
+                                        </tbody>
+                                    </table>
                                 </fieldset>
                                 <div class="form-actions">
                                     <div class="row">

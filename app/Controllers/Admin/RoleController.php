@@ -122,6 +122,7 @@ class RoleController extends BaseController
 
     public function delete($id)
     {
+        $this->rolePermissionModel->where('role_id', $id)->delete();
         $this->roleModel->delete($id);
         return redirect()->route('admin/role')->with('success', 'Xóa thành công');
     }

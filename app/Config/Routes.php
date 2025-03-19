@@ -99,6 +99,7 @@ $routes->group('admin', function ($routes) {
         $routes->post('save', 'Admin\RoleController::save');
         $routes->get('detail/(:num)', 'Admin\RoleController::detail/$1');
         $routes->post('update/(:num)', 'Admin\RoleController::update/$1');
+        $routes->get('delete/(:num)', 'Admin\RoleController::delete/$1');
     });
 
     $routes->group('permission', function ($routes) {

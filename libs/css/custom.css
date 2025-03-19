@@ -101,3 +101,8 @@
   position: fixed;
   right: 0;
 }
+
+.role-permission-area {
+  display: flex;
+  align-items: center;
+}
