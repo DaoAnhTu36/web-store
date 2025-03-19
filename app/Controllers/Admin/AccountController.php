@@ -133,7 +133,7 @@ class AccountController extends BaseController
                 "email" => $this->request->getPost('email'),
                 "phone" => $this->request->getPost('phone'),
                 "address" => $this->request->getPost('address'),
-                "role" => $this->request->getPost('role'),
+                "role_id" => $this->request->getPost('role_id'),
             ];
             $this->accountModel->update($id, $data);
             return $this->response->setJSON([

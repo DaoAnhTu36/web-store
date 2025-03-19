@@ -31,7 +31,6 @@ class AuthFilter implements FilterInterface
         $session = session();
         helper('cookie');
         $this->accountModel = new AccountModel();
-
         // Check if user is logged in
         if (!$session->get('is_logged_in')) {
             // Redirect to login page
@@ -59,6 +58,20 @@ class AuthFilter implements FilterInterface
             // }
             return redirect()->to('admin/account/login');
         }
+        // if ($arguments) {
+        //     $permission = $arguments[0]; // VD: 'delete_product'
+        //     $roleId = $session->get('role');
+        //     $db = \Config\Database::connect();
+        //     $result = $db->table('role_permissions')
+        //         ->join('permissions', 'permissions.id = role_permissions.permission_id')
+        //         ->where('role_permissions.role_id', $roleId)
+        //         // ->where('permissions.name', $permission)
+        //         ->get()
+        //         ->getRow();
+        //     if (!$result) {
+        //         return redirect()->back()->with('errors', 'Bạn không có quyền truy cập!');
+        //     }
+        // }
 
         // Nếu đã login, cho phép đi tiếp
     }

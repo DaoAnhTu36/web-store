@@ -115,6 +115,14 @@ $method = isset($path_array[2]) ? $path_array[2] : '';
                     </li>
                 </ul>
             </li>
+            <li>
+                <a title=""><i class="fa fa-lg fa-fw fa-cube"></i><span class="menu-item-parent">Cấu hình website</span></a>
+                <ul>
+                    <li class="<?= $controller == 'route' ? 'active open' : ''; ?>">
+                        <a href="<?= site_url('admin/route') ?>" title=""></i> <span class="menu-item-parent">Routes</span></a>
+                    </li>
+                </ul>
+            </li>
         </ul>
     </nav>
 

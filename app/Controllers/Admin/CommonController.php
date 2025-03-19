@@ -56,6 +56,9 @@ class CommonController extends BaseController
                     case 'role-permission/index':
                         $this->updateStatusCommon($id, 'role_permissions');
                         break;
+                    case 'route':
+                        $this->updateStatusCommon($id, 'routes');
+                        break;
                     default:
                         $result = false;
                         break;
