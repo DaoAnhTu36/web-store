@@ -27,12 +27,35 @@
                         <div class="jarviswidget-editbox">
                         </div>
                         <div class="widget-body">
-                            <form class="form-horizontal" action="<?= base_url(''); ?>" method="POST" enctype="multipart/form-data">
+                            <form class="form-horizontal" action="<?= base_url('admin/role-permission/save'); ?>" method="POST" enctype="multipart/form-data">
                                 <fieldset>
                                     <div class="form-group">
-                                        <label class="col-md-2 control-label"></label>
+                                        <label class="col-md-2 control-label">Vai trò/ chức vụ</label>
                                         <div class="col-md-10">
-                                            <input class="form-control" value="" placeholder="" type="text" id="" name="">
+                                            <select name="role_id" id="role_id" class="form-control">
+                                                <?php foreach ($roles as $role): ?>
+                                                    <option value="<?= $role['id'] ?>"><?= $role['name'] ?></option>
+                                                <?php endforeach ?>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-2 control-label">Danh sách quyền</label>
+                                        <div class="col-md-10">
+                                            <div class="row">
+                                                <?php foreach ($permissions as $permission): ?>
+                                                    <div class="col-md-3">
+                                                        <div class="row">
+                                                            <div class="col-sm-12 col-md-6 col-lg-6">
+                                                                <?= $permission['name'] ?>
+                                                            </div>
+                                                            <div class="col-sm-12 col-md-6 col-lg-6">
+                                                                <input class="form-control" value="<?= $permission['id'] ?>" placeholder="" type="checkbox" id="<?= $permission['id'] ?>" name="permission_id[]">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                <?php endforeach ?>
+                                            </div>
                                         </div>
                                     </div>
                                 </fieldset>

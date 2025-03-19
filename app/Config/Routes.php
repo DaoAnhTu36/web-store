@@ -117,5 +117,6 @@ $routes->group('admin', function ($routes) {
         $routes->post('save', 'Admin\RolePermissionController::save');
         $routes->get('detail/(:num)', 'Admin\RolePermissionController::detail/$1');
         $routes->post('update/(:num)', 'Admin\RolePermissionController::update/$1');
+        $routes->post('change-role-permission', 'Admin\RolePermissionController::changeRolePermission');
     });
 });

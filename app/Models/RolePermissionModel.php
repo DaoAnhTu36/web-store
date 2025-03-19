@@ -13,7 +13,8 @@ class RolePermissionModel extends Model
         'permission_id',
         'is_active',
         'created_by',
-        'updated_by'
+        'updated_by',
+        'updated_at'
     ];
     public $timestamps = false;
 }

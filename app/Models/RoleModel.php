@@ -13,7 +13,8 @@ class RoleModel extends Model
         'created_at',
         'is_active',
         'created_by',
-        'updated_by'
+        'updated_by',
+        'updated_at'
     ];
     public $timestamps = false;
 }

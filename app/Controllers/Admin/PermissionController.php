@@ -16,7 +16,7 @@ class PermissionController extends BaseController
 
     public function index()
     {
-        $data = $this->permissionModel->findAll();
+        $data = $this->permissionModel->orderBy('updated_at', 'desc')->findAll();
         $data_view = [
             'title' => 'Danh sách quyền hạn truy cập',
             'data' => $data,
