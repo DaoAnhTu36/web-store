@@ -41,7 +41,7 @@
                                     <td>Method</td>
                                     <td>Uri</td>
                                     <td>Controller</td>
-                                    <td>Filters</td>
+                                    <td>Permission ID</td>
                                     <td>Status</td>
                                     <td>#</td>
                                 </tr>
@@ -55,7 +55,7 @@
                                         <td><?= $item['method'] ?></td>
                                         <td><?= $item['uri'] ?></td>
                                         <td><?= $item['controller'] ?></td>
-                                        <td><?= $item['filters'] ?></td>
+                                        <td><?= $item['permission_id'] ?></td>
                                         <td>
                                             <label class="switch1">
                                                 <?php if ($item['is_active']) { ?>

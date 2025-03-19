@@ -22,6 +22,7 @@ class RouteModel extends Model
         'is_group',
         'parent_id',
         'level',
+        'permission_id',
     ];
 
     protected $useTimestamps = true;
@@ -32,11 +33,11 @@ class RouteModel extends Model
 
     public function renderRoute()
     {
-        $routes = $this->findAll();
+        $routes = $this->where('is_active', 1)->findAll();
         $tree = $this->buildTree($routes);
-        // echo "<pre>";
-        // print_r($tree);
-        // echo "</pre>";
+        // echo '<pre>';
+        // print_r($routes);
+        // echo '</pre>';
         return $tree;
     }
 

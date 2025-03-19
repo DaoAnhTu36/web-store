@@ -59,8 +59,8 @@
                                     </div>
                                     <div class="form-group">
                                         <label class="col-md-2 control-label">Is group</label>
-                                        <div class="col-md-2">
-                                            <input class="form-control" value="1" placeholder="" type="checkbox" id="is_group" name="is_group">
+                                        <div class="col-md-10">
+                                            <input value="1" placeholder="" type="checkbox" id="is_group" name="is_group">
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -74,8 +74,20 @@
                                         <div class="col-md-10">
                                             <select name="parent_id" id="parent_id" class="form-control">
                                                 <?php foreach ($data as $item) : ?>
-                                                    <option value="<?= $item['id'] ?>"><?= $item['controller'] ?> - <?= $item['uri'] ?></option>
+                                                    <option value="<?= $item['id'] ?>"><?= $item['uri'] ?></option>
                                                 <?php endforeach; ?>
+                                                <option value="">Empty</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-2 control-label">Permission ID</label>
+                                        <div class="col-md-10">
+                                            <select name="permission_id" id="permission_id" class="form-control">
+                                                <?php foreach ($permissions as $item) : ?>
+                                                    <option value="<?= $item['id'] ?>"><?= $item['name'] ?></option>
+                                                <?php endforeach; ?>
+                                                <option value="">Empty</option>
                                             </select>
                                         </div>
                                     </div>

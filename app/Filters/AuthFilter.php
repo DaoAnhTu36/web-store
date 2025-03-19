@@ -58,6 +58,9 @@ class AuthFilter implements FilterInterface
             // }
             return redirect()->to('admin/account/login');
         }
+        // echo "<pre>";
+        // print_r($arguments);
+        // echo "</pre>";
         // if ($arguments) {
         //     $permission = $arguments[0]; // VD: 'delete_product'
         //     $roleId = $session->get('role');
@@ -72,8 +75,6 @@ class AuthFilter implements FilterInterface
         //         return redirect()->back()->with('errors', 'Bạn không có quyền truy cập!');
         //     }
         // }
-
-        // Nếu đã login, cho phép đi tiếp
     }
 
     /**

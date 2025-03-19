@@ -32,7 +32,16 @@
                                     <div class="form-group">
                                         <label class="col-md-2 control-label">Method</label>
                                         <div class="col-md-10">
-                                            <input class="form-control" value="<?= $data['method'] ?>" placeholder="" type="text" id="method" name="method">
+                                            <select name="method" id="method" class="form-control">
+                                                <?php if ("POST" === $data['method']) { ?>
+                                                    <option selected value="POST">POST</option>
+                                                    <option value="GET">GET</option>
+                                                <?php } else if ("GET" === $data['method']) { ?>
+                                                    <option value="POST">POST</option>
+                                                    <option selected value="GET">GET</option>
+                                                <?php } ?>
+                                                <option value="">Empty</option>
+                                            </select>
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -47,10 +56,67 @@
                                             <input class="form-control" value="<?= $data['controller'] ?>" placeholder="" type="text" id="controller" name="controller">
                                         </div>
                                     </div>
-                                    <div class="form-group">
+                                    <!-- <div class="form-group">
                                         <label class="col-md-2 control-label">Filters</label>
                                         <div class="col-md-10">
                                             <input class="form-control" value="<?= $data['filters'] ?>" placeholder="" type="text" id="filters" name="filters">
+                                        </div>
+                                    </div> -->
+
+                                    <div class="form-group">
+                                        <label class="col-md-2 control-label">Is group</label>
+                                        <div class="col-md-10">
+                                            <?php if ($data['is_group']) { ?>
+                                                <input value="1" checked placeholder="" type="checkbox" id="is_group" name="is_group">
+                                            <?php } else { ?>
+                                                <input value="1" placeholder="" type="checkbox" id="is_group" name="is_group">
+                                            <?php } ?>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-2 control-label">Is active</label>
+                                        <div class="col-md-10">
+                                            <?php if ($data['is_active']) { ?>
+                                                <input value="1" checked placeholder="" type="checkbox" id="is_active" name="is_active">
+                                            <?php } else { ?>
+                                                <input value="1" placeholder="" type="checkbox" id="is_active" name="is_active">
+                                            <?php } ?>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-2 control-label">Level</label>
+                                        <div class="col-md-10">
+                                            <input class="form-control" value="<?= $data['level'] ?>" placeholder="" type="text" id="level" name="level">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-2 control-label">Parent ID</label>
+                                        <div class="col-md-10">
+                                            <select name="parent_id" id="parent_id" class="form-control">
+                                                <option value="">Empty</option>
+                                                <?php foreach ($routes as $item) : ?>
+                                                    <?php if ($item['id'] === $data['parent_id']) { ?>
+                                                        <option selected value="<?= $item['id'] ?>"><?= $item['uri'] ?></option>
+                                                    <?php } else { ?>
+                                                        <option value="<?= $item['id'] ?>"><?= $item['uri'] ?></option>
+                                                    <?php } ?>
+                                                <?php endforeach; ?>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-2 control-label">Permission ID</label>
+                                        <div class="col-md-10">
+                                            <select name="permission_id" id="permission_id" class="form-control">
+                                                <option value="">Empty</option>
+                                                <?php foreach ($permissions as $item) : ?>
+                                                    <?php if ($item['id'] === $data['permission_id']) { ?>
+                                                        <option selected value="<?= $item['id'] ?>"><?= $item['name'] ?></option>
+                                                    <?php } else { ?>
+                                                        <option value="<?= $item['id'] ?>"><?= $item['name'] ?></option>
+                                                    <?php } ?>
+                                                <?php endforeach; ?>
+                                            </select>
                                         </div>
                                     </div>
                                 </fieldset>

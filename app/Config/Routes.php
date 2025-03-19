@@ -9,37 +9,51 @@ use App\Models\RouteModel;
 
 $routeModel = new RouteModel();
 $routesConfigs = $routeModel->renderRoute();
-function registerRoutes($routes, $configs)
+function registerRoutes($routes, $configs, $depth = 0, $maxDepth = 10)
 {
+    if ($depth > $maxDepth) {
+        return;
+    }
+
     foreach ($configs as $config) {
-        if ($config['is_group']) {
-            $routes->group($config['uri'], function ($routes) use ($config) {
-                if (!empty($config['children'])) {
-                    registerRoutes($routes, $config['children']);
+        if (isset($config['is_group']) && $config['is_group']) {
+            $routes->group($config['uri'], function ($routes) use ($config, $depth, $maxDepth) {
+                if (isset($config['children']) && is_array($config['children']) && !empty($config['children'])) {
+                    registerRoutes($routes, $config['children'], $depth + 1, $maxDepth);
                 }
             });
         } else {
-            $method = strtolower($config['method']);
+            $method = strtolower($config['method'] ?? 'get');
+            $options = [];
+
+            if (!empty($config['filters'])) {
+                $options['filter'] = 'auth:' . $config['filters'];
+            }
+
             switch ($method) {
                 case 'get':
-                    $routes->get($config['uri'], $config['controller']);
+                    $routes->get($config['uri'], $config['controller'], $options);
                     break;
                 case 'post':
-                    $routes->post($config['uri'], $config['controller']);
+                    $routes->post($config['uri'], $config['controller'], $options);
                     break;
                 case 'put':
-                    $routes->put($config['uri'], $config['controller']);
+                    $routes->put($config['uri'], $config['controller'], $options);
                     break;
                 case 'delete':
-                    $routes->delete($config['uri'], $config['controller']);
+                    $routes->delete($config['uri'], $config['controller'], $options);
                     break;
                 default:
                     break;
             }
         }
+
+        unset($config);
     }
 }
+
 registerRoutes($routes, $routesConfigs);
+
 
 
 // $routes->get('/', 'Portal\HomeController::index');
