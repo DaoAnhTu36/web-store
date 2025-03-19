@@ -88,10 +88,9 @@
                                             </label>
                                         </td>
                                         <td class="action-icons">
-                                            <a href="<?= site_url('admin/transaction/detail/' . $item['id']); ?>" class="btn btn-default"><i class="fa fa-eye" aria-hidden="true"></i></a>
-                                            <a href="<?= site_url('admin/transaction/detail/' . $item['id']); ?>" class="btn btn-default"><i class="fa fa-pencil" aria-hidden="true"></i></a>
-                                            <a href="<?= site_url('admin/transaction/delete/' . $item['id']); ?>" class="btn btn-default" onclick="return confirm('Bạn có chắc muốn xóa?');"><i class="fa fa-trash" aria-hidden="true"></i></a>
-
+                                            <a href="<?= site_url('admin/transaction/detail/' . $item['id']); ?>" class="btn btn-info"><i class="fa fa-eye" aria-hidden="true"></i></a>
+                                            <a href="<?= site_url('admin/transaction/detail/' . $item['id']); ?>" class="btn btn-warning"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                                            <a href="<?= site_url('admin/transaction/delete/' . $item['id']); ?>" class="btn btn-danger" onclick="return confirm('Bạn có chắc muốn xóa?');"><i class="fa fa-trash" aria-hidden="true"></i></a>
                                         </td>
                                     </tr>
                                 <?php $idx++;
