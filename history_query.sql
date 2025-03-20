@@ -75,3 +75,7 @@ MODIFY COLUMN parent_id INT NULL,
 MODIFY COLUMN level INT NULL;
 ALTER TABLE routes
 ADD COLUMN permission_id INT(11) COLLATE utf8_general_ci NOT NULL;
+
+-- 20250320
+ALTER TABLE accounts
+DROP COLUMN role;

@@ -2,7 +2,7 @@
 <?= $this->section('content'); ?>
 <?php if (session()->getFlashdata('errors')): ?>
     <div id="flash-message" class="alert alert-danger">
-        <?= implode('<br>', session()->getFlashdata('errors')); ?>
+        <?= session()->getFlashdata('errors'); ?>
     </div>
 <?php endif; ?>
 
@@ -36,7 +36,7 @@
                         <div class="jarviswidget-editbox">
                         </div>
                         <div class="widget-body">
-                            <form class="form-horizontal" method="POST" enctype="multipart/form-data">
+                            <form class="form-horizontal" action="<?= base_url('admin/account/update/' . $data['id']) ?>" method="POST" enctype="multipart/form-data">
                                 <fieldset>
                                     <div class="form-group">
                                         <label class="col-md-2 control-label">Họ và tên</label>
@@ -77,9 +77,14 @@
                                     <div class="form-group">
                                         <label class="col-md-2 control-label">Vai trò</label>
                                         <div class="col-md-10">
-                                            <select name="role" id="role" class="form-control">
-                                                <option value="customer">Người dùng</option>
-                                                <option value="admin">Quản trị viên</option>
+                                            <select name="role_id" id="role_id" class="form-control">
+                                                <?php foreach ($roles as $role): ?>
+                                                    <?php if ($role['id'] == $data['role_id']): ?>
+                                                        <option selected value="<?= $role['id'] ?>"><?= $role['name'] ?></option>
+                                                    <?php else: ?>
+                                                        <option value="<?= $role['id'] ?>"><?= $role['name'] ?></option>
+                                                    <?php endif ?>
+                                                <?php endforeach ?>
                                             </select>
                                         </div>
                                     </div>
@@ -90,7 +95,7 @@
                                             <button class="btn btn-default" type="button" onclick="window.history.back();">
                                                 Hủy
                                             </button>
-                                            <button class="btn btn-primary" type="button" onclick="onSubmit(<?= $data['id'] ?>)">
+                                            <button class="btn btn-primary" type="submit">
                                                 <i class="fa fa-save"></i>
                                                 Cập nhật
                                             </button>
@@ -115,55 +120,4 @@
     <!-- end widget grid -->
 </div>
 <!-- END MAIN CONTENT -->
-<script>
-    function onSubmit(id) {
-        let full_name = $("#full_name").val();
-        let user_name = $("#user_name").val();
-        let password = $("#password").val();
-        let email = $("#email").val();
-        let phone = $("#phone").val();
-        let address = $("#address").val();
-        let role = $("#role").val();
-        if (!full_name || !user_name || !password || !email || !phone || !address || !role) {
-            Toastify({
-                text: 'Vui lòng điền đầy đủ thông tin',
-                duration: 1500,
-            }).showToast();
-            return;
-        }
-        $.ajax({
-            url: '<?= base_url('admin/account/update') ?>',
-            type: 'POST',
-            data: {
-                full_name,
-                user_name,
-                password,
-                email,
-                phone,
-                address,
-                role,
-                id
-            },
-            success: function(response) {
-                if (response.status == 'fail') {
-                    Toastify({
-                        text: response.message,
-                        duration: 1500,
-                    }).showToast();
-                } else {
-                    Toastify({
-                        text: response.message,
-                        duration: 1500,
-                        callback: function() {
-                            window.history.back();
-                        }
-                    }).showToast();
-                }
-            },
-            error: function(xhr, status, error) {
-                console.log('Error:', error);
-            }
-        });
-    }
-</script>
 <?= $this->endSection(); ?>

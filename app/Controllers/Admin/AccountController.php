@@ -4,42 +4,37 @@ namespace App\Controllers\Admin;
 
 use App\Controllers\BaseController;
 use App\Models\AccountModel;
+use App\Models\RoleModel;
 
 class AccountController extends BaseController
 {
     protected $accountModel;
+    protected $roleModel;
 
     public function __construct()
     {
         helper("common");
         $this->accountModel = new AccountModel();
+        $this->roleModel = new RoleModel();
     }
 
-    public function customerList()
+    public function index()
     {
-        $data = $this->accountModel->getAllAccountByRole("customer");
-        $data_view = [
-            "title" => "Danh sách người dùng",
-            "data" => $data,
-        ];
-
-        return view("admin/account_view/customer_list_view", $data_view);
-    }
-    public function administratorList()
-    {
-        $data = $this->accountModel->getAllAccountByRole("admin");
+        $data = $this->accountModel->orderBy('created_at', 'desc')->findAll();
         $data_view = [
             "title" => "Danh sách quản trị viên",
             "data" => $data,
         ];
 
-        return view("admin/account_view/administrator_list_view", $data_view);
+        return view("admin/account_view/index_view", $data_view);
     }
 
     public function create()
     {
+        $roles = $this->roleModel->where('is_active', 1)->findAll();
         $data_view = [
             "title" => "Thêm mới người dùng",
+            "roles" => $roles,
         ];
 
         return view("admin/account_view/create_view", $data_view);
@@ -47,27 +42,17 @@ class AccountController extends BaseController
 
     public function save()
     {
-        try {
-            $data = [
-                "full_name" => $this->request->getPost('full_name'),
-                "user_name" => $this->request->getPost('user_name'),
-                "password" => password_hash($this->request->getPost('password'), PASSWORD_DEFAULT),
-                "email" => $this->request->getPost('email'),
-                "phone" => $this->request->getPost('phone'),
-                "address" => $this->request->getPost('address'),
-                "role" => $this->request->getPost('role'),
-            ];
-            $this->accountModel->save($data);
-            return $this->response->setJSON([
-                'status' => 'success',
-                'message' => 'Thêm mới người dùng thành công',
-            ]);
-        } catch (\Throwable $th) {
-            return $this->response->setJSON([
-                'status' => 'fail',
-                'message' => $th->getMessage(),
-            ]);
-        }
+        $data = [
+            "full_name" => $this->request->getPost('full_name'),
+            "user_name" => $this->request->getPost('user_name'),
+            "password" => password_hash($this->request->getPost('password'), PASSWORD_DEFAULT),
+            "email" => $this->request->getPost('email'),
+            "phone" => $this->request->getPost('phone'),
+            "address" => $this->request->getPost('address'),
+            "role_id" => $this->request->getPost('role_id'),
+        ];
+        $this->accountModel->save($data);
+        return redirect()->to('admin/account')->with('success', 'Thêm mới tài khoản thành công');
     }
 
     public function login()
@@ -87,7 +72,7 @@ class AccountController extends BaseController
         $remember = $this->request->getPost('remember');
         $user_name = $this->request->getPost('user_name');
         $password = $this->request->getPost('password');
-        $user = $this->accountModel->where('user_name', $user_name)->where('role', 'admin')->first();
+        $user = $this->accountModel->where('user_name', $user_name)->first();
         if ($user && password_verify($password, $user['password'])) {
             $session = session();
             $session->set([
@@ -97,7 +82,7 @@ class AccountController extends BaseController
                 'email' => $user['email'],
                 'phone' => $user['phone'],
                 'address' => $user['address'],
-                'role' => $user['role'],
+                'role_id' => $user['role_id'],
                 'full_name' => $user['full_name'],
             ]);
 
@@ -114,38 +99,31 @@ class AccountController extends BaseController
 
     public function detail($id)
     {
+        $roles = $this->roleModel->where('is_active', 1)->findAll();
         $data = $this->accountModel->where('id', $id)->first();
         $data_view = [
             'title' => 'Thông tin chi tiết',
             'data' => $data,
+            'roles' => $roles,
         ];
         return view('admin/account_view/detail_view', $data_view);
     }
 
-    public function update()
+    public function update($id)
     {
-        try {
-            $id = $this->request->getPost('id');
-            $data = [
-                "full_name" => $this->request->getPost('full_name'),
-                "user_name" => $this->request->getPost('user_name'),
-                "password" => password_hash($this->request->getPost('password'), PASSWORD_DEFAULT),
-                "email" => $this->request->getPost('email'),
-                "phone" => $this->request->getPost('phone'),
-                "address" => $this->request->getPost('address'),
-                "role_id" => $this->request->getPost('role_id'),
-            ];
-            $this->accountModel->update($id, $data);
-            return $this->response->setJSON([
-                'status' => 'success',
-                'message' => 'Cập nhật thông tin người dùng thành công',
-            ]);
-        } catch (\Throwable $th) {
-            return $this->response->setJSON([
-                'status' => 'fail',
-                'message' => $th->getMessage(),
-            ]);
+        $data = [
+            "full_name" => $this->request->getPost('full_name'),
+            "user_name" => $this->request->getPost('user_name'),
+            "email" => $this->request->getPost('email'),
+            "phone" => $this->request->getPost('phone'),
+            "address" => $this->request->getPost('address'),
+            "role_id" => $this->request->getPost('role_id'),
+        ];
+        if ($this->request->getPost('password')) {
+            $data['password'] = password_hash($this->request->getPost('password'), PASSWORD_DEFAULT);
         }
+        $this->accountModel->update($id, $data);
+        return redirect()->to('admin/account')->with('success', 'Cập nhật thông tin thành công');
     }
 
     public function delete($id)

@@ -93,16 +93,8 @@ $method = isset($path_array[2]) ? $path_array[2] : '';
             <li class="<?= $controller == 'supplier' ? 'active' : ''; ?>">
                 <a href="<?= site_url('admin/supplier') ?>" title=""><i class="fa fa-lg fa-fw fa-cube"></i><span class="menu-item-parent">Nhà cung cấp</span></a>
             </li>
-            <li>
-                <a title=""><i class="fa fa-lg fa-fw fa-cube"></i><span class="menu-item-parent">Quản lý tài khoản</span></a>
-                <ul>
-                    <li class="<?= $controller == 'account' && $method == 'customer-list' ? 'active open' : ''; ?>">
-                        <a href="<?= site_url('admin/account/customer-list') ?>" title=""></i> <span class="menu-item-parent">Người dùng</span></a>
-                    </li>
-                    <li class="<?= $controller == 'account' && $method == 'administrator-list' ? 'active open' : ''; ?>">
-                        <a href="<?= site_url('admin/account/administrator-list') ?>" title=""></i> <span class="menu-item-parent">Quản trị viên</span></a>
-                    </li>
-                </ul>
+            <li class="<?= $controller == 'account' ? 'active' : ''; ?>">
+                <a href="<?= site_url('admin/account') ?>" title=""><i class="fa fa-lg fa-fw fa-cube"></i><span class="menu-item-parent">Quản trị viên</span></a>
             </li>
             <li>
                 <a title=""><i class="fa fa-lg fa-fw fa-cube"></i><span class="menu-item-parent">Quản lý quyền truy cập</span></a>

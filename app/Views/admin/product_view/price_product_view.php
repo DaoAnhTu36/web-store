@@ -2,7 +2,7 @@
 <?= $this->section('content'); ?>
 <?php if (session()->getFlashdata('errors')): ?>
     <div id="flash-message" class="alert alert-danger">
-        <?= implode('<br>', session()->getFlashdata('errors')); ?>
+        <?= session()->getFlashdata('errors'); ?>
     </div>
 <?php endif; ?>
 

@@ -25,7 +25,7 @@ class RouteController extends BaseController
             'title' => 'Danh sách route',
             'data' => $data,
         ];
-        return view('admin/route_view/index_view', $data_view);
+        // return view('admin/route_view/index_view', $data_view);
     }
 
     public function create()

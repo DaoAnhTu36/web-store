@@ -6,10 +6,20 @@ use CodeIgniter\Filters\FilterInterface;
 use CodeIgniter\HTTP\RequestInterface;
 use CodeIgniter\HTTP\ResponseInterface;
 use App\Models\AccountModel;
+use App\Models\RolePermissionModel;
 
 class AuthFilter implements FilterInterface
 {
     protected $accountModel;
+    protected $rolePermissionModel;
+
+    public function __construct()
+    {
+        helper('cookie');
+        helper('common');
+        $this->accountModel = new AccountModel();
+        $this->rolePermissionModel = new RolePermissionModel();
+    }
     /**
      * Do whatever processing this filter needs to do.
      * By default it should not return anything during
@@ -29,8 +39,6 @@ class AuthFilter implements FilterInterface
     {
         //
         $session = session();
-        helper('cookie');
-        $this->accountModel = new AccountModel();
         // Check if user is logged in
         if (!$session->get('is_logged_in')) {
             // Redirect to login page
@@ -58,23 +66,19 @@ class AuthFilter implements FilterInterface
             // }
             return redirect()->to('admin/account/login');
         }
-        // echo "<pre>";
-        // print_r($arguments);
-        // echo "</pre>";
-        // if ($arguments) {
-        //     $permission = $arguments[0]; // VD: 'delete_product'
-        //     $roleId = $session->get('role');
-        //     $db = \Config\Database::connect();
-        //     $result = $db->table('role_permissions')
-        //         ->join('permissions', 'permissions.id = role_permissions.permission_id')
-        //         ->where('role_permissions.role_id', $roleId)
-        //         // ->where('permissions.name', $permission)
-        //         ->get()
-        //         ->getRow();
-        //     if (!$result) {
-        //         return redirect()->back()->with('errors', 'Bạn không có quyền truy cập!');
-        //     }
-        // }
+        if ($arguments) {
+            $permission = $arguments[0]; // VD: 'delete_product'
+            $roleId = $session->get('role_id');
+            $rolePermissions = $this->rolePermissionModel->select('permission_id')->where('role_id', $roleId)->findAll();
+            $permission_array = [];
+            foreach ($rolePermissions as $value) {
+                array_push($permission_array, $value['permission_id']);
+            }
+            EchoCommon($permission_array);
+            if (empty($rolePermissions) || !in_array($permission, $rolePermissions)) {
+                return redirect()->back()->with('errors', 'Bạn không có quyền truy cập');
+            }
+        }
     }
 
     /**

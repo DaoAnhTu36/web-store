@@ -15,7 +15,6 @@ class AccountModel extends Model
         'password',
         'phone',
         'address',
-        'role',
         'status',
         'user_name',
         'created_by',
@@ -24,10 +23,9 @@ class AccountModel extends Model
         'role_id'
     ];
 
-    public function getAllAccountByRole($role)
+    public function getAllAccount()
     {
         return $this
-            ->where('role', $role)
             ->findAll();
     }
 

@@ -26,8 +26,8 @@ function registerRoutes($routes, $configs, $depth = 0, $maxDepth = 10)
             $method = strtolower($config['method'] ?? 'get');
             $options = [];
 
-            if (!empty($config['filters'])) {
-                $options['filter'] = 'auth:' . $config['filters'];
+            if (!empty($config['permission_id'])) {
+                $options['filter'] = 'auth:' . $config['permission_id'];
             }
 
             switch ($method) {
@@ -54,29 +54,15 @@ function registerRoutes($routes, $configs, $depth = 0, $maxDepth = 10)
 
 registerRoutes($routes, $routesConfigs);
 
-
-
 // $routes->get('/', 'Portal\HomeController::index');
 // $routes->get('/home', 'Portal\HomeController::index');
 // $routes->post('/upload', 'Admin\UploadController::uploadImage');
 // $routes->get('/manager-file', 'Admin\UploadController::managerFile');
+
 // $routes->group('portal', function ($routes) {
 //     $routes->get('/', 'Portal\HomeController::index');
 //     $routes->get('product/detail_product/(:num)', 'Portal\ProductController::detail_product/$1');
 // });
-// foreach ($query->getResult() as $route) {
-//     $options = [];
-//     if (!empty($route->filters)) {
-//         $options['filter'] = $route->filters;
-//     }
-//     if($route['is_group']){
-
-//     }
-//     $routes->group('route', function ($routes) {
-
-// });
-//     $routes->{$route->method}($route->uri, $route->controller, $options);
-// }
 
 // $routes->group('admin', function ($routes) {
 //     $routes->get('/', 'Admin\DashboardController::index');
@@ -85,6 +71,7 @@ registerRoutes($routes, $routesConfigs);
 //     $routes->group('common', function ($routes) {
 //         $routes->post('change-status', 'Admin\CommonController::changeStatusRecordCommon');
 //     });
+
 //     $routes->group('warehouse', function ($routes) {
 //         $routes->get('/', 'Admin\WarehouseController::index');
 //         $routes->get('create', 'Admin\WarehouseController::create');
@@ -93,6 +80,7 @@ registerRoutes($routes, $routesConfigs);
 //         $routes->post('update/(:num)', 'Admin\WarehouseController::update/$1');
 //         $routes->get('delete/(:num)', 'Admin\WarehouseController::delete/$1');
 //     });
+
 //     $routes->group('product', function ($routes) {
 //         $routes->get('/', 'Admin\ProductController::index');
 //         $routes->get('create', 'Admin\ProductController::create');
@@ -104,6 +92,7 @@ registerRoutes($routes, $routesConfigs);
 //         $routes->get('price-management', 'Admin\ProductController::priceProductManagement');
 //         $routes->get('discount-management', 'Admin\ProductController::discountProductManagement');
 //     });
+
 //     $routes->group('category', function ($routes) {
 //         $routes->get('/', 'Admin\CategoryController::index');
 //         $routes->get('create', 'Admin\CategoryController::create');
@@ -112,9 +101,11 @@ registerRoutes($routes, $routesConfigs);
 //         $routes->post('update/(:num)', 'Admin\CategoryController::update/$1');
 //         $routes->get('delete/(:num)', 'Admin\CategoryController::delete/$1');
 //     });
+
 //     $routes->group('order', function ($routes) {
 //         $routes->get('', 'Admin\OrderController::indexView');
 //     });
+
 //     $routes->group('transaction', function ($routes) {
 //         $routes->get('create', 'Admin\TransactionController::create');
 //         $routes->post('save', 'Admin\TransactionController::save');
@@ -144,12 +135,12 @@ registerRoutes($routes, $routesConfigs);
 //     });
 
 //     $routes->group('account', function ($routes) {
-//         $routes->get('customer-list', 'Admin\AccountController::customerList');
-//         $routes->get('administrator-list', 'Admin\AccountController::administratorList');
+//         $routes->get('', 'Admin\AccountController::index');
+//         $routes->get('index', 'Admin\AccountController::index');
 //         $routes->get('create', 'Admin\AccountController::create');
 //         $routes->post('save', 'Admin\AccountController::save');
 //         $routes->get('detail/(:num)', 'Admin\AccountController::detail/$1');
-//         $routes->post('update', 'Admin\AccountController::update');
+//         $routes->post('update/(:num)', 'Admin\AccountController::update/$1');
 //         $routes->get('delete/(:num)', 'Admin\AccountController::delete/$1');
 //         $routes->get('login', 'Admin\AccountController::login');
 //         $routes->get('logout', 'Admin\AccountController::logout');
@@ -165,7 +156,6 @@ registerRoutes($routes, $routesConfigs);
 //         $routes->post('update/(:num)', 'Admin\RoleController::update/$1');
 //         $routes->get('delete/(:num)', 'Admin\RoleController::delete/$1');
 //     });
-
 
 //     $routes->group('permission', function ($routes) {
 //         $routes->get('', 'Admin\PermissionController::index');
