@@ -67,15 +67,17 @@ class AuthFilter implements FilterInterface
             return redirect()->to('admin/account/login');
         }
         if ($arguments) {
-            $permission = $arguments[0]; // VD: 'delete_product'
+            $permission = $arguments[0];
             $roleId = $session->get('role_id');
             $rolePermissions = $this->rolePermissionModel->select('permission_id')->where('role_id', $roleId)->findAll();
+            if (empty($rolePermissions) || count($rolePermissions) == 0) {
+                return redirect()->back()->with('errors', 'Bạn không có quyền truy cập');
+            }
             $permission_array = [];
             foreach ($rolePermissions as $value) {
                 array_push($permission_array, $value['permission_id']);
             }
-            EchoCommon($permission_array);
-            if (empty($rolePermissions) || !in_array($permission, $rolePermissions)) {
+            if (!in_array($permission, $permission_array)) {
                 return redirect()->back()->with('errors', 'Bạn không có quyền truy cập');
             }
         }

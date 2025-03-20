@@ -25,30 +25,49 @@ function registerRoutes($routes, $configs, $depth = 0, $maxDepth = 10)
         } else {
             $method = strtolower($config['method'] ?? 'get');
             $options = [];
+            $ignore_uri = ['login', 'logout', 'sign-in'];
+            $ignore_controller = ['Portal\HomeController::index'];
 
-            if (!empty($config['permission_id'])) {
-                $options['filter'] = 'auth:' . $config['permission_id'];
-            }
+            if (in_array($config['uri'], $ignore_uri) || in_array($config['controller'], $ignore_controller)) {
+                switch ($method) {
+                    case 'get':
+                        $routes->get($config['uri'], $config['controller']);
+                        break;
+                    case 'post':
+                        $routes->post($config['uri'], $config['controller']);
+                        break;
+                    case 'put':
+                        $routes->put($config['uri'], $config['controller']);
+                        break;
+                    case 'delete':
+                        $routes->delete($config['uri'], $config['controller']);
+                        break;
+                    default:
+                        break;
+                }
+            } else {
+                if (!empty($config['permission_id'])) {
+                    $options['filter'] = 'auth:' . $config['permission_id'];
+                }
 
-            switch ($method) {
-                case 'get':
-                    $routes->get($config['uri'], $config['controller'], $options);
-                    break;
-                case 'post':
-                    $routes->post($config['uri'], $config['controller'], $options);
-                    break;
-                case 'put':
-                    $routes->put($config['uri'], $config['controller'], $options);
-                    break;
-                case 'delete':
-                    $routes->delete($config['uri'], $config['controller'], $options);
-                    break;
-                default:
-                    break;
+                switch ($method) {
+                    case 'get':
+                        $routes->get($config['uri'], $config['controller'], $options);
+                        break;
+                    case 'post':
+                        $routes->post($config['uri'], $config['controller'], $options);
+                        break;
+                    case 'put':
+                        $routes->put($config['uri'], $config['controller'], $options);
+                        break;
+                    case 'delete':
+                        $routes->delete($config['uri'], $config['controller'], $options);
+                        break;
+                    default:
+                        break;
+                }
             }
         }
-
-        unset($config);
     }
 }
 

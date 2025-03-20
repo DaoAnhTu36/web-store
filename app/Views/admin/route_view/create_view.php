@@ -83,12 +83,12 @@
                                     <div class="form-group">
                                         <label class="col-md-2 control-label">Permission ID</label>
                                         <div class="col-md-10">
-                                            <select name="permission_id" id="permission_id" class="form-control">
+                                            <input type="text" name="permission_id" id="permission_id" class="form-control" list="permissions">
+                                            <datalist id="permissions">
                                                 <?php foreach ($permissions as $item) : ?>
                                                     <option value="<?= $item['id'] ?>"><?= $item['name'] ?></option>
                                                 <?php endforeach; ?>
-                                                <option value="">Empty</option>
-                                            </select>
+                                            </datalist>
                                         </div>
                                     </div>
                                 </fieldset>

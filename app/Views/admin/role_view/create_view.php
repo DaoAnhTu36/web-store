@@ -32,7 +32,7 @@
                                     <div class="form-group">
                                         <label class="col-md-2 control-label">Tên vai trò, chức vụ</label>
                                         <div class="col-md-10">
-                                            <input class="form-control" value="" placeholder="" type="text" id="name" name="name">
+                                            <input autofocus class="form-control" value="" placeholder="" type="text" id="name" name="name">
                                         </div>
                                     </div>
                                     <table id="dt_basic" class="table table-striped table-bordered table-hover" width="100%">

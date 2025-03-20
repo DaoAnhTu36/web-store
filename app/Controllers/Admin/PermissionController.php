@@ -38,7 +38,7 @@ class PermissionController extends BaseController
             'name' => $this->request->getPost('name'),
         ];
         $this->permissionModel->save($data);
-        return redirect('admin/permission')->with('success', 'Thêm mới quyền hạn thành công');
+        return redirect('admin/permission/create')->with('success', 'Thêm mới quyền hạn thành công');
     }
 
     public function detail($id)

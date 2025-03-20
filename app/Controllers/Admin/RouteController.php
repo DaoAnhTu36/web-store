@@ -20,12 +20,12 @@ class RouteController extends BaseController
 
     public function index()
     {
-        $data = $this->routeModel->orderBy('updated_at', 'desc')->findAll();
+        $data = $this->routeModel->orderBy('permission_id', 'asc')->findAll();
         $data_view = [
             'title' => 'Danh sách route',
             'data' => $data,
         ];
-        // return view('admin/route_view/index_view', $data_view);
+        return view('admin/route_view/index_view', $data_view);
     }
 
     public function create()

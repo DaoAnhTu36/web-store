@@ -107,16 +107,12 @@
                                     <div class="form-group">
                                         <label class="col-md-2 control-label">Permission ID</label>
                                         <div class="col-md-10">
-                                            <select name="permission_id" id="permission_id" class="form-control">
-                                                <option value="">Empty</option>
+                                            <input type="text" value="<?= $data['permission_id'] ?>" name="permission_id" id="permission_id" class="form-control" list="permissions">
+                                            <datalist id="permissions">
                                                 <?php foreach ($permissions as $item) : ?>
-                                                    <?php if ($item['id'] === $data['permission_id']) { ?>
-                                                        <option selected value="<?= $item['id'] ?>"><?= $item['name'] ?></option>
-                                                    <?php } else { ?>
-                                                        <option value="<?= $item['id'] ?>"><?= $item['name'] ?></option>
-                                                    <?php } ?>
+                                                    <option value="<?= $item['id'] ?>"><?= $item['name'] ?></option>
                                                 <?php endforeach; ?>
-                                            </select>
+                                            </datalist>
                                         </div>
                                     </div>
                                 </fieldset>
