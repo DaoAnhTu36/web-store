@@ -17,7 +17,7 @@ $method = isset($path_array[2]) ? $path_array[2] : '';
             <a href="<?= site_url('admin/dashboard') ?>" id="show-shortcut" data-action="toggleShortcut">
                 <img src="<?= base_url($libUrl . '/img/avatars/android-chrome-512x512.png'); ?>" alt="me" class="online" />
                 <span>
-                    Administrator
+                    <?= session()->get('full_name') ?>
                 </span>
                 <i class="fa fa-angle-down"></i>
             </a>

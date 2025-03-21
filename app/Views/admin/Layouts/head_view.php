@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
 
-    <title> Store - Admin </title>
+    <title> <?php echo isset($title) ? $title : 'Store admin page' ?> </title>
     <meta name="description" content="">
     <meta name="author" content="">
 

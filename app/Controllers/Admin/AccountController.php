@@ -74,6 +74,7 @@ class AccountController extends BaseController
         $password = $this->request->getPost('password');
         $user = $this->accountModel->where('user_name', $user_name)->first();
         if ($user && password_verify($password, $user['password'])) {
+            $roleInfo = $this->roleModel->where('id', $user['role_id'])->first();
             $session = session();
             $session->set([
                 'is_logged_in' => true,
@@ -84,6 +85,7 @@ class AccountController extends BaseController
                 'address' => $user['address'],
                 'role_id' => $user['role_id'],
                 'full_name' => $user['full_name'],
+                'role_name' => $roleInfo['name'],
             ]);
 
             if ($remember) {

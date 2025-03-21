@@ -12,6 +12,7 @@ class DashboardController extends BaseController
         $data = [
             "controller" => "Dashboard",
             "method" => "Index",
+            "title" => "Bảng điều khiển"
         ];
         return view('admin/dashboard_view/index_view', $data);
     }

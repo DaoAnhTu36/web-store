@@ -38,6 +38,7 @@
                             <thead>
                                 <tr>
                                     <td>#</td>
+                                    <td>ID</td>
                                     <td>Tên quyền hạn</td>
                                     <td>Trạng thái</td>
                                     <td>#</td>
@@ -49,6 +50,7 @@
                                 foreach ($data as $item) { ?>
                                     <tr>
                                         <td><?= $idx ?></td>
+                                        <td><?= $item['id'] ?></td>
                                         <td><?= $item['name'] ?></td>
                                         <td>
                                             <label class="switch1">

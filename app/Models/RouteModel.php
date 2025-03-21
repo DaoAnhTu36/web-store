@@ -35,9 +35,6 @@ class RouteModel extends Model
     {
         $routes = $this->where('is_active', 1)->findAll();
         $tree = $this->buildTree($routes);
-        // echo '<pre>';
-        // print_r($routes);
-        // echo '</pre>';
         return $tree;
     }
 

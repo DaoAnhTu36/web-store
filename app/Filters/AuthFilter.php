@@ -69,7 +69,15 @@ class AuthFilter implements FilterInterface
         if ($arguments) {
             $permission = $arguments[0];
             $roleId = $session->get('role_id');
-            $rolePermissions = $this->rolePermissionModel->select('permission_id')->where('role_id', $roleId)->findAll();
+            $rolePermissions = $this->rolePermissionModel
+                ->select('role_permissions.permission_id')
+                ->join('permissions', 'permissions.id = role_permissions.permission_id', 'left')
+                ->join('roles', 'roles.id = role_permissions.role_id', 'left')
+                ->where('role_permissions.role_id', $roleId)
+                ->where('role_permissions.is_active', 1)
+                ->where('roles.is_active', 1)
+                ->where('permissions.is_active', 1)
+                ->findAll();
             if (empty($rolePermissions) || count($rolePermissions) == 0) {
                 return redirect()->back()->with('errors', 'Bạn không có quyền truy cập');
             }
