@@ -40,7 +40,7 @@ class CategoryController extends BaseController
             "cancel_button_label" => lang("Validation.cancel_button_label"),
             "save_button_label" => lang("Validation.save_button_label"),
         ];
-        return view('admin/category_view/add_view', $data);
+        return view('admin/category_view/create_view', $data);
     }
 
     public function save()

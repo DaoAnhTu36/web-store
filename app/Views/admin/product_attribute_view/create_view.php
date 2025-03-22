@@ -64,42 +64,23 @@
                         <!-- widget content -->
                         <div class="widget-body">
 
-                            <form class="form-horizontal" action="<?= base_url('admin/product/update'); ?>" method="POST" enctype="multipart/form-data">
+                            <form class="form-horizontal" action="<?= base_url('admin/product-attributes/save'); ?>" method="POST" enctype="multipart/form-data">
                                 <fieldset>
-                                    <!-- <legend>Thêm mới sản phẩm</legend> -->
+                                    <legend>Thêm mới thuộc tính sản phẩm</legend>
                                     <div class="form-group">
-                                        <label class="col-md-2 control-label">Tên</label>
+                                        <label class="col-md-2 control-label">Tên thuộc tính</label>
                                         <div class="col-md-10">
-                                            <input readonly class="form-control" value="<?= $data['name'] ?>" placeholder="" type="text" id="name" name="name">
+                                            <input class="form-control" value="" placeholder="" type="text" id="attribute_name" name="attribute_name">
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label class="col-md-2 control-label">Hình ảnh</label>
+                                        <label class="col-md-2 control-label">Giá trị thuộc tính</label>
                                         <div class="col-md-10">
-                                            <div class="row">
-                                                <?php $array_image = explode(',', $data['images']);
-                                                foreach ($array_image as $image): ?>
-                                                    <div class="col-md-4">
-                                                        <img width="100%" src="<?= base_url($image) ?>" alt="" srcset="">
-                                                    </div>
-                                                <?php endforeach; ?>
-                                            </div>
+                                            <input class="form-control" value="" placeholder="" type="text" id="attribute_value" name="attribute_value">
                                         </div>
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label class="col-md-2 control-label">Danh mục</label>
-                                        <div class="col-md-10">
-                                            <select disabled name="category_id" id="category_id" class="form-control">
-                                                <?php foreach ($categories as $category): ?>
-                                                    <option <?= $category['id'] == $data['category_id'] ? 'selected' : '' ?> value="<?= $category['id']; ?>"><?= $category['name']; ?></option>
-                                                <?php endforeach; ?>
-                                            </select>
-                                        </div>
-
                                     </div>
                                 </fieldset>
-                                <!-- <div class="form-actions">
+                                <div class="form-actions">
                                     <div class="row">
                                         <div class="col-md-12">
                                             <button class="btn btn-default" type="submit">
@@ -111,7 +92,7 @@
                                             </button>
                                         </div>
                                     </div>
-                                </div> -->
+                                </div>
 
                             </form>
 

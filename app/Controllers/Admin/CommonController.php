@@ -59,6 +59,11 @@ class CommonController extends BaseController
                     case 'route':
                         $this->updateStatusCommon($id, 'routes');
                         break;
+                        break;
+                    case 'product-attributes/index':
+                    case 'product-attributes':
+                        $this->updateStatusCommon($id, 'product_attributes');
+                        break;
                     default:
                         $result = false;
                         break;

@@ -16,7 +16,8 @@ class TransactionDetailModel extends Model
         'unit_price',
         'created_by',
         'updated_by',
-        'is_active'
+        'is_active',
+        'product_attribute_id',
     ];
 
     protected $useTimestamps = true;

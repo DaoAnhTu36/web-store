@@ -53,7 +53,7 @@ class WarehouseController extends BaseController
     public function detail($id)
     {
         $warehouse = $this->warehouseModel->find($id);
-        $lstAdmin = $this->accountModel->where('role', 'admin')->findAll();
+        $lstAdmin = $this->accountModel->where('is_active', 1)->findAll();
         $data_view = [
             'title' => 'Chi tiết kho hàng',
             'data' => $warehouse,

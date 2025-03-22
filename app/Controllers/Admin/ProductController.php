@@ -6,12 +6,16 @@ use App\Controllers\BaseController;
 use App\Models\BestSellingProductModel;
 use App\Models\ProductPriceModel;
 use App\Models\ProductDiscountModel;
+use App\Models\ProductAttributeModel;
+use App\Models\ProductAttributeValueModel;
 
 class ProductController extends BaseController
 {
     protected $bestSellingModel;
     protected $priceModel;
     protected $discountModel;
+    protected $productAttributeModel;
+    protected $productAttributeValueModel;
     public function __construct()
     {
         helper("common");
@@ -19,6 +23,8 @@ class ProductController extends BaseController
         $this->bestSellingModel = new BestSellingProductModel();
         $this->priceModel = new ProductPriceModel();
         $this->discountModel = new ProductDiscountModel();
+        $this->productAttributeModel = new ProductAttributeModel();
+        $this->productAttributeValueModel = new ProductAttributeValueModel();
     }
 
     public function index()
@@ -39,21 +45,27 @@ class ProductController extends BaseController
     {
         $categoryModel = new \App\Models\CategoryModel();
         $categories = $categoryModel->findAll();
-        return view('admin/product_view/add_view', [
+        $productAttributes = $this->productAttributeModel->getAttributeGroupByName();
+        return view('admin/product_view/create_view', [
             'controller' => 'Product',
             'method' => 'Create',
             'title' => 'Thêm mới sản phẩm',
             'data' => $categories,
+            'productAttributes' => $productAttributes,
         ]);
     }
 
     public function save()
     {
+        $attrs = $this->request->getPost('attribute_ids');
+        $name = $this->request->getPost('name');
+        $category_id = $this->request->getPost('category_id');
         helper(['form', 'url']);
         $validation = \Config\Services::validation();
         $validation->setRules([
             'name' => 'required|min_length[3]',
             'category_id' => 'required',
+            'attribute_ids' => 'required',
             // 'images' => 'uploaded[images]|max_size[images,2048]|is_image[images]|mime_in[images,image/jpg,image/jpeg,image/png]',
             'images' => 'uploaded[images]|is_image[images]|mime_in[images,image/jpg,image/jpeg,image/png]',
         ]);
@@ -64,8 +76,11 @@ class ProductController extends BaseController
 
         $productModel = new \App\Models\ProductModel();
         $productId = $productModel->insert([
-            'name' => $this->request->getPost('name'),
-            'category_id' => $this->request->getPost('category_id'),
+            'name' => $name,
+            'category_id' => $category_id,
+            'created_by' => session()->get('user_id'),
+            'updated_by' => session()->get('user_id'),
+            'is_active' => 1,
         ]);
 
         $files = $this->request->getFiles();
@@ -86,11 +101,25 @@ class ProductController extends BaseController
                 }
             }
         }
+
         if (count($image_list) > 0) {
             $data_update = [
                 'image' => 'uploads/' . reset($image_list)
             ];
             $productModel->update($productId, $data_update);
+        }
+
+        if (is_array($attrs) && count($attrs) > 0) {
+            foreach ($attrs as $attr) {
+                $dtProductAttributeValue = [
+                    'product_id' => $productId,
+                    'attribute_id' => $attr,
+                    'created_by' => session()->get('user_id'),
+                    'updated_by' => session()->get('user_id'),
+                    'is_active' => 1,
+                ];
+                $this->productAttributeValueModel->insert($dtProductAttributeValue);
+            }
         }
 
         return redirect()->to('admin/product/create')->with('success', 'Sản phẩm đã được thêm!');

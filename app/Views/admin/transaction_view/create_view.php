@@ -92,11 +92,11 @@
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label class="col-md-2 control-label">Tên khách hàng</label>
+                                        <label class="col-md-2 control-label">Kho hàng</label>
                                         <div class="col-md-10">
-                                            <select class="form-control" value="" placeholder="" id="customer_id" name="customer_id">
-                                                <?php foreach ($customers as $customer) : ?>
-                                                    <option value="<?= $customer['id'] ?>"><?= $customer['name'] ?></option>
+                                            <select class="form-control" value="" placeholder="" id="warehouse_id" name="warehouse_id">
+                                                <?php foreach ($warehouses as $warehouse) : ?>
+                                                    <option value="<?= $warehouse['id'] ?>"><?= $warehouse['name'] ?></option>
                                                 <?php endforeach; ?>
                                             </select>
                                         </div>
@@ -104,26 +104,39 @@
                                 </fieldset>
                                 <fieldset>
                                     <legend>Thông tin chi tiết giao dịch</legend>
+                                    <div class="alert alert-info">
+                                        <strong>Chú ý!</strong> Hàng hóa đã tồn tại sẽ cộng dồn số lượng.
+                                    </div>
                                     <div class="form-group">
                                         <label class="col-md-2 control-label">Tên hàng hóa</label>
                                         <div class="col-md-10">
-                                            <select class="form-control" value="" placeholder="" id="product_id" name="product_id">
+                                            <input type="hidden" id="product_id" name="product_id">
+                                            <input type="text" name="product_input" id="product_input" class="form-control" placeholder="Nhập tên hàng hóa" list="product_list" onkeyup="onGetAttributeProduct()" />
+                                            <datalist id="product_list">
                                                 <?php foreach ($products as $product) : ?>
-                                                    <option value="<?= $product['id'] ?>"><?= $product['name'] ?></option>
+                                                    <option data-id="<?= $product['id'] ?>" value="<?= $product['name'] ?>"><?= $product['name'] ?></option>
                                                 <?php endforeach; ?>
-                                            </select>
+                                            </datalist>
+                                        </div>
+                                    </div>
+                                    <div class="form-group" id="attribute-product" style="display: none;">
+                                        <label class="col-md-2 control-label">Thuộc tính</label>
+                                        <div class="col-md-10">
+                                            <div class="row" id="product-attribute-value">
+
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-md-2 control-label">Số lượng</label>
                                         <div class="col-md-10">
-                                            <input type="text" class="form-control" value="" placeholder="" id="quantity" name="quantity" />
+                                            <input type="text" class="form-control" value="" placeholder="Nhập số lượng" id="quantity" name="quantity" />
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-md-2 control-label">Đơn giá</label>
                                         <div class="col-md-10">
-                                            <input type="text" class="form-control" value="" placeholder="" id="unit_price" name="unit_price" />
+                                            <input type="text" class="form-control" value="" placeholder="Nhập đơn giá" id="unit_price" name="unit_price" />
                                         </div>
                                     </div>
                                     <div class="form-group" style="text-align: center;">
@@ -162,7 +175,8 @@
                                             </button>
                                             <button class="btn btn-primary" onclick="onSubmit()" type="button">
                                                 <i class="fa fa-save"></i>
-                                                Lưu
+                                                <span id="saveBtnText">Lưu</span>
+                                                <span id="saveBtnLoader" class="spinner-border spinner-border-sm ms-2" style="display:none;" role="status"></span>
                                             </button>
                                         </div>
                                     </div>
@@ -188,6 +202,7 @@
     var labelButton = labelSaveTemp
     var dataTransDetail = [];
     var indexEdit = 0;
+
 
     function addTransDetailTemp() {
         let product_id = $('#product_id').val();
@@ -276,6 +291,8 @@
     }
 
     function onSubmit() {
+        $('#saveBtnText').text('Đang lưu...');
+        $('#saveBtnLoader').show();
         $.ajax({
             url: '<?= base_url('admin/transaction/save') ?>',
             type: 'POST',
@@ -300,6 +317,65 @@
             }
         });
     }
+
+    document.getElementById('product_input').addEventListener('input', function() {
+        const input = this.value;
+        const options = document.querySelectorAll('#product_list option');
+        const hiddenInput = document.getElementById('product_id');
+
+        hiddenInput.value = ''; // Reset
+
+        options.forEach(option => {
+            if (option.value === input) {
+                hiddenInput.value = option.getAttribute('data-id');
+            }
+        });
+    });
+
+
+    function onGetAttributeProduct() {
+        let product_id = $('#product_id').val();
+        if (product_id === '') {
+            $('#product-attribute-value').html('');
+            $("#attribute-product").slideUp();
+            return;
+        }
+        $.ajax({
+            url: '<?= base_url('admin/product-attribute-value/get-product-attribute-value') ?>',
+            type: 'POST',
+            data: {
+                product_id: product_id
+            },
+            success: function(response) {
+                if (response.length === 0) {
+                    $('#product-attribute-value').html('');
+                    $("#attribute-product").slideUp();
+                    return;
+                }
+                $("#attribute-product").slideDown();
+                let html = '';
+                response.forEach(element => {
+                    html += `
+                            <div class="col-md-3">
+                                <input type="radio" name="product_attribute_id" id="product_attribute_id_${element.id}" value="${element.id}"> ${element.attribute_value}
+                            </div>
+                    `;
+                });
+                $('#product-attribute-value').html(html);
+            },
+            error: function(xhr, status, error) {
+                console.log('Error:', error);
+            }
+        });
+    }
+    window.addEventListener('DOMContentLoaded', () => {
+        const today = new Date();
+        const year = today.getFullYear();
+        const month = String(today.getMonth() + 1).padStart(2, '0');
+        const day = String(today.getDate()).padStart(2, '0');
+        const formattedDate = `${year}-${month}-${day}`; // YYYY-MM-DD
+        document.getElementById('transaction_date').value = formattedDate;
+    });
 </script>
 <!-- END MAIN CONTENT -->
 <?= $this->endSection(); ?>

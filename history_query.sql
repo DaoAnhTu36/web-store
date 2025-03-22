@@ -79,3 +79,27 @@ ADD COLUMN permission_id INT(11) COLLATE utf8_general_ci NOT NULL;
 -- 20250320
 ALTER TABLE accounts
 DROP COLUMN role;
+CREATE TABLE product_attributes (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    attribute_name VARCHAR(50) NOT NULL,
+    attribute_value VARCHAR(50) NOT NULL,
+    is_active TINYINT(1) NOT NULL DEFAULT 1, -- 1: Active, 0: Inactive
+    created_by INT DEFAULT NULL,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    updated_by INT DEFAULT NULL,
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+CREATE TABLE product_attribute_values (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    product_id INT NOT NULL,
+    attribute_id INT NOT NULL,
+    is_active TINYINT(1) DEFAULT 1,
+    created_by INT DEFAULT NULL,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    updated_by INT DEFAULT NULL,
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (product_id) REFERENCES products(id) ON DELETE CASCADE,
+    FOREIGN KEY (attribute_id) REFERENCES product_attributes(id) ON DELETE CASCADE
+);
+ALTER TABLE transaction_details
+ADD COLUMN product_attribute_id INT NULL;

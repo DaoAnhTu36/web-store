@@ -62,6 +62,11 @@ $method = isset($path_array[2]) ? $path_array[2] : '';
                     </li>
                 </ul>
             </li>
+            <li class="<?= $controller == 'product-attributes' && $method == 'best-selling-management' ? 'active' : ''; ?>">
+                <a href="<?= site_url('admin/product-attributes/index') ?>" title=""><i class="fa fa-lg fa-fw fa-cube"></i>
+                    <span class="menu-item-parent">Thuộc tính sản phẩm</span>
+                </a>
+            </li>
             <li>
                 <a title=""><i class="fa fa-lg fa-fw fa-cube"></i><span class="menu-item-parent">Kho hàng</span></a>
                 <ul>

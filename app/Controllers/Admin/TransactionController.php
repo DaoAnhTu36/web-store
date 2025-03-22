@@ -8,6 +8,7 @@ use App\Models\ProductModel;
 use App\Models\SupplierModel;
 use App\Models\TransactionModel;
 use App\Models\TransactionDetailModel;
+use App\Models\WarehouseModel;
 
 class TransactionController extends BaseController
 {
@@ -16,6 +17,8 @@ class TransactionController extends BaseController
     protected $modelCustomer;
     protected $modelSupplier;
     protected $modelProduct;
+    protected $modelWarehouse;
+
     public function __construct()
     {
         helper("common");
@@ -25,20 +28,23 @@ class TransactionController extends BaseController
         $this->modelCustomer = new CustomerModel();
         $this->modelSupplier = new SupplierModel();
         $this->modelProduct = new ProductModel();
+        $this->modelWarehouse = new WarehouseModel();
     }
 
     public function index() {}
 
     public function create()
     {
-        $customers = $this->modelCustomer->findAll();
-        $suppliers = $this->modelSupplier->findAll();
-        $products  = $this->modelProduct->findAll();
+        $customers = $this->modelCustomer->where('is_active', 1)->findAll();
+        $suppliers = $this->modelSupplier->where('is_active', 1)->findAll();
+        $products  = $this->modelProduct->where('is_active', 1)->findAll();
+        $warehouses = $this->modelWarehouse->where('is_active', 1)->findAll();
         $data_view = [
             "title" => "Thêm mới giao dịch hàng hóa",
             "customers" => $customers,
             "suppliers" => $suppliers,
             "products" => $products,
+            "warehouses" => $warehouses
         ];
         return view("admin/transaction_view/create_view", $data_view);
     }
@@ -51,6 +57,7 @@ class TransactionController extends BaseController
             'transaction_date' => $request->getPost('transaction_date'),
             'customer_id' => $request->getPost('customer_id'),
             'supplier_id' => $request->getPost('supplier_id'),
+            'warehouse_id' => $request->getPost('warehouse_id'),
         ];
         $tran_id = $this->modelTransaction->insert($data_trans);
         foreach ($request->getPost('list_trans_detail') as $item) {

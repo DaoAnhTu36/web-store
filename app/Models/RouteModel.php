@@ -4,6 +4,7 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
+
 class RouteModel extends Model
 {
     protected $table = 'routes';
@@ -35,6 +36,10 @@ class RouteModel extends Model
     {
         $routes = $this->where('is_active', 1)->findAll();
         $tree = $this->buildTree($routes);
+        // echo '<pre>';
+        // echo 'Route: ';
+        // print_r($tree);
+        // echo '</pre>';
         return $tree;
     }
 
