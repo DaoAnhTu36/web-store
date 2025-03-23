@@ -69,4 +69,12 @@ class TransactionDetailModel extends Model
     {
         return $this->where('transaction_id', $id)->delete();
     }
+
+    public function getPriceHistory($id)
+    {
+        return $this->select('unit_price, created_at')
+            ->where('product_id', $id)
+            ->orderBy('created_at', 'desc')
+            ->findAll();
+    }
 }

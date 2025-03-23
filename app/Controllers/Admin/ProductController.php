@@ -8,29 +8,38 @@ use App\Models\ProductPriceModel;
 use App\Models\ProductDiscountModel;
 use App\Models\ProductAttributeModel;
 use App\Models\ProductAttributeValueModel;
+use App\Models\ProductModel;
+use App\Models\CategoryModel;
+use App\Models\ImageModel;
 
 class ProductController extends BaseController
 {
     protected $bestSellingModel;
-    protected $priceModel;
+    protected $productPriceModel;
     protected $discountModel;
     protected $productAttributeModel;
     protected $productAttributeValueModel;
+    protected $productModel;
+    protected $categoryModel;
+    protected $imageModel;
+
     public function __construct()
     {
         helper("common");
         helper("language");
         $this->bestSellingModel = new BestSellingProductModel();
-        $this->priceModel = new ProductPriceModel();
+        $this->productPriceModel = new ProductPriceModel();
         $this->discountModel = new ProductDiscountModel();
         $this->productAttributeModel = new ProductAttributeModel();
         $this->productAttributeValueModel = new ProductAttributeValueModel();
+        $this->productModel = new ProductModel();
+        $this->categoryModel = new CategoryModel();
+        $this->imageModel = new ImageModel();
     }
 
     public function index()
     {
-        $model = new \App\Models\ProductModel();
-        $data = $model->getProductsWithImages();
+        $data = $this->productModel->getProductsWithImages();
         $data_view = [
             'title' => 'Danh sách sản phẩm',
             'controller' => 'Product',
@@ -43,8 +52,7 @@ class ProductController extends BaseController
 
     public function create()
     {
-        $categoryModel = new \App\Models\CategoryModel();
-        $categories = $categoryModel->findAll();
+        $categories = $this->categoryModel->findAll();
         $productAttributes = $this->productAttributeModel->getAttributeGroupByName();
         return view('admin/product_view/create_view', [
             'controller' => 'Product',
@@ -74,8 +82,7 @@ class ProductController extends BaseController
             return redirect()->back()->withInput()->with('errors', $validation->getErrors());
         }
 
-        $productModel = new \App\Models\ProductModel();
-        $productId = $productModel->insert([
+        $productId = $this->productModel->insert([
             'name' => $name,
             'category_id' => $category_id,
             'created_by' => session()->get('user_id'),
@@ -91,9 +98,7 @@ class ProductController extends BaseController
                     $newName = $img->getRandomName();
                     array_push($image_list, $newName);
                     $img->move('uploads/', $newName);
-
-                    $imageModel = new \App\Models\ImageModel();
-                    $imageModel->insert([
+                    $this->imageModel->insert([
                         'record_id' => $productId,
                         'image_path' => 'uploads/' . $newName,
                         'type' => 'product',
@@ -106,7 +111,7 @@ class ProductController extends BaseController
             $data_update = [
                 'image' => 'uploads/' . reset($image_list)
             ];
-            $productModel->update($productId, $data_update);
+            $this->productModel->update($productId, $data_update);
         }
 
         if (is_array($attrs) && count($attrs) > 0) {
@@ -127,17 +132,14 @@ class ProductController extends BaseController
 
     public function delete($id)
     {
-        $model = new \App\Models\ProductModel();
-        $model->where('id', $id)->delete();
+        $this->productModel->where('id', $id)->delete();
         return redirect()->to('admin/product')->with('success', 'Sản phẩm đã được xóa!');
     }
 
     public function detail($id)
     {
-        $model = new \App\Models\ProductModel();
-        $item = $model->getProductsWithImagesByProductId($id);
-        $categoryModel = new \App\Models\CategoryModel();
-        $categories = $categoryModel->findAll();
+        $item = $this->productModel->getProductsWithImagesByProductId($id);
+        $categories = $this->categoryModel->findAll();
         $data_view = [
             'title' => 'Chi tiết sản phẩm',
             'data' => $item,
@@ -148,8 +150,7 @@ class ProductController extends BaseController
 
     public function update($id)
     {
-        $model = new \App\Models\ProductModel();
-        $item = $model->find($id);
+        $item = $this->productModel->find($id);
         EchoCommon($item);
     }
 
@@ -165,7 +166,7 @@ class ProductController extends BaseController
 
     public function priceProductManagement()
     {
-        $data = $this->priceModel->getPriceListByProduct();
+        $data = $this->productPriceModel->getPriceListByProduct();
         $data_view = [
             'title' => 'Danh sách giá sản phẩm',
             'data' => $data,
@@ -181,5 +182,31 @@ class ProductController extends BaseController
             'data' => $data,
         ];
         return view('admin/product_view/discount_product_view', $data_view);
+    }
+
+    public function setPriceProduct()
+    {
+        $product_id = $this->request->getPost('product_id');
+        $price = $this->request->getPost('price');
+        if (empty($product_id)) {
+            return apiResponse(false, 'Vui lòng chọn sản phẩm!', null, '400');
+        }
+        if (empty($price)) {
+            return apiResponse(false, 'Vui lòng nhập giá!', null, '400');
+        }
+        $checkExist = $this->productPriceModel
+            ->where('product_id', $product_id)
+            ->findAll();
+        if (count($checkExist) > 0) {
+            $this->productPriceModel->update($product_id, ['is_active' => 0]);
+        }
+        $this->productPriceModel->insert([
+            'product_id' => $product_id,
+            'price' => $price,
+            'created_by' => session()->get('user_id'),
+            'updated_by' => session()->get('user_id'),
+            'is_active' => 1,
+        ]);
+        return apiResponse(true, 'Thiết lập thành công', null, '200');
     }
 }

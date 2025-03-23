@@ -127,6 +127,7 @@ class TransactionController extends BaseController
         ];
         return view("admin/transaction_view/import_view", $data_view);
     }
+
     public function exportList()
     {
         $data = $this->modelTransaction->getAllTransByType('export');
@@ -135,5 +136,12 @@ class TransactionController extends BaseController
             "data" => $data
         ];
         return view("admin/transaction_view/export_view", $data_view);
+    }
+
+    public function getPriceHistory()
+    {
+        $product_id = $this->request->getPost("product_id");
+        $data = $this->modelTransactionDetail->getPriceHistory($product_id);
+        return apiResponse(true, 'Success', $data, 200);
     }
 }
