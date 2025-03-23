@@ -9,6 +9,7 @@ use App\Models\SupplierModel;
 use App\Models\TransactionModel;
 use App\Models\TransactionDetailModel;
 use App\Models\WarehouseModel;
+use App\Models\InventoryModel;
 
 class TransactionController extends BaseController
 {
@@ -18,6 +19,7 @@ class TransactionController extends BaseController
     protected $modelSupplier;
     protected $modelProduct;
     protected $modelWarehouse;
+    protected $modelInventory;
 
     public function __construct()
     {
@@ -29,16 +31,17 @@ class TransactionController extends BaseController
         $this->modelSupplier = new SupplierModel();
         $this->modelProduct = new ProductModel();
         $this->modelWarehouse = new WarehouseModel();
+        $this->modelInventory = new InventoryModel();
     }
 
     public function index() {}
 
     public function create()
     {
-        $customers = $this->modelCustomer->where('is_active', 1)->findAll();
-        $suppliers = $this->modelSupplier->where('is_active', 1)->findAll();
-        $products  = $this->modelProduct->where('is_active', 1)->findAll();
-        $warehouses = $this->modelWarehouse->where('is_active', 1)->findAll();
+        $customers = $this->modelCustomer->select('id, name')->where('is_active', 1)->findAll();
+        $suppliers = $this->modelSupplier->select('id, name')->where('is_active', 1)->findAll();
+        $products  = $this->modelProduct->select('id, name')->where('is_active', 1)->findAll();
+        $warehouses = $this->modelWarehouse->select('id, name')->where('is_active', 1)->findAll();
         $data_view = [
             "title" => "Thêm mới giao dịch hàng hóa",
             "customers" => $customers,
@@ -55,7 +58,6 @@ class TransactionController extends BaseController
         $data_trans = [
             'transaction_type' => $request->getPost('transaction_type'),
             'transaction_date' => $request->getPost('transaction_date'),
-            'customer_id' => $request->getPost('customer_id'),
             'supplier_id' => $request->getPost('supplier_id'),
             'warehouse_id' => $request->getPost('warehouse_id'),
         ];
@@ -66,8 +68,28 @@ class TransactionController extends BaseController
                 'product_id' => $item['product_id'],
                 'unit_price' => $item['unit_price'],
                 'quantity' => $item['quantity'],
+                'product_attribute_id' => $item['product_attribute_id'],
             ];
             $this->modelTransactionDetail->insert($data_trans_detail);
+
+            // Update inventory
+            $check_exist_inventory = $this->modelInventory
+                ->where('product_id', $item['product_id'])
+                ->where('product_attribute_id', $item['product_attribute_id'])
+                ->where('warehouse_id', $request->getPost('warehouse_id'))
+                ->first();
+            if ($check_exist_inventory) {
+                $quantity = $check_exist_inventory['quantity'] + $item['quantity'];
+                $this->modelInventory->update($check_exist_inventory['id'], ['quantity' => $quantity]);
+            } else {
+                $data_inventory = [
+                    'product_id' => $item['product_id'],
+                    'product_attribute_id' => $item['product_attribute_id'],
+                    'quantity' => $item['quantity'],
+                    'warehouse_id' => $request->getPost('warehouse_id'),
+                ];
+                $this->modelInventory->save($data_inventory);
+            }
         }
         return $this->response->setJSON([
             'status' => 'success',

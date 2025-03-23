@@ -13,7 +13,6 @@ class TransactionModel extends Model
         'transaction_type',
         'transaction_date',
         'supplier_id',
-        'customer_id',
         'note',
         'warehouse_id',
         'created_by',
@@ -54,9 +53,9 @@ class TransactionModel extends Model
         , transactions.created_at
         , transactions.updated_at
         , transactions.is_active
-        , IFNULL(customers.name, "") as customer_name
+        , IFNULL(warehouses.name, "") as warehouse_name
         , IFNULL(suppliers.name, "") as supplier_name')
-            ->join('customers', 'customers.id = transactions.customer_id', 'left')
+            ->join('warehouses', 'warehouses.id = transactions.warehouse_id', 'left')
             ->join('suppliers', 'suppliers.id = transactions.supplier_id', 'left')
             ->where('transaction_type', $type)
             ->orderBy('transactions.created_at', 'desc')

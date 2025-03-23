@@ -104,9 +104,6 @@
                                 </fieldset>
                                 <fieldset>
                                     <legend>Thông tin chi tiết giao dịch</legend>
-                                    <div class="alert alert-info">
-                                        <strong>Chú ý!</strong> Hàng hóa đã tồn tại sẽ cộng dồn số lượng.
-                                    </div>
                                     <div class="form-group">
                                         <label class="col-md-2 control-label">Tên hàng hóa</label>
                                         <div class="col-md-10">
@@ -157,6 +154,7 @@
                                         <tr>
                                             <th>#</th>
                                             <th>Mã hàng hóa</th>
+                                            <th>Thuộc tính</th>
                                             <th>Số lượng</th>
                                             <th>Đơn giá</th>
                                             <th>Tổng tiền</th>
@@ -199,12 +197,18 @@
 <script>
     const labelUpdate = 'Cập nhật';
     const labelSaveTemp = 'Thêm';
-    var labelButton = labelSaveTemp
-    var dataTransDetail = [];
-    var indexEdit = 0;
-
+    let labelButton = labelSaveTemp;
+    let dataTransDetail = [];
+    let indexEdit = 0;
+    let productArray = <?php echo json_encode($products); ?>;
+    let productAttributeList = [];
 
     function addTransDetailTemp() {
+        let product_attribute_id = '';
+        const productAttributeId = document.querySelector('input[name="product_attribute_id"]:checked');
+        if (productAttributeId) {
+            product_attribute_id = productAttributeId.value;
+        }
         let product_id = $('#product_id').val();
         let quantity = $('#quantity').val();
         let unit_price = $('#unit_price').val();
@@ -216,6 +220,7 @@
             "product_id": product_id,
             "quantity": parseFloat(quantity),
             "unit_price": parseFloat(unit_price),
+            "product_attribute_id": product_attribute_id,
         };
         if (labelButton === labelSaveTemp) {
             const indexItemExist = dataTransDetail.findIndex(x => x.product_id === product_id);
@@ -236,6 +241,9 @@
         $('#product_id').val('');
         $('#quantity').val('');
         $('#unit_price').val('');
+        $('#product_input').val('');
+        $('#product-attribute-value').html('');
+        $("#attribute-product").slideUp();
         labelButton = labelSaveTemp;
         renderLabelButton();
     }
@@ -246,7 +254,18 @@
         $('#product_id').val(item.product_id);
         $('#quantity').val(item.quantity);
         $('#unit_price').val(item.unit_price);
+        $('#product_input').val(productArray.find(x => x.id === item.product_id).name);
         labelButton = labelUpdate;
+        $('#product_input').keyup();
+
+        setTimeout(() => {
+            document.querySelectorAll('input[name="product_attribute_id"]').forEach(element => {
+                if (element.value == item.product_attribute_id) {
+                    element.checked = true;
+                }
+            });
+        }, 200);
+
         renderLabelButton()
     }
 
@@ -263,10 +282,13 @@
         let formatter = new Intl.NumberFormat('vi-VN');
         dataTransDetail.forEach(element => {
             let sub_total = parseFloat(element.quantity) * parseFloat(element.unit_price);
+            let productAttributeName = productAttributeList.find(x => x.id === element.product_attribute_id)?.attribute_value;
+            let productName = productArray.find(x => x.id === element.product_id).name;
             $("table.table-realtime-data tbody").append(`
                 <tr>
                     <td>${idx}</td>
-                    <td>${element.product_id}</td>
+                    <td>${productName}</td>
+                    <td>${productAttributeName}</td>
                     <td>${formatter.format(element.quantity)}</td>
                     <td>${formatter.format(element.unit_price)} ₫</td>
                     <td>${formatter.format(sub_total)} ₫</td>
@@ -293,16 +315,17 @@
     function onSubmit() {
         $('#saveBtnText').text('Đang lưu...');
         $('#saveBtnLoader').show();
+        let requestData = {
+            transaction_type: $("#transaction_type").val(),
+            transaction_date: $("#transaction_date").val(),
+            supplier_id: $("#supplier_id").val(),
+            warehouse_id: $("#warehouse_id").val(),
+            list_trans_detail: dataTransDetail
+        };
         $.ajax({
             url: '<?= base_url('admin/transaction/save') ?>',
             type: 'POST',
-            data: {
-                transaction_type: $("#transaction_type").val(),
-                transaction_date: $("#transaction_date").val(),
-                customer_id: $("#customer_id").val(),
-                supplier_id: $("#supplier_id").val(),
-                list_trans_detail: dataTransDetail
-            },
+            data: requestData,
             success: function(response) {
                 Toastify({
                     text: response.message,
@@ -322,9 +345,7 @@
         const input = this.value;
         const options = document.querySelectorAll('#product_list option');
         const hiddenInput = document.getElementById('product_id');
-
         hiddenInput.value = ''; // Reset
-
         options.forEach(option => {
             if (option.value === input) {
                 hiddenInput.value = option.getAttribute('data-id');
@@ -352,12 +373,13 @@
                     $("#attribute-product").slideUp();
                     return;
                 }
+                productAttributeList = response;
                 $("#attribute-product").slideDown();
                 let html = '';
                 response.forEach(element => {
                     html += `
                             <div class="col-md-3">
-                                <input type="radio" name="product_attribute_id" id="product_attribute_id_${element.id}" value="${element.id}"> ${element.attribute_value}
+                                <input type="radio" name="product_attribute_id" value="${element.id}"> ${element.attribute_value}
                             </div>
                     `;
                 });
@@ -368,6 +390,7 @@
             }
         });
     }
+
     window.addEventListener('DOMContentLoaded', () => {
         const today = new Date();
         const year = today.getFullYear();

@@ -19,7 +19,8 @@ class ProductAttributeValueController extends BaseController
     {
         $product_id = $this->request->getPost('product_id');
         $product = $this->productAttributeValueModel
-            ->select('product_attributes.attribute_name
+            ->select('product_attributes.id
+            ,product_attributes.attribute_name
             ,product_attributes.attribute_value')
             ->join('product_attributes', 'product_attributes.id = product_attribute_values.attribute_id', 'left')
             ->where('product_id', $product_id)

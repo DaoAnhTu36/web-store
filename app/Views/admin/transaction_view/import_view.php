@@ -60,9 +60,9 @@
                                     <th>ID</th>
                                     <th>Ngày giao dịch</th>
                                     <th>Nhà cung cấp</th>
-                                    <th>Khách hàng</th>
-                                    <th>Ngày tạo</th>
-                                    <th>Ngày cập nhật</th>
+                                    <th>Kho hàng</th>
+                                    <!-- <th>Ngày tạo</th>
+                                    <th>Ngày cập nhật</th> -->
                                     <th>Trạng thái</th>
                                     <th>#</th>
                                 </tr>
@@ -75,9 +75,9 @@
                                         <td><?= $item['id'] ?></td>
                                         <td><?= $item['transaction_date'] ?></td>
                                         <td><?= $item['supplier_name'] ?></td>
-                                        <td><?= $item['customer_name'] ?></td>
-                                        <td><?= $item['created_at'] ?></td>
-                                        <td><?= $item['updated_at'] ?></td>
+                                        <td><?= $item['warehouse_name'] ?></td>
+                                        <!-- <td><?= $item['created_at'] ?></td>
+                                        <td><?= $item['updated_at'] ?></td> -->
                                         <td>
                                             <label class="switch1">
                                                 <?php if ($item['is_active']) { ?>

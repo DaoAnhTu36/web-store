@@ -103,3 +103,19 @@ CREATE TABLE product_attribute_values (
 );
 ALTER TABLE transaction_details
 ADD COLUMN product_attribute_id INT NULL;
+
+CREATE TABLE inventory (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    product_id INT NOT NULL,
+    warehouse_id INT DEFAULT NULL,
+    product_attribute_id INT DEFAULT NULL,
+    quantity INT NOT NULL DEFAULT 0,
+    last_updated DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    
+    FOREIGN KEY (product_id) REFERENCES products(id),
+    FOREIGN KEY (warehouse_id) REFERENCES warehouses(id),
+    FOREIGN KEY (product_attribute_id) REFERENCES product_attributes(id)
+);
+
+TRUNCATE TABLE transactions;
+TRUNCATE TABLE transaction_details;

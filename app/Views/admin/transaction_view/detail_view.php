@@ -84,9 +84,9 @@
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label class="col-md-2 control-label">Tên khách hàng</label>
+                                        <label class="col-md-2 control-label">Tên kho hàng</label>
                                         <div class="col-md-10">
-                                            <input readonly class="form-control" value="<?= $transaction['customer_name'] ?>" placeholder="" type="text" id="" name="">
+                                            <input readonly class="form-control" value="<?= $transaction['warehouse_name'] ?>" placeholder="" type="text" id="" name="">
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -110,6 +110,7 @@
                                         <th>Mã chi tiết dịch</th>
                                         <th>Mã hàng hóa</th>
                                         <th>Tên hàng hóa</th>
+                                        <th>Thuộc tính</th>
                                         <th>Số lượng</th>
                                         <th>Đơn giá</th>
                                         <th>Tổng tiền</th>
@@ -123,6 +124,7 @@
                                             <td><?= $transDetail['trans_detail_id'] ?></td>
                                             <td><?= $transDetail['product_id'] ?></td>
                                             <td><?= $transDetail['product_name'] ?></td>
+                                            <td><?= $transDetail['attribute_value'] ?></td>
                                             <td><?= $transDetail['quantity'] ?></td>
                                             <td><?= number_format($transDetail['unit_price'], 0, ',', '.'); ?> ₫</td>
                                             <td><?= number_format($transDetail['subtotal'], 0, ',', '.'); ?> ₫</td>
