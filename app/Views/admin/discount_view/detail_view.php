@@ -64,58 +64,28 @@
                         <!-- widget content -->
                         <div class="widget-body">
 
-                            <form class="form-horizontal" action="<?= base_url('admin/product/save'); ?>" method="POST" enctype="multipart/form-data">
+                            <form class="form-horizontal" method="POST" action="<?= base_url('admin/warehouse/update/' . $data['id']) ?>">
                                 <fieldset>
-                                    <legend>Thêm mới sản phẩm</legend>
                                     <div class="form-group">
-                                        <label class="col-md-2 control-label">Tên</label>
+                                        <label class="col-md-2 control-label">Tên kho</label>
                                         <div class="col-md-10">
-                                            <input class="form-control" value="" placeholder="" type="text" id="name" name="name">
+                                            <input class="form-control" value="<?= $data['name'] ?>" placeholder="" type="text" id="name" name="name">
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <div class="col-md-2 control-label">Thuộc tính</div>
+                                        <label class="col-md-2 control-label">Địa chỉ</label>
                                         <div class="col-md-10">
-                                            <table class="table table-bordered table-striped">
-                                                <thead>
-                                                    <tr>
-                                                        <th>Thuộc tính</th>
-                                                        <th>Giá trị</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <?php foreach ($productAttributes as $attribute): ?>
-                                                        <tr>
-                                                            <td><?= $attribute['attribute_name']; ?></td>
-                                                            <td>
-                                                                <?php foreach (explode(', ', $attribute['id_value_list']) as $value): ?>
-                                                                    <input type="checkbox" name="attribute_ids[]" value="<?= explode(':', $value)[0]; ?>"> <?= explode(':', $value)[1]; ?><br>
-                                                                <?php endforeach; ?>
-                                                            </td>
-                                                        </tr>
-                                                    <?php endforeach; ?>
-                                                </tbody>
-                                            </table>
+                                            <input class="form-control" value="<?= $data['location'] ?>" placeholder="" type="text" id="location" name="location">
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label class="col-md-2 control-label">Hình ảnh</label>
+                                        <label class="col-md-2 control-label">Người quản lý</label>
                                         <div class="col-md-10">
-                                            <input type="file" class="btn btn-default" id="images" name="images[]" multiple>
-                                            <p class="help-block">
-                                                Chọn ảnh dưới 150kb
-                                            </p>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-md-2 control-label">Danh mục</label>
-                                        <div class="col-md-10">
-                                            <input class="form-control" placeholder="" type="text" list="list" id="category_id" name="category_id">
-                                            <datalist id="list">
-                                                ?<?php foreach ($data as $category): ?>
-                                                <option value="<?= $category['id']; ?>"><?= $category['name']; ?></option>
-                                            <?php endforeach; ?>
-                                            </datalist>
+                                            <select class="form-control" name="account_id" id="account_id">
+                                                <?php foreach ($lstAdmin as $account): ?>
+                                                    <option <?= $data['account_id'] == $account['id'] ? 'selected' : '' ?> value="<?= $account['id'] ?>"><?= $account['full_name'] ?> - <?= $account['user_name'] ?></option>
+                                                <?php endforeach; ?>
+                                            </select>
                                         </div>
                                     </div>
                                 </fieldset>
@@ -127,7 +97,7 @@
                                             </button>
                                             <button class="btn btn-primary" type="submit">
                                                 <i class="fa fa-save"></i>
-                                                Lưu
+                                                Cập nhật
                                             </button>
                                         </div>
                                     </div>

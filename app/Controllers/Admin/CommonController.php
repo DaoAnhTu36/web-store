@@ -23,6 +23,7 @@ class CommonController extends BaseController
         if (isset($server_current)) {
             $controller = explode('admin/', $server_current);
             if (isset($controller[1])) {
+                // echo $controller[1];
                 switch ($controller[1]) {
                     case 'account/administrator-list':
                     case 'account/customer-list':
@@ -63,6 +64,21 @@ class CommonController extends BaseController
                     case 'product-attributes/index':
                     case 'product-attributes':
                         $this->updateStatusCommon($id, 'product_attributes');
+                        break;
+                        break;
+                    case 'discount/index':
+                    case 'discount':
+                        $this->updateStatusCommon($id, 'discounts');
+                        break;
+                        break;
+                    case 'discount-type/index':
+                    case 'discount-type':
+                        $this->updateStatusCommon($id, 'discount_types');
+                        break;
+                        break;
+                    case 'product-discount/index':
+                    case 'product-discount':
+                        $this->updateStatusCommon($id, 'product_discounts');
                         break;
                     default:
                         $result = false;

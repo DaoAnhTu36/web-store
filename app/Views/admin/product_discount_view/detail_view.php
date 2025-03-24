@@ -64,58 +64,42 @@
                         <!-- widget content -->
                         <div class="widget-body">
 
-                            <form class="form-horizontal" action="<?= base_url('admin/product/save'); ?>" method="POST" enctype="multipart/form-data">
+                            <form class="form-horizontal" action="<?= base_url('admin/product-discount/update/' . $product_discounts[0]['product_discount_id']); ?>" method="POST" enctype="multipart/form-data">
                                 <fieldset>
-                                    <legend>Thêm mới sản phẩm</legend>
+                                    <legend>Thêm mới sản phẩm khuyến mại</legend>
                                     <div class="form-group">
-                                        <label class="col-md-2 control-label">Tên</label>
+                                        <label class="col-md-2 control-label">Tiêu đề</label>
                                         <div class="col-md-10">
-                                            <input class="form-control" value="" placeholder="" type="text" id="name" name="name">
+                                            <input type="text" class="form-control" id="name" name="name" value="<?= $product_discounts[0]['product_discount_name'] ?>" placeholder="">
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <div class="col-md-2 control-label">Thuộc tính</div>
+                                        <label class="col-md-2 control-label">Chương trình KM</label>
                                         <div class="col-md-10">
-                                            <table class="table table-bordered table-striped">
-                                                <thead>
-                                                    <tr>
-                                                        <th>Thuộc tính</th>
-                                                        <th>Giá trị</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <?php foreach ($productAttributes as $attribute): ?>
-                                                        <tr>
-                                                            <td><?= $attribute['attribute_name']; ?></td>
-                                                            <td>
-                                                                <?php foreach (explode(', ', $attribute['id_value_list']) as $value): ?>
-                                                                    <input type="checkbox" name="attribute_ids[]" value="<?= explode(':', $value)[0]; ?>"> <?= explode(':', $value)[1]; ?><br>
-                                                                <?php endforeach; ?>
-                                                            </td>
-                                                        </tr>
-                                                    <?php endforeach; ?>
-                                                </tbody>
-                                            </table>
+                                            <select name="discount_id" id="discount_id" class="form-control">
+                                                <?php foreach ($discounts as $item) { ?>
+                                                    <?php if ($product_discounts[0]['discount_id'] == $item['id']) { ?>
+                                                        <option selected value="<?= $item['id'] ?>"><?= $item['name'] ?></option>
+                                                    <?php } else { ?>
+                                                        <option value="<?= $item['id'] ?>"><?= $item['name'] ?></option>
+                                                    <?php } ?>
+                                                <?php } ?>
+                                            </select>
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label class="col-md-2 control-label">Hình ảnh</label>
+                                        <label class="col-md-2 control-label">Danh sách sản phẩm</label>
                                         <div class="col-md-10">
-                                            <input type="file" class="btn btn-default" id="images" name="images[]" multiple>
-                                            <p class="help-block">
-                                                Chọn ảnh dưới 150kb
-                                            </p>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-md-2 control-label">Danh mục</label>
-                                        <div class="col-md-10">
-                                            <input class="form-control" placeholder="" type="text" list="list" id="category_id" name="category_id">
-                                            <datalist id="list">
-                                                ?<?php foreach ($data as $category): ?>
-                                                <option value="<?= $category['id']; ?>"><?= $category['name']; ?></option>
-                                            <?php endforeach; ?>
-                                            </datalist>
+                                            <?php foreach ($products as $item) { ?>
+                                                <div class="col-md-6">
+                                                    <?php if (in_array($item['product_id'], array_column($product_discounts, 'product_id'))) { ?>
+                                                        <input onclick="onUpdateListProductDiscount(<?= $product_discounts[0]['product_discount_id'] ?>, <?= $item['id'] ?>)" checked type="checkbox" name="product_ids[]" id="" value="<?= $item['id'] ?>">
+                                                    <?php } else { ?>
+                                                        <input onclick="onUpdateListProductDiscount(<?= $product_discounts[0]['product_discount_id'] ?>, <?= $item['id'] ?>)" type="checkbox" name="product_ids[]" id="" value="<?= $item['id'] ?>">
+                                                    <?php } ?>
+                                                    <label for=""><?= $item['name'] ?></label>
+                                                </div>
+                                            <?php } ?>
                                         </div>
                                     </div>
                                 </fieldset>
@@ -127,7 +111,7 @@
                                             </button>
                                             <button class="btn btn-primary" type="submit">
                                                 <i class="fa fa-save"></i>
-                                                Lưu
+                                                Cập nhật
                                             </button>
                                         </div>
                                     </div>
@@ -150,5 +134,22 @@
     </section>
 </div>
 <!-- END MAIN CONTENT -->
-
+<script>
+    function onUpdateListProductDiscount(product_discount_id, product_id) {
+        $.ajax({
+            url: '<?= base_url('admin/product-discount/update-product-discount-detail') ?>',
+            type: 'POST',
+            data: {
+                product_discount_id: product_discount_id,
+                product_id: product_id
+            },
+            success: function(response) {
+                Toastify({
+                    text: response.message ?? 'Thành công',
+                    duration: 1500,
+                }).showToast();
+            }
+        });
+    }
+</script>
 <?= $this->endSection(); ?>

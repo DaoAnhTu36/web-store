@@ -5,23 +5,23 @@ namespace App\Controllers\Admin;
 use App\Controllers\BaseController;
 use App\Models\BestSellingProductModel;
 use App\Models\ProductPriceModel;
-use App\Models\ProductDiscountModel;
 use App\Models\ProductAttributeModel;
 use App\Models\ProductAttributeValueModel;
 use App\Models\ProductModel;
 use App\Models\CategoryModel;
 use App\Models\ImageModel;
+use App\Models\TransactionDetailModel;
 
 class ProductController extends BaseController
 {
     protected $bestSellingModel;
     protected $productPriceModel;
-    protected $discountModel;
     protected $productAttributeModel;
     protected $productAttributeValueModel;
     protected $productModel;
     protected $categoryModel;
     protected $imageModel;
+    protected $transactionDetailModel;
 
     public function __construct()
     {
@@ -29,12 +29,12 @@ class ProductController extends BaseController
         helper("language");
         $this->bestSellingModel = new BestSellingProductModel();
         $this->productPriceModel = new ProductPriceModel();
-        $this->discountModel = new ProductDiscountModel();
         $this->productAttributeModel = new ProductAttributeModel();
         $this->productAttributeValueModel = new ProductAttributeValueModel();
         $this->productModel = new ProductModel();
         $this->categoryModel = new CategoryModel();
         $this->imageModel = new ImageModel();
+        $this->transactionDetailModel = new TransactionDetailModel();
     }
 
     public function index()
@@ -74,12 +74,12 @@ class ProductController extends BaseController
             'name' => 'required|min_length[3]',
             'category_id' => 'required',
             'attribute_ids' => 'required',
-            // 'images' => 'uploaded[images]|max_size[images,2048]|is_image[images]|mime_in[images,image/jpg,image/jpeg,image/png]',
-            'images' => 'uploaded[images]|is_image[images]|mime_in[images,image/jpg,image/jpeg,image/png]',
+            'images' => 'uploaded[images]|max_size[images,150]|is_image[images]|mime_in[images,image/jpg,image/jpeg,image/png]',
+            // 'images' => 'uploaded[images]|is_image[images]|mime_in[images,image/jpg,image/jpeg,image/png]',
         ]);
 
         if (!$validation->withRequest($this->request)->run()) {
-            return redirect()->back()->withInput()->with('errors', $validation->getErrors());
+            return redirect()->back()->withInput()->with('errors', implode(' ', $validation->getErrors()));
         }
 
         $productId = $this->productModel->insert([
@@ -93,9 +93,10 @@ class ProductController extends BaseController
         $files = $this->request->getFiles();
         $image_list = [];
         if ($files) {
+            $index = 1;
             foreach ($files['images'] as $img) {
                 if ($img->isValid() && !$img->hasMoved()) {
-                    $newName = $img->getRandomName();
+                    $newName = convert_vi_to_slug($name) . '-' . $index;
                     array_push($image_list, $newName);
                     $img->move('uploads/', $newName);
                     $this->imageModel->insert([
@@ -103,6 +104,7 @@ class ProductController extends BaseController
                         'image_path' => 'uploads/' . $newName,
                         'type' => 'product',
                     ]);
+                    $index++;
                 }
             }
         }
@@ -166,22 +168,12 @@ class ProductController extends BaseController
 
     public function priceProductManagement()
     {
-        $data = $this->productPriceModel->getPriceListByProduct();
+        $data = $this->productPriceModel->getProductsPrice();
         $data_view = [
             'title' => 'Danh sách giá sản phẩm',
             'data' => $data,
         ];
         return view('admin/product_view/price_product_view', $data_view);
-    }
-
-    public function discountProductManagement()
-    {
-        $data = $this->discountModel->getAllDiscount();
-        $data_view = [
-            'title' => 'Danh sách sản phẩm giảm giá',
-            'data' => $data,
-        ];
-        return view('admin/product_view/discount_product_view', $data_view);
     }
 
     public function setPriceProduct()
@@ -200,7 +192,7 @@ class ProductController extends BaseController
                 ->findAll();
             if (count($checkExist) > 0) {
                 foreach ($checkExist as $check) {
-                    $this->productPriceModel->update($check['price_id'], ['is_active' => 0]);
+                    $this->productPriceModel->update($check['id'], ['is_active' => 0]);
                 }
             }
             $this->productPriceModel->insert([
@@ -211,6 +203,30 @@ class ProductController extends BaseController
                 'is_active' => 1,
             ]);
             return apiResponse(true, 'Thiết lập thành công', null, '200');
+        } catch (\Throwable $th) {
+            return apiResponse(true, $th->getMessage(), null, '200');
+        }
+    }
+
+    public function showHistoryPrice()
+    {
+        try {
+            $product_id = $this->request->getPost('product_id');
+            $price_product_prices = $this->productPriceModel
+                ->select('price, created_at, is_active')
+                ->where('product_id', $product_id)
+                ->orderBy('created_at', 'DESC')
+                ->findAll();
+            $price_transaction_detail = $this->transactionDetailModel
+                ->select('unit_price as price, created_at, is_active')
+                ->where('product_id', $product_id)
+                ->orderBy('created_at', 'DESC')
+                ->findAll();
+            $result = [
+                'price_transaction_detail' => $price_transaction_detail,
+                'price_product_prices' => $price_product_prices,
+            ];
+            return apiResponse(true, 'Fetch data successful', $result);
         } catch (\Throwable $th) {
             return apiResponse(true, $th->getMessage(), null, '200');
         }

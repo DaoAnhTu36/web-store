@@ -1032,7 +1032,29 @@
         s.parentNode.insertBefore(ga, s);
     })();
 </script>
+<script>
+    const currencyInputs = document.querySelectorAll('.currency-input');
+    currencyInputs.forEach(input => {
+        input.addEventListener('input', function(e) {
+            let value = this.value.replace(/\D/g, '');
+            value = new Intl.NumberFormat('vi-VN').format(value);
+            this.value = value;
+        });
 
+        input.addEventListener('keypress', function(e) {
+            if (!/[0-9]/.test(e.key)) {
+                e.preventDefault();
+            }
+        });
+    });
+</script>
+<script>
+    const today = new Date().toISOString().split('T')[0];
+    const dateInputs = document.querySelectorAll('.date-input');
+    dateInputs.forEach(input => {
+        input.value = today;
+    });
+</script>
 </body>
 
 </html>

@@ -78,7 +78,7 @@
                                     <div class="form-group">
                                         <label class="col-md-2 control-label">Ngày giao dịch</label>
                                         <div class="col-md-10">
-                                            <input type="date" class="form-control" value="" placeholder="" id="transaction_date" name="transaction_date" />
+                                            <input type="date" class="form-control date-input" value="" placeholder="" id="transaction_date" name="transaction_date" />
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -223,7 +223,7 @@
             "product_attribute_id": product_attribute_id,
         };
         if (labelButton === labelSaveTemp) {
-            const indexItemExist = dataTransDetail.findIndex(x => x.product_id === product_id);
+            const indexItemExist = dataTransDetail.findIndex(x => x.product_id === product_id && x.product_attribute_id === product_attribute_id);
             if (indexItemExist === -1) {
                 dataTransDetail.push(data);
             } else {
@@ -390,14 +390,12 @@
             }
         });
     }
-
-    window.addEventListener('DOMContentLoaded', () => {
-        const today = new Date();
-        const year = today.getFullYear();
-        const month = String(today.getMonth() + 1).padStart(2, '0');
-        const day = String(today.getDate()).padStart(2, '0');
-        const formattedDate = `${year}-${month}-${day}`; // YYYY-MM-DD
-        document.getElementById('transaction_date').value = formattedDate;
+</script>
+<script>
+    const today = new Date().toISOString().split('T')[0];
+    const dateInputs = document.querySelectorAll('input[type="date"]');
+    dateInputs.forEach(input => {
+        input.value = today;
     });
 </script>
 <!-- END MAIN CONTENT -->

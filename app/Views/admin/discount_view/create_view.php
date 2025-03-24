@@ -64,58 +64,65 @@
                         <!-- widget content -->
                         <div class="widget-body">
 
-                            <form class="form-horizontal" action="<?= base_url('admin/product/save'); ?>" method="POST" enctype="multipart/form-data">
+                            <form class="form-horizontal" action="<?= base_url('admin/discount/save'); ?>" method="POST" enctype="multipart/form-data">
                                 <fieldset>
-                                    <legend>Thêm mới sản phẩm</legend>
+                                    <legend>Thêm mới khuyến mại</legend>
                                     <div class="form-group">
-                                        <label class="col-md-2 control-label">Tên</label>
+                                        <label class="col-md-2 control-label">Tên chương trình KM</label>
                                         <div class="col-md-10">
-                                            <input class="form-control" value="" placeholder="" type="text" id="name" name="name">
+                                            <input class="form-control" value="Giảm giá sập sàn" placeholder="" type="text" id="name" name="name">
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <div class="col-md-2 control-label">Thuộc tính</div>
+                                        <label class="col-md-2 control-label">Loại KM</label>
                                         <div class="col-md-10">
-                                            <table class="table table-bordered table-striped">
-                                                <thead>
-                                                    <tr>
-                                                        <th>Thuộc tính</th>
-                                                        <th>Giá trị</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <?php foreach ($productAttributes as $attribute): ?>
-                                                        <tr>
-                                                            <td><?= $attribute['attribute_name']; ?></td>
-                                                            <td>
-                                                                <?php foreach (explode(', ', $attribute['id_value_list']) as $value): ?>
-                                                                    <input type="checkbox" name="attribute_ids[]" value="<?= explode(':', $value)[0]; ?>"> <?= explode(':', $value)[1]; ?><br>
-                                                                <?php endforeach; ?>
-                                                            </td>
-                                                        </tr>
-                                                    <?php endforeach; ?>
-                                                </tbody>
-                                            </table>
+                                            <select name="discount_type_id" id="discount_type_id" class="form-control">
+                                                <?php foreach ($discount_types as $item) { ?>
+                                                    <option value="<?= $item['id'] ?>"><?= $item['name'] ?></option>
+                                                <?php } ?>
+                                            </select>
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label class="col-md-2 control-label">Hình ảnh</label>
+                                        <label class="col-md-2 control-label">Giá trị</label>
                                         <div class="col-md-10">
-                                            <input type="file" class="btn btn-default" id="images" name="images[]" multiple>
-                                            <p class="help-block">
-                                                Chọn ảnh dưới 150kb
-                                            </p>
+                                            <input class="form-control currency-input" value="35" placeholder="" type="text" id="discount_value" name="discount_value">
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label class="col-md-2 control-label">Danh mục</label>
+                                        <label class="col-md-2 control-label">Giá trị tối thiểu đơn hàng</label>
                                         <div class="col-md-10">
-                                            <input class="form-control" placeholder="" type="text" list="list" id="category_id" name="category_id">
-                                            <datalist id="list">
-                                                ?<?php foreach ($data as $category): ?>
-                                                <option value="<?= $category['id']; ?>"><?= $category['name']; ?></option>
-                                            <?php endforeach; ?>
-                                            </datalist>
+                                            <input class="form-control currency-input" value="300000" placeholder="" type="text" id="min_order_amount" name="min_order_amount">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-2 control-label">Giá trị tối đa của KM</label>
+                                        <div class="col-md-10">
+                                            <input class="form-control currency-input" value="70000" placeholder="" type="text" id="max_discount" name="max_discount">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-2 control-label">Mã giảm giá</label>
+                                        <div class="col-md-10">
+                                            <input class="form-control" value="SS35" placeholder="" type="text" id="coupon_code" name="coupon_code">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-2 control-label">Thời gian bắt đầu</label>
+                                        <div class="col-md-10">
+                                            <input class="form-control" value="25/03/2025" placeholder="" type="date" id="start_date" name="start_date">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-2 control-label">Thời gian kết thúc</label>
+                                        <div class="col-md-10">
+                                            <input class="form-control" value="26/03/2025" placeholder="" type="date" id="end_date" name="end_date">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-2 control-label">Số lượng giới hạn</label>
+                                        <div class="col-md-10">
+                                            <input class="form-control currency-input" value="2000" placeholder="" type="text" id="usage_limit" name="usage_limit">
                                         </div>
                                     </div>
                                 </fieldset>
@@ -151,4 +158,11 @@
 </div>
 <!-- END MAIN CONTENT -->
 
+<script>
+    const today = new Date().toISOString().split('T')[0];
+    const dateInputs = document.querySelectorAll('input[type="date"]');
+    dateInputs.forEach(input => {
+        input.value = today;
+    });
+</script>
 <?= $this->endSection(); ?>

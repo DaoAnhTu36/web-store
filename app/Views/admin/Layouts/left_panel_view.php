@@ -52,20 +52,35 @@ $method = isset($path_array[2]) ? $path_array[2] : '';
                     </li>
                     <li class="<?= $controller == 'product' && $method == 'price-management' ? 'active' : ''; ?>">
                         <a href="<?= site_url('admin/product/price-management') ?>" title="">
-                            <span class="menu-item-parent">Quản lý giá</span>
+                            <span class="menu-item-parent">Quản lý giá sản phẩm</span>
                         </a>
                     </li>
-                    <li class="<?= $controller == 'product' && $method == 'discount-management' ? 'active' : ''; ?>">
-                        <a href="<?= site_url('admin/product/discount-management') ?>" title="">
-                            <span class="menu-item-parent">Khuyến mại</span>
+                    <li class="<?= $controller == 'product-discount' ? 'active' : ''; ?>">
+                        <a href="<?= site_url('admin/product-discount') ?>" title="">
+                            <span class="menu-item-parent">Sản phẩm khuyến mại</span>
                         </a>
                     </li>
                 </ul>
             </li>
-            <li class="<?= $controller == 'product-attributes' && $method == 'best-selling-management' ? 'active' : ''; ?>">
+            <li class="<?= $controller == 'product-attributes' ? 'active' : ''; ?>">
                 <a href="<?= site_url('admin/product-attributes/index') ?>" title=""><i class="fa fa-lg fa-fw fa-cube"></i>
                     <span class="menu-item-parent">Thuộc tính sản phẩm</span>
                 </a>
+            </li>
+            <li>
+                <a title=""><i class="fa fa-lg fa-fw fa-cube"></i><span class="menu-item-parent">Chương trình KM</span></a>
+                <ul>
+                    <li class="<?= $controller == 'discount' ? 'active open' : ''; ?>">
+                        <a href="<?= site_url('admin/discount') ?>" title=""></i>
+                            <span class="menu-item-parent">Danh sách chương trình</span>
+                        </a>
+                    </li>
+                    <li class="<?= $controller == 'discount-type' ? 'active open' : ''; ?>">
+                        <a href="<?= site_url('admin/discount-type') ?>" title=""></i>
+                            <span class="menu-item-parent">Loại khuyến mại</span>
+                        </a>
+                    </li>
+                </ul>
             </li>
             <li>
                 <a title=""><i class="fa fa-lg fa-fw fa-cube"></i><span class="menu-item-parent">Kho hàng</span></a>

@@ -119,3 +119,47 @@ CREATE TABLE inventory (
 
 TRUNCATE TABLE transactions;
 TRUNCATE TABLE transaction_details;
+
+CREATE TABLE discounts (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,       -- Tên chương trình giảm giá
+    discount_type INT NOT NULL,
+    discount_value DECIMAL(10,2) DEFAULT 0,    -- Giá trị giảm (% hoặc số tiền)
+    min_order_amount DECIMAL(10,2) DEFAULT 0,  -- Giá trị đơn hàng tối thiểu để áp dụng
+    max_discount DECIMAL(10,2) DEFAULT NULL,   -- Số tiền giảm tối đa (nếu có)
+    coupon_code VARCHAR(50) DEFAULT NULL,      -- Mã giảm giá (nếu cần nhập)
+    start_date DATETIME,                       -- Thời gian bắt đầu
+    end_date DATETIME,                         -- Thời gian kết thúc
+    usage_limit INT DEFAULT NULL,              -- Số lần sử dụng tối đa
+    used_count INT DEFAULT 0,                  -- Số lần đã dùng
+    is_active TINYINT(1) DEFAULT 1,            -- Có đang hoạt động không
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    created_by INT DEFAULT NULL,
+    updated_by INT DEFAULT NULL,
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+CREATE TABLE discount_types (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,         -- Tên loại giảm giá (hiển thị cho admin)
+    description TEXT DEFAULT NULL,           -- Mô tả (nếu cần)
+    is_active TINYINT(1) DEFAULT 1,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    created_by INT DEFAULT NULL,
+    updated_by INT DEFAULT NULL,
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+CREATE TABLE product_discount_details (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    discount_id INT NOT NULL,
+    product_id INT NOT NULL,
+    product_discount_id INT NOT NULL,
+    is_active TINYINT(1) DEFAULT 1,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    created_by INT DEFAULT NULL,
+    updated_by INT DEFAULT NULL,
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+
