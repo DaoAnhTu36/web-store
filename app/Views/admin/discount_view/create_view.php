@@ -70,7 +70,7 @@
                                     <div class="form-group">
                                         <label class="col-md-2 control-label">Tên chương trình KM</label>
                                         <div class="col-md-10">
-                                            <input class="form-control" value="Giảm giá sập sàn" placeholder="" type="text" id="name" name="name">
+                                            <input class="form-control" value="" placeholder="" type="text" id="name" name="name">
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -86,43 +86,43 @@
                                     <div class="form-group">
                                         <label class="col-md-2 control-label">Giá trị</label>
                                         <div class="col-md-10">
-                                            <input class="form-control currency-input" value="35" placeholder="" type="text" id="discount_value" name="discount_value">
+                                            <input class="form-control currency-input" value="" placeholder="" type="text" id="discount_value" name="discount_value">
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-md-2 control-label">Giá trị tối thiểu đơn hàng</label>
                                         <div class="col-md-10">
-                                            <input class="form-control currency-input" value="300000" placeholder="" type="text" id="min_order_amount" name="min_order_amount">
+                                            <input class="form-control currency-input" value="" placeholder="" type="text" id="min_order_amount" name="min_order_amount">
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-md-2 control-label">Giá trị tối đa của KM</label>
                                         <div class="col-md-10">
-                                            <input class="form-control currency-input" value="70000" placeholder="" type="text" id="max_discount" name="max_discount">
+                                            <input class="form-control currency-input" value="" placeholder="" type="text" id="max_discount" name="max_discount">
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-md-2 control-label">Mã giảm giá</label>
                                         <div class="col-md-10">
-                                            <input class="form-control" value="SS35" placeholder="" type="text" id="coupon_code" name="coupon_code">
+                                            <input class="form-control" value="" placeholder="" type="text" id="coupon_code" name="coupon_code">
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-md-2 control-label">Thời gian bắt đầu</label>
                                         <div class="col-md-10">
-                                            <input class="form-control" value="25/03/2025" placeholder="" type="date" id="start_date" name="start_date">
+                                            <input class="form-control" value="" placeholder="" type="date" id="start_date" name="start_date">
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-md-2 control-label">Thời gian kết thúc</label>
                                         <div class="col-md-10">
-                                            <input class="form-control" value="26/03/2025" placeholder="" type="date" id="end_date" name="end_date">
+                                            <input class="form-control" value="" placeholder="" type="date" id="end_date" name="end_date">
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-md-2 control-label">Số lượng giới hạn</label>
                                         <div class="col-md-10">
-                                            <input class="form-control currency-input" value="2000" placeholder="" type="text" id="usage_limit" name="usage_limit">
+                                            <input class="form-control currency-input" value="" placeholder="" type="text" id="usage_limit" name="usage_limit">
                                         </div>
                                     </div>
                                 </fieldset>

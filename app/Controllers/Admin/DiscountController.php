@@ -53,16 +53,18 @@ class DiscountController extends BaseController
         $data = [
             'name' => $this->request->getPost('name'),
             'discount_type_id' => $this->request->getPost('discount_type_id'),
-            'discount_value' => $this->request->getPost('discount_value'),
-            'min_order_amount' => $this->request->getPost('min_order_amount'),
-            'max_discount' => $this->request->getPost('max_discount'),
+            'discount_value' => str_replace('.', '', $this->request->getPost('discount_value')),
+            'min_order_amount' => str_replace('.', '', $this->request->getPost('min_order_amount')),
+            'max_discount' => str_replace('.', '', $this->request->getPost('max_discount')),
             'coupon_code' => $this->request->getPost('coupon_code'),
             'start_date' => $this->request->getPost('start_date'),
             'end_date' => $this->request->getPost('end_date'),
-            'usage_limit' => $this->request->getPost('usage_limit'),
+            'usage_limit' => str_replace('.', '', $this->request->getPost('usage_limit')),
             'created_by' => session()->get('user_id'),
             'is_active' => 1,
         ];
+        EchoCommon($data);
+        return;
         $this->discountModel->save($data);
         return redirect()->to('admin/discount')->with('success', 'Thêm mới thành công khuyến mại');
     }
