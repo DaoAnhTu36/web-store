@@ -186,27 +186,33 @@ class ProductController extends BaseController
 
     public function setPriceProduct()
     {
-        $product_id = $this->request->getPost('product_id');
-        $price = $this->request->getPost('price');
-        if (empty($product_id)) {
-            return apiResponse(false, 'Vui lòng chọn sản phẩm!', null, '400');
+        try {
+            $product_id = $this->request->getPost('product_id');
+            $price = $this->request->getPost('price');
+            if (empty($product_id)) {
+                return apiResponse(false, 'Vui lòng chọn sản phẩm!', null, '400');
+            }
+            if (empty($price)) {
+                return apiResponse(false, 'Vui lòng nhập giá!', null, '400');
+            }
+            $checkExist = $this->productPriceModel
+                ->where('product_id', $product_id)
+                ->findAll();
+            if (count($checkExist) > 0) {
+                foreach ($checkExist as $check) {
+                    $this->productPriceModel->update($check['price_id'], ['is_active' => 0]);
+                }
+            }
+            $this->productPriceModel->insert([
+                'product_id' => $product_id,
+                'price' => $price,
+                'created_by' => session()->get('user_id'),
+                'updated_by' => session()->get('user_id'),
+                'is_active' => 1,
+            ]);
+            return apiResponse(true, 'Thiết lập thành công', null, '200');
+        } catch (\Throwable $th) {
+            return apiResponse(true, $th->getMessage(), null, '200');
         }
-        if (empty($price)) {
-            return apiResponse(false, 'Vui lòng nhập giá!', null, '400');
-        }
-        $checkExist = $this->productPriceModel
-            ->where('product_id', $product_id)
-            ->findAll();
-        if (count($checkExist) > 0) {
-            $this->productPriceModel->update($product_id, ['is_active' => 0]);
-        }
-        $this->productPriceModel->insert([
-            'product_id' => $product_id,
-            'price' => $price,
-            'created_by' => session()->get('user_id'),
-            'updated_by' => session()->get('user_id'),
-            'is_active' => 1,
-        ]);
-        return apiResponse(true, 'Thiết lập thành công', null, '200');
     }
 }

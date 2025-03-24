@@ -31,7 +31,7 @@
                                 </figure>
                                 <div class="d-flex flex-column text-center">
                                     <h3 class="fs-6 fw-normal"><?= $item['name'] ?></h3>
-                                    <div>
+                                    <!-- <div>
                                         <span class="rating">
                                             <svg width="18" height="18" class="text-warning">
                                                 <use xlink:href="#star-full"></use>
@@ -50,10 +50,10 @@
                                             </svg>
                                         </span>
                                         <span>(222)</span>
-                                    </div>
+                                    </div> -->
                                     <div class="d-flex justify-content-center align-items-center gap-2">
                                         <!-- <del>$24.00</del> -->
-                                        <!-- <span class="text-dark fw-semibold"> ₫</span> -->
+                                        <span class="text-dark fw-semibold"><?= number_format($item['price'], 0, ',', '.'); ?> ₫</span>
                                         <!-- <span
                                             class="badge border border-dark-subtle rounded-0 fw-normal px-1 fs-7 lh-1 text-body-tertiary">10%
                                             OFF</span> -->

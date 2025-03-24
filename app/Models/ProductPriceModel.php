@@ -11,37 +11,25 @@ class ProductPriceModel extends Model
 
     protected $allowedFields = ['product_id', 'price', 'start_date', 'end_date', 'created_at', 'created_by', 'updated_by', 'is_active'];
 
-    // Lấy giá mới nhất của mỗi sản phẩm
-    public function getLatestPriceByProduct()
+    public function getProductsForPortal()
     {
-        return $this->select('product_id, price, start_date, end_date')
-            ->where('start_date = (SELECT MAX(start_date) FROM product_prices AS pp WHERE pp.product_id = product_prices.product_id)', null, false)
-            ->groupBy('product_id')
-            ->findAll();
-    }
-
-    // Lấy giá cao nhất của mỗi sản phẩm
-    public function getHighestPriceByProduct()
-    {
-        return $this->select('product_id, MAX(price) as highest_price')
-            ->groupBy('product_id')
-            ->findAll();
-    }
-
-    // Lấy giá thấp nhất của mỗi sản phẩm
-    public function getLowestPriceByProduct()
-    {
-        return $this->select('product_id, MIN(price) as lowest_price')
-            ->groupBy('product_id')
-            ->findAll();
-    }
-
-    // Lấy danh sách giá theo sản phẩm
-    public function getPriceListByProduct()
-    {
-        return $this->select("product_prices.*, products.name as product_name, GROUP_CONCAT(product_prices.price ORDER BY product_prices.start_date DESC SEPARATOR ', ') as price_list")
+        return $this->select("product_prices.price
+            , products.id
+            , products.name
+            , products.created_at
+            , products.is_active
+            , products.image
+            , categories.name AS category_name
+            , GROUP_CONCAT(images.image_path SEPARATOR ', ') AS images")
             ->join("products", "products.id = product_prices.product_id", "left")
-            ->groupBy('product_id')
+            ->join('images', 'images.record_id = products.id', 'left')
+            ->join('categories', 'categories.id = products.category_id', 'left')
+            ->where('images.type', 'product')
+            ->where('product_prices.is_active', 1)
+            ->where('products.is_active', 1)
+            ->where('categories.is_active', 1)
+            ->groupBy('products.id')
+            ->orderBy('products.created_at', 'DESC')
             ->findAll();
     }
 }

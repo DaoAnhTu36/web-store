@@ -3,13 +3,22 @@
 namespace App\Controllers\Portal;
 
 use App\Controllers\BaseController;
+use App\Models\ProductModel;
+use App\Models\ProductPriceModel;
 
 class HomeController extends BaseController
 {
+    protected $productModel;
+    protected $productPriceModel;
+    public function __construct()
+    {
+        $this->productModel = new ProductModel();
+        $this->productPriceModel = new ProductPriceModel();
+    }
+
     public function index()
     {
-        $model = new \App\Models\ProductModel();
-        $data = $model->getProductsWithImages();
+        $data = $this->productPriceModel->getProductsForPortal();
         $data_view = [
             'data' => $data,
         ];
