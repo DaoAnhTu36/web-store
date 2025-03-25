@@ -57,8 +57,25 @@ function format_datetime_input($datetime, $format = 'Y-m-d\TH:i')
     $dateTimeObj = new DateTime($datetime);
     return $dateTimeObj->format($format);
 }
+
 function get_current_datetime_local()
 {
     $now = new DateTime();
     return $now->format('Y-m-d\TH:i'); // Định dạng chuẩn cho datetime-local
+}
+
+function formatCurrency($number, $currency = '')
+{
+    if (empty($currency)) {
+        return number_format($number, 0, ',', '.');
+    }
+    return number_format($number, 0, ',', '.') . ' ' . $currency;
+}
+
+function get_number_format_currency($number_str)
+{
+    if (!empty($number_str)) {
+        return str_replace('.', '', $number_str);
+    }
+    return $number_str;
 }

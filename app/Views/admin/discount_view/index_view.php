@@ -75,11 +75,11 @@
                                 <tr>
                                     <th>STT</th>
                                     <th>Tên</th>
-                                    <th>Loại</th>
+                                    <!-- <th>Loại</th>
                                     <th>Giá trị</th>
                                     <th>Giá trị tối thiểu đơn hàng</th>
                                     <th>Giảm tối đa</th>
-                                    <th>Mã giảm giá</th>
+                                    <th>Mã giảm giá</th> -->
                                     <th>Thời gian bắt đầu</th>
                                     <th>Thời gian kết thúc</th>
                                     <th>Số lượng</th>
@@ -94,11 +94,6 @@
                                     <tr>
                                         <td><?= $idx ?></td>
                                         <td><?= $item['name'] ?></td>
-                                        <td><?= $item['discount_type_name'] ?></td>
-                                        <td><?= $item['discount_value'] ?></td>
-                                        <td><?= number_format($item['min_order_amount'], 0, ',', '.'); ?> ₫</td>
-                                        <td><?= number_format($item['max_discount'], 0, ',', '.'); ?> ₫</td>
-                                        <td><?= $item['coupon_code'] ?></td>
                                         <td><?= $item['start_date'] ?></td>
                                         <td><?= $item['end_date'] ?></td>
                                         <td><?= $item['usage_limit'] ?></td>
@@ -114,8 +109,14 @@
                                             </label>
                                         </td>
                                         <td class="action-icons">
-                                            <a href="<?= site_url('admin/discount/detail/' . $item['id']); ?>" class="btn btn-warning"><i class="fa fa-pencil" aria-hidden="true"></i></a>
-                                            <a href="<?= site_url('admin/discount/delete/' . $item['id']); ?>" class="btn btn-danger" onclick="return confirm('Bạn có chắc muốn xóa?');"><i class="fa fa-trash" aria-hidden="true"></i></a>
+                                            <?php if (
+                                                new DateTime($item['start_date']) <= new DateTime()
+                                                && new DateTime($item['end_date']) >= new DateTime()
+                                                && $item['used_count'] == 0
+                                            ) { ?>
+                                                <a href="<?= site_url('admin/discount/detail/' . $item['id']); ?>" class="btn btn-warning"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                                                <a href="<?= site_url('admin/discount/delete/' . $item['id']); ?>" class="btn btn-danger" onclick="return confirm('Bạn có chắc muốn xóa?');"><i class="fa fa-trash" aria-hidden="true"></i></a>
+                                            <?php } ?>
                                         </td>
                                     </tr>
                                 <?php $idx++;

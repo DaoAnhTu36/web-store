@@ -50,8 +50,8 @@ class ProductDiscountController extends BaseController
     {
         $discounts = $this->discountModel
             ->where('is_active', 1)
-            ->where('start_date <=', date('Y-m-d'))
-            ->where('end_date >=', date('Y-m-d'))
+            ->where('start_date <=', get_current_datetime_local())
+            ->where('end_date >=', get_current_datetime_local())
             ->findAll();
         $products = $this->productPriceModel
             ->join('products', 'products.id = product_prices.product_id', 'left')
