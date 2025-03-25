@@ -110,13 +110,13 @@
                                     <div class="form-group">
                                         <label class="col-md-2 control-label">Thời gian bắt đầu</label>
                                         <div class="col-md-10">
-                                            <input class="form-control" value="" placeholder="" type="date" id="start_date" name="start_date">
+                                            <input class="form-control" value="<?= get_current_datetime_local() ?>" placeholder="" type="datetime-local" id="start_date" name="start_date">
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-md-2 control-label">Thời gian kết thúc</label>
                                         <div class="col-md-10">
-                                            <input class="form-control" value="" placeholder="" type="date" id="end_date" name="end_date">
+                                            <input class="form-control" value="<?= get_current_datetime_local() ?>" placeholder="" type="datetime-local" id="end_date" name="end_date">
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -158,11 +158,4 @@
 </div>
 <!-- END MAIN CONTENT -->
 
-<script>
-    const today = new Date().toISOString().split('T')[0];
-    const dateInputs = document.querySelectorAll('input[type="date"]');
-    dateInputs.forEach(input => {
-        input.value = today;
-    });
-</script>
 <?= $this->endSection(); ?>

@@ -23,8 +23,6 @@ class TransactionController extends BaseController
 
     public function __construct()
     {
-        helper("common");
-        helper("language");
         $this->modelTransaction = new TransactionModel();
         $this->modelTransactionDetail = new TransactionDetailModel();
         $this->modelCustomer = new CustomerModel();

@@ -97,8 +97,12 @@
                                                 </label>
                                             </td>
                                             <td class="action-icons">
-                                                <a href="<?= site_url('admin/product-discount/detail/' . $item['id']); ?>" class="btn btn-warning"><i class="fa fa-pencil" aria-hidden="true"></i></a>
-                                                <a href="<?= site_url('admin/product-discount/delete/' . $item['id']); ?>" class="btn btn-danger" onclick="return confirm('Bạn có chắc muốn xóa?');"><i class="fa fa-trash" aria-hidden="true"></i></a>
+                                                <?php if ($item['start_date'] >= date('Y-m-d')) { ?>
+                                                    <a href="<?= site_url('admin/product-discount/detail/' . $item['id']); ?>" class="btn btn-warning"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                                                <?php } ?>
+                                                <?php if ($item['used_count'] == 0) { ?>
+                                                    <a href="<?= site_url('admin/product-discount/delete/' . $item['id']); ?>" class="btn btn-danger" onclick="return confirm('Bạn có chắc muốn xóa?');"><i class="fa fa-trash" aria-hidden="true"></i></a>
+                                                <?php } ?>
                                             </td>
                                         </tr>
                                     <?php $idx++;

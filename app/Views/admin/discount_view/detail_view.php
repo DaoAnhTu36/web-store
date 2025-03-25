@@ -64,28 +64,65 @@
                         <!-- widget content -->
                         <div class="widget-body">
 
-                            <form class="form-horizontal" method="POST" action="<?= base_url('admin/warehouse/update/' . $data['id']) ?>">
+                            <form class="form-horizontal" action="<?= base_url('admin/discount/update/' . $data['id']); ?>" method="POST" enctype="multipart/form-data">
                                 <fieldset>
+                                    <legend>Thêm mới khuyến mại</legend>
                                     <div class="form-group">
-                                        <label class="col-md-2 control-label">Tên kho</label>
+                                        <label class="col-md-2 control-label">Tên chương trình KM</label>
                                         <div class="col-md-10">
                                             <input class="form-control" value="<?= $data['name'] ?>" placeholder="" type="text" id="name" name="name">
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label class="col-md-2 control-label">Địa chỉ</label>
+                                        <label class="col-md-2 control-label">Loại KM</label>
                                         <div class="col-md-10">
-                                            <input class="form-control" value="<?= $data['location'] ?>" placeholder="" type="text" id="location" name="location">
+                                            <select name="discount_type_id" id="discount_type_id" class="form-control">
+                                                <?php foreach ($discount_types as $item) { ?>
+                                                    <option value="<?= $item['id'] ?>"><?= $item['name'] ?></option>
+                                                <?php } ?>
+                                            </select>
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label class="col-md-2 control-label">Người quản lý</label>
+                                        <label class="col-md-2 control-label">Giá trị</label>
                                         <div class="col-md-10">
-                                            <select class="form-control" name="account_id" id="account_id">
-                                                <?php foreach ($lstAdmin as $account): ?>
-                                                    <option <?= $data['account_id'] == $account['id'] ? 'selected' : '' ?> value="<?= $account['id'] ?>"><?= $account['full_name'] ?> - <?= $account['user_name'] ?></option>
-                                                <?php endforeach; ?>
-                                            </select>
+                                            <input class="form-control currency-input" value="<?= convert_decimal_to_int($data['discount_value']); ?>" placeholder="" type="text" id="discount_value" name="discount_value">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-2 control-label">Giá trị tối thiểu đơn hàng</label>
+                                        <div class="col-md-10">
+                                            <input class="form-control currency-input" value="<?= convert_decimal_to_int($data['min_order_amount']); ?>" placeholder="" type="text" id="min_order_amount" name="min_order_amount">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-2 control-label">Giá trị tối đa của KM</label>
+                                        <div class="col-md-10">
+                                            <input class="form-control currency-input" value="<?= convert_decimal_to_int($data['max_discount']); ?>" placeholder="" type="text" id="max_discount" name="max_discount">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-2 control-label">Mã giảm giá</label>
+                                        <div class="col-md-10">
+                                            <input class="form-control" value="<?= $data['coupon_code'] ?>" placeholder="" type="text" id="coupon_code" name="coupon_code">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-2 control-label">Thời gian bắt đầu</label>
+                                        <div class="col-md-10">
+                                            <input class="form-control" value="<?= format_datetime_input($data['start_date']); ?>" placeholder="" type="datetime-local" id="start_date" name="start_date">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-2 control-label">Thời gian kết thúc</label>
+                                        <div class="col-md-10">
+                                            <input class="form-control" value="<?= format_datetime_input($data['end_date']); ?>" placeholder="" type="datetime-local" id="end_date" name="end_date">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-2 control-label">Số lượng giới hạn</label>
+                                        <div class="col-md-10">
+                                            <input class="form-control currency-input" value="<?= $data['usage_limit'] ?>" placeholder="" type="text" id="usage_limit" name="usage_limit">
                                         </div>
                                     </div>
                                 </fieldset>
@@ -97,7 +134,7 @@
                                             </button>
                                             <button class="btn btn-primary" type="submit">
                                                 <i class="fa fa-save"></i>
-                                                Cập nhật
+                                                Lưu
                                             </button>
                                         </div>
                                     </div>
@@ -120,5 +157,4 @@
     </section>
 </div>
 <!-- END MAIN CONTENT -->
-
 <?= $this->endSection(); ?>

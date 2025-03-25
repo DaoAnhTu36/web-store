@@ -78,7 +78,7 @@
                                     <div class="form-group">
                                         <label class="col-md-2 control-label">Ngày giao dịch</label>
                                         <div class="col-md-10">
-                                            <input type="date" class="form-control date-input" value="" placeholder="" id="transaction_date" name="transaction_date" />
+                                            <input type="datetime-local" class="form-control" value="<?= get_current_datetime_local() ?>" placeholder="" id="transaction_date" name="transaction_date" />
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -390,13 +390,6 @@
             }
         });
     }
-</script>
-<script>
-    const today = new Date().toISOString().split('T')[0];
-    const dateInputs = document.querySelectorAll('input[type="date"]');
-    dateInputs.forEach(input => {
-        input.value = today;
-    });
 </script>
 <!-- END MAIN CONTENT -->
 <?= $this->endSection(); ?>

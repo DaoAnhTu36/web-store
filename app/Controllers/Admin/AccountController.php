@@ -13,7 +13,6 @@ class AccountController extends BaseController
 
     public function __construct()
     {
-        helper("common");
         $this->accountModel = new AccountModel();
         $this->roleModel = new RoleModel();
     }

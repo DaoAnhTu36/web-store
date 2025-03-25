@@ -11,7 +11,6 @@ class ProductAttributeValueController extends BaseController
 
     public function __construct()
     {
-        helper("common");
         $this->productAttributeValueModel = new ProductAttributeValueModel();
     }
 

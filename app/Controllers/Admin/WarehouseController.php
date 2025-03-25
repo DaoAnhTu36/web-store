@@ -15,8 +15,6 @@ class WarehouseController extends BaseController
     {
         $this->warehouseModel = new WarehouseModel();
         $this->accountModel = new AccountModel();
-        helper("common");
-        helper("language");
     }
 
     public function index()

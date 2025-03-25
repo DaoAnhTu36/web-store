@@ -11,7 +11,6 @@ class CommonController extends BaseController
 
     public function __construct()
     {
-        helper("common");
         $this->accountModel = new AccountModel();
     }
 

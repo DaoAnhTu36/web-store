@@ -22,8 +22,6 @@ class ProductDiscountController extends BaseController
         $this->discountModel = new DiscountModel();
         $this->productPriceModel = new ProductPriceModel();
         $this->productDiscountDetailModel = new ProductDiscountDetailModel();
-        helper("common");
-        helper("language");
     }
 
     public function index()
@@ -33,7 +31,10 @@ class ProductDiscountController extends BaseController
                     , product_discounts.name
                     , product_discounts.is_active
                     , product_discounts.created_at
-                    , discounts.name as discount_name')
+                    , discounts.name as discount_name
+                    , discounts.start_date
+                    , discounts.end_date
+                    , discounts.used_count')
             ->join('discounts', 'discounts.id = product_discounts.discount_id', 'left')
             ->where('product_discounts.is_active', 1)
             ->where('discounts.is_active', 1)

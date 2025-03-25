@@ -18,8 +18,6 @@ class RoleController extends BaseController
         $this->roleModel = new RoleModel();
         $this->permissionModel = new PermissionModel();
         $this->rolePermissionModel = new RolePermissionModel();
-        helper("common");
-        helper("language");
     }
     public function index()
     {

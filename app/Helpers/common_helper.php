@@ -43,3 +43,22 @@ function convert_vi_to_slug($str)
     $str = trim($str, '-');
     return $str;
 }
+
+function convert_decimal_to_int($number)
+{
+    return ($number == floor($number)) ? (int) $number : (float) $number;
+}
+
+function format_datetime_input($datetime, $format = 'Y-m-d\TH:i')
+{
+    if (empty($datetime) || $datetime == '0000-00-00 00:00:00') {
+        return '';
+    }
+    $dateTimeObj = new DateTime($datetime);
+    return $dateTimeObj->format($format);
+}
+function get_current_datetime_local()
+{
+    $now = new DateTime();
+    return $now->format('Y-m-d\TH:i'); // Định dạng chuẩn cho datetime-local
+}

@@ -25,8 +25,6 @@ class ProductController extends BaseController
 
     public function __construct()
     {
-        helper("common");
-        helper("language");
         $this->bestSellingModel = new BestSellingProductModel();
         $this->productPriceModel = new ProductPriceModel();
         $this->productAttributeModel = new ProductAttributeModel();

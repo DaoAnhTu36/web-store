@@ -1048,13 +1048,6 @@
         });
     });
 </script>
-<script>
-    const today = new Date().toISOString().split('T')[0];
-    const dateInputs = document.querySelectorAll('.date-input');
-    dateInputs.forEach(input => {
-        input.value = today;
-    });
-</script>
 </body>
 
 </html>

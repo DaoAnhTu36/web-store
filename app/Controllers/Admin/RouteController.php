@@ -15,7 +15,6 @@ class RouteController extends BaseController
     {
         $this->routeModel = new RouteModel();
         $this->permissionModel = new PermissionModel();
-        helper("common");
     }
 
     public function index()

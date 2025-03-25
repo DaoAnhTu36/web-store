@@ -7,11 +7,7 @@ use CodeIgniter\I18n\Time;
 
 class CategoryController extends BaseController
 {
-    public function __construct()
-    {
-        helper("common");
-        helper("language");
-    }
+    public function __construct() {}
 
     public function index()
     {

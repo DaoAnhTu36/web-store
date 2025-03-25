@@ -13,8 +13,6 @@ class DiscountTypeController extends BaseController
     public function __construct()
     {
         $this->discountTypeModel = new DiscountTypeModel();
-        helper("common");
-        helper("language");
     }
 
     public function index()
