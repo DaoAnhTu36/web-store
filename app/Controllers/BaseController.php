@@ -8,6 +8,7 @@ use CodeIgniter\HTTP\IncomingRequest;
 use CodeIgniter\HTTP\RequestInterface;
 use CodeIgniter\HTTP\ResponseInterface;
 use Psr\Log\LoggerInterface;
+use App\Models\WebsiteConfigModel;
 
 /**
  * Class BaseController
@@ -47,6 +48,7 @@ abstract class BaseController extends Controller
      * @return void
      */
     protected $lang;
+    protected $websiteConfigModel;
     public function initController(RequestInterface $request, ResponseInterface $response, LoggerInterface $logger)
     {
         // Do Not Edit This Line
@@ -56,6 +58,7 @@ abstract class BaseController extends Controller
 
         // E.g.: $this->session = \Config\Services::session();
         helper("url");
+        $this->websiteConfigModel = new WebsiteConfigModel();
 
 
         $session = session();
@@ -66,6 +69,10 @@ abstract class BaseController extends Controller
         }
 
         service('request')->setLocale($this->lang);
+        if (!$session->has('web_configs')) {
+            $webConfigs = $this->websiteConfigModel->getAllConfigs();
+            $session->set('web_configs', $webConfigs);
+        }
     }
 
     // app/Controllers/BaseController.php

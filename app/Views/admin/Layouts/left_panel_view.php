@@ -133,6 +133,9 @@ $method = isset($path_array[2]) ? $path_array[2] : '';
                     <li class="<?= $controller == 'route' ? 'active open' : ''; ?>">
                         <a href="<?= site_url('admin/route') ?>" title=""></i> <span class="menu-item-parent">Routes</span></a>
                     </li>
+                    <li class="<?= $controller == 'website-config' ? 'active open' : ''; ?>">
+                        <a href="<?= site_url('admin/website-config') ?>" title=""></i> <span class="menu-item-parent">Settings</span></a>
+                    </li>
                 </ul>
             </li>
         </ul>

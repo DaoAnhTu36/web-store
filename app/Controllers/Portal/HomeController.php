@@ -18,9 +18,11 @@ class HomeController extends BaseController
 
     public function index()
     {
+        $title = "Trang chủ";
         $data = $this->productPriceModel->getProductsForPortal();
         $data_view = [
             'data' => $data,
+            'title' => $title,
         ];
         return view('portal/home_view', $data_view);
     }

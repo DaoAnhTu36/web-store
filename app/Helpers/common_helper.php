@@ -1,5 +1,7 @@
 <?php
 
+use CodeIgniter\Email\Email;
+
 function EchoCommon($object)
 {
     echo "<pre>";
@@ -78,4 +80,54 @@ function get_number_format_currency($number_str)
         return str_replace('.', '', $number_str);
     }
     return $number_str;
+}
+
+function get_validate_upload_file($files)
+{
+    $has_file = false;
+    if (isset($files['images'])) {
+        $validFiles = [];
+        foreach ($files['images'] as $file) {
+            if ($file->isValid() && !$file->hasMoved()) {
+                $validFiles[] = $file;
+            }
+        }
+
+        if (!empty($validFiles)) {
+            $has_file = true;
+        }
+    }
+    if ($has_file) {
+        $rule_value = 'uploaded[images]|max_size[images,150]|is_image[images]|mime_in[images,image/jpg,image/jpeg,image/png]';
+        $web_configs = session()->get('web_configs');
+        if ($web_configs) {
+            $rule_upload = isset($web_configs['max_upload_size']) ? $web_configs['max_upload_size'] : 150;
+            $option_size = '|max_size[images,' . $rule_upload . ']';
+            $rule_value = 'uploaded[images]' . $option_size;
+            if (isset($web_configs['allowed_file_types']) && $web_configs['allowed_file_types']) {
+                $rule_file = 'images';
+                foreach (explode(',', $web_configs['allowed_file_types']) as $value) {
+                    $rule_file .= ',image/' . trim($value);
+                }
+                $option_file = '|is_image[images]|mime_in[' . $rule_file . ']';
+                $rule_value .= $option_file;
+            }
+        }
+        return $rule_value;
+    }
+    return '';
+}
+
+
+function send_mail_native($mail_to, $template)
+{
+    $email = \Config\Services::email();
+    $email->setTo($mail_to);
+    $email->setMessage($template);
+    if ($email->send()) {
+        return true;
+    } else {
+        print_r($email->printDebugger());
+        return false;
+    }
 }

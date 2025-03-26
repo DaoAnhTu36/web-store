@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
 
-    <title> <?php echo isset($title) ? $title : 'Store admin page' ?> </title>
+    <title> <?= session()->get('web_configs')['site_name_admin'] . ' - ' . $title ?> </title>
     <meta name="description" content="">
     <meta name="author" content="">
 
@@ -23,8 +23,8 @@
     <link rel="stylesheet" type="text/css" media="screen" href="<?= base_url($libUrl . '/css/custom.css'); ?>">
     <link rel="stylesheet" type="text/css" media="screen" href="<?= base_url($libUrl . '/css/toastify.min.css'); ?>">
 
-    <link rel="shortcut icon" href="<?= base_url($libUrl . '/img/favicon/favicon.ico'); ?>" type="image/x-icon">
-    <link rel="icon" href="<?= base_url($libUrl . '/img/favicon/favicon.ico'); ?>" type="image/x-icon">
+    <link rel="shortcut icon" href="<?= session()->get('web_configs')['logo']; ?>" type="image/x-icon">
+    <link rel="icon" href="<?= session()->get('web_configs')['logo']; ?>" type="image/x-icon">
 
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,300,400,700">
 
