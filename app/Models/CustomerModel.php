@@ -6,33 +6,32 @@ use CodeIgniter\Model;
 
 class CustomerModel extends Model
 {
-    protected $table = 'customers';
-    protected $primaryKey = 'id';
+    protected $table      = 'customers'; // Tên bảng
+    protected $primaryKey = 'id'; // Khóa chính
 
-    protected $allowedFields = ['name', 'email', 'phone', 'address', 'created_at', 'updated_at', 'created_by', 'updated_by', 'is_active'];
+    protected $allowedFields = [
+        'first_name',
+        'last_name',
+        'email',
+        'phone',
+        'password_hash',
+        'address',
+        'city',
+        'state',
+        'country',
+        'postal_code',
+        'date_of_birth',
+        'gender',
+        'profile_picture',
+        'verification_token',
+        'is_verified',
+        'is_active'
+    ];
 
-    public function getAllCustomers()
-    {
-        return $this->findAll();
-    }
+    protected $useTimestamps = true; // Sử dụng `created_at` và `updated_at`
+    protected $createdField  = 'created_at';
+    protected $updatedField  = 'updated_at';
 
-    public function addCustomer($data)
-    {
-        return $this->insert($data);
-    }
+    protected $returnType = 'array'; // Có thể đổi thành 'object' nếu muốn
 
-    public function getCustomerById($id)
-    {
-        return $this->find($id);
-    }
-
-    public function updateCustomer($id, $data)
-    {
-        return $this->update($id, $data);
-    }
-
-    public function deleteCustomer($id)
-    {
-        return $this->delete($id);
-    }
 }

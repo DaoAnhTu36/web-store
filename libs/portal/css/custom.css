@@ -1,0 +1,11 @@
+#formRegisterModal table,
+th,
+td,
+input {
+  border: none;
+  color: black !important;
+}
+
+#formRegisterModal input {
+  border: 1px solid black !important;
+}

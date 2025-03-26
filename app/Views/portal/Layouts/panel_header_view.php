@@ -56,7 +56,7 @@
             <div class="col-sm-8 col-lg-2 d-flex gap-5 align-items-center justify-content-center justify-content-sm-end">
                 <ul class="d-flex justify-content-end list-unstyled m-0">
                     <li>
-                        <a data-toggle="modal" data-target="#exampleModal" class="p-2 mx-1">
+                        <a data-toggle="modal" data-target="#formRegisterModal" class="p-2 mx-1">
                             <svg width="24" height="24">
                                 <use xlink:href="#user"></use>
                             </svg>
@@ -78,21 +78,45 @@
                     </li>
                 </ul>
                 <!-- Modal -->
-                <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal fade" id="formRegisterModal" tabindex="-1" role="dialog" aria-labelledby="formRegisterModalLabel" aria-hidden="true">
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">Đăng ký người dùng</h5>
+                                <h5 class="modal-title" id="formRegisterModalLabel">Đăng ký</h5>
                             </div>
                             <div class="modal-body">
-                                <div class="form-group">
-                                    <div class="row">
-                                        <div class="col-md-2">Email</div>
-                                        <div class="col-md-10">
-                                            <input type="text" name="email" id="email" value="tutran.mta.it@gmail.com">
-                                        </div>
-                                    </div>
-                                </div>
+                                <table class="table">
+                                    <tr>
+                                        <td>Họ</td>
+                                        <td>
+                                            <input type="text" name="first_name" value="Tran" id="first_name" class="form-control">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Tên</td>
+                                        <td>
+                                            <input type="text" name="last_name" value="Tu" id="last_name" class="form-control">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Email</td>
+                                        <td>
+                                            <input type="text" name="email" value="tutran.mta.it@gmail.com" id="email" class="form-control">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Số điện thoại</td>
+                                        <td>
+                                            <input type="text" name="phone" value="0975924428" id="phone" class="form-control">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Mật khẩu</td>
+                                        <td>
+                                            <input type="password" name="password" value="123@123" id="password" class="form-control">
+                                        </td>
+                                    </tr>
+                                </table>
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -106,12 +130,20 @@
     </div>
     <script>
         function onRegisterCustomer() {
+            let first_name = $("#first_name").val();
+            let last_name = $("#last_name").val();
             let email = $("#email").val();
+            let phone = $("#phone").val();
+            let password = $("#password").val();
             $.ajax({
                 type: "POST",
-                url: "<?= site_url('admin/email-template/send-mail') ?>",
+                url: "<?= site_url('admin/customer/save') ?>",
                 data: {
-                    email
+                    first_name,
+                    last_name,
+                    email,
+                    phone,
+                    password
                 },
                 success: function(response) {
                     console.log(response);
