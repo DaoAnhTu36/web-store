@@ -56,7 +56,7 @@
             <div class="col-sm-8 col-lg-2 d-flex gap-5 align-items-center justify-content-center justify-content-sm-end">
                 <ul class="d-flex justify-content-end list-unstyled m-0">
                     <li>
-                        <a href="#" class="p-2 mx-1">
+                        <a data-toggle="modal" data-target="#exampleModal" class="p-2 mx-1">
                             <svg width="24" height="24">
                                 <use xlink:href="#user"></use>
                             </svg>
@@ -77,7 +77,49 @@
                         </a>
                     </li>
                 </ul>
+                <!-- Modal -->
+                <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Đăng ký người dùng</h5>
+                            </div>
+                            <div class="modal-body">
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-md-2">Email</div>
+                                        <div class="col-md-10">
+                                            <input type="text" name="email" id="email" value="tutran.mta.it@gmail.com">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="onRegisterCustomer()">Đăng ký</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
+    <script>
+        function onRegisterCustomer() {
+            let email = $("#email").val();
+            $.ajax({
+                type: "POST",
+                url: "<?= site_url('admin/email-template/send-mail') ?>",
+                data: {
+                    email
+                },
+                success: function(response) {
+                    console.log(response);
+                },
+                error: function(xhr, status, error) {
+                    console.log('Error:', error);
+                }
+            });
+        }
+    </script>
 </header>

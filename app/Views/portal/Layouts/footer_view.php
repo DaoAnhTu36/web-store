@@ -140,7 +140,6 @@
 
 <script src="<?= base_url($libUrl . '/portal/js/jquery-1.11.0.min.js'); ?>"></script>
 <script src="<?= base_url($libUrl . '/portal/js/swiper-bundle.min.js'); ?>"></script>
-<script src="<?= base_url($libUrl . '/portal/js/bootstrap.bundle.min.js'); ?>"></script>
 <script src="<?= base_url($libUrl . '/portal/js/plugins.js'); ?>"></script>
 <script src="<?= base_url($libUrl . '/portal/js/script.js'); ?>"></script>
 </body>

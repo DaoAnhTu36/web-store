@@ -15,18 +15,18 @@ class MailService
 
         try {
             $mail->isSMTP();
-            $mail->Host       = 'smtp.gmail.com';
+            $mail->Host       = session()->get('web_configs')['smtp_host'];
             $mail->SMTPAuth   = true;
-            $mail->Username   = 'trailangnd96@gmail.com';
-            $mail->Password   = 'fwno vgfd vjmc cqdh';
+            $mail->Username   = session()->get('web_configs')['admin_email'];
+            $mail->Password   = session()->get('web_configs')['smtp_password'];
             $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
-            $mail->Port       = 587;
-
-            $mail->setFrom('trailangnd96@gmail.com', 'Your Name');
+            $mail->Port       = session()->get('web_configs')['smtp_port'];
+            $mail->setFrom(session()->get('web_configs')['admin_email'], session()->get('web_configs')['site_name']);
             $mail->addAddress($to);
             $mail->Subject = $subject;
+            $mail->CharSet = 'UTF-8';
             $mail->isHTML(true);
-            $mail->Body    = $message;
+            $mail->Body    = html_entity_decode($message);
             return $mail->send();
         } catch (Exception $e) {
             return "Mailer Error: {$mail->ErrorInfo}";
