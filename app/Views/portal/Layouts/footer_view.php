@@ -1,147 +1,88 @@
-<footer class="py-5">
-    <div class="container-lg">
-        <div class="row">
-
-            <div class="col-lg-3 col-md-6 col-sm-6">
-                <div class="footer-menu">
-                    <!-- <img src="images/logo.svg" width="240" height="70" alt="logo"> -->
-                    <div class="social-links mt-3">
-                        <ul class="d-flex list-unstyled gap-2">
-                            <li>
-                                <a href="#" class="btn btn-outline-light">
-                                    <svg width="16" height="16">
-                                        <use xlink:href="#facebook"></use>
-                                    </svg>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#" class="btn btn-outline-light">
-                                    <svg width="16" height="16">
-                                        <use xlink:href="#twitter"></use>
-                                    </svg>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#" class="btn btn-outline-light">
-                                    <svg width="16" height="16">
-                                        <use xlink:href="#youtube"></use>
-                                    </svg>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#" class="btn btn-outline-light">
-                                    <svg width="16" height="16">
-                                        <use xlink:href="#instagram"></use>
-                                    </svg>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#" class="btn btn-outline-light">
-                                    <svg width="16" height="16">
-                                        <use xlink:href="#amazon"></use>
-                                    </svg>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
+<div class="modal fade" id="formRegisterModal" tabindex="-1" role="dialog" aria-labelledby="formRegisterModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div style="display: none;" id="flash-message" class="alert alert-danger">
             </div>
-
-            <!-- <div class="col-md-2 col-sm-6">
-                <div class="footer-menu">
-                    <h5 class="widget-title">Organic</h5>
-                    <ul class="menu-list list-unstyled">
-                        <li class="menu-item">
-                            <a href="#" class="nav-link">About us</a>
-                        </li>
-                        <li class="menu-item">
-                            <a href="#" class="nav-link">Conditions </a>
-                        </li>
-                        <li class="menu-item">
-                            <a href="#" class="nav-link">Our Journals</a>
-                        </li>
-                        <li class="menu-item">
-                            <a href="#" class="nav-link">Careers</a>
-                        </li>
-                        <li class="menu-item">
-                            <a href="#" class="nav-link">Affiliate Programme</a>
-                        </li>
-                        <li class="menu-item">
-                            <a href="#" class="nav-link">Ultras Press</a>
-                        </li>
-                    </ul>
-                </div>
+            <div class="modal-header">
+                <h5 class="modal-title" id="formRegisterModalLabel">Đăng ký</h5>
             </div>
-            <div class="col-md-2 col-sm-6">
-                <div class="footer-menu">
-                    <h5 class="widget-title">Quick Links</h5>
-                    <ul class="menu-list list-unstyled">
-                        <li class="menu-item">
-                            <a href="#" class="nav-link">Offers</a>
-                        </li>
-                        <li class="menu-item">
-                            <a href="#" class="nav-link">Discount Coupons</a>
-                        </li>
-                        <li class="menu-item">
-                            <a href="#" class="nav-link">Stores</a>
-                        </li>
-                        <li class="menu-item">
-                            <a href="#" class="nav-link">Track Order</a>
-                        </li>
-                        <li class="menu-item">
-                            <a href="#" class="nav-link">Shop</a>
-                        </li>
-                        <li class="menu-item">
-                            <a href="#" class="nav-link">Info</a>
-                        </li>
-                    </ul>
-                </div>
+            <div class="modal-body">
+                <table class="table">
+                    <tr>
+                        <td>Họ</td>
+                        <td>
+                            <input type="text" name="first_name" value="Tran" id="first_name" class="form-control">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Tên</td>
+                        <td>
+                            <input type="text" name="last_name" value="Tu" id="last_name" class="form-control">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Email</td>
+                        <td>
+                            <input type="text" name="email" value="tutran.mta.it@gmail.com" id="email" class="form-control">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Số điện thoại</td>
+                        <td>
+                            <input type="text" name="phone" value="0975924428" id="phone" class="form-control">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Mật khẩu</td>
+                        <td>
+                            <input type="password" name="password" value="123@123" id="password" class="form-control">
+                        </td>
+                    </tr>
+                </table>
             </div>
-            <div class="col-md-2 col-sm-6">
-                <div class="footer-menu">
-                    <h5 class="widget-title">Customer Service</h5>
-                    <ul class="menu-list list-unstyled">
-                        <li class="menu-item">
-                            <a href="#" class="nav-link">FAQ</a>
-                        </li>
-                        <li class="menu-item">
-                            <a href="#" class="nav-link">Contact</a>
-                        </li>
-                        <li class="menu-item">
-                            <a href="#" class="nav-link">Privacy Policy</a>
-                        </li>
-                        <li class="menu-item">
-                            <a href="#" class="nav-link">Returns & Refunds</a>
-                        </li>
-                        <li class="menu-item">
-                            <a href="#" class="nav-link">Cookie Guidelines</a>
-                        </li>
-                        <li class="menu-item">
-                            <a href="#" class="nav-link">Delivery Information</a>
-                        </li>
-                    </ul>
-                </div>
-            </div> -->
-            <div class="col-lg-3 col-md-6 col-sm-6">
-                <div class="footer-menu">
-                    <h5 class="widget-title">Subscribe Us</h5>
-                    <p>Subscribe to our newsletter to get updates about our grand offers.</p>
-                    <form class="d-flex mt-3 gap-0" action="index.html">
-                        <input class="form-control rounded-start rounded-0 bg-light" type="email" placeholder="Email Address" aria-label="Email Address">
-                        <button class="btn btn-dark rounded-end rounded-0" type="submit">Subscribe</button>
-                    </form>
-                </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" onclick="onRegisterCustomer()">Đăng ký</button>
             </div>
-
         </div>
     </div>
-</footer>
+</div>
 
+<script src="<?= base_url($libUrl . '/js/jquery-3.7.1.min.js'); ?>"></script>
+<script src="<?= base_url($libUrl . '/bootstrap-4.6.2/js/bootstrap.min.js'); ?>"></script>
+<script src="<?= base_url($libUrl . '/bootstrap-4.6.2/js/bootstrap.bundle.min.js'); ?>"></script>
 
-<script src="<?= base_url($libUrl . '/portal/js/jquery-1.11.0.min.js'); ?>"></script>
-<script src="<?= base_url($libUrl . '/portal/js/swiper-bundle.min.js'); ?>"></script>
-<script src="<?= base_url($libUrl . '/portal/js/plugins.js'); ?>"></script>
-<script src="<?= base_url($libUrl . '/portal/js/script.js'); ?>"></script>
+<script>
+    function onRegisterCustomer() {
+        let first_name = $("#first_name").val();
+        let last_name = $("#last_name").val();
+        let email = $("#email").val();
+        let phone = $("#phone").val();
+        let password = $("#password").val();
+        $.ajax({
+            type: "POST",
+            url: "<?= site_url('admin/customer/save') ?>",
+            data: {
+                first_name,
+                last_name,
+                email,
+                phone,
+                password
+            },
+            success: function(response) {
+                if (response.status) {
+                    $("#flash-message").hide();
+                    $("#formRegisterModal").click();
+                } else {
+                    $("#flash-message").show().text(response.message);
+                }
+            },
+            error: function(xhr, status, error) {
+                console.log('Error:', error);
+            }
+        });
+    }
+</script>
 </body>
 
 </html>

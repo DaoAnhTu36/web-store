@@ -11,9 +11,7 @@ $data = [
 <?= view("portal/Layouts/header_view.php", $data) ?>
 <?= view("portal/Layouts/slide_view.php", $data) ?>
 <?= view("portal/Layouts/banner_view.php", $data) ?>
-<?= view("portal/Layouts/left_menu_view.php", $data) ?>
-<?= view("portal/Layouts/right_menu_view.php", $data) ?>
-<?= view("portal/Layouts/panel_header_view.php", $data) ?>
+<?= view("portal/Layouts/menu_view.php", $data) ?>
 <?= $this->renderSection('content'); ?>
 <?= view("portal/Layouts/footer_view.php", $data) ?>
 
