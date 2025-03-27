@@ -45,12 +45,12 @@
                     <a href="contact.html" class="nav-item nav-link">Contact</a>
                 </div>
                 <div class="d-flex m-3 me-0">
-                    <button class="btn-search btn border border-secondary btn-md-square rounded-circle bg-white me-4" data-bs-toggle="modal" data-bs-target="#searchModal"><i class="fas fa-search text-primary"></i></button>
-                    <a href="#" class="position-relative me-4 my-auto">
+                    <!-- <button class="btn-search btn border border-secondary btn-md-square rounded-circle bg-white me-4"><i class="fas fa-search text-primary"></i></button> -->
+                    <a class="position-relative me-4 my-auto">
                         <i class="fa fa-shopping-bag fa-2x"></i>
                         <span class="position-absolute bg-secondary rounded-circle d-flex align-items-center justify-content-center text-dark px-1" style="top: -5px; left: 15px; height: 20px; min-width: 20px;">3</span>
                     </a>
-                    <a href="#" class="my-auto">
+                    <a data-bs-toggle="modal" data-bs-target="#signinModal" class="my-auto">
                         <i class="fas fa-user fa-2x"></i>
                     </a>
                 </div>
@@ -59,38 +59,12 @@
     </div>
 </div>
 <!-- Navbar End -->
-
-<!-- Button trigger modal -->
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-    Launch demo modal
-</button>
-
-<!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                ...
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- Modal Search Start -->
-<div class="modal fade" id="searchModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<!-- Modal register Start -->
+<div class="modal fade" id="registerModal" tabindex="-1" aria-labelledby="registerModal" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content rounded-0">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Đăng ký tài khoản</h5>
+                <h5 class="modal-title" id="registerModal">Đăng ký tài khoản</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div style="display: none;" id="flash-message">
@@ -101,40 +75,92 @@
                     <tr>
                         <td>Họ</td>
                         <td>
-                            <input type="text" name="first_name" value="Tran" id="first_name" class="form-control">
+                            <input type="text" name="first_name" value="" id="first_name" class="form-control">
                         </td>
                     </tr>
                     <tr>
                         <td>Tên</td>
                         <td>
-                            <input type="text" name="last_name" value="Tu" id="last_name" class="form-control">
+                            <input type="text" name="last_name" value="" id="last_name" class="form-control">
                         </td>
                     </tr>
                     <tr>
                         <td>Email</td>
                         <td>
-                            <input type="text" name="email" value="tutran.mta.it@gmail.com" id="email" class="form-control">
+                            <input type="text" name="email" value="" id="email" class="form-control">
                         </td>
                     </tr>
                     <tr>
                         <td>Số điện thoại</td>
                         <td>
-                            <input type="text" name="phone" value="0975924428" id="phone" class="form-control">
+                            <input type="text" name="phone" value="" id="phone" class="form-control">
                         </td>
                     </tr>
                     <tr>
                         <td>Mật khẩu</td>
                         <td>
-                            <input type="password" name="password" value="123@123" id="password" class="form-control">
+                            <input type="password" name="password2" value="" id="password2" class="form-control">
                         </td>
                     </tr>
                 </table>
             </div>
             <div class="modal-footer">
-                <button type="button" id="register_now" class="btn btn-primary" style="color:white" onclick="onRegisterCustomer()">Đăng ký</button>
-                <button type="button" id="active_now" class="btn btn-success" style="color:white;display: none;" onclick="onActiveAccount()">Kích hoạt ngay</button>
+                <button type="button" id="" class="btn btn-success" onclick="onClearNoti()" style="color:white" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#signinModal">Đăng nhập</button>
+                <button type="button" id="register_now" class="btn btn-primary" style="color:white" onclick="onRegisterCustomer()">Submit</button>
+                <button type="button" id="active_now" class="btn btn-danger" style="color:white;display: none;" onclick="onActiveCustomer()">Kích hoạt ngay</button>
             </div>
         </div>
     </div>
 </div>
-<!-- Modal Search End -->
+<!-- Modal register End -->
+<!-- Modal signin Start -->
+<div class="modal fade" id="signinModal" tabindex="-1" aria-labelledby="signinModal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content rounded-0">
+            <div class="modal-header">Đăng nhập tài khoản</div>
+            <div class="modal-body">
+                <div class="form-item">
+                    <input type="text" name="username" id="username" placeholder=" " required>
+                    <label for="username">Email/Số điện thoại</label>
+                </div>
+
+                <div class="form-item">
+                    <input type="password" name="password1" id="password1" placeholder=" " required>
+                    <label for="password1">Mật khẩu</label>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="" class="btn btn-success" style="color:white;" onclick="onSigninCustomer()">Submit</button>
+                <button type="button" id="" class="btn btn-primary" style="color:white;" onclick="onClearNoti()" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#registerModal">Đăng ký</button>
+            </div>
+            <!-- <div class="modal-header">
+                <h5 class="modal-title" id="signinModal">Đăng nhập tài khoản</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div style="display: none;" id="flash-message">
+                <div class="alert"></div>
+            </div>
+            <div class="modal-body d-flex align-items-center">
+                <table class="table">
+                    <tr>
+                        <td>Email/Số điện thoại</td>
+                        <td>
+                            <input type="text" name="username" value="" id="username" class="form-control">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Mật khẩu</td>
+                        <td>
+                            <input type="password" name="password1" value="" id="password" class="form-control">
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="" class="btn btn-success" style="color:white;" onclick="onSigninCustomer()">Submit</button>
+                <button type="button" id="" class="btn btn-primary" style="color:white;" onclick="onClearNoti()" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#registerModal">Đăng ký</button>
+            </div> -->
+        </div>
+    </div>
+</div>
+<!-- Modal signin End -->

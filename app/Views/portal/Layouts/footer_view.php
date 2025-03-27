@@ -112,7 +112,7 @@
         let last_name = $("#last_name").val();
         let email = $("#email").val();
         let phone = $("#phone").val();
-        let password = $("#password").val();
+        let password = $("#password2").val();
         $.ajax({
             type: "POST",
             url: "<?= site_url('admin/customer/save') ?>",
@@ -125,13 +125,21 @@
             },
             success: function(response) {
                 if (response.status) {
-                    $("#flash-message").hide();
+                    $("#registerModal #flash-message").hide();
                     setTimeout(() => {
                         $(".btn-close").click();
-                    }, 2000);
+                    }, 1000);
+
+                    $("#first_name").val('');
+                    $("#last_name").val('');
+                    $("#email").val('');
+                    $("#phone").val('');
+                    $("#password").val('');
+                    $("#registerModal #flash-message").hide();
+                    $("#registerModal #flash-message .alert").text('').removeClass('alert-success').removeClass('alert-danger');
                 } else {
-                    $("#flash-message").show();
-                    $("#flash-message .alert").text(response.message).removeClass('alert-success').addClass('alert-danger');
+                    $("#registerModal #flash-message").show();
+                    $("#registerModal #flash-message .alert").text(response.message).removeClass('alert-success').addClass('alert-danger');
                     if (response.data.is_verified === "1") {
                         $("#register_now").show();
                         $("#active_now").hide();
@@ -148,7 +156,7 @@
         });
     }
 
-    function onActiveAccount() {
+    function onActiveCustomer() {
         $.ajax({
             type: "POST",
             url: "<?= site_url('admin/customer/verify_from_portal') ?>",
@@ -159,20 +167,57 @@
             },
             success: function(response) {
                 if (response.status) {
-                    $("#flash-message").show();
-                    $("#flash-message .alert").text(response.message).removeClass('alert-danger').addClass('alert-success');
+                    $("registerModal #flash-message").show();
+                    $("registerModal #flash-message .alert").text(response.message).removeClass('alert-danger').addClass('alert-success');
                     setTimeout(() => {
                         $(".btn-close").click();
-                    }, 2000);
+                    }, 1000);
+                    $("registerModal #flash-message").hide();
+                    $("registerModal #flash-message .alert").text('').removeClass('alert-success').removeClass('alert-danger');
                 } else {
-                    $("#flash-message").show();
-                    $("#flash-message .alert").text(response.message).removeClass('alert-success').addClass('alert-danger');
+                    $("registerModal #flash-message").show();
+                    $("registerModal #flash-message .alert").text(response.message).removeClass('alert-success').addClass('alert-danger');
                 }
             },
             error: function(xhr, status, error) {
                 console.log('Error:', error);
             }
         });
+    }
+
+    function onSigninCustomer() {
+        let username = $("#username").val();
+        let password = $("#password1").val();
+        $.ajax({
+            type: "POST",
+            url: "<?= site_url('admin/customer/sign-in') ?>",
+            data: {
+                username,
+                password
+            },
+            success: function(response) {
+                if (response.status) {
+                    $("#signinModal #flash-message").show();
+                    $("#signinModal #flash-message .alert").text(response.message).removeClass('alert-danger').addClass('alert-success');
+                    setTimeout(() => {
+                        $(".btn-close").click();
+                        $("#signinModal #flash-message").hide();
+                        $("#signinModal #flash-message .alert").text('').removeClass('alert-success').removeClass('alert-danger');
+                    }, 1000);
+                } else {
+                    $("#signinModal #flash-message").show();
+                    $("#signinModal #flash-message .alert").text(response.message).removeClass('alert-success').addClass('alert-danger');
+                }
+            },
+            error: function(xhr, status, error) {
+                console.log('Error:', error);
+            }
+        });
+    }
+
+    function onClearNoti() {
+        $("#signinModal #flash-message").hide();
+        $("#registerModal #flash-message").hide();
     }
 </script>
 </body>

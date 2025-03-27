@@ -166,6 +166,38 @@ class CustomerController extends BaseController
         return apiResponse(false, 'Kích hoạt thất bại.', null, '200');
     }
 
+    public function sign_in()
+    {
+        $username = $this->request->getPost('username');
+        $password = $this->request->getPost('password');
+        $user = $this->model
+            ->where('email', $username)
+            ->orWhere('phone', $username)
+            ->first();
+        if ($user && password_verify($password, $user['password_hash'])) {
+            $customer_info = [
+                'first_name' => $user['first_name'],
+                'last_name' => $user['last_name'],
+                'email' => $user['email'],
+                'phone' => $user['phone'],
+                'address' => $user['address'],
+                'city' => $user['city'],
+                'state' => $user['state'],
+                'country' => $user['country'],
+                'postal_code' => $user['postal_code'],
+                'date_of_birth' => $user['date_of_birth'],
+                'gender' => $user['gender'],
+                'profile_picture' => $user['profile_picture'],
+            ];
+            session()->set([
+                'customer_is_logged_in' => $customer_info,
+            ]);
+            return apiResponse(true, 'Đăng nhập thành công', null, '200');
+        } else {
+            return apiResponse(false, 'Thông tin đăng nhập không chính xác', null, '200');
+        }
+    }
+
     public function detail($id) {}
 
     public function update($id) {}

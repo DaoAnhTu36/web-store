@@ -101,13 +101,13 @@
                                 <?php foreach ($data as $item): ?>
                                     <div class="col-md-6 col-lg-4 col-xl-3">
                                         <div class="rounded position-relative fruite-item">
-                                            <div class="fruite-img">
+                                            <div class="fruite-img" style="overflow: hidden;height: 300px;">
                                                 <img src="<?= base_url(get_image($item['images'])) ?>" class="img-fluid w-100 rounded-top" alt="">
                                             </div>
                                             <div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;"><?= $item['category_name'] ?></div>
-                                            <div class="p-4 border border-secondary border-top-0 rounded-bottom">
+                                            <div class="p-4 border border-top-0 rounded-bottom">
                                                 <h4><?= $item['name'] ?></h4>
-                                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod te incididunt</p>
+                                                <!-- <p>Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod te incididunt</p> -->
                                                 <div class="d-flex justify-content-between flex-lg-wrap">
                                                     <p class="text-dark fs-5 fw-bold mb-0"><?= format_currency($item['price']) ?></p>
                                                     <a href="#" class="btn border border-secondary rounded-pill px-3 text-primary"><i class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>
