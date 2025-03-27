@@ -24,6 +24,7 @@ class HomeController extends BaseController
             'data' => $data,
             'title' => $title,
         ];
+        // EchoCommon($data);
         return view('portal/home_view', $data_view);
     }
 }

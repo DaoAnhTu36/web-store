@@ -86,19 +86,19 @@
                                     <div class="form-group">
                                         <label class="col-md-2 control-label">Giá trị</label>
                                         <div class="col-md-4">
-                                            <input class="form-control currency-input" value="<?= formatCurrency(convert_decimal_to_int($data['discount_value'])); ?>" placeholder="" type="text" id="discount_value" name="discount_value">
+                                            <input class="form-control currency-input" value="<?= format_currency(convert_decimal_to_int($data['discount_value'])); ?>" placeholder="" type="text" id="discount_value" name="discount_value">
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-md-2 control-label">Giá trị tối thiểu đơn hàng</label>
                                         <div class="col-md-4">
-                                            <input class="form-control currency-input" value="<?= formatCurrency(convert_decimal_to_int($data['min_order_amount'])); ?>" placeholder="" type="text" id="min_order_amount" name="min_order_amount">
+                                            <input class="form-control currency-input" value="<?= format_currency(convert_decimal_to_int($data['min_order_amount'])); ?>" placeholder="" type="text" id="min_order_amount" name="min_order_amount">
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-md-2 control-label">Giá trị tối đa của KM</label>
                                         <div class="col-md-4">
-                                            <input class="form-control currency-input" value="<?= formatCurrency(convert_decimal_to_int($data['max_discount'])); ?>" placeholder="" type="text" id="max_discount" name="max_discount">
+                                            <input class="form-control currency-input" value="<?= format_currency(convert_decimal_to_int($data['max_discount'])); ?>" placeholder="" type="text" id="max_discount" name="max_discount">
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -122,7 +122,7 @@
                                     <div class="form-group">
                                         <label class="col-md-2 control-label">Số lượng giới hạn</label>
                                         <div class="col-md-4">
-                                            <input class="form-control currency-input" value="<?= formatCurrency(convert_decimal_to_int($data['usage_limit'])); ?>" placeholder="" type="text" id="usage_limit" name="usage_limit">
+                                            <input class="form-control currency-input" value="<?= format_currency(convert_decimal_to_int($data['usage_limit'])); ?>" placeholder="" type="text" id="usage_limit" name="usage_limit">
                                         </div>
                                     </div>
                                 </fieldset>

@@ -104,11 +104,11 @@
 <script src="<?= base_url($libUrl . '/js/toastify-js.js'); ?>"></script>
 
 <script>
-    $(document).ajaxStart(function() {
-        $('#ajax-loader').show(); // Show loader khi bất kỳ ajax nào bắt đầu
-    }).ajaxStop(function() {
-        $('#ajax-loader').hide(); // Hide loader khi tất cả ajax hoàn thành
-    });
+    // $(document).ajaxStart(function() {
+    //     $('#ajax-loader').show(); // Show loader khi bất kỳ ajax nào bắt đầu
+    // }).ajaxStop(function() {
+    //     $('#ajax-loader').hide(); // Hide loader khi tất cả ajax hoàn thành
+    // });
 
     function onChangeStatus(id, type = '') {
         $.ajax({

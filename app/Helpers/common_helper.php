@@ -66,7 +66,7 @@ function get_current_datetime_local()
     return $now->format('Y-m-d\TH:i'); // Định dạng chuẩn cho datetime-local
 }
 
-function formatCurrency($number, $currency = '')
+function format_currency($number, $currency = '')
 {
     if (empty($currency)) {
         return number_format($number, 0, ',', '.');
@@ -130,4 +130,26 @@ function send_mail_native($mail_to, $template)
         print_r($email->printDebugger());
         return false;
     }
+}
+
+function get_image($image_str, $charactor = ',')
+{
+    $result = array();
+    if (empty($image_str)) {
+        return '';
+    }
+    $result = explode($charactor, $image_str);
+    if (count($result) > 0) {
+        return $result[0];
+    }
+    return '';
+}
+function get_image_array($image_str, $charactor = ',')
+{
+    $result = array();
+    if (empty($image_str)) {
+        return '';
+    }
+    $result = explode($charactor, $image_str);
+    return $result;
 }

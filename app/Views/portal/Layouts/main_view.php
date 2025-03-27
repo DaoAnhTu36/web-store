@@ -7,7 +7,6 @@ $data = [
     "libUrl" => $config->libUrPortal,
 ]
 ?>
-
 <?= view("portal/Layouts/header_view.php", $data) ?>
 <?= view("portal/Layouts/slide_view.php", $data) ?>
 <?= view("portal/Layouts/banner_view.php", $data) ?>

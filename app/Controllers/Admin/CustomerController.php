@@ -59,12 +59,12 @@ class CustomerController extends BaseController
         $check_email = $this->check_email($email);
         if ($check_email['code']) {
             $mess_error = $check_email['is_verified'] == 0 ? 'Tài khoản chưa được kích hoạt' : '';
-            return apiResponse(false, 'Email đã tồn tại.' . $mess_error, null, '200');
+            return apiResponse(false, 'Email đã tồn tại.' . $mess_error, $check_email, '200');
         }
         $check_phone = $this->check_phone($phone);
         if ($check_phone['code']) {
             $mess_error = $check_phone['is_verified'] == 0 ? 'Tài khoản chưa được kích hoạt' : '';
-            return apiResponse(false, 'Số điện thoại đã tồn tại.' . $mess_error, null, '200');
+            return apiResponse(false, 'Số điện thoại đã tồn tại.' . $mess_error, $check_phone, '200');
         }
         $mail_verify_account = $this->emailTemplateModel->where('name', 'mail_verify_account')->first();
         $customer_id = $this->model->insert($data);
@@ -86,7 +86,10 @@ class CustomerController extends BaseController
         if ($item) {
             return [
                 'code' => true,
-                'is_verified' => $item['is_verified']
+                'is_verified' => $item['is_verified'],
+                'verification_token' => $item['verification_token'],
+                'data' => $email,
+                'type' => 'email'
             ];
         }
         return [
@@ -100,7 +103,10 @@ class CustomerController extends BaseController
         if ($item) {
             return [
                 'code' => true,
-                'is_verified' => $item['is_verified']
+                'is_verified' => $item['is_verified'],
+                'verification_token' => $item['verification_token'],
+                'data' => $phone,
+                'type' => 'phone'
             ];
         }
         return [
@@ -124,6 +130,31 @@ class CustomerController extends BaseController
             return redirect()->to('')->with('success', 'Xác thực thành công. Bắt đầu trải nghiệm dịch vụ mua hàng');
         }
         return view('portal/error_view');
+    }
+
+    public function verify_from_portal()
+    {
+        $type = $this->request->getPost('type');
+        $data = $this->request->getPost('data');
+        $verification_token = $this->request->getPost('verification_token');
+        $check_exist = $this->model
+            ->where('verification_token', $verification_token);
+        if ($type == 'email') {
+            $check_exist = $check_exist->where('email', $data)->first();
+        }
+        if ($type == 'phone') {
+            $check_exist = $check_exist->where('phone', $data)->first();
+        }
+        if ($check_exist) {
+            $data_update = [
+                'is_verified' => 1
+            ];
+            $query = $this->model->update($check_exist['id'], $data_update);
+            if ($query) {
+                return apiResponse(true, 'Kích hoạt thành công.', null, '200');
+            }
+        }
+        return apiResponse(false, 'Kích hoạt thất bại.', null, '200');
     }
 
     public function detail($id) {}
