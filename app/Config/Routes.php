@@ -25,10 +25,7 @@ function registerRoutes($routes, $configs, $depth = 0, $maxDepth = 10)
         } else {
             $method = strtolower($config['method'] ?? 'get');
             $options = [];
-            $ignore_uri = ['login', 'logout', 'sign-in'];
-            $ignore_controller = ['Portal\HomeController::index'];
-
-            if (in_array($config['uri'], $ignore_uri) || in_array($config['controller'], $ignore_controller)) {
+            if ($config['is_ignore']) {
                 switch ($method) {
                     case 'get':
                         $routes->get($config['uri'], $config['controller']);

@@ -81,6 +81,8 @@
                 <div class="modal fade" id="formRegisterModal" tabindex="-1" role="dialog" aria-labelledby="formRegisterModalLabel" aria-hidden="true">
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
+                            <div style="display: none;" id="flash-message" class="alert alert-danger">
+                            </div>
                             <div class="modal-header">
                                 <h5 class="modal-title" id="formRegisterModalLabel">Đăng ký</h5>
                             </div>
@@ -120,7 +122,7 @@
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="onRegisterCustomer()">Đăng ký</button>
+                                <button type="button" class="btn btn-primary" onclick="onRegisterCustomer()">Đăng ký</button>
                             </div>
                         </div>
                     </div>
@@ -146,7 +148,12 @@
                     password
                 },
                 success: function(response) {
-                    console.log(response);
+                    if (response.status) {
+                        $("#flash-message").hide();
+                        $("#formRegisterModal").click();
+                    } else {
+                        $("#flash-message").show().text(response.message);
+                    }
                 },
                 error: function(xhr, status, error) {
                     console.log('Error:', error);

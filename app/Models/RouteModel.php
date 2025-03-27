@@ -24,6 +24,7 @@ class RouteModel extends Model
         'parent_id',
         'level',
         'permission_id',
+        'is_ignore'
     ];
 
     protected $useTimestamps = true;

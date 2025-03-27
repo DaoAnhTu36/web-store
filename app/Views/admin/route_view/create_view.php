@@ -64,6 +64,12 @@
                                         </div>
                                     </div>
                                     <div class="form-group">
+                                        <label class="col-md-2 control-label">Is ignore</label>
+                                        <div class="col-md-10">
+                                            <input value="1" placeholder="" type="checkbox" id="is_ignore" name="is_ignore">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
                                         <label class="col-md-2 control-label">Level</label>
                                         <div class="col-md-10">
                                             <input class="form-control" value="3" placeholder="" type="text" id="level" name="level">

@@ -37,10 +37,9 @@ class AuthFilter implements FilterInterface
      */
     public function before(RequestInterface $request, $arguments = null)
     {
-        //
         $session = session();
         // Check if user is logged in
-        if (!$session->get('is_logged_in')) {
+        if (!$session->get('is_logged_in') && str_contains(strtolower($_SERVER['REQUEST_URI']), 'admin')) {
             // Redirect to login page
             // $rememberToken = get_cookie('remember_token');
             // if ($rememberToken) {

@@ -110,13 +110,14 @@
         $('#ajax-loader').hide(); // Hide loader khi tất cả ajax hoàn thành
     });
 
-    function onChangeStatus(id) {
+    function onChangeStatus(id, type = '') {
         $.ajax({
             url: '<?= base_url('admin/common/change-status') ?>',
             type: 'POST',
             data: {
                 'id': id,
-                'server_current': '<?= $server_current ?>'
+                'server_current': '<?= $server_current ?>',
+                'type': type
             },
             success: function(response) {
                 Toastify({

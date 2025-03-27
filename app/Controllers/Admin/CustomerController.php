@@ -38,6 +38,7 @@ class CustomerController extends BaseController
         return view("admin/customer_view/create_view", $data_view);
     }
 
+
     public function save()
     {
         $first_name = $this->request->getPost('first_name');
@@ -54,6 +55,17 @@ class CustomerController extends BaseController
             'password_hash' => password_hash($password, PASSWORD_DEFAULT),
             'verification_token' => $verification_token,
         ];
+        $mess_error = '';
+        $check_email = $this->check_email($email);
+        if ($check_email['code']) {
+            $mess_error = $check_email['is_verified'] == 0 ? 'Tài khoản chưa được kích hoạt' : '';
+            return apiResponse(false, 'Email đã tồn tại.' . $mess_error, null, '200');
+        }
+        $check_phone = $this->check_phone($phone);
+        if ($check_phone['code']) {
+            $mess_error = $check_phone['is_verified'] == 0 ? 'Tài khoản chưa được kích hoạt' : '';
+            return apiResponse(false, 'Số điện thoại đã tồn tại.' . $mess_error, null, '200');
+        }
         $mail_verify_account = $this->emailTemplateModel->where('name', 'mail_verify_account')->first();
         $customer_id = $this->model->insert($data);
         if ($customer_id) {
@@ -65,6 +77,35 @@ class CustomerController extends BaseController
             $this->mailService->send_mail_mailer($email, $subject, $body);
             return apiResponse(true, 'Đăng ký thành công. Kiểm tra mail xác nhận để kích hoạt tài khoản.', null, '200');
         }
+    }
+
+    private function check_email($email)
+    {
+        $email = trim($email);
+        $item = $this->model->where('email', $email)->first();
+        if ($item) {
+            return [
+                'code' => true,
+                'is_verified' => $item['is_verified']
+            ];
+        }
+        return [
+            'code' => false,
+        ];
+    }
+    private function check_phone($phone)
+    {
+        $phone = trim($phone);
+        $item = $this->model->where('phone', $phone)->first();
+        if ($item) {
+            return [
+                'code' => true,
+                'is_verified' => $item['is_verified']
+            ];
+        }
+        return [
+            'code' => false,
+        ];
     }
 
     public function verify()

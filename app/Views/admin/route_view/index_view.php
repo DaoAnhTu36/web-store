@@ -42,6 +42,7 @@
                                     <td>Uri</td>
                                     <td>Controller</td>
                                     <td>Permission ID</td>
+                                    <td>Ignored</td>
                                     <td>Status</td>
                                     <td>#</td>
                                 </tr>
@@ -56,6 +57,16 @@
                                         <td><?= $item['uri'] ?></td>
                                         <td><?= $item['controller'] ?></td>
                                         <td><?= $item['permission_id'] ?></td>
+                                        <td>
+                                            <label class="switch1">
+                                                <?php if ($item['is_ignore']) { ?>
+                                                    <input type="checkbox" checked onclick="onChangeStatus(<?= $item['id'] ?>,'ignore_status')">
+                                                <?php } else { ?>
+                                                    <input type="checkbox" onclick="onChangeStatus(<?= $item['id'] ?>,'ignore_status')">
+                                                <?php } ?>
+                                                <span class="slider1"></span>
+                                            </label>
+                                        </td>
                                         <td>
                                             <label class="switch1">
                                                 <?php if ($item['is_active']) { ?>

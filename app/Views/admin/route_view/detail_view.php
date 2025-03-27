@@ -74,6 +74,16 @@
                                         </div>
                                     </div>
                                     <div class="form-group">
+                                        <label class="col-md-2 control-label">Is ignore</label>
+                                        <div class="col-md-10">
+                                            <?php if ($data['is_ignore']) { ?>
+                                                <input value="1" checked placeholder="" type="checkbox" id="is_ignore" name="is_ignore">
+                                            <?php } else { ?>
+                                                <input value="1" placeholder="" type="checkbox" id="is_ignore" name="is_ignore">
+                                            <?php } ?>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
                                         <label class="col-md-2 control-label">Is active</label>
                                         <div class="col-md-10">
                                             <?php if ($data['is_active']) { ?>
