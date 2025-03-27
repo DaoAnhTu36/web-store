@@ -27,7 +27,7 @@ class WebsiteConfigModel extends Model
         $configs = $this->findAll();
         $result = [];
         foreach ($configs as $config) {
-            if ($config['config_key'] == 'logo') {
+            if (str_contains($config['config_key'], 'logo')) {
                 $imageModel = new ImageModel();
                 $image = $imageModel->where('record_id', $config['id'])->where('type', 'website_configs')->first();
                 $result[$config['config_key']] = base_url($image['image_path']);

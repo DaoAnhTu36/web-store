@@ -41,6 +41,11 @@ class CustomerController extends BaseController
 
     public function save()
     {
+        $htmlContent = '';
+        $filePath = FCPATH . 'template-email/register_successful_template.html'; // Đường dẫn file
+        if (file_exists($filePath)) {
+            $htmlContent = file_get_contents($filePath);
+        }
         $first_name = $this->request->getPost('first_name');
         $last_name = $this->request->getPost('last_name');
         $email = $this->request->getPost('email');
@@ -69,12 +74,16 @@ class CustomerController extends BaseController
         $mail_verify_account = $this->emailTemplateModel->where('name', 'mail_verify_account')->first();
         $customer_id = $this->model->insert($data);
         if ($customer_id) {
-            $body = $mail_verify_account['body'];
-            $body = str_replace('{username}', $first_name . ' ' . $last_name, $body);
-            $body = str_replace('{website_name}', session()->get('site_name'), $body);
-            $body = str_replace('{verification_link}', base_url('admin/customer/verify?id=' . $customer_id . '&token=' . $verification_token), $body);
+            $body = $htmlContent;
+            $body = str_replace('{{logo}}', "cid:logo_cid", $body);
+            $body = str_replace('{{username}}', $first_name . ' ' . $last_name, $body);
+            $body = str_replace('{{website_name}}', session()->get('web_configs')['site_name'], $body);
+            $body = str_replace('{{verification_link}}', base_url('admin/customer/verify?id=' . $customer_id . '&token=' . $verification_token), $body);
             $subject = $mail_verify_account['subject'];
-            $this->mailService->send_mail_mailer($email, $subject, $body);
+            $result = $this->mailService->send_mail_mailer($email, $subject, $body);
+            if ($result['status'] == false) {
+                return apiResponse(true, 'Đăng ký thành công, gửi mail  thất bại. ErrorMessage = ' . $result['message'], null, '200');
+            }
             return apiResponse(true, 'Đăng ký thành công. Kiểm tra mail xác nhận để kích hoạt tài khoản.', null, '200');
         }
     }

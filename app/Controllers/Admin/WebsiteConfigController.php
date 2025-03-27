@@ -78,7 +78,7 @@ class WebsiteConfigController extends BaseController
                     $this->modelImage->save([
                         'record_id' => $record_id,
                         'image_path' => 'uploads/' . $newName,
-                        'type' => 'website_config',
+                        'type' => 'website_configs',
                     ]);
                 }
             }
