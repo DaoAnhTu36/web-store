@@ -89,7 +89,7 @@
                                             <?php foreach ($products as $item) { ?>
                                                 <div class="col-md-6">
                                                     <input type="checkbox" name="product_ids[]" id="" value="<?= $item['id'] ?>">
-                                                    <label for=""><?= $item['name'] ?></label>
+                                                    <label for="product_ids"><?= $item['name'] ?></label>
                                                 </div>
                                             <?php } ?>
                                         </div>

@@ -97,7 +97,7 @@
                                                     <?php } else { ?>
                                                         <input onclick="onUpdateListProductDiscount(<?= $product_discounts[0]['product_discount_id'] ?>, <?= $item['id'] ?>)" type="checkbox" name="product_ids[]" id="" value="<?= $item['id'] ?>">
                                                     <?php } ?>
-                                                    <label for=""><?= $item['name'] ?></label>
+                                                    <label for="product_ids"><?= $item['name'] ?></label>
                                                 </div>
                                             <?php } ?>
                                         </div>

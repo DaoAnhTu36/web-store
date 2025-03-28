@@ -24,31 +24,31 @@ class CustomerClientController extends BaseController
     public function save()
     {
         $htmlContent = '';
-        $filePath = FCPATH . 'template-email/register_successful_template.html'; // Đường dẫn file
+        $filePath = FCPATH . 'template-email/register_successful_template.html';
         if (file_exists($filePath)) {
             $htmlContent = file_get_contents($filePath);
         }
-        $first_name = $this->request->getPost('first_name');
-        $last_name = $this->request->getPost('last_name');
-        $email = $this->request->getPost('email');
-        $phone = $this->request->getPost('phone');
-        $password = $this->request->getPost('password');
-        $verification_token = bin2hex(random_bytes(32));
+        $first_name_first_name = $this->request->getPost('first_name_first_name');
+        $first_name_last_name = $this->request->getPost('first_name_last_name');
+        $first_name_email = $this->request->getPost('first_name_email');
+        $first_name_phone = $this->request->getPost('first_name_phone');
+        $first_name_password = $this->request->getPost('first_name_password');
+        $first_name_verification_token = bin2hex(random_bytes(32));
         $data = [
-            'first_name'    => $first_name,
-            'last_name'    => $last_name,
-            'email'   => $email,
-            'phone'   => $phone,
-            'password_hash' => password_hash($password, PASSWORD_DEFAULT),
-            'verification_token' => $verification_token,
+            'first_name'    => $first_name_first_name,
+            'last_name'    => $first_name_last_name,
+            'email'   => $first_name_email,
+            'phone'   => $first_name_phone,
+            'password_hash' => password_hash($first_name_password, PASSWORD_DEFAULT),
+            'verification_token' => $first_name_verification_token,
         ];
         $mess_error = '';
-        $check_email = $this->check_email($email);
+        $check_email = $this->check_email($first_name_email);
         if ($check_email['code']) {
             $mess_error = $check_email['is_verified'] == 0 ? 'Tài khoản chưa được kích hoạt' : '';
             return apiResponse(false, 'Email đã tồn tại.' . $mess_error, $check_email, '200');
         }
-        $check_phone = $this->check_phone($phone);
+        $check_phone = $this->check_phone($first_name_phone);
         if ($check_phone['code']) {
             $mess_error = $check_phone['is_verified'] == 0 ? 'Tài khoản chưa được kích hoạt' : '';
             return apiResponse(false, 'Số điện thoại đã tồn tại.' . $mess_error, $check_phone, '200');
@@ -58,11 +58,11 @@ class CustomerClientController extends BaseController
         if ($customer_id) {
             $body = $htmlContent;
             $body = str_replace('{{logo}}', "cid:logo_cid", $body);
-            $body = str_replace('{{username}}', $first_name . ' ' . $last_name, $body);
+            $body = str_replace('{{username}}', $first_name_first_name . ' ' . $first_name_last_name, $body);
             $body = str_replace('{{website_name}}', session()->get('web_configs')['site_name'], $body);
-            $body = str_replace('{{verification_link}}', base_url('admin/customer/verify?id=' . $customer_id . '&token=' . $verification_token), $body);
+            $body = str_replace('{{verification_link}}', base_url('admin/customer/verify?id=' . $customer_id . '&token=' . $first_name_verification_token), $body);
             $subject = $mail_verify_account['subject'];
-            $result = $this->mailService->send_mail_mailer($email, $subject, $body);
+            $result = $this->mailService->send_mail_mailer($first_name_email, $subject, $body);
             if ($result['status'] == false) {
                 return apiResponse(true, 'Đăng ký thành công, gửi mail  thất bại. ErrorMessage = ' . $result['message'], null, '200');
             }
@@ -151,13 +151,13 @@ class CustomerClientController extends BaseController
 
     public function sign_in()
     {
-        $username = $this->request->getPost('username');
-        $password = $this->request->getPost('password');
+        $username_signin = $this->request->getPost('username_signin');
+        $password_signin = $this->request->getPost('password_signin');
         $user = $this->model
-            ->where('email', $username)
-            ->orWhere('phone', $username)
+            ->where('email', $username_signin)
+            ->orWhere('phone', $username_signin)
             ->first();
-        if ($user && password_verify($password, $user['password_hash'])) {
+        if ($user && password_verify($password_signin, $user['password_hash'])) {
             $customer_info = [
                 'first_name' => $user['first_name'],
                 'last_name' => $user['last_name'],

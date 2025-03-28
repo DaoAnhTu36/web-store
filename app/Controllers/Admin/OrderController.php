@@ -2,16 +2,23 @@
 
 namespace App\Controllers\Admin;
 
-use App\Models\OrderModel;
-use CodeIgniter\RESTful\ResourceController;
+use App\Controllers\BaseController;
 
-class OrderController extends ResourceController
+use App\Models\OrderModel;
+use App\Models\CustomerModel;
+use App\Models\OrderDetailModel;
+
+class OrderController extends BaseController
 {
     protected $orderModel;
+    protected $customerModel;
+    protected $orderDetailModel;
 
     public function __construct()
     {
         $this->orderModel = new OrderModel();
+        $this->customerModel = new CustomerModel();
+        $this->orderDetailModel = new OrderDetailModel();
     }
 
     public function index()
@@ -20,24 +27,5 @@ class OrderController extends ResourceController
             "title" => "Danh sách đơn hàng"
         ];
         return view("admin/order_view/index_view", $data_view);
-    }
-
-    public function complete()
-    {
-        $full_name = $this->request->getPost("full_name");
-        $email = $this->request->getPost("email");
-        $phone = $this->request->getPost("phone");
-        $address = $this->request->getPost("address");
-        $note = $this->request->getPost("note");
-        $data = [
-            "full_name" => $full_name,
-            "email" => $email,
-            "phone" => $phone,
-            "address" => $address,
-            "note" => $note,
-        ];
-        return redirect()->back()->with("success", "Đặt hàng thành công");
-        EchoCommon($data);
-        EchoCommon(session()->get("cart"));
     }
 }

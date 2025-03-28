@@ -64,32 +64,32 @@
                 </table>
         </div>
         <div class="mt-5">
-            <input type="text" style="outline: none;padding-left:15px" class="border-0 border-bottom rounded me-5 py-3 mb-4" placeholder="Nhập mã giảm giá">
+            <input type="text" style="outline: none;padding-left:15px" class="border-0 border-bottom rounded me-5 py-3 mb-4" placeholder="Nhập mã giảm giá" name="id_coupon" id="id_coupon">
         </div>
         <div class="row g-4 justify-content-end">
-            <form action="<?= site_url('admin/order/complete') ?>" method="POST">
+            <form action="<?= site_url('portal/cart-client/complete-order') ?>" method="POST">
                 <div class="row">
                     <div class="col-8">
                         <div class="row">
                             <div class="mb-3 col-6">
-                                <label for="" class="form-label">Họ và tên</label>
-                                <input type="full_name" name="full_name" class="form-control" value="<?= isset(session()->get('customer_infor')['first_name']) ? session()->get('customer_infor')['first_name'] . ' ' . session()->get('customer_infor')['last_name'] : '' ?>" id="full_name" placeholder="">
+                                <label for="order_infor_full_name" class="form-label">Họ và tên</label>
+                                <input type="text" name="order_infor_full_name" class="form-control" value="<?= isset(session()->get('customer_infor')['first_name']) ? session()->get('customer_infor')['first_name'] . ' ' . session()->get('customer_infor')['last_name'] : '' ?>" id="order_infor_full_name" placeholder="" required>
                             </div>
                             <div class="mb-3 col-6">
-                                <label for="" class="form-label">Email</label>
-                                <input type="email" name="email" class="form-control" value="<?= isset(session()->get('customer_infor')['email']) ? session()->get('customer_infor')['email'] : '' ?>" id="email" placeholder="">
+                                <label for="order_infor_email" class="form-label">Email</label>
+                                <input type="email" name="order_infor_email" class="form-control" value="<?= isset(session()->get('customer_infor')['email']) ? session()->get('customer_infor')['email'] : '' ?>" id="order_infor_email" placeholder="" required>
                             </div>
                             <div class="mb-3 col-6">
-                                <label for="" class="form-label">Số điện thoại</label>
-                                <input type="phone" name="phone" class="form-control" value="<?= isset(session()->get('customer_infor')['phone']) ? session()->get('customer_infor')['phone'] : '' ?>" id="phone" placeholder="">
+                                <label for="order_infor_phone" class="form-label">Số điện thoại</label>
+                                <input type="phone" name="order_infor_phone" class="form-control" value="<?= isset(session()->get('customer_infor')['phone']) ? session()->get('customer_infor')['phone'] : '' ?>" id="order_infor_phone" placeholder="" required>
                             </div>
                             <div class="mb-3 col-6">
-                                <label for="" class="form-label">Địa chỉ nhận hàng</label>
-                                <input type="address" name="address" class="form-control" value="<?= isset(session()->get('customer_infor')['address']) ? session()->get('customer_infor')['address'] : '' ?>" id="address" placeholder="">
+                                <label for="order_infor_address" class="form-label">Địa chỉ nhận hàng</label>
+                                <input type="address" name="order_infor_address" class="form-control" value="<?= isset(session()->get('customer_infor')['address']) ? session()->get('customer_infor')['address'] : '' ?>" id="order_infor_address" placeholder="" required>
                             </div>
                             <div class="mb-3 col-12">
-                                <label for="" class="form-label">Ghi chú</label>
-                                <textarea class="form-control" id="note" value="" name="note" rows="3"></textarea>
+                                <label for="order_infor_note" class="form-label">Ghi chú</label>
+                                <textarea class="form-control" id="order_infor_note" value="" name="order_infor_note" rows="3"></textarea>
                             </div>
                         </div>
                     </div>

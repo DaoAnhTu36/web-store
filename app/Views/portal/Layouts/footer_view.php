@@ -11,7 +11,7 @@
                 </div>
                 <div class="col-lg-6">
                     <div class="position-relative mx-auto">
-                        <input class="form-control border-0 w-100 py-3 px-4 rounded-pill" type="number" placeholder="Your Email">
+                        <input class="form-control border-0 w-100 py-3 px-4 rounded-pill" type="number" id="mail_subcri" name="mail_subcri" placeholder="Your Email">
                         <button type="submit" class="btn btn-primary border-0 border-secondary py-3 px-4 position-absolute rounded-pill text-white" style="top: 0; right: 0;">Subscribe Now</button>
                     </div>
                 </div>
@@ -120,6 +120,17 @@
             });
             bsCollapse.hide();
         }
+    });
+    $(document).ready(function() {
+        $('input').on('keyup', function() {
+            if ($(this).attr('required') !== undefined) {
+                if ($(this).val().trim() === '') {
+                    $(this).addClass('error-input');
+                } else {
+                    $(this).removeClass('error-input');
+                }
+            }
+        });
     });
 </script>
 </body>

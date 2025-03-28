@@ -124,4 +124,74 @@ class CartClientController extends BaseController
         }
         return format_currency($result, get_current_symboy());
     }
+
+    public function complete_order()
+    {
+        $order_infor_full_name = $this->request->getPost("order_infor_full_name");
+        $order_infor_email = $this->request->getPost("order_infor_email");
+        $order_infor_phone = $this->request->getPost("order_infor_phone");
+        $order_infor_address = $this->request->getPost("order_infor_address");
+        $order_infor_note = $this->request->getPost("order_infor_note");
+        $cart = session()->get("cart");
+
+        if (count($cart) == 0) {
+            return redirect()->back()->with("errors", "Không có sản phẩm nào trong giỏ hàng");
+        }
+        $customer_id = '';
+        $customer_infor = $this->model
+            ->where('email', $order_infor_email)
+            ->where('phone', $order_infor_phone)
+            ->first();
+        if ($customer_infor) {
+            $this->model->update($customer_infor['id'], ['address' => $order_infor_address]);
+            $customer_id = $customer_infor['id'];
+            $data_order = [
+                'user_id' => $customer_infor['id'],
+                'total_price' => array_sum(array_column($cart, 'sub_total')),
+                'status' => 1,
+                'created_by' => $customer_infor['id'],
+                'note' => $order_infor_note
+            ];
+        } else {
+            $first_name_verification_token = bin2hex(random_bytes(32));
+            $customer_infor = [
+                'first_name'    => $order_infor_full_name,
+                'last_name'    => $order_infor_full_name,
+                'email'   => $order_infor_email,
+                'phone'   => $order_infor_phone,
+                'password_hash' => password_hash('123@123', PASSWORD_DEFAULT),
+                'verification_token' => $first_name_verification_token,
+                'address' => $order_infor_address,
+            ];
+            $customer_id = $this->model->insert($customer_infor);
+            $data_order = [
+                'user_id' => $customer_id['id'],
+                'total_price' => array_sum(array_column($cart, 'sub_total')),
+                'status' => 1,
+                'created_by' => $customer_infor['id'],
+                'updated_by' => $customer_infor['id'],
+            ];
+        }
+        $order_id = $this->orderModel->insert($data_order);
+        foreach ($cart as $item) {
+            $data_order_detail = [
+                'order_id' => $order_id,
+                'product_id' => $item['id'],
+                'quantity' => $item['quantity'],
+                'price' => $item['price'],
+                'sub_total' => $item['sub_total'],
+                'is_active' => 1,
+                'created_by' => $customer_id,
+            ];
+            $this->orderDetailModel->save($data_order_detail);
+        }
+
+        $this->session->remove('cart');
+        return redirect()->to('portal/cart-client/order-successfull')->with("success", "Đặt hàng thành công");
+    }
+
+    public function order_successfull()
+    {
+        return view('portal/order_successful_view');
+    }
 }

@@ -1,20 +1,20 @@
 let dataResponseRegister = {};
 
 function onRegisterCustomer() {
-  let first_name = $('#first_name').val();
-  let last_name = $('#last_name').val();
-  let email = $('#email').val();
-  let phone = $('#phone').val();
-  let password = $('#password2').val();
+  let first_name_register = $('#first_name_register').val();
+  let last_name_register = $('#last_name_register').val();
+  let email_register = $('#email_register').val();
+  let phone_register = $('#phone_register').val();
+  let password_register = $('#password_register').val();
   $.ajax({
     type: 'POST',
     url: baseURL + 'portal/customer-client/save',
     data: {
-      first_name,
-      last_name,
-      email,
-      phone,
-      password,
+      first_name_register,
+      last_name_register,
+      email_register,
+      phone_register,
+      password_register,
     },
     success: function (response) {
       if (response.status) {
@@ -23,11 +23,11 @@ function onRegisterCustomer() {
           $('.btn-close').click();
         }, 1000);
 
-        $('#first_name').val('');
-        $('#last_name').val('');
-        $('#email').val('');
-        $('#phone').val('');
-        $('#password').val('');
+        $('#first_name_register').val('');
+        $('#last_name_register').val('');
+        $('#email_register').val('');
+        $('#phone_register').val('');
+        $('#password_register').val('');
         $('#registerModal #flash-message').hide();
         $('#registerModal #flash-message .alert').text('').removeClass('alert-success').removeClass('alert-danger');
       } else {
@@ -79,14 +79,14 @@ function onActiveCustomer() {
 }
 
 function onSigninCustomer() {
-  let username = $('#username').val();
-  let password = $('#password1').val();
+  let username_signin = $('#username_signin').val();
+  let password_signin = $('#password_signin').val();
   $.ajax({
     type: 'POST',
     url: baseURL + 'portal/customer-client/sign-in',
     data: {
-      username,
-      password,
+      username_signin,
+      password_signin,
     },
     success: function (response) {
       if (response.status) {
@@ -101,6 +101,10 @@ function onSigninCustomer() {
                             Xin chào <br />
                             ${response.data.first_name} ${response.data.last_name}
                         </a>`);
+          if ($('#order_infor_full_name')) $('#order_infor_full_name').val(response.data.first_name + ' ' + response.data.last_name);
+          if ($('#order_infor_email')) $('#order_infor_email').val(response.data.email);
+          if ($('#order_infor_phone')) $('#order_infor_phone').val(response.data.phone);
+          if ($('#order_infor_address')) $('#order_infor_address').val(response.data.address);
         }, 1000);
       } else {
         $('#signinModal #flash-message').show();
@@ -108,7 +112,6 @@ function onSigninCustomer() {
         setTimeout(() => {
           $('#signinModal #flash-message .alert').text('').removeClass('alert-success').removeClass('alert-danger');
           $('#signinModal #flash-message').hide();
-          $('.btn-close').click();
         }, 1000);
       }
     },

@@ -16,7 +16,8 @@ class OrderDetailModel extends Model
         'price',
         'created_by',
         'updated_by',
-        'is_active'
+        'is_active',
+        'sub_total'
     ];
 
     protected $returnType = 'array';

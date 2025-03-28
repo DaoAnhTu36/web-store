@@ -16,11 +16,11 @@ class OrderModel extends Model
         'created_at',
         'created_by',
         'updated_by',
-        'is_active'
+        'updated_at',
+        'is_active',
+        'note'
     ];
 
     protected $returnType = 'array';
     protected $useTimestamps = true;
-    protected $createdField = 'created_at';
-    protected $updatedField = 'updated_at';
 }

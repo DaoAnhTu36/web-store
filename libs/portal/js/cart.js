@@ -74,30 +74,30 @@ function completeOrder() {
 
 function validateCustomerOrder() {
   let retVal = true;
-  let full_name_tag = $('#full_name');
-  let email_tag = $('#email');
-  let phone_tag = $('#phone');
-  let address_tag = $('#address');
-  let note_tag = $('#note');
+  let full_name_tag = $('#order_infor_full_name');
+  let email_tag = $('#order_infor_email');
+  let phone_tag = $('#order_infor_phone');
+  let address_tag = $('#order_infor_address');
+  let note_tag = $('#order_infor_note');
   let full_name = full_name_tag.val();
   let email = email_tag.val();
   let phone = phone_tag.val();
   let address = address_tag.val();
   let note = note_tag.val();
   if (!full_name) {
-    full_name_tag.css('border', '1px solid red');
+    full_name_tag.addClass('error-input');
     retVal = false;
   }
   if (!email) {
-    email_tag.css('border', '1px solid red');
+    email_tag.addClass('error-input');
     retVal = false;
   }
   if (!phone) {
-    phone_tag.css('border', '1px solid red');
+    phone_tag.addClass('error-input');
     retVal = false;
   }
   if (!address) {
-    address_tag.css('border', '1px solid red');
+    address_tag.addClass('error-input');
     retVal = false;
   }
   return retVal;

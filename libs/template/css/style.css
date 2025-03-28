@@ -532,3 +532,6 @@
 .strike-text {
   text-decoration: line-through;
 }
+.error-input {
+  border: 1px solid red;
+}
