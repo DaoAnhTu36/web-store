@@ -8,8 +8,7 @@ $data = [
 ]
 ?>
 <?= view("portal/Layouts/header_view.php", $data) ?>
-<?= view("portal/Layouts/slide_view.php", $data) ?>
-<?= view("portal/Layouts/banner_view.php", $data) ?>
+<?= isset($show_banner) && $show_banner ? view("portal/Layouts/banner_view.php", $data) : '' ?>
 <?= view("portal/Layouts/menu_view.php", $data) ?>
 <?= $this->renderSection('content'); ?>
 <?= view("portal/Layouts/footer_view.php", $data) ?>

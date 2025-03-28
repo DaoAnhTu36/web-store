@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <title><?= session()->get('web_configs')['site_name'] . ' - ' . $title ?></title>
+    <title><?= session()->get('web_configs')['site_name'] ?> - <?= isset($title) ? $title : '' ?></title>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />

@@ -488,7 +488,7 @@
 
 .form-item {
   position: relative;
-  margin-top: 20px;
+  margin-top: 30px;
 }
 
 /* Thiết lập vị trí cho label */
@@ -528,4 +528,7 @@
 /* Khi focus vào input, thay đổi màu viền */
 .form-item input:focus {
   border-color: #4f4f4f;
+}
+.strike-text {
+  text-decoration: line-through;
 }

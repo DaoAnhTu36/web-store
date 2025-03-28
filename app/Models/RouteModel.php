@@ -35,7 +35,10 @@ class RouteModel extends Model
 
     public function renderRoute()
     {
-        $routes = $this->where('is_active', 1)->findAll();
+        $routes = $this
+            ->select('id,method,uri,controller,is_group,parent_id,level,permission_id,is_ignore')
+            ->where('is_active', 1)
+            ->findAll();
         $tree = $this->buildTree($routes);
         // echo '<pre>';
         // echo 'Route: ';

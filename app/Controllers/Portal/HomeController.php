@@ -23,8 +23,8 @@ class HomeController extends BaseController
         $data_view = [
             'data' => $data,
             'title' => $title,
+            'show_banner' => true,
         ];
-        // EchoCommon($data);
         return view('portal/home_view', $data_view);
     }
 }

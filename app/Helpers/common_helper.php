@@ -144,6 +144,7 @@ function get_image($image_str, $charactor = ',')
     }
     return '';
 }
+
 function get_image_array($image_str, $charactor = ',')
 {
     $result = array();
@@ -152,4 +153,9 @@ function get_image_array($image_str, $charactor = ',')
     }
     $result = explode($charactor, $image_str);
     return $result;
+}
+
+function get_current_symboy()
+{
+    return '₫';
 }

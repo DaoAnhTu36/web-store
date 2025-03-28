@@ -38,54 +38,32 @@ class AuthFilter implements FilterInterface
     public function before(RequestInterface $request, $arguments = null)
     {
         $session = session();
-        // Check if user is logged in
-        if (!$session->get('is_logged_in') && str_contains(strtolower($_SERVER['REQUEST_URI']), 'admin')) {
-            // Redirect to login page
-            // $rememberToken = get_cookie('remember_token');
-            // if ($rememberToken) {
-            //     // Giả sử bạn check lại user theo token (hoặc user id)
-            //     $user = $this->accountModel->find($rememberToken);
-            //     if ($user) {
-            //         // Set lại session
-            //         $session->set([
-            //             'is_logged_in' => true,
-            //             'user_name' => $user['user_name'],
-            //             'user_id' => $user['id'],
-            //             'email' => $user['email'],
-            //             'phone' => $user['phone'],
-            //             'address' => $user['address'],
-            //             'role' => $user['role'],
-            //             'full_name' => $user['full_name'],
-            //         ]);
-            //     } else {
-            //         return redirect()->to('admin/account/login');
-            //     }
-            // } else {
-            //     return redirect()->to('admin/account/login');
-            // }
-            return redirect()->to('admin/account/login');
-        }
-        if ($arguments) {
-            $permission = $arguments[0];
-            $roleId = $session->get('role_id');
-            $rolePermissions = $this->rolePermissionModel
-                ->select('role_permissions.permission_id')
-                ->join('permissions', 'permissions.id = role_permissions.permission_id', 'left')
-                ->join('roles', 'roles.id = role_permissions.role_id', 'left')
-                ->where('role_permissions.role_id', $roleId)
-                ->where('role_permissions.is_active', 1)
-                ->where('roles.is_active', 1)
-                ->where('permissions.is_active', 1)
-                ->findAll();
-            if (empty($rolePermissions) || count($rolePermissions) == 0) {
-                return redirect()->back()->with('errors', 'Bạn không có quyền truy cập');
+        if (str_contains(strtolower($_SERVER['REQUEST_URI']), 'admin')) {
+            if (!$session->get('is_logged_in') && str_contains(strtolower($_SERVER['REQUEST_URI']), 'admin')) {
+                return redirect()->to('admin/account/login');
             }
-            $permission_array = [];
-            foreach ($rolePermissions as $value) {
-                array_push($permission_array, $value['permission_id']);
-            }
-            if (!in_array($permission, $permission_array)) {
-                return redirect()->back()->with('errors', 'Bạn không có quyền truy cập');
+            if ($arguments) {
+                $permission = $arguments[0];
+                $roleId = $session->get('role_id');
+                $rolePermissions = $this->rolePermissionModel
+                    ->select('role_permissions.permission_id')
+                    ->join('permissions', 'permissions.id = role_permissions.permission_id', 'left')
+                    ->join('roles', 'roles.id = role_permissions.role_id', 'left')
+                    ->where('role_permissions.role_id', $roleId)
+                    ->where('role_permissions.is_active', 1)
+                    ->where('roles.is_active', 1)
+                    ->where('permissions.is_active', 1)
+                    ->findAll();
+                if (empty($rolePermissions) || count($rolePermissions) == 0) {
+                    return redirect()->back()->with('errors', 'Bạn không có quyền truy cập');
+                }
+                $permission_array = [];
+                foreach ($rolePermissions as $value) {
+                    array_push($permission_array, $value['permission_id']);
+                }
+                if (!in_array($permission, $permission_array)) {
+                    return redirect()->back()->with('errors', 'Bạn không có quyền truy cập');
+                }
             }
         }
     }
