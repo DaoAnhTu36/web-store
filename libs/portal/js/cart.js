@@ -9,7 +9,7 @@ function onAddCart(id, name, price) {
       quantity: 1,
     },
     success: function (response) {
-      console.log(response);
+      $('#total-item-in-cart').text(response.data.total_item);
     },
     error: function (xhr, status, error) {
       console.log('Error:', error);
@@ -30,6 +30,8 @@ function onChangeQuantity(id, type) {
         $('.item-cart-' + id).text(response.data.sub_total);
         $('#total_cart').text(response.data.total_cart);
         $('#total_cart_with_fee').text(response.data.total_cart);
+        $('#total-item-in-cart').text(response.data.total_item);
+        
       }
     },
     error: function (xhr, status, error) {

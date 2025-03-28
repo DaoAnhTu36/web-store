@@ -64,8 +64,10 @@ class CartClientController extends BaseController
         }
 
         $this->session->set('cart', $cart);
-
-        return apiResponse(true, 'Đã thêm vào giỏ hàng', null, '200');
+        $total_item = array_sum(array_column($cart, 'quantity'));
+        return apiResponse(true, 'Đã thêm vào giỏ hàng', [
+            'total_item' => $total_item,
+        ], '200');
     }
 
     public function clear_cart()
@@ -90,9 +92,11 @@ class CartClientController extends BaseController
         }
         $this->session->set('cart', $cart);
         $total_cart = $this->count_total_cart();
+        $total_item = array_sum(array_column($cart, 'quantity'));
         $ret_val = [
             'sub_total' => $sub_total,
             'total_cart' => $total_cart,
+            'total_item'=>$total_item
         ];
         return apiResponse(true, '', $ret_val, '200');
     }
