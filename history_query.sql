@@ -196,3 +196,18 @@ CREATE TABLE customers (
 );
 
 
+TRUNCATE TABLE accounts;
+TRUNCATE TABLE best_selling_products;
+TRUNCATE TABLE categories;
+TRUNCATE TABLE customers;
+TRUNCATE TABLE images;
+TRUNCATE TABLE inventory;
+TRUNCATE TABLE orders;
+TRUNCATE TABLE order_details;
+TRUNCATE TABLE payments;
+TRUNCATE TABLE products;
+TRUNCATE TABLE product_attributes;
+TRUNCATE TABLE product_attribute_values;
+TRUNCATE TABLE product_prices;
+TRUNCATE TABLE transactions;
+TRUNCATE TABLE transaction_details;

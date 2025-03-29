@@ -26,13 +26,17 @@ class WebsiteConfigModel extends Model
     {
         $configs = $this->findAll();
         $result = [];
-        foreach ($configs as $config) {
-            if (str_contains($config['config_key'], 'logo')) {
-                $imageModel = new ImageModel();
-                $image = $imageModel->where('record_id', $config['id'])->where('type', 'website_configs')->first();
-                $result[$config['config_key']] = base_url($image['image_path']);
-            } else {
-                $result[$config['config_key']] = $config['config_value'];
+        if (count($configs) > 0) {
+            foreach ($configs as $config) {
+                if (str_contains($config['config_key'], 'logo')) {
+                    $imageModel = new ImageModel();
+                    $image = $imageModel->where('record_id', $config['id'])->where('type', 'website_configs')->first();
+                    if ($image !== null) {
+                        $result[$config['config_key']] = base_url($image['image_path']);
+                    }
+                } else {
+                    $result[$config['config_key']] = $config['config_value'];
+                }
             }
         }
         return $result;

@@ -23,8 +23,7 @@
     <link rel="stylesheet" type="text/css" media="screen" href="<?= base_url($libUrl . '/css/custom.css'); ?>">
     <link rel="stylesheet" type="text/css" media="screen" href="<?= base_url($libUrl . '/css/toastify.min.css'); ?>">
 
-    <link rel="shortcut icon" href="<?= session()->get('web_configs')['logo']; ?>" type="image/x-icon">
-    <link rel="icon" href="<?= session()->get('web_configs')['logo']; ?>" type="image/x-icon">
+    <link rel="shortcut icon" href="<?php echo isset(session()->get('web_configs')['logo']) ? session()->get('web_configs')['logo'] : ''; ?>" type="image/x-icon">
 
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,300,400,700">
 
