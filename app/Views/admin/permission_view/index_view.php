@@ -1,16 +1,5 @@
 <?= $this->extend('admin/Layouts/main_view.php'); ?>
 <?= $this->section('content'); ?>
-<?php if (session()->getFlashdata('errors')): ?>
-    <div id="flash-message" class="alert alert-danger">
-        <?= session()->getFlashdata('errors'); ?>
-    </div>
-<?php endif; ?>
-
-<?php if (session()->getFlashdata('success')): ?>
-    <div id="flash-message" class="alert alert-success">
-        <?= session()->getFlashdata('success'); ?>
-    </div>
-<?php endif; ?>
 <div id="content">
     <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
