@@ -55,26 +55,19 @@
                                 <fieldset>
                                     <legend>Thêm mới loại khuyến mại</legend>
                                     <div class="form-group">
-                                        <label class="col-md-2 control-label">Tên loại KM</label>
+                                        <label class="col-md-2 control-label" for="name">Tên loại KM</label>
                                         <div class="col-md-10">
                                             <input class="form-control" value="" placeholder="" type="text" id="name" name="name">
                                         </div>
                                     </div>
-                                </fieldset>
-                                <div class="form-actions">
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <button class="btn btn-default" type="submit">
-                                                Hủy
-                                            </button>
-                                            <button class="btn btn-primary" type="submit">
-                                                <i class="fa fa-save"></i>
-                                                Lưu
-                                            </button>
+                                    <div class="form-group">
+                                        <label class="col-md-2 control-label" for="description">Mô tả loại KM</label>
+                                        <div class="col-md-10">
+                                            <input class="form-control" value="" placeholder="" type="text" id="description_" name="description">
                                         </div>
                                     </div>
-                                </div>
-
+                                </fieldset>
+                                <?= view("admin/Layouts/group_button_action_form_view.php") ?>
                             </form>
 
                         </div>

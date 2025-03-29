@@ -165,11 +165,5 @@ $method = isset($path_array[2]) ? $path_array[2] : '';
                 <i class="fa fa-refresh" onclick="return window.location.reload()"></i>
             </span>
         </span>
-
-        <ol class="breadcrumb">
-            <li><?= isset($controller) ? $controller : '' ?></li>
-            <li><?= isset($method) ? $method : '' ?></li>
-        </ol>
-
     </div>
     <!-- END RIBBON -->

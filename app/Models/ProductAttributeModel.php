@@ -13,7 +13,20 @@ class ProductAttributeModel extends Model
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
 
-    // Các cột được phép insert/update
+    protected $validationRules = [
+        'attribute_name' => 'required',
+        'attribute_value' => 'required',
+    ];
+
+    protected $validationMessages = [
+        'attribute_name' => [
+            'required' => 'Tên thuộc tính là bắt buộc',
+        ],
+        'attribute_value' => [
+            'required' => 'Giá trị thuộc tính là bắt buộc',
+        ]
+    ];
+
     protected $allowedFields = [
         'attribute_name',
         'attribute_value',
@@ -24,13 +37,9 @@ class ProductAttributeModel extends Model
         'updated_at'
     ];
 
-    // Bật timestamps để tự động cập nhật thời gian
     protected $useTimestamps = true;
     protected $createdField  = 'created_at';
     protected $updatedField  = 'updated_at';
-
-    // Nếu muốn validation:
-    // protected $validationRules = [ ... ];
 
     public function getAttributeGroupByName()
     {

@@ -21,6 +21,20 @@ class DiscountTypeModel extends Model
         'updated_by'
     ];
 
+    protected $validationRules = [
+        'name' => 'required',
+        'description' => 'required',
+    ];
+
+    protected $validationMessages = [
+        'name' => [
+            'required' => 'Tên loại giảm giá là bắt buộc',
+        ],
+        'description' => [
+            'required' => 'Mô tả là bắt buộc',
+        ]
+    ];
+
     protected $useTimestamps = true;
     protected $createdField  = 'created_at';
     protected $updatedField  = 'updated_at';

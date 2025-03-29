@@ -16,7 +16,9 @@ class ProductAttributeController extends BaseController
 
     public function index()
     {
-        $data = $this->productAttributeModel->findAll();
+        $data = $this->productAttributeModel
+            ->orderBy("updated_at", "desc")
+            ->findAll();
         $data_view = [
             "title" => "Danh sách thuộc tính sản phẩm",
             "data" => $data,
@@ -42,6 +44,13 @@ class ProductAttributeController extends BaseController
             'created_by' => session()->get('user_id'),
             'updated_by' => session()->get('user_id'),
         ];
+
+        $rules = $this->productAttributeModel->validationRules;
+        $messages = $this->productAttributeModel->validationMessages;
+        if (!$this->validate($rules, $messages)) {
+            return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
+        }
+
         $checkExist = $this->productAttributeModel->where('attribute_name', $data['attribute_name'])->where('attribute_value', $data['attribute_value'])->first();
         if ($checkExist) {
             return redirect()->to('admin/product-attributes/create')->with('errors', 'Đã tồn tại trong hệ thống');
@@ -53,7 +62,7 @@ class ProductAttributeController extends BaseController
     public function detail($id)
     {
         $data_view = [
-            'title' => 'Thông tin chi tiết thuộc tính sản phẩm',
+            'title' => 'Cập nhật thông tin thuộc tính sản phẩm',
             'data' => $this->productAttributeModel->find($id),
         ];
         return view('admin/product_attribute_view/detail_view', $data_view);
@@ -61,9 +70,17 @@ class ProductAttributeController extends BaseController
 
     public function update($id)
     {
+        $attribute_name = $this->request->getPost('attribute_name');
+        $attribute_value = $this->request->getPost('attribute_value');
+        $rules = $this->productAttributeModel->validationRules;
+        $messages = $this->productAttributeModel->validationMessages;
+        if (!$this->validate($rules, $messages)) {
+            return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
+        }
+
         $data = [
-            "attribute_name" => $this->request->getPost('attribute_name'),
-            "attribute_value" => $this->request->getPost('attribute_value'),
+            "attribute_name" => $attribute_name,
+            "attribute_value" => $attribute_value,
             'updated_by' => session()->get('user_id'),
         ];
         $checkExist = $this->productAttributeModel

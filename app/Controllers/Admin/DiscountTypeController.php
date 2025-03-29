@@ -35,6 +35,13 @@ class DiscountTypeController extends BaseController
 
     public function save()
     {
+        $rules = $this->discountTypeModel->validationRules;
+        $messages = $this->discountTypeModel->validationMessages;
+
+        if (!$this->validate($rules, $messages)) {
+            return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
+        }
+
         $data = [
             'name' => $this->request->getPost('name'),
         ];

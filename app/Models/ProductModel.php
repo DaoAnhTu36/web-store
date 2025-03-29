@@ -18,6 +18,22 @@ class ProductModel extends Model
         'is_active',
         'image',
     ];
+    protected $validationRules    = [
+        'name'        => 'required|min_length[3]|max_length[255]',
+        'category_id' => 'required|integer',
+    ];
+
+    protected $validationMessages = [
+        'name' => [
+            'required'   => 'Tên sản phẩm là bắt buộc.',
+            'min_length' => 'Tên sản phẩm phải có ít nhất 3 ký tự.',
+            'max_length' => 'Tên sản phẩm không được vượt quá 255 ký tự.',
+        ],
+        'category_id' => [
+            'required' => 'Danh mục sản phẩm là bắt buộc.',
+        ],
+    ];
+
 
     public function getProductsWithImages()
     {

@@ -124,6 +124,16 @@ function get_validate_upload_file($files)
     return '';
 }
 
+function get_message_error_file()
+{
+    return  [
+        'uploaded' => 'Vui lòng chọn một tệp ảnh.',
+        'is_image' => 'Tệp phải là hình ảnh.',
+        'max_size' => 'Dung lượng ảnh không được quá 2MB.',
+        'mime_in'  => 'Chỉ chấp nhận các định dạng JPG, JPEG, PNG.',
+
+    ];
+}
 
 function send_mail_native($mail_to, $template)
 {

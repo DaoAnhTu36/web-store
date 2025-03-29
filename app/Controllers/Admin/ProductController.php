@@ -66,18 +66,18 @@ class ProductController extends BaseController
         $attrs = $this->request->getPost('attribute_ids');
         $name = $this->request->getPost('name');
         $category_id = $this->request->getPost('category_id');
-        helper(['form', 'url']);
-        $validation = \Config\Services::validation();
-        $validation->setRules([
-            'name' => 'required|min_length[3]',
-            'category_id' => 'required',
-            'attribute_ids' => 'required',
-            'images' => 'uploaded[images]|max_size[images,150]|is_image[images]|mime_in[images,image/jpg,image/jpeg,image/png]',
-            // 'images' => 'uploaded[images]|is_image[images]|mime_in[images,image/jpg,image/jpeg,image/png]',
-        ]);
 
-        if (!$validation->withRequest($this->request)->run()) {
-            return redirect()->back()->withInput()->with('errors', implode(' ', $validation->getErrors()));
+        $files = $this->request->getFiles();
+        $check_validate_files = get_validate_upload_file($files);
+        $rules = $this->productModel->validationRules;
+        $messages = $this->productModel->validationMessages;
+        if (!empty($check_validate_files)) {
+            $rules['images'] = $check_validate_files;
+            $messages['images'] = get_message_error_file();
+        }
+
+        if (!$this->validate($rules, $messages)) {
+            return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
         }
 
         $productId = $this->productModel->insert([

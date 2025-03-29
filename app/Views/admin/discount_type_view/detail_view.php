@@ -59,6 +59,12 @@
                                             <input class="form-control" value="<?= $data['name'] ?>" placeholder="" type="text" id="name" name="name">
                                         </div>
                                     </div>
+                                    <div class="form-group">
+                                        <label class="col-md-2 control-label" for="description">Mô tả loại KM</label>
+                                        <div class="col-md-10">
+                                            <input class="form-control" value="<?= $data['description'] ?>" placeholder="" type="text" id="description_" name="description">
+                                        </div>
+                                    </div>
                                 </fieldset>
                                 <div class="form-actions">
                                     <div class="row">

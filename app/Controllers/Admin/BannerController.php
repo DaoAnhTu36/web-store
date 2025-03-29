@@ -125,11 +125,10 @@ class BannerController extends BaseController
 
     public function update($id)
     {
-        $validation = \Config\Services::validation();
-
         $title = $this->request->getPost('title');
         $description = $this->request->getPost('description');
         $files = $this->request->getFiles();
+        $validation = \Config\Services::validation();
         $validation->setRules([
             'title'       => 'required|min_length[3]',
             'description' => 'required|min_length[20]',
@@ -176,6 +175,6 @@ class BannerController extends BaseController
             }
         }
         session()->remove('data_temp');
-        return redirect()->back()->with('success', 'Cập nhật banner thành công');
+        return redirect()->to('admin/banner')->with('success', 'Cập nhật banner thành công');
     }
 }

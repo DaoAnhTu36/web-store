@@ -1001,9 +1001,9 @@
         //     filebrowserImageBrowseUrl: '<?= base_url('/libs/js/plugin/ckfinder/ckfinder.html?type=Images'); ?>',
         // });
 
-        if (document.querySelector('#description_record')) {
+        if (document.querySelector('#description_')) {
             ClassicEditor
-                .create(document.querySelector('#description_record'), {
+                .create(document.querySelector('#description_'), {
                     ckfinder: {
                         uploadUrl: '<?= base_url('/upload'); ?>',
                         options: {

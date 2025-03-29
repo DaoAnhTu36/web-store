@@ -8,15 +8,25 @@ class CategoryModel extends Model
 {
     protected $table = 'categories';
     protected $primaryKey = 'id';
-    protected $useAutoIncrement = true;
 
-    protected $allowedFields = [
-        'name',
-        'description',
-        'created_at',
-        'created_by',
-        'updated_by',
-        'is_active'
+    protected $allowedFields = ['name', 'description', 'is_active', 'created_by', 'updated_by'];
+
+    protected $createdField  = 'created_at';
+
+    protected $validationRules = [
+        'name' => 'required|min_length[3]|max_length[255]',
+        'description' => 'required|permit_empty',
+    ];
+
+    protected $validationMessages = [
+        'name' => [
+            'required' => 'Tên danh mục là bắt buộc',
+            'min_length' => 'Tên danh mục phải có ít nhất 3 ký tự.',
+            'max_length' => 'Tên danh mục không được vượt quá 255 ký tự.',
+        ],
+        'description' => [
+            'required' => 'Mô tả là bắt buộc',
+        ]
     ];
 
     public function getCategoriesWithImages()
