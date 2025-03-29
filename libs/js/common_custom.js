@@ -28,37 +28,39 @@ if (document.getElementById('images')) {
 }
 
 function updateFileList() {
-  document.getElementById('image_preview_container').style.display = 'block';
-  const input = document.getElementById('images');
-  const files = Array.from(input.files); // Chuyển FileList thành mảng
-  const fileListContainer = document.getElementById('item_preview');
+  if (document.getElementById('image_preview_container')) {
+    document.getElementById('image_preview_container').style.display = 'block';
+    const input = document.getElementById('images');
+    const files = Array.from(input.files); // Chuyển FileList thành mảng
+    const fileListContainer = document.getElementById('item_preview');
 
-  fileListContainer.innerHTML = ''; // Xóa danh sách cũ
+    fileListContainer.innerHTML = ''; // Xóa danh sách cũ
 
-  files.forEach((file, index) => {
-    const listItem = document.createElement('div');
+    files.forEach((file, index) => {
+      const listItem = document.createElement('div');
 
-    const element = event.target.files[index];
-    if (element) {
-      const reader = new FileReader();
-      reader.onload = function (e) {
-        listItem.innerHTML = `<div class="item_preview"><span>${index + 1}.</span><img src="${e.target.result}" style="width: 250px; margin: 5px;"></div>`;
+      const element = event.target.files[index];
+      if (element) {
+        const reader = new FileReader();
+        reader.onload = function (e) {
+          listItem.innerHTML = `<div class="item_preview"><span>${index + 1}.</span><img src="${e.target.result}" style="width: 250px; margin: 5px;"></div>`;
+        };
+        reader.readAsDataURL(element); // Đọc file dưới dạng URL
+      }
+
+      const removeButton = document.createElement('button');
+      removeButton.textContent = 'Xóa';
+      removeButton.onclick = function () {
+        removeFile(index);
       };
-      reader.readAsDataURL(element); // Đọc file dưới dạng URL
+
+      listItem.appendChild(removeButton);
+      fileListContainer.appendChild(listItem);
+    });
+
+    if (files.length === 0) {
+      document.getElementById('image_preview_container').style.display = 'none';
     }
-
-    const removeButton = document.createElement('button');
-    removeButton.textContent = 'Xóa';
-    removeButton.onclick = function () {
-      removeFile(index);
-    };
-
-    listItem.appendChild(removeButton);
-    fileListContainer.appendChild(listItem);
-  });
-
-  if (files.length === 0) {
-    document.getElementById('image_preview_container').style.display = 'none';
   }
 }
 

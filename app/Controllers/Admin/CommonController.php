@@ -84,6 +84,11 @@ class CommonController extends BaseController
                     case 'email-template':
                         $this->updateStatusCommon($id, 'email_templates');
                         break;
+                        break;
+                    case 'banner/index':
+                    case 'banner':
+                        $this->updateStatusCommon($id, 'banners');
+                        break;
                     default:
                         $result = false;
                         break;

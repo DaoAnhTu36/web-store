@@ -139,6 +139,9 @@ $method = isset($path_array[2]) ? $path_array[2] : '';
                     <li class="<?= $controller == 'email-template' ? 'active open' : ''; ?>">
                         <a href="<?= site_url('admin/email-template') ?>" title=""></i> <span class="menu-item-parent">Email template</span></a>
                     </li>
+                    <li class="<?= $controller == 'banner' ? 'active open' : ''; ?>">
+                        <a href="<?= site_url('admin/banner') ?>" title=""></i> <span class="menu-item-parent">Banner</span></a>
+                    </li>
                 </ul>
             </li>
         </ul>

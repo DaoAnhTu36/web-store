@@ -30,7 +30,7 @@
             <div class="collapse navbar-collapse bg-white" id="navbarCollapse">
                 <div class="navbar-nav mx-auto">
                     <!-- <a href="index.html" class="nav-item nav-link active">Trang chủ</a> -->
-                    <a href="index.html" class="nav-item nav-link">Trang chủ</a>
+                    <!-- <a href="index.html" class="nav-item nav-link">Trang chủ</a> -->
                     <!-- <a href="shop.html" class="nav-item nav-link">Shop</a>
                     <a href="shop-detail.html" class="nav-item nav-link">Shop Detail</a> -->
                     <!-- <div class="nav-item dropdown">
@@ -42,7 +42,7 @@
                             <a href="#" class="dropdown-item">404 Page</a>
                         </div>
                     </div> -->
-                    <a href="contact.html" class="nav-item nav-link">Liên hệ</a>
+                    <!-- <a href="contact.html" class="nav-item nav-link">Liên hệ</a> -->
                 </div>
                 <div class="d-flex m-3 me-0">
                     <!-- <button class="btn-search btn border border-secondary btn-md-square rounded-circle bg-white me-4"><i class="fas fa-search text-primary"></i></button> -->
@@ -54,7 +54,7 @@
                         <div class="customer-profile">
                             <a data-bs-toggle="modal" data-bs-target="#profileModal" class="my-auto">
                                 Xin chào <br />
-                                <?= session()->get('customer_infor')['first_name'] . ' ' . session()->get('customer_infor')['last_name'] ?>
+                                <i><?= session()->get('customer_infor')['first_name'] . ' ' . session()->get('customer_infor')['last_name'] ?></i>
                             </a>
                         </div>
                     <?php else: ?>

@@ -1049,6 +1049,13 @@
         });
     });
 </script>
+<script>
+    $(document).ready(function() {
+        setTimeout(function() {
+            $('.flash-message').fadeOut('slow');
+        }, 3000);
+    });
+</script>
 </body>
 
 </html>

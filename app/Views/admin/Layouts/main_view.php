@@ -16,15 +16,10 @@ $data = [
 ?>
 
 <?= view("admin/Layouts/head_view.php", $data) ?>
-
 <?= view("admin/Layouts/header_view.php", $data) ?>
-
 <?= view("admin/Layouts/left_panel_view.php", $data) ?>
-
+<?= view("admin/Layouts/notification_view.php", $data) ?>
 <?= $this->renderSection('content'); ?>
-
 <?= view("admin/Layouts/footer_view.php", $data) ?>
-
 <?= view("admin/Layouts/shortcut_view.php", $data) ?>
-
 <?= view("admin/Layouts/script_view.php", $data) ?>
