@@ -96,7 +96,7 @@ class CartClientController extends BaseController
         $ret_val = [
             'sub_total' => $sub_total,
             'total_cart' => $total_cart,
-            'total_item'=>$total_item
+            'total_item' => $total_item
         ];
         return apiResponse(true, '', $ret_val, '200');
     }
@@ -137,6 +137,8 @@ class CartClientController extends BaseController
         $order_infor_address = $this->request->getPost("order_infor_address");
         $order_infor_note = $this->request->getPost("order_infor_note");
         $cart = session()->get("cart");
+        $total_price = array_sum(array_column($cart, 'sub_total'));
+        $table_product_in_mail = '';
 
         if (count($cart) == 0) {
             return redirect()->back()->with("errors", "Không có sản phẩm nào trong giỏ hàng");
@@ -146,12 +148,13 @@ class CartClientController extends BaseController
             ->where('email', $order_infor_email)
             ->where('phone', $order_infor_phone)
             ->first();
+
         if ($customer_infor) {
             $this->model->update($customer_infor['id'], ['address' => $order_infor_address]);
             $customer_id = $customer_infor['id'];
             $data_order = [
                 'user_id' => $customer_infor['id'],
-                'total_price' => array_sum(array_column($cart, 'sub_total')),
+                'total_price' => $total_price,
                 'status' => 1,
                 'created_by' => $customer_infor['id'],
                 'note' => $order_infor_note
@@ -170,14 +173,18 @@ class CartClientController extends BaseController
             $customer_id = $this->model->insert($customer_infor);
             $data_order = [
                 'user_id' => $customer_id['id'],
-                'total_price' => array_sum(array_column($cart, 'sub_total')),
+                'total_price' => $total_price,
                 'status' => 1,
                 'created_by' => $customer_infor['id'],
                 'updated_by' => $customer_infor['id'],
             ];
         }
         $order_id = $this->orderModel->insert($data_order);
+        $filePath = FCPATH . 'template-email/body_table_order.html';
+        $idx = 1;
+        $table_product_in_mail = '';
         foreach ($cart as $item) {
+            $htmlContent = file_get_contents($filePath);
             $data_order_detail = [
                 'order_id' => $order_id,
                 'product_id' => $item['id'],
@@ -187,7 +194,28 @@ class CartClientController extends BaseController
                 'is_active' => 1,
                 'created_by' => $customer_id,
             ];
+            $htmlContent = str_replace('{{no}}', $idx, $htmlContent);
+            $htmlContent = str_replace('{{product_name}}', $item['name'], $htmlContent);
+            $htmlContent = str_replace('{{price}}', format_currency($item['price'], get_current_symboy()), $htmlContent);
+            $htmlContent = str_replace('{{quantity}}', format_currency($item['quantity']), $htmlContent);
+            $idx++;
+            $table_product_in_mail .= $htmlContent;
             $this->orderDetailModel->save($data_order_detail);
+        }
+
+        $filePath = FCPATH . 'template-email/order_successful_template.html';
+        if (file_exists($filePath)) {
+            $htmlContent = file_get_contents($filePath);
+            $mail_config = $this->emailTemplateModel->where('name', 'mail_order_successful')->first();
+            $body = $htmlContent;
+            $body = str_replace('{{logo}}', "cid:logo_cid", $body);
+            $body = str_replace('{{order_id}}', $order_id, $body);
+            $body = str_replace('{{order_date}}', get_current_datetime(), $body);
+            $body = str_replace('{{total_amount}}', format_currency($total_price, get_current_symboy()), $body);
+            $body = str_replace('{{address}}', $customer_infor['address'], $body);
+            $body = str_replace('{{body_table_order}}', $table_product_in_mail, $body);
+            $subject = $mail_config['subject'];
+            $this->mailService->send_mail_mailer($customer_infor['email'], $subject, $body);
         }
 
         $this->session->remove('cart');

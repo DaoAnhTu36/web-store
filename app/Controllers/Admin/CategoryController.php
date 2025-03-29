@@ -35,6 +35,7 @@ class CategoryController extends BaseController
             "description_label" => lang("Validation.description_label"),
             "cancel_button_label" => lang("Validation.cancel_button_label"),
             "save_button_label" => lang("Validation.save_button_label"),
+            'title' => 'Thêm mới danh mục',
         ];
         return view('admin/category_view/create_view', $data);
     }

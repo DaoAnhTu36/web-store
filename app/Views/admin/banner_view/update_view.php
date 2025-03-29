@@ -44,6 +44,19 @@
                                             <input class="form-control" value="" placeholder="" type="file" multiple id="images" name="images[]">
                                         </div>
                                     </div>
+                                    <div class="form-group">
+                                        <label class="col-md-2 control-label">Hình ảnh</label>
+                                        <div class="col-md-10">
+                                            <div class="row">
+                                                <?php $array_image = explode(',', $data['images']);
+                                                foreach ($array_image as $image): ?>
+                                                    <div class="col-md-4">
+                                                        <img width="100%" src="<?= base_url($image) ?>" alt="" srcset="">
+                                                    </div>
+                                                <?php endforeach; ?>
+                                            </div>
+                                        </div>
+                                    </div>
                                     <div class="form-group" id="image_preview_container">
                                         <label class="col-md-2 control-label"></label>
                                         <div class="col-md-10" id="item_preview">

@@ -28,8 +28,14 @@ class BannerController extends BaseController
 
     public function create()
     {
+        $data_session = [
+            'title' => session()->get('data_temp')['title'] ?? '',
+            'description' => session()->get('data_temp')['description'] ?? '',
+        ];
+
         $data_view = [
             'title' => 'Tạo mới banner',
+            'data' => $data_session,
         ];
         return view('admin/banner_view/create_view', $data_view);
     }
@@ -41,18 +47,37 @@ class BannerController extends BaseController
         $title = $this->request->getPost('title');
         $description = $this->request->getPost('description');
         $files = $this->request->getFiles();
+
         $validation->setRules([
             'title'       => 'required|min_length[3]',
-            'description' => 'required',
+            'description' => 'required|min_length[20]',
+        ], [
+            'title' => [
+                'required' => 'Tiêu đề là bắt buộc.',
+                'min_length' => 'Độ dài tối thiểu là 3 ký tự.',
+            ],
+            'description' => [
+                'required' => 'Mô tả là bắt buộc.',
+                'min_length' => 'Độ dài tối thiểu là 20 ký tự.',
+            ],
         ]);
         $check_validate_files = get_validate_upload_file($files);
         if ($check_validate_files != '') {
             $validation->setRules([
                 'images' => $check_validate_files,
+            ], [
+                'images' => [
+                    'max_size' => 'Ảnh dưới 150kb',
+                    'mime_in' => 'Chỉ chấp nhận file có phần mở rộng là: jpg,jpeg,png',
+                ],
             ]);
         }
         if (!$validation->withRequest($this->request)->run()) {
-            return redirect()->back()->withInput()->with('errors', $validation->getErrors());
+            session()->set('data_temp', [
+                'title' => $title,
+                'description' => $description,
+            ]);
+            return redirect()->to('admin/banner/create')->with('errors', $validation->getErrors());
         }
         $data_insert = [
             'title' => $title,
@@ -72,7 +97,8 @@ class BannerController extends BaseController
                 }
             }
         }
-        return redirect()->back()->withInput()->with('success', 'Tạo banner thành công');
+        session()->remove('data_temp');
+        return redirect()->back()->with('success', 'Tạo banner thành công');
     }
 
     public function delete($id)
@@ -83,15 +109,13 @@ class BannerController extends BaseController
 
     public function detail($id)
     {
-        $banner_info = $this->bannerModel
-            ->select("banners.id
-                    , banners.title
-                    , banners.description
-                    , IFNULL(GROUP_CONCAT(images.image_path SEPARATOR ', '), '') AS images")
-            ->join('images', 'images.record_id = banners.id AND images.type = "banner"', 'left')
-            ->groupBy('banners.id')
-            ->where('banners.id', $id)
-            ->first();
+        $banner_info = $this->bannerModel->get_detail_banner($id);
+        $data_session = [
+            'title' => session()->get('data_temp')['title'] ?? '',
+            'description' => session()->get('data_temp')['description'] ?? '',
+        ];
+        $banner_info['title'] = !empty($data_session['title']) ? $data_session['title'] : $banner_info['title'];
+        $banner_info['description'] = !empty($data_session['description']) ? $data_session['description'] : $banner_info['description'];
         $data_view = [
             'title' => 'Chỉnh sửa banner',
             'data' => $banner_info,
@@ -127,7 +151,11 @@ class BannerController extends BaseController
         }
         if (!$validation->withRequest($this->request)->run()) {
             $errors = $validation->getErrors();
-            return redirect()->back()->withInput()->with('errors', $errors);
+            session()->set('data_temp', [
+                'title' => $title,
+                'description' => $description,
+            ]);
+            return redirect()->back()->with('errors', $errors);
         }
         $data_insert = [
             'title' => $title,
@@ -147,6 +175,7 @@ class BannerController extends BaseController
                 }
             }
         }
-        return redirect()->back()->withInput()->with('success', 'Tạo banner thành công');
+        session()->remove('data_temp');
+        return redirect()->back()->with('success', 'Cập nhật banner thành công');
     }
 }

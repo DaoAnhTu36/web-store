@@ -25,7 +25,7 @@
                                             Tiêu đề
                                         </label>
                                         <div class="col-md-10">
-                                            <input class="form-control" value="" placeholder="" type="text" id="title" name="title">
+                                            <input class="form-control" value="<?= $data['title'] ?>" placeholder="" type="text" id="title" name="title">
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -33,7 +33,7 @@
                                             Mô tả
                                         </label>
                                         <div class="col-md-10">
-                                            <input class="form-control" value="" placeholder="" type="text" id="description" name="description">
+                                            <input class="form-control" value="<?= $data['description'] ?>" placeholder="" type="text" id="description" name="description">
                                         </div>
                                     </div>
                                     <div class="form-group">

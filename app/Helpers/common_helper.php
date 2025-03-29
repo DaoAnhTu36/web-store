@@ -66,6 +66,12 @@ function get_current_datetime_local()
     return $now->format('Y-m-d\TH:i'); // Định dạng chuẩn cho datetime-local
 }
 
+function get_current_datetime()
+{
+    $date = new DateTime();
+    return $date->format('d-m-Y H:i');
+}
+
 function format_currency($number, $currency = '')
 {
     if (empty($currency)) {
