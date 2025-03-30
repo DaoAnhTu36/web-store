@@ -93,11 +93,13 @@
                                                 <span class="slider1"></span>
                                             </label>
                                         </td>
-                                        <td class="action-icons">
-                                            <a href="<?= site_url('admin/account/detail/' . $item['id']); ?>" class="btn btn-info"><i class="fa fa-eye" aria-hidden="true"></i></a>
-                                            <a href="<?= site_url('admin/account/detail/' . $item['id']); ?>" class="btn btn-warning"><i class="fa fa-pencil" aria-hidden="true"></i></a>
-                                            <a href="<?= site_url('admin/account/delete/' . $item['id']); ?>" class="btn btn-danger" onclick="return confirm('Bạn có chắc muốn xóa?');"><i class="fa fa-trash" aria-hidden="true"></i></a>
-                                        </td>
+                                        <?= view(
+                                            "admin/Layouts/group_button_action_index_view.php",
+                                            [
+                                                'uri_update' => site_url('admin/account/detail/' . $item['id']),
+                                                'uri_delete' => site_url('admin/account/delete/' . $item['id']),
+                                            ]
+                                        ) ?>
                                     </tr>
                                 <?php $idx++;
                                 } ?>

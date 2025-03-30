@@ -22,6 +22,7 @@
     <link rel="stylesheet" type="text/css" media="screen" href="<?= base_url($libUrl . '/css/demo.min.css'); ?>">
     <link rel="stylesheet" type="text/css" media="screen" href="<?= base_url($libUrl . '/css/custom.css'); ?>">
     <link rel="stylesheet" type="text/css" media="screen" href="<?= base_url($libUrl . '/css/toastify.min.css'); ?>">
+    <link rel="stylesheet" type="text/css" media="screen" href="<?= base_url($libUrl . '/css/toastr.min.css'); ?>">
 
     <link rel="shortcut icon" href="<?php echo isset(session()->get('web_configs')['logo']) ? session()->get('web_configs')['logo'] : ''; ?>" type="image/x-icon">
 

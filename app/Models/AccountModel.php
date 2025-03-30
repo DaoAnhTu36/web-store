@@ -23,6 +23,34 @@ class AccountModel extends Model
         'role_id'
     ];
 
+    protected $validationRules = [
+        'full_name' => 'required|min_length[3]|max_length[100]',
+        'email' => 'required|valid_email|max_length[100]',
+        'phone' => 'required|regex_match[/^[0-9]{10,20}$/]',
+        'address' => 'required|string',
+        'user_name' => 'required|alpha_numeric|max_length[255]|is_unique[accounts.user_name]',
+        'role_id' => 'required|integer'
+    ];
+
+    protected $validationMessages = [
+        'email' => [
+            'required' => 'Email là bắt buộc.'
+        ],
+        'full_name' => [
+            'required' => 'Họ và tên là bắt buộc.'
+        ],
+        'phone' => [
+            'required' => 'Số điện thoại là bắt buộc.'
+        ],
+        'user_name' => [
+            'is_unique' => 'Tên tài khoản đã tồn tại.',
+            'required' => 'Tên tài khoản là bắt buộc.',
+        ],
+        'role_id' => [
+            'required' => 'Chức vụ là bắt buộc.'
+        ]
+    ];
+
     public function getAllAccount()
     {
         return $this

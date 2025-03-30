@@ -1,13 +1,17 @@
 <div class="form-actions">
     <div class="row">
         <div class="col-md-12">
-            <button class="btn btn-danger" type="submit">
+            <button class="btn btn-danger" type="button" onclick="history.back()">
                 Hủy
             </button>
-            <button class="btn btn-primary" type="submit">
-                <i class="fa fa-save"></i>
-                Lưu
-            </button>
+            <?php if (isset($function)): ?>
+                <button class="btn btn-primary" type="button" onclick="<?= $function ?>">
+                    <i class="fa fa-save"></i>
+                    <?php if (isset($label)): ?>
+                        <?= $label ?>
+                    <?php endif ?>
+                </button>
+            <?php endif ?>
         </div>
     </div>
 </div>

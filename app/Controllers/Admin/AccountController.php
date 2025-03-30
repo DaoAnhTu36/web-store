@@ -32,7 +32,7 @@ class AccountController extends BaseController
     {
         $roles = $this->roleModel->where('is_active', 1)->findAll();
         $data_view = [
-            "title" => "Thêm mới người dùng",
+            "title" => "Thêm quản trị viên mới",
             "roles" => $roles,
         ];
 
@@ -41,6 +41,13 @@ class AccountController extends BaseController
 
     public function save()
     {
+        $rules = $this->accountModel->validationRules;
+        $messages = $this->accountModel->validationMessages;
+
+        if (!$this->validate($rules, $messages)) {
+            return apiResponse(status: false, message: implode(',', $this->validator->getErrors() ?: []));
+        }
+
         $data = [
             "full_name" => $this->request->getPost('full_name'),
             "user_name" => $this->request->getPost('user_name'),
@@ -51,7 +58,7 @@ class AccountController extends BaseController
             "role_id" => $this->request->getPost('role_id'),
         ];
         $this->accountModel->save($data);
-        return redirect()->to('admin/account')->with('success', 'Thêm mới tài khoản thành công');
+        return apiResponse(message: 'Thêm mới quản trị viên thành công');
     }
 
     public function login()
@@ -103,7 +110,7 @@ class AccountController extends BaseController
         $roles = $this->roleModel->where('is_active', 1)->findAll();
         $data = $this->accountModel->where('id', $id)->first();
         $data_view = [
-            'title' => 'Thông tin chi tiết',
+            'title' => 'Thông tin chi tiết quản trị viên',
             'data' => $data,
             'roles' => $roles,
         ];
@@ -112,6 +119,13 @@ class AccountController extends BaseController
 
     public function update($id)
     {
+        $rules = $this->accountModel->validationRules;
+        $messages = $this->accountModel->validationMessages;
+
+        if (!$this->validate($rules, $messages)) {
+            return apiResponse(status: false, message: implode(',', $this->validator->getErrors() ?: []));
+        }
+
         $data = [
             "full_name" => $this->request->getPost('full_name'),
             "user_name" => $this->request->getPost('user_name'),
@@ -124,7 +138,7 @@ class AccountController extends BaseController
             $data['password'] = password_hash($this->request->getPost('password'), PASSWORD_DEFAULT);
         }
         $this->accountModel->update($id, $data);
-        return redirect()->to('admin/account')->with('success', 'Cập nhật thông tin thành công');
+        return apiResponse(message: 'Cập nhật thông tin quản trị viên thành công');
     }
 
     public function delete($id)
