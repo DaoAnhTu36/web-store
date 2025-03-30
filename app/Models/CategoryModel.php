@@ -21,15 +21,13 @@ class CategoryModel extends Model
     protected $validationMessages = [
         'name' => [
             'required' => 'Tên danh mục là bắt buộc',
-            'min_length' => 'Tên danh mục phải có ít nhất 3 ký tự.',
-            'max_length' => 'Tên danh mục không được vượt quá 255 ký tự.',
         ],
         'description' => [
             'required' => 'Mô tả là bắt buộc',
         ]
     ];
 
-    public function getCategoriesWithImages()
+    public function get_category_with_image()
     {
         return $this->select("categories.id
             , categories.name
@@ -49,7 +47,7 @@ class CategoryModel extends Model
         return $this->delete($id);
     }
 
-    public function getCategoriesWithImagesById($id)
+    public function get_category_with_image_by_id($id)
     {
         $result =  $this->select("categories.id
         , categories.name

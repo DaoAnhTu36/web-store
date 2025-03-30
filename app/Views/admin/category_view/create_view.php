@@ -1,10 +1,7 @@
 <?= $this->extend('admin/Layouts/main_view.php'); ?>
 <?= $this->section('content'); ?>
-<!-- MAIN CONTENT -->
 <div id="content">
     <section id="widget-grid" class="">
-
-        <!-- row -->
         <div class="row">
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                 <h1 class="page-title txt-color-blueDark">
@@ -14,13 +11,11 @@
             </div>
             <article class="col-sm-12 col-md-12 col-lg-12">
                 <div class="jarviswidget" id="wid-id-0" data-widget-colorbutton="false" data-widget-editbutton="false">
-                    <header>
-                    </header>
                     <div>
                         <div class="jarviswidget-editbox">
                         </div>
                         <div class="widget-body">
-                            <form class="form-horizontal" action="<?= base_url('admin/category/save'); ?>" method="POST" enctype="multipart/form-data">
+                            <form class="form-horizontal" id="form-create-category" enctype="multipart/form-data">
                                 <fieldset>
                                     <legend><?= $title ?></legend>
                                     <div class="form-group">
@@ -29,7 +24,12 @@
                                             <input class="form-control" value="" placeholder="" type="text" id="name" name="name">
                                         </div>
                                     </div>
-
+                                    <div class="form-group">
+                                        <label class="col-md-2 control-label" for="description">Mô tả</label>
+                                        <div class="col-md-10">
+                                            <textarea class="form-control" id="description" name="description"></textarea>
+                                        </div>
+                                    </div>
                                     <div class="form-group">
                                         <label class="col-md-2 control-label" for="images">Ảnh</label>
                                         <div class="col-md-10">
@@ -42,31 +42,15 @@
 
                                         </div>
                                     </div>
-
-                                    <div class="form-group">
-                                        <label class="col-md-2 control-label" for="description_">Mô tả</label>
-                                        <div class="col-md-10">
-                                            <textarea class="form-control" id="description_" name="description"></textarea>
-                                        </div>
-                                    </div>
                                 </fieldset>
-                                <?= view("admin/Layouts/group_button_action_form_view.php") ?>
+                                <?= view("admin/Layouts/group_button_action_form_view.php", ['function' => "onSubmitCreate('" . base_url('admin/category/save') . "')", 'label' => 'Lưu']) ?>
                             </form>
-
                         </div>
-                        <!-- end widget content -->
-
                     </div>
-                    <!-- end widget div -->
-
                 </div>
-                <!-- end widget -->
             </article>
-            <!-- WIDGET END -->
         </div>
-
     </section>
 </div>
-<!-- END MAIN CONTENT -->
-
+<script src="<?= base_url('services/category_service.js') ?>"></script>
 <?= $this->endSection(); ?>

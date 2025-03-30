@@ -12,7 +12,7 @@ return apiResponse(status: false, message: implode(',', $this->validator->getErr
 }
 
 
-<?= view("admin/Layouts/group_button_action_form_view.php", ['function' => 'onSubmitCreateAccount()', 'label' => 'Lưu']) ?>
+<?= view("admin/Layouts/group_button_action_form_view.php", ['function' => 'onSubmitCreate()', 'label' => 'Lưu']) ?>
 
 <?= view(
     "admin/Layouts/group_button_action_index_view.php",

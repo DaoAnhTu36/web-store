@@ -74,14 +74,7 @@ class BannerController extends BaseController
 
     public function delete($id)
     {
-        $get_id_images = $this->imageModel
-            ->select('id')
-            ->where('record_id', $id)
-            ->findAll();
-        $get_id_images = array_column($get_id_images, 'id');
-        if (count($get_id_images) > 0) {
-            $this->imageModel->whereIn('id', $get_id_images)->delete();
-        }
+        $this->imageModel->delete_image($id, 'banner');
         $this->bannerModel->delete($id);
         return redirect()->back()->with('success', 'Xóa thành công');
     }
@@ -89,12 +82,6 @@ class BannerController extends BaseController
     public function detail($id)
     {
         $banner_info = $this->bannerModel->get_detail_banner($id);
-        $data_session = [
-            'title' => session()->get('data_temp')['title'] ?? '',
-            'description' => session()->get('data_temp')['description'] ?? '',
-        ];
-        $banner_info['title'] = !empty($data_session['title']) ? $data_session['title'] : $banner_info['title'];
-        $banner_info['description'] = !empty($data_session['description']) ? $data_session['description'] : $banner_info['description'];
         $data_view = [
             'title' => 'Chỉnh sửa banner',
             'data' => $banner_info,
@@ -125,14 +112,7 @@ class BannerController extends BaseController
         ];
         $this->bannerModel->update($id, $data_insert);
         if ($files) {
-            $get_id_images = $this->imageModel
-                ->select('id')
-                ->where('record_id', $id)
-                ->findAll();
-            $get_id_images = array_column($get_id_images, 'id');
-            if (count($get_id_images) > 0) {
-                $this->imageModel->whereIn('id', $get_id_images)->delete();
-            }
+            $this->imageModel->delete_image($id, 'banner');
             foreach ($files['images'] as $img) {
                 if ($img->isValid() && !$img->hasMoved()) {
                     $newName = $img->getRandomName();

@@ -10,4 +10,10 @@ class ImageModel extends Model
     protected $primaryKey = 'id'; // Khóa chính
     protected $useAutoIncrement = true; // Sử dụng auto increment
     protected $allowedFields = ['record_id', 'image_path', 'type', 'created_by', 'updated_by', 'is_active']; // Các cột có thể insert/update
+
+    public function delete_image($record_id, $type)
+    {
+        $query = "DELETE FROM images WHERE record_id = ? AND type = ?";
+        return $this->db->query($query, [$record_id, $type]);
+    }
 }

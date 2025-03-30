@@ -19,7 +19,7 @@ class CategoryController extends BaseController
 
     public function index()
     {
-        $data = $this->categoryModel->getCategoriesWithImages();
+        $data = $this->categoryModel->get_category_with_image();
         $data_view = [
             'title' => 'Danh sách danh mục sản phẩm',
             'data' => $data,
@@ -47,9 +47,8 @@ class CategoryController extends BaseController
             $rules['images'] = $check_validate_files;
             $messages['images'] = get_message_error_file();
         }
-
         if (!$this->validate($rules, $messages)) {
-            return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
+            return apiResponse(status: false, message: implode(',', $this->validator->getErrors() ?: []));
         }
 
         $record_id = $this->categoryModel->insert([
@@ -71,8 +70,7 @@ class CategoryController extends BaseController
                 }
             }
         }
-
-        return redirect()->to('admin/category')->with('success', 'Thêm mới danh mục thành công');
+        return apiResponse(message: 'Thêm mới danh mục thành công');
     }
 
     public function delete($id)
@@ -83,7 +81,7 @@ class CategoryController extends BaseController
 
     public function detail($id)
     {
-        $data = $this->categoryModel->find($id);
+        $data = $this->categoryModel->get_category_with_image_by_id($id);
         $data_view = [
             'data' => $data,
             'title' => 'Chi tiết danh mục'
@@ -103,12 +101,11 @@ class CategoryController extends BaseController
             $rules['images'] = $check_validate_files;
             $messages['images'] = get_message_error_file();
         }
-
         if (!$this->validate($rules, $messages)) {
-            return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
+            return apiResponse(status: false, message: implode(',', $this->validator->getErrors() ?: []));
         }
 
-        $this->categoryModel->update($id, [
+        $record_id = $this->categoryModel->update($id, [
             'name' => $name,
             'description' => $description,
         ]);
@@ -120,14 +117,13 @@ class CategoryController extends BaseController
                     $img->move('uploads/', $newName);
 
                     $this->imageModel->save([
-                        'record_id' => $id,
+                        'record_id' => $record_id,
                         'image_path' => 'uploads/' . $newName,
                         'type' => 'category',
                     ]);
                 }
             }
         }
-
-        return redirect()->to('admin/category')->with('success', 'Cập nhật danh mục thành công');
+        return apiResponse(message: 'Cập nhật danh mục thành công');
     }
 }

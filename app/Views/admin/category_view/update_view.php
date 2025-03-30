@@ -18,7 +18,7 @@
                         <div class="jarviswidget-editbox">
                         </div>
                         <div class="widget-body">
-                            <form class="form-horizontal" action="<?= base_url('admin/category/update/' . $data['id']); ?>" method="POST" enctype="multipart/form-data">
+                            <form class="form-horizontal" enctype="multipart/form-data">
                                 <fieldset>
                                     <legend><?= $title ?></legend>
                                     <div class="form-group">
@@ -27,7 +27,12 @@
                                             <input class="form-control" value="<?= $data['name'] ?>" placeholder="" type="text" id="name" name="name">
                                         </div>
                                     </div>
-
+                                    <div class="form-group">
+                                        <label class="col-md-2 control-label" for="description">Mô tả</label>
+                                        <div class="col-md-10">
+                                            <textarea class="form-control" id="description" name="description"><?= $data['description'] ?></textarea>
+                                        </div>
+                                    </div>
                                     <div class="form-group">
                                         <label class="col-md-2 control-label" for="images">Ảnh</label>
                                         <div class="col-md-10">
@@ -40,31 +45,28 @@
 
                                         </div>
                                     </div>
-
                                     <div class="form-group">
-                                        <label class="col-md-2 control-label" for="description_">Mô tả</label>
+                                        <label class="col-md-2 control-label">Hình ảnh</label>
                                         <div class="col-md-10">
-                                            <textarea class="form-control" id="description_" name="description"><?= $data['description'] ?></textarea>
+                                            <div class="row">
+                                                <?php $array_image = explode(',', $data['images']);
+                                                foreach ($array_image as $image): ?>
+                                                    <div class="col-md-4">
+                                                        <img width="100%" src="<?= base_url($image) ?>" alt="" srcset="">
+                                                    </div>
+                                                <?php endforeach; ?>
+                                            </div>
                                         </div>
                                     </div>
                                 </fieldset>
-                                <?= view("admin/Layouts/group_button_action_form_view.php") ?>
+                                <?= view("admin/Layouts/group_button_action_form_view.php", ['function' => "onSubmitCreate('" . base_url('admin/category/update/' . $data['id']) . "')", 'label' => 'Cập nhật']) ?>
                             </form>
-
                         </div>
-                        <!-- end widget content -->
-
                     </div>
-                    <!-- end widget div -->
-
                 </div>
-                <!-- end widget -->
             </article>
-            <!-- WIDGET END -->
         </div>
-
     </section>
 </div>
-<!-- END MAIN CONTENT -->
-
+<script src="<?= base_url('services/category_service.js') ?>"></script>
 <?= $this->endSection(); ?>
