@@ -2,7 +2,6 @@
 <script data-pace-options='{ "restartOnRequestAfter": true }' src="<?= base_url($libUrl . '/js/plugin/pace/pace.min.js'); ?>"></script>
 
 <!-- Link to Google CDN's jQuery + jQueryUI; fall back to local -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script>
     if (!window.jQuery) {
         document.write('<script src="<?= base_url($libUrl . '/js/libs/jquery-3.2.1.min.js'); ?>"><\/script>');
@@ -102,7 +101,6 @@
 <!-- <script src="<?= base_url($libUrl . '/js/plugin/ckfinder/ckfinder.js'); ?>"></script> -->
 <script src="<?= base_url($libUrl . '/js/common_custom.js'); ?>"></script>
 <script src="<?= base_url($libUrl . '/js/toastify-js.js'); ?>"></script>
-<script src="<?= base_url($libUrl . '/js/toastr.min.js'); ?>"></script>
 
 <script>
     // $(document).ajaxStart(function() {
@@ -121,19 +119,16 @@
                 'type': type
             },
             success: function(response) {
-                Toastify({
-                    text: response.message ?? 'Thành công',
-                    duration: 1500,
-                }).showToast();
+                if (response.status) {
+                    onToastrSuccess(response.message);
+                } else {
+                    onToastrError(response.message);
+                }
             },
             error: function(xhr, status, error) {
                 console.log('Error:', error);
             }
         });
-    }
-
-    function onDetailRecord(id) {
-
     }
 </script>
 <script>
@@ -1050,35 +1045,7 @@
         });
     });
 </script>
-<script>
-    $(document).ready(function() {
-        setTimeout(function() {
-            $('.flash-message').fadeOut('slow');
-        }, 3000);
-    });
 
-    let configToastr = {
-        timeOut: 2000,
-        closeButton: true,
-        progressBar: true
-    }
-
-    function onToastrSuccess(message, title = 'Administrator') {
-        toastr.success(message ?? 'Thành công', title, configToastr);
-    }
-
-    function onToastrWarning(message, title = 'Administrator') {
-        toastr.warning(message ?? 'Cảnh báo', title, configToastr);
-    }
-
-    function onToastrInfo(message, title = 'Administrator') {
-        toastr.info(message ?? 'Thông báo', title, configToastr);
-    }
-
-    function onToastrError(message, title = 'Administrator') {
-        toastr.error(message ?? 'Thất bại', title, configToastr);
-    }
-</script>
 </body>
 
 </html>

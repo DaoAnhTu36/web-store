@@ -11,8 +11,6 @@
             </div>
             <article class="col-sm-12 col-md-12 col-lg-12">
                 <div class="jarviswidget" id="wid-id-0" data-widget-colorbutton="false" data-widget-editbutton="false">
-                    <header>
-                    </header>
                     <div>
                         <div class="jarviswidget-editbox">
                         </div>
@@ -51,7 +49,7 @@
                                         </div>
                                     </div>
                                 </fieldset>
-                                <?= view("admin/Layouts/group_button_action_form_view.php", ['function' => 'onSubmitCreate()', 'label' => 'Lưu']) ?>
+                                <?= view("admin/Layouts/group_button_action_form_view.php", ['function' => "onSubmitCreate('" . base_url('admin/banner/save') . "')", 'label' => 'Lưu']) ?>
                             </form>
                         </div>
                     </div>
@@ -60,33 +58,5 @@
         </div>
     </section>
 </div>
-<script>
-    function onSubmitCreate() {
-        let title = $("#title").val();
-        let description = $("#description").val();
-        let images = $("#images")[0].files;
-        let formData = new FormData();
-        formData.append('title', title);
-        formData.append('description', description);
-        for (let i = 0; i < images.length; i++) {
-            formData.append('images[]', images[i]);
-        }
-
-        $.ajax({
-            url: '<?= base_url('admin/banner/save') ?>',
-            type: 'POST',
-            data: formData,
-            success: function(response) {
-                if (response.status) {
-                    onToastrSuccess(response.message);
-                } else {
-                    onToastrError(response.message);
-                }
-            },
-            error: function(xhr, status, error) {
-                console.log('Error:', error);
-            }
-        });
-    }
-</script>
+<script src="<?= base_url('services/banner_service.js') ?>"></script>
 <?= $this->endSection(); ?>

@@ -16,7 +16,7 @@ class CommonController extends BaseController
 
     public function changeStatusRecordCommon()
     {
-        $result = true;
+        $flag = true;
         $id = $this->request->getPost('id');
         $type = $this->request->getPost('type');
         $server_current = $this->request->getPost('server_current');
@@ -90,15 +90,14 @@ class CommonController extends BaseController
                         $this->updateStatusCommon($id, 'banners');
                         break;
                     default:
-                        $result = false;
+                        $flag = false;
                         break;
                 }
             }
         }
-        return $this->response->setJSON([
-            'status' => $result ? 'success' : 'error',
-            'message' => $result ? 'Thay đổi trạng thái thành công' : 'Có lỗi xảy ra'
-        ]);
+        $status_code = $flag ? true : false;
+        $message = $flag ? 'Thay đổi trạng thái thành công' : 'Có lỗi xảy ra';
+        return apiResponse($status_code, $message);
     }
 
     public function updateStatusCommon($id, $table_name)

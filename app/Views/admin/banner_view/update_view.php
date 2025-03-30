@@ -11,15 +11,13 @@
             </div>
             <article class="col-sm-12 col-md-12 col-lg-12">
                 <div class="jarviswidget" id="wid-id-0" data-widget-colorbutton="false" data-widget-editbutton="false">
-                    <header>
-                    </header>
                     <div>
                         <div class="jarviswidget-editbox">
                         </div>
                         <div class="widget-body">
-                            <form class="form-horizontal" action="<?= base_url('admin/banner/update/' . $data['id']); ?>" method="POST" enctype="multipart/form-data">
+                            <form class="form-horizontal" id="form-create" enctype="multipart/form-data">
                                 <fieldset>
-                                    <legend><?= $title ?></legend>
+                                    <legend>Thêm mới banner</legend>
                                     <div class="form-group">
                                         <label class="col-md-2 control-label">
                                             Tiêu đề
@@ -44,6 +42,12 @@
                                             <input class="form-control" value="" placeholder="" type="file" multiple id="images" name="images[]">
                                         </div>
                                     </div>
+                                    <div class="form-group" id="image_preview_container">
+                                        <label class="col-md-2 control-label"></label>
+                                        <div class="col-md-10" id="item_preview">
+
+                                        </div>
+                                    </div>
                                     <div class="form-group">
                                         <label class="col-md-2 control-label">Hình ảnh</label>
                                         <div class="col-md-10">
@@ -57,26 +61,8 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="form-group" id="image_preview_container">
-                                        <label class="col-md-2 control-label"></label>
-                                        <div class="col-md-10" id="item_preview">
-
-                                        </div>
-                                    </div>
                                 </fieldset>
-                                <div class="form-actions">
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <button class="btn btn-default" type="submit">
-                                                Hủy
-                                            </button>
-                                            <button class="btn btn-primary" type="submit">
-                                                <i class="fa fa-save"></i>
-                                                Cập nhật
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
+                                <?= view("admin/Layouts/group_button_action_form_view.php", ['function' => "onSubmitCreate('" . base_url('admin/banner/update/' . $data['id']) . "')", 'label' => 'Cập nhật']) ?>
                             </form>
                         </div>
                     </div>
@@ -85,4 +71,5 @@
         </div>
     </section>
 </div>
+<script src="<?= base_url('services/banner_service.js') ?>"></script>
 <?= $this->endSection(); ?>

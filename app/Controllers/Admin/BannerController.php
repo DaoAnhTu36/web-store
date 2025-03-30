@@ -74,6 +74,14 @@ class BannerController extends BaseController
 
     public function delete($id)
     {
+        $get_id_images = $this->imageModel
+            ->select('id')
+            ->where('record_id', $id)
+            ->findAll();
+        $get_id_images = array_column($get_id_images, 'id');
+        if (count($get_id_images) > 0) {
+            $this->imageModel->whereIn('id', $get_id_images)->delete();
+        }
         $this->bannerModel->delete($id);
         return redirect()->back()->with('success', 'Xóa thành công');
     }
@@ -99,40 +107,32 @@ class BannerController extends BaseController
         $title = $this->request->getPost('title');
         $description = $this->request->getPost('description');
         $files = $this->request->getFiles();
-        $validation = \Config\Services::validation();
-        $validation->setRules([
-            'title'       => 'required|min_length[3]',
-            'description' => 'required|min_length[20]',
-        ], [
-            'title' => [
-                'required' => 'Tiêu đề là bắt buộc.',
-                'min_length' => 'Độ dài tối thiểu là 3 ký tự.',
-            ],
-            'description' => [
-                'required' => 'Mô tả là bắt buộc.',
-                'min_length' => 'Độ dài tối thiểu là 20 ký tự.',
-            ],
-        ]);
         $check_validate_files = get_validate_upload_file($files);
-        if ($check_validate_files != '') {
-            $validation->setRules([
-                'images' => $check_validate_files,
-            ]);
+        $rules = $this->bannerModel->validationRules;
+        $messages = $this->bannerModel->validationMessages;
+        if (!empty($check_validate_files)) {
+            $rules['images'] = $check_validate_files;
+            $messages['images'] = get_message_error_file();
         }
-        if (!$validation->withRequest($this->request)->run()) {
-            $errors = $validation->getErrors();
-            session()->set('data_temp', [
-                'title' => $title,
-                'description' => $description,
-            ]);
-            return redirect()->back()->with('errors', $errors);
+
+        if (!$this->validate($rules, $messages)) {
+            return apiResponse(status: false, message: implode(',', $this->validator->getErrors() ?: []));
         }
+
         $data_insert = [
             'title' => $title,
             'description' => $description,
         ];
         $this->bannerModel->update($id, $data_insert);
         if ($files) {
+            $get_id_images = $this->imageModel
+                ->select('id')
+                ->where('record_id', $id)
+                ->findAll();
+            $get_id_images = array_column($get_id_images, 'id');
+            if (count($get_id_images) > 0) {
+                $this->imageModel->whereIn('id', $get_id_images)->delete();
+            }
             foreach ($files['images'] as $img) {
                 if ($img->isValid() && !$img->hasMoved()) {
                     $newName = $img->getRandomName();
@@ -145,7 +145,6 @@ class BannerController extends BaseController
                 }
             }
         }
-        session()->remove('data_temp');
-        return redirect()->to('admin/banner')->with('success', 'Cập nhật banner thành công');
+        return apiResponse(message: 'Cập nhật banner thành công');
     }
 }

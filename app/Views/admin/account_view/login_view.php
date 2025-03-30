@@ -95,7 +95,7 @@ $data = [
                                 <section>
                                     <label class="label">Tên đăng nhập</label>
                                     <label class="input"> <i class="icon-append fa fa-user"></i>
-                                        <input type="text" value="tester1" name="user_name">
+                                        <input type="text" value="trantu029" name="user_name">
                                 </section>
 
                                 <section>

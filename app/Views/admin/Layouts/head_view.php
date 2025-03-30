@@ -33,6 +33,9 @@
     <link rel="apple-touch-icon" sizes="120x120" href="<?= base_url($libUrl . '/img/splash/touch-icon-iphone-retina.png'); ?>">
     <link rel="apple-touch-icon" sizes="152x152" href="<?= base_url($libUrl . '/img/splash/touch-icon-ipad-retina.png'); ?>">
 
+    <script src="<?= base_url('libs/js/jquery.min.js') ?>"></script>
+    <script src="<?= base_url($libUrl . '/js/toastr.min.js'); ?>"></script>
+    <script src="<?= base_url($libUrl . '/js/custom_notification.js'); ?>"></script>
 </head>
 
 <body class="">
