@@ -9,11 +9,19 @@ $messages['images'] = get_message_error_file();
 }
 
 if (!$this->validate($rules, $messages)) {
-return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
+    return apiResponse(status: false, message: implode(',', $this->validator->getErrors() ?: []));
 }
 
 
 <?= view("admin/Layouts/group_button_action_form_view.php", ['function' => 'onSubmitCreateAccount()', 'label' => 'Lưu']) ?>
+
+<?= view(
+    "admin/Layouts/group_button_action_index_view.php",
+    [
+        'uri_update' => site_url('admin/account/detail/' . $item['id']),
+        'uri_delete' => site_url('admin/account/delete/' . $item['id']),
+    ]
+) ?>
 
 $rules = $this->accountModel->validationRules;
 $messages = $this->accountModel->validationMessages;
@@ -43,10 +51,11 @@ function onSubmitCreateAccount() {
             role_id,
         },
         success: function(response) {
-            Toastify({
-                text: response.message ?? 'Thành công',
-                duration: 1500,
-            }).showToast();
+            if (response.status) {
+                onToastrSuccess(response.message);
+            } else {
+                onToastrError(response.message);
+            }
         },
         error: function(xhr, status, error) {
             console.log('Error:', error);

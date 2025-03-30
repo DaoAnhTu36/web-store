@@ -22,6 +22,20 @@ class BannerModel extends Model
         'is_active',
     ];
 
+    protected $validationRules = [
+        'title' => 'required',
+        'description' => 'required',
+    ];
+
+    protected $validationMessages = [
+        'title' => [
+            'required' => 'Tiêu đề banner là bắt buộc',
+        ],
+        'description' => [
+            'required' => 'Mô tả banner là bắt buộc',
+        ],
+    ];
+
     // Dates
     protected $useTimestamps = true;
     protected $dateFormat    = 'datetime';

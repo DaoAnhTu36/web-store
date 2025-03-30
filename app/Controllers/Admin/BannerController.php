@@ -28,57 +28,29 @@ class BannerController extends BaseController
 
     public function create()
     {
-        $data_session = [
-            'title' => session()->get('data_temp')['title'] ?? '',
-            'description' => session()->get('data_temp')['description'] ?? '',
-        ];
-
         $data_view = [
             'title' => 'Tạo mới banner',
-            'data' => $data_session,
         ];
         return view('admin/banner_view/create_view', $data_view);
     }
 
     public function save()
     {
-        $validation = \Config\Services::validation();
-
         $title = $this->request->getPost('title');
         $description = $this->request->getPost('description');
         $files = $this->request->getFiles();
-
-        $validation->setRules([
-            'title'       => 'required|min_length[3]',
-            'description' => 'required|min_length[20]',
-        ], [
-            'title' => [
-                'required' => 'Tiêu đề là bắt buộc.',
-                'min_length' => 'Độ dài tối thiểu là 3 ký tự.',
-            ],
-            'description' => [
-                'required' => 'Mô tả là bắt buộc.',
-                'min_length' => 'Độ dài tối thiểu là 20 ký tự.',
-            ],
-        ]);
         $check_validate_files = get_validate_upload_file($files);
-        if ($check_validate_files != '') {
-            $validation->setRules([
-                'images' => $check_validate_files,
-            ], [
-                'images' => [
-                    'max_size' => 'Ảnh dưới 150kb',
-                    'mime_in' => 'Chỉ chấp nhận file có phần mở rộng là: jpg,jpeg,png',
-                ],
-            ]);
+        $rules = $this->bannerModel->validationRules;
+        $messages = $this->bannerModel->validationMessages;
+        if (!empty($check_validate_files)) {
+            $rules['images'] = $check_validate_files;
+            $messages['images'] = get_message_error_file();
         }
-        if (!$validation->withRequest($this->request)->run()) {
-            session()->set('data_temp', [
-                'title' => $title,
-                'description' => $description,
-            ]);
-            return redirect()->to('admin/banner/create')->with('errors', $validation->getErrors());
+
+        if (!$this->validate($rules, $messages)) {
+            return apiResponse(status: false, message: implode(',', $this->validator->getErrors() ?: []));
         }
+
         $data_insert = [
             'title' => $title,
             'description' => $description,
@@ -97,8 +69,7 @@ class BannerController extends BaseController
                 }
             }
         }
-        session()->remove('data_temp');
-        return redirect()->back()->with('success', 'Tạo banner thành công');
+        return apiResponse(message: 'Tạo mới banner thành công');
     }
 
     public function delete($id)

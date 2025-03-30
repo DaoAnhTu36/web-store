@@ -17,7 +17,7 @@
                         <div class="jarviswidget-editbox">
                         </div>
                         <div class="widget-body">
-                            <form class="form-horizontal" action="<?= base_url('admin/banner/save'); ?>" method="POST" enctype="multipart/form-data">
+                            <form class="form-horizontal" id="form-create" enctype="multipart/form-data">
                                 <fieldset>
                                     <legend>Thêm mới banner</legend>
                                     <div class="form-group">
@@ -25,7 +25,7 @@
                                             Tiêu đề
                                         </label>
                                         <div class="col-md-10">
-                                            <input class="form-control" value="<?= $data['title'] ?>" placeholder="" type="text" id="title" name="title">
+                                            <input class="form-control" value="" placeholder="" type="text" id="title" name="title">
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -33,7 +33,7 @@
                                             Mô tả
                                         </label>
                                         <div class="col-md-10">
-                                            <input class="form-control" value="<?= $data['description'] ?>" placeholder="" type="text" id="description" name="description">
+                                            <input class="form-control" value="" placeholder="" type="text" id="description" name="description">
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -51,19 +51,7 @@
                                         </div>
                                     </div>
                                 </fieldset>
-                                <div class="form-actions">
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <button class="btn btn-default" type="submit">
-                                                Hủy
-                                            </button>
-                                            <button class="btn btn-primary" type="submit">
-                                                <i class="fa fa-save"></i>
-                                                Lưu
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
+                                <?= view("admin/Layouts/group_button_action_form_view.php", ['function' => 'onSubmitCreate()', 'label' => 'Lưu']) ?>
                             </form>
                         </div>
                     </div>
@@ -72,4 +60,33 @@
         </div>
     </section>
 </div>
+<script>
+    function onSubmitCreate() {
+        let title = $("#title").val();
+        let description = $("#description").val();
+        let images = $("#images")[0].files;
+        let formData = new FormData();
+        formData.append('title', title);
+        formData.append('description', description);
+        for (let i = 0; i < images.length; i++) {
+            formData.append('images[]', images[i]);
+        }
+
+        $.ajax({
+            url: '<?= base_url('admin/banner/save') ?>',
+            type: 'POST',
+            data: formData,
+            success: function(response) {
+                if (response.status) {
+                    onToastrSuccess(response.message);
+                } else {
+                    onToastrError(response.message);
+                }
+            },
+            error: function(xhr, status, error) {
+                console.log('Error:', error);
+            }
+        });
+    }
+</script>
 <?= $this->endSection(); ?>
