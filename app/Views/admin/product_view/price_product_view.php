@@ -54,7 +54,7 @@
         </div>
     </section>
 </div>
-<!-- END MAIN CONTENT -->
+
 <!-- Bootstrap Modal -->
 <div class="modal fade" id="modal-history-price" tabindex="-1" role="dialog">
     <div class="modal-dialog">

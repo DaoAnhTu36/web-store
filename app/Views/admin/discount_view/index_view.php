@@ -77,21 +77,21 @@
                         </table>
 
                     </div>
-                    <!-- end widget content -->
+
 
                 </div>
-                <!-- end widget div -->
+
 
             </div>
-            <!-- end widget -->
+
 
         </div>
 
-        <!-- end row -->
+
 
     </section>
-    <!-- end widget grid -->
+
 </div>
-<!-- END MAIN CONTENT -->
+
 
 <?= $this->endSection(); ?>

@@ -1,6 +1,6 @@
 <?= $this->extend('admin/Layouts/main_view.php'); ?>
 <?= $this->section('content'); ?>
-<!-- MAIN CONTENT -->
+
 <div id="content">
     <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
@@ -81,6 +81,6 @@
         </div>
     </section>
 </div>
-<!-- END MAIN CONTENT -->
+
 
 <?= $this->endSection(); ?>

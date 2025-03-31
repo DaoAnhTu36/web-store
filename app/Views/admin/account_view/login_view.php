@@ -67,7 +67,7 @@ $data = [
 
     <div id="main" role="main">
 
-        <!-- MAIN CONTENT -->
+
         <div id="content" class="container">
 
             <div class="row">
