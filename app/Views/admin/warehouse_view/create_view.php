@@ -14,29 +14,17 @@
                 </h1>
             </div>
 
-            <!-- NEW WIDGET START -->
+
             <article class="col-sm-12 col-md-12 col-lg-12">
 
 
                 <div class="jarviswidget" id="wid-id-0" data-widget-colorbutton="false" data-widget-editbutton="false">
-                    <!-- widget options:
-								usage: <div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false">
-				
-								data-widget-colorbutton="false"
-								data-widget-editbutton="false"
-								data-widget-togglebutton="false"
-								data-widget-deletebutton="false"
-								data-widget-fullscreenbutton="false"
-								data-widget-custombutton="false"
-								data-widget-collapsed="true"
-								data-widget-sortable="false"
-				
-								-->
+
                     <header>
 
                     </header>
 
-                    <!-- widget div-->
+
                     <div>
 
 
@@ -100,7 +88,7 @@
                 </div>
 
             </article>
-            <!-- WIDGET END -->
+
         </div>
 
     </section>
