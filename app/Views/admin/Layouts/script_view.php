@@ -1050,6 +1050,15 @@
             }
         });
     });
+
+    function formatCurrency(number, symbol = '') {
+        let formatter = new Intl.NumberFormat('vi-VN');
+        return formatter.format(number) + ' ' + symbol;
+    }
+
+    function getDefaultSymbolCurrency() {
+        return '₫';
+    }
 </script>
 
 </body>

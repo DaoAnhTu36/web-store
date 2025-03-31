@@ -1,22 +1,15 @@
 <?= $this->extend('admin/Layouts/main_view.php'); ?>
 <?= $this->section('content'); ?>
-<!-- MAIN CONTENT -->
 <div id="content">
     <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
             <h1 class="page-title txt-color-blueDark">
                 <i class="fa fa-list-alt fa-fw "></i>
                 <?= $title ?>
-                <!-- <span>>
-                    Normal Tables
-                </span> -->
             </h1>
         </div>
     </div>
-
-    <!-- widget grid -->
     <section id="widget-grid" class="">
-        <!-- row -->
         <div class="row">
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                 <div class="jarviswidget jarviswidget-color-darken" id="wid-id-0" data-widget-editbutton="false">
@@ -76,21 +69,12 @@
                                 <?= view("admin/Layouts/group_button_action_form_view.php", ['function' => 'onSubmitCreateAccount()', 'label' => 'Lưu']) ?>
                             </form>
                         </div>
-                        <!-- end widget content -->
-
                     </div>
                 </div>
             </div>
-            <!-- end widget -->
-
         </div>
-
-        <!-- end row -->
-
     </section>
-    <!-- end widget grid -->
 </div>
-<!-- END MAIN CONTENT -->
 <script>
     function onSubmitCreateAccount() {
         let full_name = $("#full_name").val();
@@ -114,7 +98,8 @@
             },
             success: function(response) {
                 if (response.status) {
-                    onToastrSuccess(response.message);
+                    // onToastrSuccess(response.message);
+                    window.location.href = '<?= base_url('admin/account') ?>';
                 } else {
                     onToastrError(response.message);
                 }

@@ -107,6 +107,7 @@
                     $('#modal-history-price #tbl-transactions tbody').append(`
                         <tr>
                             <td>${idx + 1}</td>
+                            <td>${item.price}</td>
                             <td>${item.created_at}</td>
                             <td>${item.is_active == 1 ? '<span class="label label-success">Hoạt động</span>' : '<span class="label label-danger">Không hoạt động</span>'}</td>
                         </tr>
@@ -116,6 +117,7 @@
                     $('#modal-history-price #tbl-product-prices tbody').append(`
                         <tr>
                             <td>${idx + 1}</td>
+                            <td>${item.price}</td>
                             <td>${item.created_at}</td>
                             <td>${item.is_active == 1 ? '<span class="label label-success">Hoạt động</span>' : '<span class="label label-danger">Không hoạt động</span>'}</td>
                         </tr>

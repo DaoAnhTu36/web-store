@@ -47,6 +47,9 @@ return apiResponse(status: false, message: implode(',', $this->validator->getErr
     ]
 ) ?>
 
+        $query = "DELETE FROM images WHERE record_id = ? AND type = ?";
+        return $this->db->query($query, [$record_id, $type]);
+
 description_
 
 $rules = $this->accountModel->validationRules;

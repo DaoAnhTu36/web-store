@@ -1,9 +1,9 @@
 <?php
 
-function debug_object($object, $stop = true)
+function debug_object($object, $stop = true, $is_var_dump = false)
 {
     echo "<pre>";
-    var_dump($object);
+    $is_var_dump ? var_dump($object) : print_r($object);
     echo "</pre>";
 
     if ($stop) {
@@ -76,10 +76,14 @@ function get_current_datetime()
 
 function format_currency($number, $currency = '')
 {
-    if (empty($currency)) {
-        return number_format($number, 0, ',', '.');
+    if (is_numeric($number)) {
+        if (empty($currency)) {
+            return number_format($number, 0, ',', '.');
+        }
+        return number_format($number, 0, ',', '.') . ' ' . $currency;
+    } else {
+        return 'Invalid number';
     }
-    return number_format($number, 0, ',', '.') . ' ' . $currency;
 }
 
 function get_number_format_currency($number_str)

@@ -25,8 +25,8 @@ class CommonController extends BaseController
             if (isset($controller[1])) {
                 // echo $controller[1];
                 switch ($controller[1]) {
-                    case 'account/administrator-list':
-                    case 'account/customer-list':
+                    case 'account/index':
+                    case 'account':
                         $this->updateStatusCommon($id, 'accounts');
                         break;
                     case 'category':

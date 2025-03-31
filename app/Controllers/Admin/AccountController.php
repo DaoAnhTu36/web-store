@@ -45,6 +45,7 @@ class AccountController extends BaseController
         $messages = $this->accountModel->validationMessages;
 
         if (!$this->validate($rules, $messages)) {
+            session()->setFlashdata("errors", $this->validator->getErrors());
             return apiResponse(status: false, message: implode(',', $this->validator->getErrors() ?: []));
         }
 

@@ -60,12 +60,12 @@ $method = isset($path_array[2]) ? $path_array[2] : '';
                             <span class="menu-item-parent">Sản phẩm khuyến mại</span>
                         </a>
                     </li>
+                    <li class="<?= $controller == 'product-attributes' ? 'active' : ''; ?>">
+                        <a href="<?= site_url('admin/product-attributes/index') ?>" title="">
+                            <span class="menu-item-parent">Thuộc tính sản phẩm</span>
+                        </a>
+                    </li>
                 </ul>
-            </li>
-            <li class="<?= $controller == 'product-attributes' ? 'active' : ''; ?>">
-                <a href="<?= site_url('admin/product-attributes/index') ?>" title=""><i class="fa fa-lg fa-fw fa-cube"></i>
-                    <span class="menu-item-parent">Thuộc tính sản phẩm</span>
-                </a>
             </li>
             <li>
                 <a title=""><i class="fa fa-lg fa-fw fa-cube"></i><span class="menu-item-parent">Chương trình KM</span></a>

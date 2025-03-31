@@ -146,7 +146,7 @@ class CartClientController extends BaseController
         $customer_id = '';
         $customer_infor = $this->model
             ->where('email', $order_infor_email)
-            ->where('phone', $order_infor_phone)
+            ->orWhere('phone', $order_infor_phone)
             ->first();
 
         if ($customer_infor) {
