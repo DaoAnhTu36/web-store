@@ -1,13 +1,14 @@
 <?php
 
-use CodeIgniter\Email\Email;
-
-function EchoCommon($object)
+function debug_object($object, $stop = true)
 {
     echo "<pre>";
-    print_r($object);
+    var_dump($object);
     echo "</pre>";
-    exit;
+
+    if ($stop) {
+        exit;
+    }
 }
 
 function GetLimitAndOffsetPagination($size, $page)

@@ -25,6 +25,17 @@
                                         </div>
                                     </div>
                                     <div class="form-group">
+                                        <label class="col-md-2 control-label">Danh mục</label>
+                                        <div class="col-md-10">
+                                            <input class="form-control" placeholder="" type="text" list="list" id="category_id" name="category_id">
+                                            <datalist id="list">
+                                                ?<?php foreach ($data as $category): ?>
+                                                <option value="<?= $category['id']; ?>"><?= $category['name']; ?></option>
+                                            <?php endforeach; ?>
+                                            </datalist>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
                                         <div class="col-md-2 control-label">Thuộc tính</div>
                                         <div class="col-md-10">
                                             <table class="table table-bordered table-striped">
@@ -58,19 +69,20 @@
                                             </p>
                                         </div>
                                     </div>
-                                    <div class="form-group">
-                                        <label class="col-md-2 control-label">Danh mục</label>
-                                        <div class="col-md-10">
-                                            <input class="form-control" placeholder="" type="text" list="list" id="category_id" name="category_id">
-                                            <datalist id="list">
-                                                ?<?php foreach ($data as $category): ?>
-                                                <option value="<?= $category['id']; ?>"><?= $category['name']; ?></option>
-                                            <?php endforeach; ?>
-                                            </datalist>
+                                    <div class="form-group" id="image_preview_container">
+                                        <label class="col-md-2 control-label"> </label>
+                                        <div class="col-md-10" id="item_preview">
+
                                         </div>
                                     </div>
                                 </fieldset>
-                                <?= view("admin/Layouts/group_button_action_form_view.php") ?>
+                                <?= view(
+                                    "admin/Layouts/group_button_action_form_view.php",
+                                    [
+                                        'type_button' => "submit",
+                                        'label' => 'Lưu'
+                                    ]
+                                ) ?>
                             </form>
                         </div>
                     </div>

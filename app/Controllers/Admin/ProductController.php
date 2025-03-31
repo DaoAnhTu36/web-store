@@ -37,7 +37,7 @@ class ProductController extends BaseController
 
     public function index()
     {
-        $data = $this->productModel->getProductsWithImages();
+        $data = $this->productModel->get_product_with_image();
         $data_view = [
             'title' => 'Danh sách sản phẩm',
             'controller' => 'Product',
@@ -51,7 +51,7 @@ class ProductController extends BaseController
     public function create()
     {
         $categories = $this->categoryModel->findAll();
-        $productAttributes = $this->productAttributeModel->getAttributeGroupByName();
+        $productAttributes = $this->productAttributeModel->get_attribute_group_by_name();
         return view('admin/product_view/create_view', [
             'controller' => 'Product',
             'method' => 'Create',
@@ -66,7 +66,6 @@ class ProductController extends BaseController
         $attrs = $this->request->getPost('attribute_ids');
         $name = $this->request->getPost('name');
         $category_id = $this->request->getPost('category_id');
-
         $files = $this->request->getFiles();
         $check_validate_files = get_validate_upload_file($files);
         $rules = $this->productModel->validationRules;
@@ -75,11 +74,9 @@ class ProductController extends BaseController
             $rules['images'] = $check_validate_files;
             $messages['images'] = get_message_error_file();
         }
-
         if (!$this->validate($rules, $messages)) {
             return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
         }
-
         $productId = $this->productModel->insert([
             'name' => $name,
             'category_id' => $category_id,
@@ -87,34 +84,10 @@ class ProductController extends BaseController
             'updated_by' => session()->get('user_id'),
             'is_active' => 1,
         ]);
-
-        $files = $this->request->getFiles();
-        $image_list = [];
-        if ($files) {
-            $index = 1;
-            foreach ($files['images'] as $img) {
-                if ($img->isValid() && !$img->hasMoved()) {
-                    $newName = convert_vi_to_slug($name) . '-' . $index;
-                    array_push($image_list, $newName);
-                    $img->move('uploads/', $newName);
-                    $this->imageModel->insert([
-                        'record_id' => $productId,
-                        'image_path' => 'uploads/' . $newName,
-                        'type' => 'product',
-                    ]);
-                    $index++;
-                }
-            }
-        }
-
-        if (count($image_list) > 0) {
-            $data_update = [
-                'image' => 'uploads/' . reset($image_list)
-            ];
-            $this->productModel->update($productId, $data_update);
-        }
-
+        $image_array = $this->imageModel->upload_image($files, $productId, 'product', $name);
+        $this->productModel->update($productId, ['image' => $image_array[0]]);
         if (is_array($attrs) && count($attrs) > 0) {
+            $this->productAttributeValueModel->delete_attribute_value($productId);
             foreach ($attrs as $attr) {
                 $dtProductAttributeValue = [
                     'product_id' => $productId,
@@ -126,32 +99,70 @@ class ProductController extends BaseController
                 $this->productAttributeValueModel->insert($dtProductAttributeValue);
             }
         }
-
-        return redirect()->to('admin/product/create')->with('success', 'Sản phẩm đã được thêm!');
+        return redirect()->to('admin/product')->with('success', 'Sản phẩm đã được thêm!');
     }
 
     public function delete($id)
     {
         $this->productModel->where('id', $id)->delete();
+        $this->productAttributeValueModel->delete_attribute_value($id);
+        $this->imageModel->delete_image($id, 'product');
         return redirect()->to('admin/product')->with('success', 'Sản phẩm đã được xóa!');
     }
 
     public function detail($id)
     {
-        $item = $this->productModel->getProductsWithImagesByProductId($id);
+        $product_attributes = $this->productAttributeModel->get_attribute_group_by_name();
+        $item = $this->productModel->get_product_with_image_by_id($id);
         $categories = $this->categoryModel->findAll();
+        $product_attribute_values = array_column($this->productAttributeValueModel->get_product_attribute_value($id), 'attribute_id');
         $data_view = [
             'title' => 'Chi tiết sản phẩm',
             'data' => $item,
-            'categories' => $categories
+            'categories' => $categories,
+            'product_attributes' => $product_attributes,
+            'product_attribute_values' => $product_attribute_values,
         ];
         return view('admin/product_view/detail_view', $data_view);
     }
 
     public function update($id)
     {
-        $item = $this->productModel->find($id);
-        EchoCommon($item);
+        $attrs = $this->request->getPost('attribute_ids');
+        $name = $this->request->getPost('name');
+        $category_id = $this->request->getPost('category_id');
+        $files = $this->request->getFiles();
+        $check_validate_files = get_validate_upload_file($files);
+        $rules = $this->productModel->validationRules;
+        $messages = $this->productModel->validationMessages;
+        if (!empty($check_validate_files)) {
+            $rules['images'] = $check_validate_files;
+            $messages['images'] = get_message_error_file();
+        }
+        if (!$this->validate($rules, $messages)) {
+            return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
+        }
+        $this->productModel->update($id, [
+            'name' => $name,
+            'category_id' => $category_id,
+            'updated_by' => session()->get('user_id'),
+        ]);
+        $image_array = $this->imageModel->upload_image($files, $id, 'product', $name);
+        $this->productModel->update($id, ['image' => $image_array[0]]);
+        if (is_array($attrs) && count($attrs) > 0) {
+            $this->productAttributeValueModel->delete_attribute_value($id);
+            foreach ($attrs as $attr) {
+                $dtProductAttributeValue = [
+                    'product_id' => $id,
+                    'attribute_id' => $attr,
+                    'created_by' => session()->get('user_id'),
+                    'updated_by' => session()->get('user_id'),
+                    'is_active' => 1,
+                ];
+                $this->productAttributeValueModel->insert($dtProductAttributeValue);
+            }
+        }
+        return redirect()->to('admin/product')->with('success', 'Sản phẩm đã được cập nhật');
     }
 
     public function bestSellingProduct()

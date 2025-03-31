@@ -19,23 +19,22 @@ class ProductModel extends Model
         'image',
     ];
     protected $validationRules    = [
-        'name'        => 'required|min_length[3]|max_length[255]',
+        'name'        => 'required',
         'category_id' => 'required|integer',
     ];
 
     protected $validationMessages = [
         'name' => [
             'required'   => 'Tên sản phẩm là bắt buộc.',
-            'min_length' => 'Tên sản phẩm phải có ít nhất 3 ký tự.',
-            'max_length' => 'Tên sản phẩm không được vượt quá 255 ký tự.',
         ],
         'category_id' => [
             'required' => 'Danh mục sản phẩm là bắt buộc.',
+            'integer' => 'Danh mục phải là số',
         ],
     ];
 
 
-    public function getProductsWithImages()
+    public function get_product_with_image()
     {
         return $this->select("products.id
             , products.name
@@ -43,10 +42,9 @@ class ProductModel extends Model
             , products.is_active
             , products.image
             , categories.name AS category_name
-            , GROUP_CONCAT(images.image_path SEPARATOR ', ') AS images")
-            ->join('images', 'images.record_id = products.id', 'left')
-            ->join('categories', 'categories.id = products.category_id', 'left')
-            ->where('images.type', 'product')
+            , IFNULL(GROUP_CONCAT(images.image_path SEPARATOR ', '),'') AS images")
+            ->join('images', "images.record_id = products.id AND images.type = 'product'", 'left')
+            ->join('categories', "categories.id = products.category_id", 'left')
             ->groupBy('products.id')
             ->orderBy('products.created_at', 'DESC')
             ->findAll();
@@ -57,7 +55,7 @@ class ProductModel extends Model
         return $this->delete($id);
     }
 
-    public function getProductsWithImagesByProductId($productId)
+    public function get_product_with_image_by_id($productId)
     {
         return $this->select("products.id
             , products.name
@@ -65,12 +63,11 @@ class ProductModel extends Model
             , products.category_id
             , products.is_active
             , products.image
-            , GROUP_CONCAT(images.image_path SEPARATOR ', ') AS images")
-            ->join('images', 'images.record_id = products.id', 'left')
+            , IFNULL(GROUP_CONCAT(images.image_path SEPARATOR ', '),'') AS images")
+            ->join('images', "images.record_id = products.id AND images.type = 'product'", 'left')
             ->groupBy('products.id')
             ->orderBy('products.created_at', 'DESC')
             ->where('products.id', $productId)
-            ->where('images.type', 'product')
             ->first();
     }
 }

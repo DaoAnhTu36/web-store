@@ -25,4 +25,17 @@ class ProductAttributeValueModel extends Model
     protected $useTimestamps = true;
     protected $createdField  = 'created_at';
     protected $updatedField  = 'updated_at';
+
+    public function delete_attribute_value($product_id)
+    {
+        $query = "DELETE FROM product_attribute_values WHERE product_id = ?";
+        return $this->db->query($query, [$product_id]);
+    }
+
+    public function get_product_attribute_value($product_id)
+    {
+        return $this->select("attribute_id")
+            ->where("product_id", $product_id)
+            ->findAll();
+    }
 }

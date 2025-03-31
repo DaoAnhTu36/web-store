@@ -41,7 +41,7 @@ class ProductAttributeModel extends Model
     protected $createdField  = 'created_at';
     protected $updatedField  = 'updated_at';
 
-    public function getAttributeGroupByName()
+    public function get_attribute_group_by_name()
     {
         return $this->select("attribute_name, GROUP_CONCAT(CONCAT(id, ':', attribute_value) ORDER BY id SEPARATOR ', ') as id_value_list")
             ->where('is_active', 1)
