@@ -69,10 +69,13 @@ abstract class BaseController extends Controller
         }
 
         service('request')->setLocale($this->lang);
-        if (!$session->has('web_configs')) {
-            $webConfigs = $this->websiteConfigModel->getAllConfigs();
-            $session->set('web_configs', $webConfigs);
-        }
+        // if (!$session->has('web_configs')) {
+        //     $webConfigs = $this->websiteConfigModel->getAllConfigs();
+        //     $session->set('web_configs', $webConfigs);
+        // }
+
+        $webConfigs = $this->websiteConfigModel->getAllConfigs();
+        $session->set('web_configs', $webConfigs);
     }
 
     // app/Controllers/BaseController.php

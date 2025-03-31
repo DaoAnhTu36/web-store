@@ -39,7 +39,7 @@
 
                             <form class="form-horizontal" action="<?= base_url('admin/website-config/update/' . $data['id']); ?>" method="POST" enctype="multipart/form-data">
                                 <fieldset>
-                                    <!-- <legend>Thêm mới sản phẩm</legend> -->
+                                    <legend>Chỉnh sửa cấu hình</legend>
                                     <div class="form-group">
                                         <label class="col-md-2 control-label">Khóa</label>
                                         <div class="col-md-4">
@@ -70,7 +70,9 @@
                                     <div class="form-group">
                                         <label class="col-md-2 control-label"></label>
                                         <div class="col-md-10">
-                                            <img src="<?= base_url($data['images']) ?>" alt="" style="width: 100px; height: 100px;">
+                                            <?php if ($data['images'] !== ''): ?>
+                                                <img src="<?= base_url($data['images']) ?>" alt="" style="width: 100px; height: 100px;">
+                                            <?php endif ?>
                                         </div>
                                     </div>
                                 </fieldset>

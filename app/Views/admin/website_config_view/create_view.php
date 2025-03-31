@@ -34,25 +34,29 @@
 
                         <div class="widget-body">
 
-                            <form class="form-horizontal" action="<?= base_url('admin/website-config/save'); ?>" method="POST" enctype="multipart/form-data">
+                            <form class="form-horizontal" action="<?= base_url('admin/website-config/save'); ?>"
+                                method="POST" enctype="multipart/form-data">
                                 <fieldset>
-                                    <!-- <legend>Thêm mới sản phẩm</legend> -->
+                                    <legend>Thêm mới cấu hình</legend>
                                     <div class="form-group">
                                         <label class="col-md-2 control-label">Khóa</label>
                                         <div class="col-md-4">
-                                            <input class="form-control" value="" placeholder="" type="text" id="config_key" name="config_key">
+                                            <input class="form-control" value="" placeholder="" type="text"
+                                                id="config_key" name="config_key">
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-md-2 control-label">Giá trị</label>
                                         <div class="col-md-4">
-                                            <input class="form-control" value="" placeholder="" type="text" id="config_value" name="config_value">
+                                            <input class="form-control" value="" placeholder="" type="text"
+                                                id="config_value" name="config_value">
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-md-2 control-label">Mô tả</label>
                                         <div class="col-md-4">
-                                            <input class="form-control" value="" placeholder="" type="text" id="description" name="description">
+                                            <input class="form-control" value="" placeholder="" type="text"
+                                                id="description" name="description">
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -62,6 +66,12 @@
                                             <p class="help-block">
                                                 Chọn ảnh dưới 150kb
                                             </p>
+                                        </div>
+                                    </div>
+                                    <div class="form-group" id="image_preview_container">
+                                        <label class="col-md-2 control-label"></label>
+                                        <div class="col-md-10" id="item_preview">
+
                                         </div>
                                     </div>
                                 </fieldset>

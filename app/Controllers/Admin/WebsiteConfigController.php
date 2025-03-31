@@ -61,7 +61,7 @@ class WebsiteConfigController extends BaseController
             ]);
         }
         if (!$validation->withRequest($this->request)->run()) {
-            return redirect()->back()->withInput()->with('errors', implode(', ', $validation->getErrors()));
+            return redirect()->to('admin/website-config/create')->withInput()->with('errors', implode(', ', $validation->getErrors()));
         }
         $data = [
             'config_key' => $this->request->getPost('config_key'),
