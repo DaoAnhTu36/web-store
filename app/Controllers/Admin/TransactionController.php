@@ -36,13 +36,11 @@ class TransactionController extends BaseController
 
     public function create()
     {
-        $customers = $this->modelCustomer->select('id, name')->where('is_active', 1)->findAll();
         $suppliers = $this->modelSupplier->select('id, name')->where('is_active', 1)->findAll();
         $products  = $this->modelProduct->select('id, name')->where('is_active', 1)->findAll();
         $warehouses = $this->modelWarehouse->select('id, name')->where('is_active', 1)->findAll();
         $data_view = [
             "title" => "Thêm mới giao dịch hàng hóa",
-            "customers" => $customers,
             "suppliers" => $suppliers,
             "products" => $products,
             "warehouses" => $warehouses

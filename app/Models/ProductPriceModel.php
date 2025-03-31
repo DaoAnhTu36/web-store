@@ -11,7 +11,7 @@ class ProductPriceModel extends Model
 
     protected $allowedFields = ['product_id', 'price', 'start_date', 'end_date', 'created_at', 'created_by', 'updated_by', 'is_active'];
 
-    public function getProductsForPortal()
+    public function get_product_for_portal()
     {
         return $this->select("product_prices.price
             , products.id
@@ -22,9 +22,8 @@ class ProductPriceModel extends Model
             , categories.name AS category_name
             , GROUP_CONCAT(images.image_path SEPARATOR ', ') AS images")
             ->join("products", "products.id = product_prices.product_id", "left")
-            ->join('images', 'images.record_id = products.id', 'left')
+            ->join('images', "images.record_id = products.id AND images.type = 'product'", 'left')
             ->join('categories', 'categories.id = products.category_id', 'left')
-            ->where('images.type', 'product')
             ->where('product_prices.is_active', 1)
             ->where('products.is_active', 1)
             ->where('categories.is_active', 1)

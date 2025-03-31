@@ -23,7 +23,7 @@ class HomeController extends BaseController
     public function index()
     {
         $title = "Trang chủ";
-        $data = $this->productPriceModel->getProductsForPortal();
+        $data = $this->productPriceModel->get_product_for_portal();
         $data_banners = $this->bannerModel->get_all_banner();
         $data_view = [
             'data' => $data,

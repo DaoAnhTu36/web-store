@@ -28,27 +28,27 @@ class CustomerClientController extends BaseController
         if (file_exists($filePath)) {
             $htmlContent = file_get_contents($filePath);
         }
-        $first_name_first_name = $this->request->getPost('first_name_first_name');
-        $first_name_last_name = $this->request->getPost('first_name_last_name');
-        $first_name_email = $this->request->getPost('first_name_email');
-        $first_name_phone = $this->request->getPost('first_name_phone');
-        $first_name_password = $this->request->getPost('first_name_password');
+        $first_name_register = $this->request->getPost('first_name_register');
+        $last_name_register = $this->request->getPost('last_name_register');
+        $email_register = $this->request->getPost('email_register');
+        $phone_register = $this->request->getPost('phone_register');
+        $password_register = $this->request->getPost('password_register');
         $first_name_verification_token = bin2hex(random_bytes(32));
         $data = [
-            'first_name'    => $first_name_first_name,
-            'last_name'    => $first_name_last_name,
-            'email'   => $first_name_email,
-            'phone'   => $first_name_phone,
-            'password_hash' => password_hash($first_name_password, PASSWORD_DEFAULT),
+            'first_name'    => $first_name_register,
+            'last_name'    => $last_name_register,
+            'email'   => $email_register,
+            'phone'   => $phone_register,
+            'password_hash' => password_hash($password_register, PASSWORD_DEFAULT),
             'verification_token' => $first_name_verification_token,
         ];
         $mess_error = '';
-        $check_email = $this->check_email($first_name_email);
+        $check_email = $this->check_email($email_register);
         if ($check_email['code']) {
             $mess_error = $check_email['is_verified'] == 0 ? 'Tài khoản chưa được kích hoạt' : '';
             return apiResponse(false, 'Email đã tồn tại.' . $mess_error, $check_email, '200');
         }
-        $check_phone = $this->check_phone($first_name_phone);
+        $check_phone = $this->check_phone($phone_register);
         if ($check_phone['code']) {
             $mess_error = $check_phone['is_verified'] == 0 ? 'Tài khoản chưa được kích hoạt' : '';
             return apiResponse(false, 'Số điện thoại đã tồn tại.' . $mess_error, $check_phone, '200');
@@ -58,11 +58,11 @@ class CustomerClientController extends BaseController
         if ($customer_id) {
             $body = $htmlContent;
             $body = str_replace('{{logo}}', "cid:logo_cid", $body);
-            $body = str_replace('{{username}}', $first_name_first_name . ' ' . $first_name_last_name, $body);
+            $body = str_replace('{{username}}', $first_name_register . ' ' . $last_name_register, $body);
             $body = str_replace('{{website_name}}', session()->get('web_configs')['site_name'], $body);
             $body = str_replace('{{verification_link}}', base_url('admin/customer/verify?id=' . $customer_id . '&token=' . $first_name_verification_token), $body);
             $subject = $mail_verify_account['subject'];
-            $result = $this->mailService->send_mail_mailer($first_name_email, $subject, $body);
+            $result = $this->mailService->send_mail_mailer($email_register, $subject, $body);
             if ($result['status'] == false) {
                 return apiResponse(true, 'Đăng ký thành công, gửi mail  thất bại. ErrorMessage = ' . $result['message'], null, '200');
             }
