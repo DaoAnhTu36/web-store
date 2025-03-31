@@ -11,6 +11,13 @@
                         <?= $label ?>
                     <?php endif ?>
                 </button>
+            <?php elseif (isset($type_button)): ?>
+                <button class="btn btn-primary" type="<?= $type_button ?>">
+                    <i class="fa fa-save"></i>
+                    <?php if (isset($label)): ?>
+                        <?= $label ?>
+                    <?php endif ?>
+                </button>
             <?php endif ?>
         </div>
     </div>

@@ -13,14 +13,34 @@ return apiResponse(status: false, message: implode(',', $this->validator->getErr
 
 
 <?= view("admin/Layouts/group_button_action_form_view.php", ['function' => 'onSubmitCreate()', 'label' => 'Lưu']) ?>
+<td>
+    <?= view(
+        "admin/Layouts/button_active_index_view.php",
+        [
+            'is_active' => $item['is_active'],
+            'id' => $item['id'],
+        ]
+    ) ?>
+</td>
+<td class="action-icons">
+    <?= view(
+        "admin/Layouts/group_button_action_index_view.php",
+        [
+            'uri_update' => site_url('admin/category/detail/' . $item['id']),
+            'uri_delete' => site_url('admin/category/delete/' . $item['id']),
+        ]
+    ) ?>
+</td>
 
 <?= view(
-    "admin/Layouts/group_button_action_index_view.php",
+    "admin/Layouts/group_button_action_form_view.php",
     [
-        'uri_update' => site_url('admin/account/detail/' . $item['id']),
-        'uri_delete' => site_url('admin/account/delete/' . $item['id']),
+        'type_button' => "submit",
+        'label' => 'Cập nhật'
     ]
 ) ?>
+
+description_
 
 $rules = $this->accountModel->validationRules;
 $messages = $this->accountModel->validationMessages;

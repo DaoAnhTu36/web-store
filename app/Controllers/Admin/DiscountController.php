@@ -47,6 +47,12 @@ class DiscountController extends BaseController
 
     public function save()
     {
+        $rules = $this->discountModel->validationRules;
+        $messages = $this->discountModel->validationMessages;
+
+        if (!$this->validate($rules, $messages)) {
+            return redirect()->back()->with('errors', $this->validator->getErrors());
+        }
         $data = [
             'name' => $this->request->getPost('name'),
             'discount_type_id' => $this->request->getPost('discount_type_id'),
@@ -84,6 +90,12 @@ class DiscountController extends BaseController
 
     public function update($id)
     {
+        $rules = $this->discountModel->validationRules;
+        $messages = $this->discountModel->validationMessages;
+
+        if (!$this->validate($rules, $messages)) {
+            return redirect()->back()->with('errors', $this->validator->getErrors());
+        }
         $data = [
             'name' => $this->request->getPost('name'),
             'discount_type_id' => $this->request->getPost('discount_type_id'),

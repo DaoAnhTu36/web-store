@@ -34,15 +34,14 @@ class CategoryModel extends Model
             , categories.description
             , categories.created_at
             , categories.is_active
-            , GROUP_CONCAT(images.image_path SEPARATOR ', ') AS images")
-            ->join('images', 'images.record_id = categories.id', 'left')
-            ->where('images.type', 'category')
+            , IFNULL(GROUP_CONCAT(images.image_path SEPARATOR ', '),'') AS images")
+            ->join('images', "images.record_id = categories.id AND images.type = 'category'", 'left')
             ->groupBy('categories.id')
             ->orderBy('categories.created_at', 'DESC')
             ->findAll();
     }
 
-    public function deleteCategory($id)
+    public function delete_category($id)
     {
         return $this->delete($id);
     }
@@ -54,10 +53,9 @@ class CategoryModel extends Model
         , categories.description
         , categories.created_at
         , categories.is_active
-        , GROUP_CONCAT(images.image_path SEPARATOR ', ') AS images")
-            ->join('images', 'images.record_id = categories.id', 'left')
+        , IFNULL(GROUP_CONCAT(images.image_path SEPARATOR ', '),'') AS images")
+            ->join('images', "images.record_id = categories.id AND images.type = 'category'", 'left')
             ->where("categories.id", $id)
-            ->where('images.type', 'category')
             ->groupBy('categories.id')
             ->orderBy('categories.created_at', 'DESC')
             ->first();

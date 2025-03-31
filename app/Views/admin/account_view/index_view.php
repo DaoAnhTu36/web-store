@@ -84,22 +84,23 @@
                                         <td><?= $item['phone'] ?></td>
                                         <td><?= $item['address'] ?></td>
                                         <td>
-                                            <label class="switch1">
-                                                <?php if ($item['is_active']) { ?>
-                                                    <input type="checkbox" checked onclick="onChangeStatus(<?= $item['id'] ?>)">
-                                                <?php } else { ?>
-                                                    <input type="checkbox" onclick="onChangeStatus(<?= $item['id'] ?>)">
-                                                <?php } ?>
-                                                <span class="slider1"></span>
-                                            </label>
+                                            <?= view(
+                                                "admin/Layouts/button_active_index_view.php",
+                                                [
+                                                    'is_active' => $item['is_active'],
+                                                    'id' => $item['id'],
+                                                ]
+                                            ) ?>
                                         </td>
-                                        <?= view(
-                                            "admin/Layouts/group_button_action_index_view.php",
-                                            [
-                                                'uri_update' => site_url('admin/account/detail/' . $item['id']),
-                                                'uri_delete' => site_url('admin/account/delete/' . $item['id']),
-                                            ]
-                                        ) ?>
+                                        <td class="action-icons">
+                                            <?= view(
+                                                "admin/Layouts/group_button_action_index_view.php",
+                                                [
+                                                    'uri_update' => site_url('admin/account/detail/' . $item['id']),
+                                                    'uri_delete' => site_url('admin/account/delete/' . $item['id']),
+                                                ]
+                                            ) ?>
+                                        </td>
                                     </tr>
                                 <?php $idx++;
                                 } ?>

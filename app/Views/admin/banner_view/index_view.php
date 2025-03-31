@@ -52,13 +52,15 @@
                                                     <span class="slider1"></span>
                                                 </label>
                                             </td>
-                                            <?= view(
-                                                "admin/Layouts/group_button_action_index_view.php",
-                                                [
-                                                    'uri_update' => site_url('admin/banner/detail/' . $item['id']),
-                                                    'uri_delete' => site_url('admin/banner/delete/' . $item['id']),
-                                                ]
-                                            ) ?>
+                                            <td class="action-icons">
+                                                <?= view(
+                                                    "admin/Layouts/group_button_action_index_view.php",
+                                                    [
+                                                        'uri_update' => site_url('admin/banner/detail/' . $item['id']),
+                                                        'uri_delete' => site_url('admin/banner/delete/' . $item['id']),
+                                                    ]
+                                                ) ?>
+                                            </td>
                                         </tr>
                                     <?php $i++;
                                     }  ?>

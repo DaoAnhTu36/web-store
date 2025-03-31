@@ -2,7 +2,7 @@
     <?php if (is_array(session()->getFlashdata('errors'))): ?>
         <?php if (session()->getFlashdata('errors') && count(session()->getFlashdata('errors')) > 0) : ?>
             <?php foreach (session()->getFlashdata('errors') as $error) : ?>
-                <?= "<script>onToastrSuccess('" . $error . "')</script>" ?>
+                <?= "<script>onToastrError('" . $error . "')</script>" ?>
             <?php endforeach ?>
         <?php endif; ?>
     <?php else: ?>

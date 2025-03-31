@@ -8,13 +8,6 @@
                 <?= $title ?>
             </h1>
         </div>
-        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-            <div class="well">
-                <div class="btn-group">
-                    <a href="<?= site_url('admin/customer/create'); ?>" class="btn btn-default"><i class="fa fa-plus" aria-hidden="true"></i> Thêm mới</a>
-                </div>
-            </div>
-        </div>
     </div>
     <section id="widget-grid" class="">
         <div class="row">
@@ -32,31 +25,27 @@
                                     <th>Số điện thoại</th>
                                     <th>Xác thực?</th>
                                     <th>Trạng thái</th>
-                                    <th>#</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <?php $idx = 1;
                                 foreach ($data as $item): ?>
-                                    <td><?= $idx ?></td>
-                                    <td><?= $item['first_name'] . ' ' . $item['last_name'] ?></td>
-                                    <td><?= $item['email'] ?></td>
-                                    <td><?= $item['phone'] ?></td>
-                                    <td><?= $item['is_verified'] ?></td>
-                                    <td>
-                                        <label class="switch1">
-                                            <?php if ($item['is_active']) { ?>
-                                                <input type="checkbox" checked onclick="onChangeStatus(<?= $item['id'] ?>)">
-                                            <?php } else { ?>
-                                                <input type="checkbox" onclick="onChangeStatus(<?= $item['id'] ?>)">
-                                            <?php } ?>
-                                            <span class="slider1"></span>
-                                        </label>
-                                    </td>
-                                    <td class="action-icons">
-                                        <a href="<?= site_url('admin/customer/detail/' . $item['id']); ?>" class="btn btn-warning"><i class="fa fa-pencil" aria-hidden="true"></i></a>
-                                        <a href="<?= site_url('admin/customer/delete/' . $item['id']); ?>" class="btn btn-danger" onclick="return confirm('Bạn có chắc muốn xóa?');"><i class="fa fa-trash" aria-hidden="true"></i></a>
-                                    </td>
+                                    <tr>
+                                        <td><?= $idx ?></td>
+                                        <td><?= $item['first_name'] . ' ' . $item['last_name'] ?></td>
+                                        <td><?= $item['email'] ?></td>
+                                        <td><?= $item['phone'] ?></td>
+                                        <td><?= $item['is_verified'] ?></td>
+                                        <td>
+                                            <?= view(
+                                                "admin/Layouts/button_active_index_view.php",
+                                                [
+                                                    'is_active' => $item['is_active'],
+                                                    'id' => $item['id'],
+                                                ]
+                                            ) ?>
+                                        </td>
+                                    </tr>
                                 <?php $idx++;
                                 endforeach ?>
                             </tbody>

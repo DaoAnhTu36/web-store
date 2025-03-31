@@ -52,18 +52,22 @@
                                             </td>
                                             <td><?= $item['created_at'] ?></td>
                                             <td>
-                                                <label class="switch1">
-                                                    <?php if ($item['is_active']) { ?>
-                                                        <input type="checkbox" checked onclick="onChangeStatus(<?= $item['id'] ?>)">
-                                                    <?php } else { ?>
-                                                        <input type="checkbox" onclick="onChangeStatus(<?= $item['id'] ?>)">
-                                                    <?php } ?>
-                                                    <span class="slider1"></span>
-                                                </label>
+                                                <?= view(
+                                                    "admin/Layouts/button_active_index_view.php",
+                                                    [
+                                                        'is_active' => $item['is_active'],
+                                                        'id' => $item['id'],
+                                                    ]
+                                                ) ?>
                                             </td>
                                             <td class="action-icons">
-                                                <a href="<?= site_url('admin/category/detail/' . $item['id']); ?>" class="btn btn-warning"><i class="fa fa-pencil" aria-hidden="true"></i></a>
-                                                <a href="<?= site_url('admin/category/delete/' . $item['id']); ?>" class="btn btn-danger" onclick="return confirm('Bạn có chắc muốn xóa?');"><i class="fa fa-trash" aria-hidden="true"></i></a>
+                                                <?= view(
+                                                    "admin/Layouts/group_button_action_index_view.php",
+                                                    [
+                                                        'uri_update' => site_url('admin/category/detail/' . $item['id']),
+                                                        'uri_delete' => site_url('admin/category/delete/' . $item['id']),
+                                                    ]
+                                                ) ?>
                                             </td>
                                         </tr>
                                     <?php $i++;

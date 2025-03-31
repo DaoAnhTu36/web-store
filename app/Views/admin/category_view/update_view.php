@@ -18,7 +18,7 @@
                         <div class="jarviswidget-editbox">
                         </div>
                         <div class="widget-body">
-                            <form class="form-horizontal" enctype="multipart/form-data">
+                            <form action="<?= base_url('admin/category/update/' . $data['id']) ?>" method="POST" class="form-horizontal" enctype="multipart/form-data">
                                 <fieldset>
                                     <legend><?= $title ?></legend>
                                     <div class="form-group">
@@ -30,7 +30,7 @@
                                     <div class="form-group">
                                         <label class="col-md-2 control-label" for="description">Mô tả</label>
                                         <div class="col-md-10">
-                                            <textarea class="form-control" id="description" name="description"><?= $data['description'] ?></textarea>
+                                            <textarea class="form-control" id="description_" name="description"><?= $data['description'] ?></textarea>
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -59,7 +59,13 @@
                                         </div>
                                     </div>
                                 </fieldset>
-                                <?= view("admin/Layouts/group_button_action_form_view.php", ['function' => "onSubmitCreate('" . base_url('admin/category/update/' . $data['id']) . "')", 'label' => 'Cập nhật']) ?>
+                                <?= view(
+                                    "admin/Layouts/group_button_action_form_view.php",
+                                    [
+                                        'type_button' => "submit",
+                                        'label' => 'Cập nhật'
+                                    ]
+                                ) ?>
                             </form>
                         </div>
                     </div>

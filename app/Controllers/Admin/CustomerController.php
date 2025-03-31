@@ -26,13 +26,7 @@ class CustomerController extends BaseController
         return view("admin/customer_view/index_view", $data_view);
     }
 
-    public function create()
-    {
-        $data_view = [
-            "title" => "Thêm mới khách hàng",
-        ];
-        return view("admin/customer_view/create_view", $data_view);
-    }
+    public function create() {}
 
     public function detail($id) {}
 
