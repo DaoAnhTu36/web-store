@@ -69,7 +69,7 @@
                                     <div class="form-group">
                                         <label class="col-md-2 control-label">Nội dung mail</label>
                                         <div class="col-md-10">
-                                            <textarea class="form-control" id="description_record" name="body"><?= $data['body'] ?></textarea>
+                                            <textarea class="form-control" id="description_ckeditor" name="body"><?= $data['body'] ?></textarea>
                                         </div>
                                     </div>
                                 </fieldset>

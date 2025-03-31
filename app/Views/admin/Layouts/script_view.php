@@ -996,10 +996,10 @@
         //     filebrowserBrowseUrl: '<?= base_url('/libs/js/plugin/ckfinder/ckfinder.html?type=Images'); ?>',
         //     filebrowserImageBrowseUrl: '<?= base_url('/libs/js/plugin/ckfinder/ckfinder.html?type=Images'); ?>',
         // });
-
-        if (document.querySelector('#description_')) {
+        let editorInstance;
+        if (document.querySelector('#description')) {
             ClassicEditor
-                .create(document.querySelector('#description_'), {
+                .create(document.querySelector('#description'), {
                     ckfinder: {
                         uploadUrl: '<?= base_url('/upload'); ?>',
                         options: {
@@ -1007,9 +1007,15 @@
                         }
                     }
                 })
+                .then(editor => {
+                    editorInstance = editor;
+                })
                 .catch(error => {
                     console.error(error);
                 });
+            // document.querySelector('#form-common').addEventListener('submit', function() {
+            //     document.querySelector('#description').value = editorInstance.getData();
+            // });
         }
 
     });

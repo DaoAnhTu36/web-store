@@ -35,6 +35,10 @@ class DiscountTypeController extends BaseController
 
     public function save()
     {
+        $data = [
+            'name' => $this->request->getPost('name'),
+            'description' => $this->request->getPost('description'),
+        ];
         $rules = $this->discountTypeModel->validationRules;
         $messages = $this->discountTypeModel->validationMessages;
 
@@ -44,6 +48,7 @@ class DiscountTypeController extends BaseController
 
         $data = [
             'name' => $this->request->getPost('name'),
+            'description' => $this->request->getPost('description'),
         ];
         $this->discountTypeModel->save($data);
         return redirect()->to('admin/discount-type/create')->with('success', 'Thêm mới thành công loại khuyến mại');
@@ -61,8 +66,17 @@ class DiscountTypeController extends BaseController
 
     public function update($id)
     {
+        $name = $this->request->getPost('name');
+        $description = $this->request->getPost('description');
+
+        $rules = $this->discountTypeModel->validationRules;
+        $messages = $this->discountTypeModel->validationMessages;
+        if (!$this->validate($rules, $messages)) {
+            return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
+        }
         $data = [
-            'name' => $this->request->getPost('name'),
+            'name' => $name,
+            'description' => $description,
         ];
         $this->discountTypeModel->update($id, $data);
         return redirect()->to('admin/discount-type')->with('success', 'Cập nhật thành công loại khuyến mại');

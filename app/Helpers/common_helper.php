@@ -7,6 +7,7 @@ function EchoCommon($object)
     echo "<pre>";
     print_r($object);
     echo "</pre>";
+    exit;
 }
 
 function GetLimitAndOffsetPagination($size, $page)

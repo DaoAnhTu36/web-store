@@ -36,6 +36,13 @@ return apiResponse(status: false, message: implode(',', $this->validator->getErr
     "admin/Layouts/group_button_action_form_view.php",
     [
         'type_button' => "submit",
+        'label' => 'Lưu'
+    ]
+) ?>
+<?= view(
+    "admin/Layouts/group_button_action_form_view.php",
+    [
+        'type_button' => "submit",
         'label' => 'Cập nhật'
     ]
 ) ?>
