@@ -12,6 +12,20 @@ class WebsiteConfigModel extends Model
 
     protected $allowedFields = ['config_key', 'config_value', 'description', 'created_at', 'updated_at'];
 
+    protected $validationRules    = [
+        'config_key'        => 'required',
+        'config_value' => 'required',
+    ];
+
+    protected $validationMessages = [
+        'config_key' => [
+            'required'   => 'Khóa là bắt buộc.',
+        ],
+        'config_value' => [
+            'required' => 'Giá trị là bắt buộc.',
+        ],
+    ];
+
     public function getConfig($key)
     {
         return $this->where('config_key', $key)->first();

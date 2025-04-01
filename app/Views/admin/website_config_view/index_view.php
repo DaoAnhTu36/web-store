@@ -42,8 +42,13 @@
                                         <td><?= $item['config_value'] ?></td>
                                         <td><?= $item['description'] ?></td>
                                         <td class="action-icons">
-                                            <a href="<?= site_url('admin/website-config/detail/' . $item['id']); ?>" class="btn btn-warning"><i class="fa fa-pencil" aria-hidden="true"></i></a>
-                                            <a href="<?= site_url('admin/website-config/delete/' . $item['id']); ?>" class="btn btn-danger" onclick="return confirm('Bạn có chắc muốn xóa?');"><i class="fa fa-trash" aria-hidden="true"></i></a>
+                                            <?= view(
+                                                "admin/Layouts/group_button_action_index_view.php",
+                                                [
+                                                    'uri_update' => site_url('admin/website-config/detail/' . $item['id']),
+                                                    'uri_delete' => site_url('admin/website-config/delete/' . $item['id']),
+                                                ]
+                                            ) ?>
                                         </td>
                                     </tr>
                                 <?php $idx++;

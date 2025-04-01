@@ -18,6 +18,7 @@ class ProductModel extends Model
         'is_active',
         'image',
     ];
+
     protected $validationRules    = [
         'name'        => 'required',
         'category_id' => 'required|integer',

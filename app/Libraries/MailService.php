@@ -9,11 +9,10 @@ class MailService
 {
     public function send_mail_mailer($to, $subject, $message)
     {
-        require_once APPPATH . '../vendor/autoload.php';
-
         $mail = new PHPMailer(true);
 
         try {
+
             $mail->isSMTP();
             $mail->Host       = session()->get('web_configs')['smtp_host'];
             $mail->SMTPAuth   = true;
@@ -21,9 +20,12 @@ class MailService
             $mail->Password   = session()->get('web_configs')['smtp_password'];
             $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
             $mail->Port       = session()->get('web_configs')['smtp_port'];
-            $aray_logo = explode('/', session()->get('web_configs')['banner_mail_logo']);
-            $imagePath = FCPATH . 'uploads/' . $aray_logo[count($aray_logo) - 1];
-            $mail->addEmbeddedImage($imagePath, 'logo_cid');
+            try {
+                $aray_logo = explode('/', session()->get('web_configs')['banner_mail_logo']);
+                $imagePath = FCPATH . 'uploads/' . $aray_logo[count($aray_logo) - 1];
+                $mail->addEmbeddedImage($imagePath, 'logo_cid');
+            } catch (\Throwable $th) {
+            }
             $mail->setFrom(session()->get('web_configs')['admin_email'], session()->get('web_configs')['site_name']);
             $mail->addAddress($to);
             $mail->Subject = $subject;
@@ -36,11 +38,11 @@ class MailService
                 'status' => true,
                 'message' => ''
             ];
-        } catch (Exception $e) {
+        } catch (\Throwable $th) {
             return [
                 'result' => '',
                 'status' => false,
-                'message' => $mail->ErrorInfo . ' => ' . $e->getMessage()
+                'message' => $mail->ErrorInfo . ' => ' . $th->getMessage()
             ];
         }
     }

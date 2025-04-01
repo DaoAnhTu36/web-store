@@ -10,12 +10,15 @@ use App\Models\ImageModel;
 class WebsiteConfigController extends BaseController
 {
     protected $model;
-    protected $modelImage;
+    protected $imageModel;
+    protected $image_type;
+    public $key_name_session = 'web_configs';
 
     public function __construct()
     {
         $this->model = new WebsiteConfigModel();
-        $this->modelImage = new ImageModel();
+        $this->imageModel = new ImageModel();
+        $this->image_type = 'website_configs';
     }
 
     public function index()
@@ -47,21 +50,16 @@ class WebsiteConfigController extends BaseController
 
     public function save()
     {
-        helper(['form', 'url']);
-        $validation = \Config\Services::validation();
-        $validation->setRules([
-            'config_key' => 'required',
-            'config_value' => 'required',
-        ]);
         $files = $this->request->getFiles();
         $check_validate_files = get_validate_upload_file($files);
-        if ($check_validate_files != '') {
-            $validation->setRules([
-                'images' => $check_validate_files,
-            ]);
+        $rules = $this->websiteConfigModel->validationRules;
+        $messages = $this->websiteConfigModel->validationMessages;
+        if (!empty($check_validate_files)) {
+            $rules['images'] = $check_validate_files;
+            $messages['images'] = get_message_error_file();
         }
-        if (!$validation->withRequest($this->request)->run()) {
-            return redirect()->to('admin/website-config/create')->withInput()->with('errors', implode(', ', $validation->getErrors()));
+        if (!$this->validate($rules, $messages)) {
+            return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
         }
         $data = [
             'config_key' => $this->request->getPost('config_key'),
@@ -69,20 +67,8 @@ class WebsiteConfigController extends BaseController
             'description' => $this->request->getPost('description'),
         ];
         $record_id = $this->model->insert($data);
-        session()->remove('web_configs');
-        if ($files) {
-            foreach ($files['images'] as $img) {
-                if ($img->isValid() && !$img->hasMoved()) {
-                    $newName = $img->getRandomName();
-                    $img->move('uploads/', $newName);
-                    $this->modelImage->save([
-                        'record_id' => $record_id,
-                        'image_path' => 'uploads/' . $newName,
-                        'type' => 'website_configs',
-                    ]);
-                }
-            }
-        }
+        $this->imageModel->upload_image($files, $record_id, $this->image_type);
+        session()->remove($this->key_name_session);
         return redirect()->to('admin/website-config')->with('success', 'Thêm mới thành công cấu hình website');
     }
 
@@ -107,21 +93,16 @@ class WebsiteConfigController extends BaseController
 
     public function update($id)
     {
-        helper(['form', 'url']);
-        $validation = \Config\Services::validation();
-        $validation->setRules([
-            'config_key' => 'required',
-            'config_value' => 'required',
-        ]);
         $files = $this->request->getFiles();
         $check_validate_files = get_validate_upload_file($files);
-        if ($check_validate_files != '') {
-            $validation->setRules([
-                'images' => $check_validate_files,
-            ]);
+        $rules = $this->websiteConfigModel->validationRules;
+        $messages = $this->websiteConfigModel->validationMessages;
+        if (!empty($check_validate_files)) {
+            $rules['images'] = $check_validate_files;
+            $messages['images'] = get_message_error_file();
         }
-        if (!$validation->withRequest($this->request)->run()) {
-            return redirect()->back()->withInput()->with('errors', implode(', ', $validation->getErrors()));
+        if (!$this->validate($rules, $messages)) {
+            return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
         }
         $data = [
             'config_key' => $this->request->getPost('config_key'),
@@ -129,32 +110,16 @@ class WebsiteConfigController extends BaseController
             'description' => $this->request->getPost('description'),
         ];
         $this->model->update($id, $data);
-        session()->remove('web_configs');
-        if ($files) {
-            foreach ($files['images'] as $img) {
-                if ($img->isValid() && !$img->hasMoved()) {
-                    $newName = $img->getRandomName();
-                    $img->move('uploads/', $newName);
-                    $this->modelImage->save([
-                        'record_id' => $id,
-                        'image_path' => 'uploads/' . $newName,
-                        'type' => 'website_configs',
-                    ]);
-                    $check_exist = $this->modelImage->where('record_id', $id)->where('type', 'website_configs')->first();
-                    if ($check_exist) {
-                        $this->modelImage->delete($check_exist['id']);
-                    }
-                }
-            }
-        }
-
+        $this->imageModel->upload_image($files, $id, $this->image_type);
+        session()->remove($this->key_name_session);
         return redirect()->to('admin/website-config')->with('success', 'Cập nhật thành công cấu hình website');
     }
 
     public function delete($id)
     {
         $this->model->delete($id);
-        session()->remove('web_configs');
+        $this->imageModel->delete_image($id, $this->image_type);
+        session()->remove($this->key_name_session);
         return redirect()->to('admin/website-config')->with('success', 'Xóa thành công cấu h
     ình website');
     }
