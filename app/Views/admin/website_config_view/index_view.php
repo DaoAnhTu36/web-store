@@ -29,6 +29,7 @@
                                     <th>STT</th>
                                     <th>Khóa</th>
                                     <th>Giá trị</th>
+                                    <th>Loại</th>
                                     <th>Mô tả</th>
                                     <th>#</th>
                                 </tr>
@@ -40,6 +41,7 @@
                                         <td><?= $idx ?></td>
                                         <td><?= $item['config_key'] ?></td>
                                         <td><?= $item['config_value'] ?></td>
+                                        <td><?= $item['type'] == 1 ? "Ảnh" : 'Thường' ?></td>
                                         <td><?= $item['description'] ?></td>
                                         <td class="action-icons">
                                             <?= view(

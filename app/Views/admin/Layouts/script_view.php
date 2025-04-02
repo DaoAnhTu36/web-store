@@ -1059,6 +1059,10 @@
     function getDefaultSymbolCurrency() {
         return '₫';
     }
+
+    function getValueWithoutDots(inputElement) {
+        return inputElement.value.replace(/\./g, '');
+    }
 </script>
 
 </body>

@@ -6,7 +6,7 @@
         <div class="table-responsive" style="margin-top:100px; text-align:center">
             <div class="col-md-12">
                 <?php if (isset(session()->get('web_configs')['logo_order_successful'])): ?>
-                    <img src="<?= session()->get('web_configs')['logo_order_successful'] ?>" alt="" srcset="">
+                    <img src="<?= base_url(session()->get('web_configs')['logo_order_successful']) ?>" alt="" srcset="">
                 <?php endif ?>
             </div>
             <div class="col-md-12">

@@ -23,16 +23,7 @@ class WebsiteConfigController extends BaseController
 
     public function index()
     {
-        $data = $this->model
-            ->select("website_configs.*
-            , IFNULL(images.record_id,'') AS image_record_id
-            , IFNULL(images.type,'') AS type_record
-            , IFNULL(GROUP_CONCAT(images.image_path SEPARATOR ', '), '') AS images
-            ")
-            ->join('images', "images.record_id = website_configs.id AND images.type = 'website_configs'", 'left')
-            ->groupBy('website_configs.id')
-            ->orderBy('created_at', 'desc')
-            ->findAll();
+        $data = $this->model->get_all_config();
         $data_view = [
             'title' => 'Danh sách cấu hình website',
             'data' => $data
@@ -65,6 +56,7 @@ class WebsiteConfigController extends BaseController
             'config_key' => $this->request->getPost('config_key'),
             'config_value' => $this->request->getPost('config_value'),
             'description' => $this->request->getPost('description'),
+            'type' => $this->request->getPost('type'),
         ];
         $record_id = $this->model->insert($data);
         $this->imageModel->upload_image($files, $record_id, $this->image_type);
@@ -74,16 +66,7 @@ class WebsiteConfigController extends BaseController
 
     public function detail($id)
     {
-        $data = $this->model
-            ->select("website_configs.*
-                    , IFNULL(images.record_id,'') AS image_record_id
-                    , IFNULL(images.type,'') AS type_record
-                    , IFNULL(GROUP_CONCAT(images.image_path SEPARATOR ', '), '') AS images
-                    ")
-            ->join('images', "images.record_id = website_configs.id AND images.type = 'website_configs'", 'left')
-            ->where('website_configs.id', $id)
-            ->groupBy('website_configs.id')
-            ->first();
+        $data = $this->model->get_config_by_id($id);
         $data_view = [
             'title' => 'Chi tiết cấu hình website',
             'data' => $data,
@@ -108,6 +91,7 @@ class WebsiteConfigController extends BaseController
             'config_key' => $this->request->getPost('config_key'),
             'config_value' => $this->request->getPost('config_value'),
             'description' => $this->request->getPost('description'),
+            'type' => $this->request->getPost('type'),
         ];
         $this->model->update($id, $data);
         $this->imageModel->upload_image($files, $id, $this->image_type);

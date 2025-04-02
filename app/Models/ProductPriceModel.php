@@ -27,7 +27,8 @@ class ProductPriceModel extends Model
             ->orderBy('products.created_at', 'DESC')
             ->findAll();
     }
-    public function getProductsPrice()
+
+    public function get_product_price()
     {
         return $this->select("product_prices.price
             , products.id AS product_id
@@ -40,5 +41,10 @@ class ProductPriceModel extends Model
             ->where('products.is_active', 1)
             ->orderBy('product_prices.created_at', 'DESC')
             ->findAll();
+    }
+
+    public function get_current_price_by_product_id($product_id)
+    {
+        return $this->where('product_id', $product_id)->orderBy('created_at', 'desc')->first();
     }
 }

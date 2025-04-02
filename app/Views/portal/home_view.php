@@ -102,14 +102,19 @@
                                     <div class="col-md-6 col-lg-4 col-xl-3">
                                         <div class="rounded position-relative fruite-item">
                                             <div class="fruite-img" style="overflow: hidden;height: 300px;">
-                                                <img src="<?= base_url($item['image']) ?>" class="img-fluid w-100 rounded-top" alt="">
+                                                <?php if (isset($item['image']) && $item['image'] !== ''): ?>
+                                                    <img src="<?= base_url(trim($item['image'])) ?>" class="img-fluid w-100 rounded-top" alt="">
+                                                <?php else: ?>
+                                                    <img src="<?= base_url(trim(session()->get('web_configs')['image_product_default'])) ?>" class="img-fluid w-100 rounded-top" alt="">
+                                                <?php endif ?>
+
                                             </div>
                                             <!-- <div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">Giảm giá</div> -->
                                             <div class="p-4 rounded-bottom">
                                                 <h5><?= $item['name'] ?></h5>
                                                 <div class="d-flex justify-content-between flex-lg-wrap">
                                                     <!-- <p class="text-dark strike-text fs-5 fw-bold mb-0"><?= format_currency($item['price']) ?> ₫</p> -->
-                                                    <p class="text-dark fs-5 fw-bold mb-0"><?= format_currency($item['price']) ?> ₫</p>
+                                                    <p class="text-dark fs-5 fw-bold mb-0"><?= format_currency($item['price'], get_current_symboy()) ?></p>
                                                     <a onclick="onAddCart('<?= $item['id'] ?>','<?= $item['name'] ?>','<?= $item['price'] ?>')" class="btn border border-secondary rounded-pill px-3 text-primary"><i class="fa fa-shopping-bag me-2 text-primary"></i> Thêm</a>
                                                 </div>
                                             </div>
