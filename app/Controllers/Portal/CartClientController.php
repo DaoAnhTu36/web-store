@@ -137,12 +137,12 @@ class CartClientController extends BaseController
         $order_infor_address = $this->request->getPost("order_infor_address");
         $order_infor_note = $this->request->getPost("order_infor_note");
         $cart = session()->get("cart");
-        $total_price = array_sum(array_column($cart, 'sub_total'));
-        $table_product_in_mail = '';
 
         if (count($cart) == 0) {
             return redirect()->back()->with("errors", "Không có sản phẩm nào trong giỏ hàng");
         }
+        $total_price = array_sum(array_column($cart, 'sub_total'));
+        $table_product_in_mail = '';
         $customer_id = '';
         $customer_infor = $this->model
             ->where('email', $order_infor_email)
