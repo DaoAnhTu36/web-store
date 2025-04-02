@@ -33,6 +33,7 @@
 
     <!-- Template Stylesheet -->
     <link href="<?= base_url($libUrl . '/template/css/style.css'); ?>" rel="stylesheet">
+    <link href="<?= base_url($libUrl . '/portal/css/custom.css'); ?>" rel="stylesheet">
 
 </head>
 
