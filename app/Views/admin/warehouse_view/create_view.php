@@ -39,17 +39,17 @@
 
                             <form class="form-horizontal" action="<?= base_url('admin/warehouse/save'); ?>" method="POST" enctype="multipart/form-data">
                                 <fieldset>
-                                    <!-- <legend>Thêm mới sản phẩm</legend> -->
+                                    <legend>Thêm mới kho hàng mới</legend>
                                     <div class="form-group">
                                         <label class="col-md-2 control-label">Tên kho</label>
                                         <div class="col-md-10">
-                                            <input class="form-control" value="Kho Yên Xá" placeholder="" type="text" id="name" name="name">
+                                            <input class="form-control" value="" placeholder="" type="text" id="name" name="name">
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-md-2 control-label">Địa chỉ</label>
                                         <div class="col-md-10">
-                                            <input class="form-control" value="Số 5A ngõ 221 Yên Xá Tân Triều Thanh Trì Hà Nội" placeholder="" type="text" id="location" name="location">
+                                            <input class="form-control" value="" placeholder="" type="text" id="location" name="location">
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -63,34 +63,19 @@
                                         </div>
                                     </div>
                                 </fieldset>
-                                <div class="form-actions">
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <button class="btn btn-default" type="submit">
-                                                Hủy
-                                            </button>
-                                            <button class="btn btn-primary" type="submit">
-                                                <i class="fa fa-save"></i>
-                                                Lưu
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-
+                                <?= view(
+                                    "admin/Layouts/group_button_action_form_view.php",
+                                    [
+                                        'type_button' => "submit",
+                                        'label' => 'Lưu'
+                                    ]
+                                ) ?>
                             </form>
-
                         </div>
-
-
                     </div>
-
-
                 </div>
-
             </article>
-
         </div>
-
     </section>
 </div>
 

@@ -19,7 +19,7 @@ class WarehouseController extends BaseController
 
     public function index()
     {
-        $lstWarehouse = $this->warehouseModel->getAllWarehouse();
+        $lstWarehouse = $this->warehouseModel->get_all_warehouse();
         $data_view = [
             'title' => 'Danh sách kho hàng',
             'lstWarehouse' => $lstWarehouse
@@ -29,7 +29,7 @@ class WarehouseController extends BaseController
 
     public function create()
     {
-        $lstAdmin = $this->accountModel->where('role', 'admin')->findAll();
+        $lstAdmin = $this->accountModel->where('is_active', 1)->findAll();
         $data_view = [
             'title' => 'Thêm mới kho hàng',
             'lstAdmin' => $lstAdmin,
@@ -39,6 +39,11 @@ class WarehouseController extends BaseController
 
     public function save()
     {
+        $rules = $this->warehouseModel->validationRules;
+        $messages = $this->warehouseModel->validationMessages;
+        if (!$this->validate($rules, $messages)) {
+            return redirect()->back()->with('errors', $this->validator->getErrors());
+        }
         $data = [
             'name' => $this->request->getPost('name'),
             'location' => $this->request->getPost('location'),
@@ -62,6 +67,11 @@ class WarehouseController extends BaseController
 
     public function update($id)
     {
+        $rules = $this->warehouseModel->validationRules;
+        $messages = $this->warehouseModel->validationMessages;
+        if (!$this->validate($rules, $messages)) {
+            return redirect()->back()->with('errors', $this->validator->getErrors());
+        }
         $data = [
             'name' => $this->request->getPost('name'),
             'location' => $this->request->getPost('location'),
@@ -71,5 +81,9 @@ class WarehouseController extends BaseController
         return redirect()->to('admin/warehouse')->with('success', 'Cập nhật thành công kho hàng');
     }
 
-    public function delete($id) {}
+    public function delete($id)
+    {
+        $this->warehouseModel->delete($id);
+        return redirect()->to('admin/warehouse')->with('success', 'Xóa kho hàng thành công');
+    }
 }

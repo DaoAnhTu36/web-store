@@ -11,7 +11,25 @@ class WarehouseModel extends Model
 
     protected $allowedFields = ['name', 'location', 'account_id', 'created_at', 'created_by', 'updated_by', 'is_active'];
 
-    public function getAllWarehouse()
+    protected $validationRules    = [
+        'name'        => 'required',
+        'location' => 'required',
+        'account_id' => 'required',
+    ];
+
+    protected $validationMessages = [
+        'name' => [
+            'required'   => 'Tên kho hàng là bắt buộc',
+        ],
+        'location' => [
+            'required' => 'Địa chỉ kho hàng là bắt buộc.',
+        ],
+        'account_id' => [
+            'required' => 'Người quản lý kho hàng là bắt buộc.',
+        ],
+    ];
+
+    public function get_all_warehouse()
     {
         return $this
             ->select('accounts.full_name, warehouses.*')

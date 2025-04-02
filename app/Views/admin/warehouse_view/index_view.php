@@ -1,6 +1,5 @@
 <?= $this->extend('admin/Layouts/main_view.php'); ?>
 <?= $this->section('content'); ?>
-
 <div id="content">
     <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
@@ -18,33 +17,14 @@
             </div>
         </div>
     </div>
-
-
     <section id="widget-grid" class="">
-
-
         <div class="row">
-
-
-
             <div class="jarviswidget jarviswidget-color-darken" id="wid-id-0" data-widget-editbutton="false">
-
-
-
                 <div>
-
-
                     <div class="jarviswidget-editbox">
-
-
                     </div>
-
-
-
                     <div class="widget-body">
-
                         <table id="dt_basic" class="table table-striped table-bordered table-hover" width="100%">
-
                             <thead>
                                 <tr>
                                     <th>STT</th>
@@ -66,41 +46,33 @@
                                         <td><?= $item['full_name'] ?></td>
                                         <td><?= $item['created_at'] ?></td>
                                         <td>
-                                            <label class="switch1">
-                                                <?php if ($item['is_active']) { ?>
-                                                    <input type="checkbox" checked onclick="onChangeStatus(<?= $item['id'] ?>)">
-                                                <?php } else { ?>
-                                                    <input type="checkbox" onclick="onChangeStatus(<?= $item['id'] ?>)">
-                                                <?php } ?>
-                                                <span class="slider1"></span>
-                                            </label>
+                                            <?= view(
+                                                "admin/Layouts/button_active_index_view.php",
+                                                [
+                                                    'is_active' => $item['is_active'],
+                                                    'id' => $item['id'],
+                                                ]
+                                            ) ?>
                                         </td>
                                         <td class="action-icons">
-                                            <a href="<?= site_url('admin/warehouse/detail/' . $item['id']); ?>" class="btn btn-info"><i class="fa fa-eye" aria-hidden="true"></i></a>
-                                            <a href="<?= site_url('admin/warehouse/detail/' . $item['id']); ?>" class="btn btn-warning"><i class="fa fa-pencil" aria-hidden="true"></i></a>
-                                            <a href="<?= site_url('admin/warehouse/delete/' . $item['id']); ?>" class="btn btn-danger" onclick="return confirm('Bạn có chắc muốn xóa?');"><i class="fa fa-trash" aria-hidden="true"></i></a>
+                                            <?= view(
+                                                "admin/Layouts/group_button_action_index_view.php",
+                                                [
+                                                    'uri_update' => site_url('admin/warehouse/detail/' . $item['id']),
+                                                    'uri_delete' => site_url('admin/warehouse/delete/' . $item['id']),
+                                                ]
+                                            ) ?>
                                         </td>
                                     </tr>
                                 <?php $idx++;
                                 endforeach ?>
                             </tbody>
                         </table>
-
                     </div>
-
-
                 </div>
-
-
             </div>
-
-
         </div>
-
-
-
     </section>
-
 </div>
 
 
