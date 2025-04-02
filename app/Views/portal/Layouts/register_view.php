@@ -44,9 +44,17 @@
                     </table>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" id="" class="btn btn-success" onclick="onClearNoti()" style="color:white" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#signinModal">Đăng nhập</button>
-                    <button type="button" id="register_now" class="btn btn-primary" style="color:white" onclick="onRegisterCustomer()">Submit</button>
-                    <button type="button" id="active_now" class="btn btn-danger" style="color:white;display: none;" onclick="onActiveCustomer()">Kích hoạt ngay</button>
+                    <div class="login-register">
+                        <div class="area-action area-login">
+                            <button type="button" id="" class="btn border-secondary rounded-pill px-4 py-3 text-primary" onclick="onClearNoti()" style="color:white" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#signinModal">Đăng nhập</button>
+                        </div>
+                        <div class="area-action area-verify">
+                            <button type="button" id="active_now" class="btn border-secondary rounded-pill px-4 py-3 text-primary" style="color:white;display: none;" onclick="onActiveCustomer()">Kích hoạt ngay</button>
+                        </div>
+                        <div class="area-action area-submit">
+                            <button type="button" id="register_now" class="btn border-secondary rounded-pill px-4 py-3 text-primary" style="color:white" onclick="onRegisterCustomer()">Submit</button>
+                        </div>
+                    </div>
                 </div>
             </form>
         </div>

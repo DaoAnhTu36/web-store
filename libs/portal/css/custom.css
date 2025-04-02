@@ -9,3 +9,14 @@ input {
 #formRegisterModal input {
   border: 1px solid black !important;
 }
+
+.login-register{
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+}
+
+.login-register .area-action{
+  width: 100%;
+  text-align: center;
+}
