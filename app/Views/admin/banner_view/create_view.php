@@ -31,7 +31,7 @@
                                             Mô tả
                                         </label>
                                         <div class="col-md-10">
-                                            <input class="form-control" value="" placeholder="" type="text" id="description" name="description">
+                                            <textarea class="form-control" value="" placeholder="" type="text" id="description" name="description"></textarea>
                                         </div>
                                     </div>
                                     <div class="form-group">
