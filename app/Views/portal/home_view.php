@@ -104,11 +104,11 @@
                                             <div class="fruite-img" style="overflow: hidden;height: 300px;">
                                                 <img src="<?= $item['image'] ?>" class="img-fluid w-100 rounded-top" alt="">
                                             </div>
-                                            <div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">Giảm giá</div>
+                                            <!-- <div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">Giảm giá</div> -->
                                             <div class="p-4 rounded-bottom">
                                                 <h5><?= $item['name'] ?></h5>
                                                 <div class="d-flex justify-content-between flex-lg-wrap">
-                                                    <p class="text-dark strike-text fs-5 fw-bold mb-0"><?= format_currency($item['price']) ?> ₫</p>
+                                                    <!-- <p class="text-dark strike-text fs-5 fw-bold mb-0"><?= format_currency($item['price']) ?> ₫</p> -->
                                                     <p class="text-dark fs-5 fw-bold mb-0"><?= format_currency($item['price']) ?> ₫</p>
                                                     <a onclick="onAddCart('<?= $item['id'] ?>','<?= $item['name'] ?>','<?= $item['price'] ?>')" class="btn border border-secondary rounded-pill px-3 text-primary"><i class="fa fa-shopping-bag me-2 text-primary"></i> Thêm</a>
                                                 </div>
