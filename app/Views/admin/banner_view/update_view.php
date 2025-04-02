@@ -65,7 +65,7 @@
                                 <?= view(
                                     "admin/Layouts/group_button_action_form_view.php",
                                     [
-                                        'type_button' => "button",
+                                        'type_button' => "submit",
                                         'label' => 'Cập nhật'
                                     ]
                                 ) ?>
