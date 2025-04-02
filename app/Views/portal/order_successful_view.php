@@ -5,7 +5,9 @@
     <div class="container py-5">
         <div class="table-responsive" style="margin-top:100px; text-align:center">
             <div class="col-md-12">
-                <img src="<?= base_url('uploads/check_complete_done_green_success_icon.png') ?>" alt="" srcset="">
+                <?php if (isset(session()->get('web_configs')['logo_order_successful'])): ?>
+                    <img src="<?= session()->get('web_configs')['logo_order_successful'] ?>" alt="" srcset="">
+                <?php endif ?>
             </div>
             <div class="col-md-12">
                 <h1>Đặt hàng thành công</h1>
