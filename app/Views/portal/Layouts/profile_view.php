@@ -47,7 +47,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" id="" class="btn btn-danger" style="color:white;" onclick="onSignupCustomer()">Đăng xuất tài khoản</button>
+                <button type="button" id="" class="btn border-secondary rounded-pill px-4 py-3 text-primary" style="color:white;" onclick="onSignupCustomer()">Đăng xuất tài khoản</button>
             </div>
         </div>
     </div>
