@@ -107,26 +107,27 @@
                 </table>
                 <form class="form-horizontal">
                     <fieldset>
+                        <div class="form-group" id="form-current-price" style="display: none;">
+                            <label class="col-md-4 control-label text-left">Giá bán hiện tại</label>
+                            <div class="col-md-6">
+                                <input class="form-control currency-input" disabled value="" placeholder="" type="text" id="current_price" name="current_price">
+                            </div>
+                        </div>
                         <div class="form-group">
-                            <label class="col-md-2 control-label">Giá bán</label>
-                            <div class="col-md-10">
-                                <input class="form-control" value="" placeholder="" type="text" id="price" name="price">
+                            <label class="col-md-4 control-label text-left">Thay đổi giá bán</label>
+                            <div class="col-md-6">
+                                <input class="form-control currency-input" value="" placeholder="" type="text" id="price" name="price">
                             </div>
                         </div>
                     </fieldset>
-                    <div class="form-actions">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <button class="btn btn-danger" type="button" data-dismiss="modal">
-                                    Hủy
-                                </button>
-                                <button class="btn btn-primary" type="button" onclick="savePrice()">
-                                    <i class="fa fa-save"></i>
-                                    Lưu
-                                </button>
-                            </div>
-                        </div>
-                    </div>
+                    <?= view(
+                        "admin/Layouts/group_button_action_form_view.php",
+                        [
+                            'function' => "savePrice()",
+                            'label' => 'Cập nhật',
+                            'function_back' => "onCloseModal()"
+                        ]
+                    ) ?>
                 </form>
             </div>
         </div>
@@ -148,16 +149,17 @@
                 product_id: id
             },
             success: function(response) {
-                let formatter = new Intl.NumberFormat('vi-VN');
                 let html = '';
-                if (Array.isArray(response.data) && response.data.length > 0) {
-                    response.data.forEach((item, index) => {
-                        html += '<tr>';
-                        html += '<td>' + (index + 1) + '</td>';
-                        html += '<td>' + formatter.format(item.unit_price) + ' ₫</td>';
-                        html += '<td>' + item.created_at + '</td>';
-                        html += '</tr>';
+                if (Array.isArray(response.data.history_price) && response.data.history_price.length > 0) {
+                    response.data.history_price.forEach((item, index) => {
+                        html += '<tr></tr><td>' + (index + 1) + '</td>';
+                        html += '<td>' + formatCurrency(item.unit_price, getDefaultSymbolCurrency()) + ' </td>';
+                        html += '<td>' + item.created_at + '</td></tr>';
                     });
+                    if (response.data.current_price && response.data.current_price.price !== '') {
+                        $("#form-current-price").show();
+                        $("#current_price").val(formatCurrency(response.data.current_price.price))
+                    }
                     $("#detailModal tbody").html(html);
                     $('#detailModal').modal('show');
                 }
@@ -166,7 +168,7 @@
     }
 
     function savePrice() {
-        let price = $('#price').val();
+        let price = getValueWithoutDots(document.querySelector('#price'));
         $.ajax({
             url: '<?= site_url('admin/product/set-price-product') ?>',
             type: 'POST',
@@ -177,13 +179,14 @@
             success: function(response) {
                 if (response.status == true) {
                     $('#detailModal').modal('hide');
-                    Toastify({
-                        text: response.message ?? 'Thành công',
-                        duration: 1500,
-                    }).showToast();
+                    onToastrSuccess(response.message);
                 }
             }
         });
+    }
+
+    function onCloseModal() {
+        $('#detailModal button[class="close"]').click();
     }
 </script>
 <?= $this->endSection(); ?>

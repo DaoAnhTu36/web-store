@@ -10,6 +10,7 @@ use App\Models\TransactionModel;
 use App\Models\TransactionDetailModel;
 use App\Models\WarehouseModel;
 use App\Models\InventoryModel;
+use App\Models\ProductPriceModel;
 
 class TransactionController extends BaseController
 {
@@ -20,6 +21,7 @@ class TransactionController extends BaseController
     protected $modelProduct;
     protected $modelWarehouse;
     protected $modelInventory;
+    protected $productPriceModel;
 
     public function __construct()
     {
@@ -30,6 +32,7 @@ class TransactionController extends BaseController
         $this->modelProduct = new ProductModel();
         $this->modelWarehouse = new WarehouseModel();
         $this->modelInventory = new InventoryModel();
+        $this->productPriceModel = new ProductPriceModel();
     }
 
     public function index() {}
@@ -137,7 +140,12 @@ class TransactionController extends BaseController
     public function getPriceHistory()
     {
         $product_id = $this->request->getPost("product_id");
-        $data = $this->modelTransactionDetail->getPriceHistory($product_id);
-        return apiResponse(true, 'Success', $data, 200);
+        $current_price = $this->productPriceModel->get_current_price_by_product_id($product_id);
+        $history_price = $this->modelTransactionDetail->get_history_price_by_product_id($product_id);
+        $ret_val = [
+            'current_price' => $current_price,
+            'history_price' => $history_price,
+        ];
+        return apiResponse(true, 'Success', $ret_val, 200);
     }
 }

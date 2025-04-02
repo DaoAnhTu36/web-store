@@ -43,6 +43,23 @@
                                         </div>
                                     </div>
                                     <div class="form-group">
+                                        <label class="col-md-2 control-label"></label>
+                                        <div class="col-md-10">
+                                            <div class="form-group">
+                                                <label class="col-md-2" for="type_normal">Loại thường</label>
+                                                <div class="col-md-10">
+                                                    <input type="radio" checked class="btn btn-default" id="type_normal" name="type" value="0">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-md-2" for="type_image">Loại ảnh</label>
+                                                <div class="col-md-10">
+                                                    <input type="radio" class="btn btn-default" id="type_image" name="type" value="1">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
                                         <label class="col-md-2 control-label">Hình ảnh</label>
                                         <div class="col-md-10">
                                             <input type="file" class="btn btn-default" id="images" name="images[]">

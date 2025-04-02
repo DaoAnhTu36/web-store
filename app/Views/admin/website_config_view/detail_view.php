@@ -19,6 +19,23 @@
                                     <div class="form-group"> <label class="col-md-2 control-label">Giá trị</label>
                                         <div class="col-md-4"> <input class="form-control" value="<?= $data['config_value'] ?>" placeholder="" type="text" id="config_value" name="config_value"> </div>
                                     </div>
+                                    <div class="form-group">
+                                        <label class="col-md-2 control-label"></label>
+                                        <div class="col-md-10">
+                                            <div class="form-group">
+                                                <label class="col-md-2" for="type_normal">Loại thường</label>
+                                                <div class="col-md-10">
+                                                    <input type="radio" <?= $data['type'] == 0 ? 'checked' : '' ?> checked class="btn btn-default" id="type_normal" name="type" value="0">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-md-2" for="type_image">Loại ảnh</label>
+                                                <div class="col-md-10">
+                                                    <input type="radio" <?= $data['type'] == 1 ? 'checked' : '' ?> class="btn btn-default" id="type_image" name="type" value="1">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                     <div class="form-group"> <label class="col-md-2 control-label">Mô tả</label>
                                         <div class="col-md-4"> <input class="form-control" value="<?= $data['description'] ?>" placeholder="" type="text" id="description" name="description"> </div>
                                     </div>

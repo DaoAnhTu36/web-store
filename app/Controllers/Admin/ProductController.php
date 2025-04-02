@@ -177,7 +177,7 @@ class ProductController extends BaseController
 
     public function priceProductManagement()
     {
-        $data = $this->productPriceModel->getProductsPrice();
+        $data = $this->productPriceModel->get_product_price();
         $data_view = [
             'title' => 'Danh sách giá sản phẩm',
             'data' => $data,

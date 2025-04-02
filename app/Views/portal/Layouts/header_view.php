@@ -13,7 +13,7 @@
     <meta name="description" content="" />
     <meta name="mobile-web-app-capable" content="yes">
 
-    <link rel="shortcut icon" href="<?php echo isset(session()->get('web_configs')['logo']) ? session()->get('web_configs')['logo'] : ''; ?>" type="image/x-icon">
+    <link rel="shortcut icon" href="<?php echo isset(session()->get('web_configs')['logo']) ? base_url(session()->get('web_configs')['logo']) : ''; ?>" type="image/x-icon">
 
     <!-- Google Web Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">

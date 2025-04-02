@@ -1,9 +1,11 @@
 <div class="form-actions">
     <div class="row">
         <div class="col-md-12">
-            <button class="btn btn-danger" type="button" onclick="history.back()">
-                Hủy
-            </button>
+            <?php if (isset($function_back)): ?>
+                <button class="btn btn-danger" type="button" onclick="<?= $function_back ?>">
+                    Hủy
+                </button>
+            <?php endif ?>
             <?php if (isset($function)): ?>
                 <button class="btn btn-primary" type="button" onclick="<?= $function ?>">
                     <i class="fa fa-save"></i>

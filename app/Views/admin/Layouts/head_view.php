@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
 
-    <title> <?= session()->get('web_configs')['site_name_admin'] . ' - ' . $title ?> </title>
+    <title> <?php echo (isset(session()->get('web_configs')['site_name_admin']) ? session()->get('web_configs')['site_name_admin'] : '')  . ' - ' . $title ?> </title>
     <meta name="description" content="">
     <meta name="author" content="">
 
@@ -24,7 +24,7 @@
     <link rel="stylesheet" type="text/css" media="screen" href="<?= base_url($libUrl . '/css/toastify.min.css'); ?>">
     <link rel="stylesheet" type="text/css" media="screen" href="<?= base_url($libUrl . '/css/toastr.min.css'); ?>">
 
-    <link rel="shortcut icon" href="<?php echo isset(session()->get('web_configs')['logo']) ? session()->get('web_configs')['logo'] : ''; ?>" type="image/x-icon">
+    <link rel="shortcut icon" href="<?php echo isset(session()->get('web_configs')['logo']) ? base_url(session()->get('web_configs')['logo']) : ''; ?>" type="image/x-icon">
 
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,300,400,700">
 
