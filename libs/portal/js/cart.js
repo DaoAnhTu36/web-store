@@ -74,7 +74,12 @@ function completeOrder() {
   });
 }
 
-function validateCustomerOrder() {
+function validateCustomerOrder(event) {
+  const orderButton = event.target;
+  // orderButton.disabled = true;
+  orderButton.textContent = "Đang xử lý...";
+  // event.preventDefault();
+
   let retVal = true;
   let full_name_tag = $('#order_infor_full_name');
   let email_tag = $('#order_infor_email');

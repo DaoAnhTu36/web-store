@@ -112,7 +112,7 @@
                                 <h5 class="mb-0 ps-4 me-4">Tổng</h5>
                                 <p class="mb-0 pe-4" id="total_cart_with_fee"><?= $total_cart ?></p>
                             </div>
-                            <button onclick="return validateCustomerOrder();" class="btn border-secondary rounded-pill px-4 py-3 text-primary text-uppercase mb-4 ms-4" type="submit">Đặt hàng</button>
+                            <button onclick="return validateCustomerOrder(event);" class="btn border-secondary rounded-pill px-4 py-3 text-primary text-uppercase mb-4 ms-4" type="submit">Đặt hàng</button>
                         </div>
                     </div>
                 </div>
