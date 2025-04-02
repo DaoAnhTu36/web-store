@@ -43,14 +43,13 @@
                                             <td><?= $item['title'] ?></td>
                                             <td><?= $item['description'] ?></td>
                                             <td>
-                                                <label class="switch1">
-                                                    <?php if ($item['is_active']) { ?>
-                                                        <input type="checkbox" checked onclick="onChangeStatus(<?= $item['id'] ?>)">
-                                                    <?php } else { ?>
-                                                        <input type="checkbox" onclick="onChangeStatus(<?= $item['id'] ?>)">
-                                                    <?php } ?>
-                                                    <span class="slider1"></span>
-                                                </label>
+                                                <?= view(
+                                                    "admin/Layouts/button_active_index_view.php",
+                                                    [
+                                                        'is_active' => $item['is_active'],
+                                                        'id' => $item['id'],
+                                                    ]
+                                                ) ?>
                                             </td>
                                             <td class="action-icons">
                                                 <?= view(

@@ -15,7 +15,7 @@
                         <div class="jarviswidget-editbox">
                         </div>
                         <div class="widget-body">
-                            <form class="form-horizontal" id="form-create" enctype="multipart/form-data">
+                            <form method="POST" action="<?= site_url('admin/banner/update/' . $data['id']) ?>" class="form-horizontal" id="form-create" enctype="multipart/form-data">
                                 <fieldset>
                                     <legend>Thêm mới banner</legend>
                                     <div class="form-group">
@@ -62,7 +62,13 @@
                                         </div>
                                     </div>
                                 </fieldset>
-                                <?= view("admin/Layouts/group_button_action_form_view.php", ['function' => "onSubmitCreate('" . base_url('admin/banner/update/' . $data['id']) . "')", 'label' => 'Cập nhật']) ?>
+                                <?= view(
+                                    "admin/Layouts/group_button_action_form_view.php",
+                                    [
+                                        'type_button' => "button",
+                                        'label' => 'Cập nhật'
+                                    ]
+                                ) ?>
                             </form>
                         </div>
                     </div>
