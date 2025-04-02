@@ -60,7 +60,7 @@ class CustomerClientController extends BaseController
             $body = str_replace('{{logo}}', "cid:logo_cid", $body);
             $body = str_replace('{{username}}', $first_name_register . ' ' . $last_name_register, $body);
             $body = str_replace('{{website_name}}', session()->get('web_configs')['site_name'], $body);
-            $body = str_replace('{{verification_link}}', base_url('admin/customer/verify?id=' . $customer_id . '&token=' . $first_name_verification_token), $body);
+            $body = str_replace('{{verification_link}}', base_url('portal/customer-client/verify?id=' . $customer_id . '&token=' . $first_name_verification_token), $body);
             $subject = $mail_verify_account['subject'];
             $result = $this->mailService->send_mail_mailer($email_register, $subject, $body);
             if ($result['status'] == false) {
