@@ -5,10 +5,10 @@
             <div class="col-md-12 col-lg-7">
                 <h4 class="mb-3 text-secondary"><?= session()->get('web_configs') ? session()->get('web_configs')['slogan_head'] : 'Sản phẩm đến từ thiên nhiên!' ?></h4>
                 <h1 class="mb-5 display-3 text-primary"><?= session()->get('web_configs') ? session()->get('web_configs')['slogan_body'] : 'Nhẹ như sương sớm, thơm như ánh ban mai!' ?></h1>
-                <div class="position-relative mx-auto">
+                <!-- <div class="position-relative mx-auto">
                     <input class="form-control border-2 border-secondary w-75 py-3 px-4 rounded-pill" type="number" placeholder="Tìm kiếm sản phẩm">
                     <button type="submit" class="btn btn-primary border-2 border-secondary py-3 px-4 position-absolute rounded-pill text-white h-100" style="top: 0; right: 25%;">Tìm kiếm ngay</button>
-                </div>
+                </div> -->
             </div>
             <div class="col-md-12 col-lg-5">
                 <div id="carouselId" class="carousel slide position-relative" data-bs-ride="carousel">
