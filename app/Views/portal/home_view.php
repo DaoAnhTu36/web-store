@@ -112,10 +112,16 @@
                                             <!-- <div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">Giảm giá</div> -->
                                             <div class="p-4 rounded-bottom">
                                                 <h5><?= $item['name'] ?></h5>
-                                                <div class="d-flex justify-content-between flex-lg-wrap">
-                                                    <!-- <p class="text-dark strike-text fs-5 fw-bold mb-0"><?= format_currency($item['price']) ?> ₫</p> -->
-                                                    <p class="text-dark fs-5 fw-bold mb-0"><?= format_currency($item['price'], get_current_symboy()) ?></p>
-                                                    <a onclick="onAddCart('<?= $item['id'] ?>','<?= $item['name'] ?>','<?= $item['price'] ?>')" class="btn border border-secondary rounded-pill px-3 text-primary"><i class="fa fa-shopping-bag me-2 text-primary"></i> Thêm</a>
+                                                <div class="row">
+                                                    <div class="col-md-12 col-sm-12 col-xs-12 mb-1">
+                                                        <p class="text-dark fs-5 fw-bold"><?= format_currency($item['price'], get_current_symboy()) ?></p>
+                                                    </div>
+                                                    <div class="col-md-6 col-sm-12 col-xs-12 mb-1">
+                                                        <a onclick="onAddCart('<?= $item['id'] ?>','<?= $item['name'] ?>','<?= $item['price'] ?>','buyNow')" class="btn border border-secondary rounded-pill px-3 text-primary"> Mua ngay</a>
+                                                    </div>
+                                                    <div class="col-md-6 col-sm-12 col-xs-12 mb-1">
+                                                        <a onclick="onAddCart('<?= $item['id'] ?>','<?= $item['name'] ?>','<?= $item['price'] ?>','addToCart')" class="btn border border-secondary rounded-pill px-3 text-primary"><i class="fa fa-shopping-bag me-2 text-primary"></i> Thêm</a>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
