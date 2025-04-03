@@ -25,7 +25,7 @@
                             <button type="button" class="btn border-secondary rounded-pill px-4 py-3 text-primary" style="color:white;" onclick="onClearNoti()" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#registerModal">Đăng ký</button>
                         </div>
                         <div class="area-action area-submit">
-                            <button type="button" class="btn border-secondary rounded-pill px-4 py-3 text-primary" onclick="onSigninCustomer()">Submit</button>
+                            <button type="button" class="btn border-secondary rounded-pill px-4 py-3 text-primary" onclick="onSigninCustomer()">Đăng nhập</button>
                         </div>
                     </div>
                 </div>

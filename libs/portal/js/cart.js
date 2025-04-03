@@ -17,7 +17,7 @@ function onAddCart(id, name, price, type) {
           $("#notification").addClass('notification-success').toggle();
           setTimeout(() => {
             $("#notification").toggle();
-          }, 1000);
+          }, 2000);
         }
       }
     },
@@ -120,7 +120,7 @@ function validateCustomerOrder(event) {
     $("#notification").text('Kiểm tra lại thông tin đơn hàng').addClass('notification-error').toggle();
     setTimeout(() => {
       $("#notification").toggle();
-    }, 1000);
+    }, 2000);
   }
   return retVal;
 }
