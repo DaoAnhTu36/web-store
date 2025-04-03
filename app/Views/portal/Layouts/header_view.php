@@ -50,6 +50,7 @@
     z-index: 9999;
     padding: 20px;
     color: white;
-    border-radius: 10px;">
+    border-radius: 10px;
+    ">
         Đã thêm vào giỏ hàng
     </div>

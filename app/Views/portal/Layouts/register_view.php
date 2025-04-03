@@ -52,7 +52,7 @@
                             <button type="button" id="active_now" class="btn border-secondary rounded-pill px-4 py-3 text-primary" style="color:white;display: none;" onclick="onActiveCustomer()">Kích hoạt ngay</button>
                         </div>
                         <div class="area-action area-submit">
-                            <button type="button" id="register_now" class="btn border-secondary rounded-pill px-4 py-3 text-primary" style="color:white" onclick="onRegisterCustomer()">Submit</button>
+                            <button type="button" id="register_now" class="btn border-secondary rounded-pill px-4 py-3 text-primary" style="color:white" onclick="onRegisterCustomer()">Đăng ký</button>
                         </div>
                     </div>
                 </div>

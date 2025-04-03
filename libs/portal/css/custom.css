@@ -22,9 +22,9 @@ input {
 }
 
 .notification-success{
-  background-color: rgba(172, 255, 47, 0.575);
+  background-color: rgb(15, 155, 2);
 }
 
 .notification-error{
-  background-color: rgba(224, 45, 45, 0.485);
+  background-color: rgb(180, 38, 38);
 }
