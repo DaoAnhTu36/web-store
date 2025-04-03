@@ -38,3 +38,18 @@
 </head>
 
 <body>
+    <!-- <div id="ajax-loader" style="display:none; position:fixed; top:50%; left:50%; transform:translate(-50%, -50%); z-index:9999;">
+        <div class="spinner-border text-primary" role="status">
+            <span class="visually-hidden">Đã thêm vào giỏ hàng</span>
+        </div>
+    </div> -->
+    <div id="notification" style="display:none; position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 9999;
+    padding: 20px;
+    color: white;
+    border-radius: 10px;">
+        Đã thêm vào giỏ hàng
+    </div>

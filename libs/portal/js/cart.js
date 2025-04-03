@@ -1,4 +1,4 @@
-function onAddCart(id, name, price) {
+function onAddCart(id, name, price, type) {
   $.ajax({
     type: 'POST',
     url: baseURL + 'portal/cart-client/add-to-cart',
@@ -9,7 +9,17 @@ function onAddCart(id, name, price) {
       quantity: 1,
     },
     success: function (response) {
-      $('#total-item-in-cart').text(response.data.total_item);
+      if(response.status){
+        if(type === 'buyNow'){
+          window.location.href = baseURL + 'portal/cart-client';
+        }else{
+          $('#total-item-in-cart').text(response.data.total_item);
+          $("#notification").addClass('notification-success').toggle();
+          setTimeout(() => {
+            $("#notification").toggle();
+          }, 1000);
+        }
+      }
     },
     error: function (xhr, status, error) {
       console.log('Error:', error);
@@ -76,9 +86,7 @@ function completeOrder() {
 
 function validateCustomerOrder(event) {
   const orderButton = event.target;
-  // orderButton.disabled = true;
   orderButton.textContent = "Đang xử lý...";
-  // event.preventDefault();
 
   let retVal = true;
   let full_name_tag = $('#order_infor_full_name');
@@ -106,6 +114,13 @@ function validateCustomerOrder(event) {
   if (!address) {
     address_tag.addClass('error-input');
     retVal = false;
+  }
+  if(!retVal){
+    orderButton.textContent = "Đặt hàng";
+    $("#notification").text('Kiểm tra lại thông tin đơn hàng').addClass('notification-error').toggle();
+    setTimeout(() => {
+      $("#notification").toggle();
+    }, 1000);
   }
   return retVal;
 }
