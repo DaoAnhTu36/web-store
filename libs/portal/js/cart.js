@@ -1,4 +1,11 @@
 function onAddCart(id, name, price, type) {
+  if(type !== 'buyNow'){
+    $('#total-item-in-cart').text('Thêm giỏ hàng thành công');
+    $("#notification").addClass('notification-success').toggle();
+    setTimeout(() => {
+      $("#notification").toggle();
+    }, 1500);
+  }
   $.ajax({
     type: 'POST',
     url: baseURL + 'portal/cart-client/add-to-cart',
@@ -12,12 +19,6 @@ function onAddCart(id, name, price, type) {
       if(response.status){
         if(type === 'buyNow'){
           window.location.href = baseURL + 'portal/cart-client';
-        }else{
-          $('#total-item-in-cart').text(response.data.total_item);
-          $("#notification").addClass('notification-success').toggle();
-          setTimeout(() => {
-            $("#notification").toggle();
-          }, 2000);
         }
       }
     },
