@@ -95,23 +95,23 @@ $data = [
                                 <section>
                                     <label class="label">Tên đăng nhập</label>
                                     <label class="input"> <i class="icon-append fa fa-user"></i>
-                                        <input type="text" value="trantu029" name="user_name">
+                                        <input type="text" value="" name="user_name">
                                 </section>
 
                                 <section>
                                     <label class="label">Mật khẩu</label>
                                     <label class="input"> <i class="icon-append fa fa-lock"></i>
-                                        <input type="password" value="123@123" name="password">
-                                        <div class="note">
-                                            <a href="forgotpassword.html">Quên mật khẩu?</a>
-                                        </div>
+                                        <input type="password" value="" name="password">
+                                        <!-- <div class="note">
+                                            <a href="#">Quên mật khẩu?</a>
+                                        </div> -->
                                 </section>
 
-                                <section>
+                                <!-- <section>
                                     <label class="checkbox">
                                         <input type="checkbox" name="remember" checked="">
                                         <i></i>Lưu phiên đăng nhập</label>
-                                </section>
+                                </section> -->
                             </fieldset>
                             <footer>
                                 <button type="submit" class="btn btn-primary">
@@ -122,7 +122,7 @@ $data = [
 
                     </div>
 
-                    <h5 class="text-center"> - Hoặc sử dụng -</h5>
+                    <!-- <h5 class="text-center"> - Hoặc sử dụng -</h5>
 
                     <ul class="list-inline text-center">
                         <li>
@@ -134,7 +134,7 @@ $data = [
                         <li>
                             <a href="javascript:void(0);" class="btn btn-warning btn-circle"><i class="fa fa-linkedin"></i></a>
                         </li>
-                    </ul>
+                    </ul> -->
 
                 </div>
             </div>
