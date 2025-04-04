@@ -134,7 +134,12 @@ class CartClientController extends BaseController
         $total_item = 0;
         $cart = $this->session->get('cart') ?? [];
         if (count($cart) === 0) {
-            return format_currency(0, get_current_symboy());
+            return [
+                'total_amount_cart' => format_currency(0, get_current_symboy()),
+                'total_sale_cart' => format_currency(0, get_current_symboy()),
+                'total_pay_cart' => format_currency(0, get_current_symboy()),
+                'total_item' => $total_item,
+            ];
         }
         foreach ($cart as $item) {
             $total_amount_cart += $item['price'] * $item['quantity'];
