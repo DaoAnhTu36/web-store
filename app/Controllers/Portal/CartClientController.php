@@ -224,7 +224,8 @@ class CartClientController extends BaseController
             ];
             $htmlContent = str_replace('{{no}}', $idx, $htmlContent);
             $htmlContent = str_replace('{{product_name}}', $item['name'], $htmlContent);
-            $htmlContent = str_replace('{{price}}', format_currency($item['sale_price'], get_current_symboy()), $htmlContent);
+            $htmlContent = str_replace('{{price}}', format_currency($item['price'], get_current_symboy()), $htmlContent);
+            $htmlContent = str_replace('{{sale_price}}', format_currency($item['sale_price'], get_current_symboy()), $htmlContent);
             $htmlContent = str_replace('{{quantity}}', format_currency($item['quantity']), $htmlContent);
             $idx++;
             $table_product_in_mail .= $htmlContent;
