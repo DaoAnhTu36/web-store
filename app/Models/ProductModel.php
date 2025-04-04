@@ -71,4 +71,20 @@ class ProductModel extends Model
             ->where('products.id', $productId)
             ->first();
     }
+
+    public function get_detail_product_by_id($id)
+    {
+        return $this->select("products.id
+            , products.name
+            , products.created_at
+            , products.category_id
+            , products.is_active
+            , products.image
+            , IFNULL(GROUP_CONCAT(images.image_path SEPARATOR ', '),'') AS images")
+            ->join('images', "images.record_id = products.id AND images.type = 'product'", 'left')
+            ->groupBy('products.id')
+            ->orderBy('products.created_at', 'DESC')
+            ->where('products.id', $id)
+            ->first();
+    }
 }

@@ -3,19 +3,20 @@
 namespace App\Controllers\Portal;
 
 use App\Controllers\BaseController;
+use App\Models\ProductModel;
 
 class ProductController extends BaseController
 {
+    protected $productModel;
     public function __construct()
     {
-        helper("common");
+        $this->productModel = new ProductModel();
     }
 
     public function detail_product($id)
     {
-        $model = new \App\Models\ProductModel();
-        $data = $model->getProductsWithImagesByProductId($id);
-        // EchoCommon($data);
+        $data = $this->productModel->get_detail_product_by_id($id);
+        // debug_object($data);
         $data_view = [
             'data' => $data,
         ];
