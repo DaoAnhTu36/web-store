@@ -15,6 +15,7 @@
                             <th scope="col">STT</th>
                             <th scope="col">Tên sản phẩm</th>
                             <th scope="col">Đơn giá</th>
+                            <th scope="col">Giảm giá</th>
                             <th scope="col">Số lượng</th>
                             <th scope="col">Thành tiền</th>
                             <th scope="col">#</th>
@@ -32,6 +33,9 @@
                                 </td>
                                 <td>
                                     <p class="mb-0 mt-4"><?= format_currency($item['price'], get_current_symboy()) ?></p>
+                                </td>
+                                <td>
+                                    <p class="mb-0 mt-4"><?= format_currency($item['sale_price'], get_current_symboy()) ?></p>
                                 </td>
                                 <td>
                                     <div class="input-group quantity mt-4" style="width: 100px;">
@@ -63,9 +67,9 @@
                     </tbody>
                 </table>
         </div>
-        <div class="mt-5">
+        <!-- <div class="mt-5">
             <input type="text" style="outline: none;padding-left:15px" class="border-0 border-bottom rounded me-5 py-3 mb-4" placeholder="Nhập mã giảm giá" name="id_coupon" id="id_coupon">
-        </div>
+        </div> -->
         <div class="row g-4 justify-content-end">
             <form action="<?= site_url('portal/cart-client/complete-order') ?>" method="POST">
                 <div class="row">
@@ -99,7 +103,11 @@
                                 <h1 class="display-6 mb-4">Đơn hàng</h1>
                                 <div class="d-flex justify-content-between mb-4">
                                     <h5 class="mb-0 me-4">Tổng tiền:</h5>
-                                    <p class="mb-0" id="total_cart"><?= $total_cart ?></p>
+                                    <p class="mb-0" id="total_amount_cart"><?= $summary_cart['total_amount_cart'] ?></p>
+                                </div>
+                                <div class="d-flex justify-content-between mb-4">
+                                    <h5 class="mb-0 me-4">Tổng tiền giảm:</h5>
+                                    <p class="mb-0" id="total_sale_cart"><?= $summary_cart['total_sale_cart'] ?></p>
                                 </div>
                                 <div class="d-flex justify-content-between">
                                     <h5 class="mb-0 me-4">Phi giao hàng</h5>
@@ -109,8 +117,8 @@
                                 </div>
                             </div>
                             <div class="py-4 mb-4 border-top border-bottom d-flex justify-content-between">
-                                <h5 class="mb-0 ps-4 me-4">Tổng</h5>
-                                <p class="mb-0 pe-4" id="total_cart_with_fee"><?= $total_cart ?></p>
+                                <h5 class="mb-0 ps-4 me-4">Tổng tiền thanh toán</h5>
+                                <p class="mb-0 pe-4" id="total_pay_cart"><?= $summary_cart['total_pay_cart'] ?></p>
                             </div>
                             <button onclick="return validateCustomerOrder(event);" class="btn border-secondary rounded-pill px-4 py-3 text-primary text-uppercase mb-4 ms-4" type="submit">Đặt hàng</button>
                         </div>

@@ -8,6 +8,8 @@ use App\Models\CustomerModel;
 use App\Models\EmailTemplateModel;
 use App\Models\OrderModel;
 use App\Models\OrderDetailModel;
+use App\Models\ProductDiscountModel;
+use App\Models\DiscountModel;
 
 use App\Libraries\MailService;
 
@@ -19,6 +21,8 @@ class CartClientController extends BaseController
     protected $orderDetailModel;
     protected $emailTemplateModel;
     protected $session;
+    protected $productDiscountModel;
+    protected $discountModel;
 
     public function __construct()
     {
@@ -28,17 +32,19 @@ class CartClientController extends BaseController
         $this->orderModel = new OrderModel();
         $this->orderDetailModel = new OrderDetailModel();
         $this->session = session();
+        $this->productDiscountModel = new ProductDiscountModel();
+        $this->discountModel = new DiscountModel();
     }
 
     public function index()
     {
         $cart = $this->session->get('cart') ?? [];
-        $total_cart = $this->count_total_cart();
+        $summary_cart = $this->count_total_cart();
         $data_view = [
             'title' => 'Giỏ hàng',
             'show_banner' => false,
             'cart' => $cart,
-            'total_cart' => $total_cart,
+            'summary_cart' => $summary_cart,
         ];
         return view('portal/cart_view', $data_view);
     }
@@ -50,6 +56,7 @@ class CartClientController extends BaseController
         $price = $this->request->getPost('price');
         $quantity = $this->request->getPost('quantity');
         $cart = $this->session->get('cart') ?? [];
+
         if (isset($cart[$id])) {
             $cart[$id]['quantity'] += $quantity;
             $cart[$id]['sub_total'] = $cart[$id]['quantity'] * $cart[$id]['price'];
@@ -59,10 +66,12 @@ class CartClientController extends BaseController
                 'name' => $name,
                 'price' => $price,
                 'quantity' => $quantity,
-                'sub_total' => $quantity * $price
+                'sub_total' => $quantity * $price,
+                'sale_price' => 0,
             ];
         }
 
+        $cart = $this->cal_sale_price($id, $cart);
         $this->session->set('cart', $cart);
         $total_item = array_sum(array_column($cart, 'quantity'));
         return apiResponse(true, 'Đã thêm vào giỏ hàng', [
@@ -87,16 +96,17 @@ class CartClientController extends BaseController
             } else {
                 $cart[$id]['quantity'] += $type === '+' ? 1 : -1;
             }
-            $cart[$id]['sub_total'] = $cart[$id]['quantity'] * $cart[$id]['price'];
+            $cart[$id]['sub_total'] = $cart[$id]['quantity'] * ($cart[$id]['sale_price'] != 0 ? $cart[$id]['sale_price'] : $cart[$id]['price']);
             $sub_total = format_currency($cart[$id]['sub_total'], get_current_symboy());
         }
         $this->session->set('cart', $cart);
         $total_cart = $this->count_total_cart();
-        $total_item = array_sum(array_column($cart, 'quantity'));
         $ret_val = [
             'sub_total' => $sub_total,
-            'total_cart' => $total_cart,
-            'total_item' => $total_item
+            'total_amount_cart' => $total_cart['total_amount_cart'],
+            'total_item' => $total_cart['total_item'],
+            'total_sale_cart' => $total_cart['total_sale_cart'],
+            'total_pay_cart' => $total_cart['total_pay_cart']
         ];
         return apiResponse(true, '', $ret_val, '200');
     }
@@ -118,15 +128,28 @@ class CartClientController extends BaseController
 
     public function count_total_cart()
     {
-        $result = 0;
+        $total_amount_cart = 0;
+        $total_sale_cart = 0;
+        $total_pay_cart = 0;
+        $total_item = 0;
         $cart = $this->session->get('cart') ?? [];
         if (count($cart) === 0) {
             return format_currency(0, get_current_symboy());
         }
         foreach ($cart as $item) {
-            $result += $item['quantity'] * $item['price'];
+            $total_amount_cart += $item['price'] * $item['quantity'];
+            if ($item['sale_price'] != 0) {
+                $total_sale_cart += ($item['price'] - $item['sale_price']) * $item['quantity'];
+            }
+            $total_item += $item['quantity'];
         }
-        return format_currency($result, get_current_symboy());
+        $total_pay_cart = $total_amount_cart - $total_sale_cart;
+        return [
+            'total_amount_cart' => format_currency($total_amount_cart, get_current_symboy()),
+            'total_sale_cart' => format_currency($total_sale_cart, get_current_symboy()),
+            'total_pay_cart' => format_currency($total_pay_cart, get_current_symboy()),
+            'total_item' => $total_item,
+        ];
     }
 
     public function complete_order()
@@ -196,7 +219,7 @@ class CartClientController extends BaseController
             ];
             $htmlContent = str_replace('{{no}}', $idx, $htmlContent);
             $htmlContent = str_replace('{{product_name}}', $item['name'], $htmlContent);
-            $htmlContent = str_replace('{{price}}', format_currency($item['price'], get_current_symboy()), $htmlContent);
+            $htmlContent = str_replace('{{price}}', format_currency($item['sale_price'], get_current_symboy()), $htmlContent);
             $htmlContent = str_replace('{{quantity}}', format_currency($item['quantity']), $htmlContent);
             $idx++;
             $table_product_in_mail .= $htmlContent;
@@ -225,5 +248,31 @@ class CartClientController extends BaseController
     public function order_successfull()
     {
         return view('portal/order_successful_view');
+    }
+
+    public function cal_sale_price($id, $cart)
+    {
+        $check_sale = $this->productDiscountModel
+            ->select('discounts.discount_type_id, discounts.discount_value, discounts.usage_limit, discounts.used_count')
+            ->join('discounts', 'product_discounts.discount_id = discounts.id AND discounts.is_active = 1')
+            ->join('product_discount_details', 'product_discount_details.product_discount_id = product_discounts.id AND product_discount_details.is_active = 1 AND product_discount_details.product_id = ' . $id)
+            ->where('product_discounts.is_active', 1)
+            ->first();
+
+        $sale_price = 0;
+        if ($check_sale) {
+            if ($check_sale['used_count'] < $check_sale['usage_limit']) {
+                if ($check_sale) {
+                    if ($check_sale['discount_type_id'] == 1) {
+                        $sale_price = $cart[$id]['price'] - ($cart[$id]['price'] * $check_sale['discount_value'] / 100);
+                    } else if ($check_sale['discount_type_id'] == 2) {
+                        $sale_price = $cart[$id]['price'] - $check_sale['discount_value'];
+                    }
+                }
+            }
+            $cart[$id]['sub_total'] = $cart[$id]['quantity'] * $sale_price;
+            $cart[$id]['sale_price'] = $sale_price ?? 0;
+        }
+        return $cart;
     }
 }

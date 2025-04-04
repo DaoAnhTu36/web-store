@@ -61,4 +61,12 @@ class CategoryModel extends Model
             ->first();
         return $result;
     }
+
+    public function get_all_category()
+    {
+        return $this->select("categories.id, categories.name, categories.description, categories.created_at, categories.is_active")
+            ->where('categories.is_active', 1)
+            // ->orderBy('categories.created_at', 'DESC')
+            ->findAll();
+    }
 }

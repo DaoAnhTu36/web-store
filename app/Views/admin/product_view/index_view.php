@@ -156,9 +156,12 @@
                         html += '<td>' + formatCurrency(item.unit_price, getDefaultSymbolCurrency()) + ' </td>';
                         html += '<td>' + item.created_at + '</td></tr>';
                     });
-                    if (response.data.current_price && response.data.current_price.price !== '') {
+                    if (response.data.current_price && response.data.current_price != null && response.data.current_price.price !== '') {
                         $("#form-current-price").show();
                         $("#current_price").val(formatCurrency(response.data.current_price.price))
+                    } else {
+                        $("#form-current-price").hide();
+                        $("#current_price").val('')
                     }
                     $("#detailModal tbody").html(html);
                     $('#detailModal').modal('show');
@@ -179,6 +182,7 @@
             success: function(response) {
                 if (response.status == true) {
                     $('#detailModal').modal('hide');
+                    $('#price').val('');
                     onToastrSuccess(response.message);
                 }
             }

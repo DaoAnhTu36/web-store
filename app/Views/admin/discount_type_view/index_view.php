@@ -27,6 +27,7 @@
                             <thead>
                                 <tr>
                                     <th>STT</th>
+                                    <th>ID</th>
                                     <th>Tên</th>
                                     <th>#</th>
                                     <th>Trạng thái</th>
@@ -37,6 +38,7 @@
                                 foreach ($data as $item): ?>
                                     <tr>
                                         <td><?= $idx ?></td>
+                                        <td><?= $item['id'] ?></td>
                                         <td><?= $item['name'] ?></td>
                                         <td>
                                             <?= view(

@@ -19,6 +19,7 @@ class ProductPriceModel extends Model
             , products.created_at
             , products.is_active
             , products.image
+            , categories.id AS category_id
             , categories.name AS category_name")
             ->join("products", "products.id = product_prices.product_id AND products.is_active = 1", "left")
             ->join('categories', 'categories.id = products.category_id AND categories.is_active = 1', 'left')
@@ -45,6 +46,10 @@ class ProductPriceModel extends Model
 
     public function get_current_price_by_product_id($product_id)
     {
-        return $this->where('product_id', $product_id)->orderBy('created_at', 'desc')->first();
+        $ret_val =  $this
+            ->where('product_id', $product_id)
+            ->where('is_active', 1)
+            ->orderBy('created_at', 'desc')->first();
+        return $ret_val;
     }
 }
