@@ -72,19 +72,19 @@
                     <div class="col-8">
                         <div class="row">
                             <div class="mb-3 col-md-6 col-sm-12 col-xs-12">
-                                <label for="order_infor_full_name" class="form-label">Họ và tên</label>
+                                <label for="order_infor_full_name" class="form-label"><span class="required-field"></span>Họ và tên</label>
                                 <input type="text" name="order_infor_full_name" class="form-control" value="<?= isset(session()->get('customer_infor')['first_name']) ? session()->get('customer_infor')['first_name'] . ' ' . session()->get('customer_infor')['last_name'] : '' ?>" id="order_infor_full_name" placeholder="" required>
                             </div>
                             <div class="mb-3 col-md-6 col-sm-12 col-xs-12">
-                                <label for="order_infor_email" class="form-label">Email</label>
+                                <label for="order_infor_email" class="form-label"><span class="required-field"></span>Email</label>
                                 <input type="email" name="order_infor_email" class="form-control" value="<?= isset(session()->get('customer_infor')['email']) ? session()->get('customer_infor')['email'] : '' ?>" id="order_infor_email" placeholder="" required>
                             </div>
                             <div class="mb-3 col-md-6 col-sm-12 col-xs-12">
-                                <label for="order_infor_phone" class="form-label">Số điện thoại</label>
+                                <label for="order_infor_phone" class="form-label"><span class="required-field"></span>Số điện thoại</label>
                                 <input type="phone" name="order_infor_phone" class="form-control" value="<?= isset(session()->get('customer_infor')['phone']) ? session()->get('customer_infor')['phone'] : '' ?>" id="order_infor_phone" placeholder="" required>
                             </div>
                             <div class="mb-3 col-md-6 col-sm-12 col-xs-12">
-                                <label for="order_infor_address" class="form-label">Địa chỉ nhận hàng</label>
+                                <label for="order_infor_address" class="form-label"><span class="required-field"></span>Địa chỉ nhận hàng</label>
                                 <input type="address" name="order_infor_address" class="form-control" value="<?= isset(session()->get('customer_infor')['address']) ? session()->get('customer_infor')['address'] : '' ?>" id="order_infor_address" placeholder="" required>
                             </div>
                             <div class="mb-3 col-12">

@@ -12,31 +12,31 @@
                 <div class="modal-body d-flex align-items-center">
                     <table class="table">
                         <tr>
-                            <td>Họ</td>
+                            <td><span class="required-field"></span>Họ</td>
                             <td>
-                                <input type="text" name="first_name_register" value="" id="first_name_register" class="form-control">
+                                <input required type="text" name="first_name_register" value="" id="first_name_register" class="form-control">
                             </td>
                         </tr>
                         <tr>
-                            <td>Tên</td>
+                            <td><span class="required-field"></span>Tên</td>
                             <td>
-                                <input type="text" name="last_name_register" value="" id="last_name_register" class="form-control">
+                                <input required type="text" name="last_name_register" value="" id="last_name_register" class="form-control">
                             </td>
                         </tr>
                         <tr>
-                            <td>Email</td>
+                            <td><span class="required-field"></span>Email</td>
                             <td>
-                                <input type="text" name="email_register" value="" id="email_register" class="form-control">
+                                <input required type="text" name="email_register" value="" id="email_register" class="form-control input-type-email">
                             </td>
                         </tr>
                         <tr>
-                            <td>Số điện thoại</td>
+                            <td><span class="required-field"></span>Số điện thoại</td>
                             <td>
-                                <input type="text" name="phone_register" value="" id="phone_register" class="form-control" autocomplete="tel">
+                                <input required type="text" name="phone_register" value="" id="phone_register" class="form-control" autocomplete="tel">
                             </td>
                         </tr>
                         <tr>
-                            <td>Mật khẩu</td>
+                            <td><span class="required-field"></span>Mật khẩu</td>
                             <td>
                                 <input type="password" name="password_register" autocomplete="new-password" value="" id="password_register" class="form-control">
                             </td>

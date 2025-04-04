@@ -6,6 +6,27 @@ function onRegisterCustomer() {
   let email_register = $('#email_register').val();
   let phone_register = $('#phone_register').val();
   let password_register = $('#password_register').val();
+  if(!first_name_register || !last_name_register || !email_register || !phone_register || !password_register) {
+    $('#registerModal #flash-message').show();
+    $('#registerModal #flash-message .alert').text('Vui lòng nhập đầy đủ thông tin').removeClass('alert-success').addClass('alert-danger');
+    if(!first_name_register){
+      $('#first_name_register').addClass('error-input');
+    }
+    if(!last_name_register){
+      $('#last_name_register').addClass('error-input');
+    }
+    if(!email_register){
+      $('#email_register').addClass('error-input');
+    }
+    if(!phone_register){
+      $('#phone_register').addClass('error-input');
+    }
+    if(!password_register){
+      $('#password_register').addClass('error-input');
+    }
+    return;
+  }
+
   $.ajax({
     type: 'POST',
     url: baseURL + 'portal/customer-client/save',
@@ -81,6 +102,17 @@ function onActiveCustomer() {
 function onSigninCustomer() {
   let username_signin = $('#username_signin').val();
   let password_signin = $('#password_signin').val();
+  if(!username_signin || !password_signin) {
+    $('#signinModal #flash-message').show();
+    $('#signinModal #flash-message .alert').text('Vui lòng nhập đầy đủ thông tin').removeClass('alert-success').addClass('alert-danger');
+    if(!username_signin){
+      $('#username_signin').addClass('error-input');
+    }
+    if(!password_signin){
+      $('#password_signin').addClass('error-input');
+    }
+    return;
+  }
   $.ajax({
     type: 'POST',
     url: baseURL + 'portal/customer-client/sign-in',
