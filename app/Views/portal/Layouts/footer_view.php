@@ -93,9 +93,8 @@
 
 <!-- Back to Top -->
 <a href="#" class="btn btn-primary border-3 border-primary rounded-circle back-to-top"><i class="fa fa-arrow-up"></i></a>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
-
+<script src="<?= base_url($libUrl . '/portal/js/jquery.min.js'); ?>"></script>
+<script src="<?= base_url($libUrl . '/portal/js/bootstrap.bundle.min.js'); ?>"></script>
 <script src="<?= base_url($libUrl . '/template/lib/easing/easing.min.js'); ?>"></script>
 <script src="<?= base_url($libUrl . '/template/lib/waypoints/waypoints.min.js'); ?>"></script>
 <script src="<?= base_url($libUrl . '/template/lib/lightbox/js/lightbox.min.js'); ?>"></script>
@@ -106,33 +105,9 @@
 <script>
     var baseURL = "<?= base_url(); ?>";
 </script>
+<script src="<?= base_url($libUrl . '/portal/js/common_custom.js'); ?>"></script>
 <script src="<?= base_url($libUrl . '/portal/js/cart.js'); ?>"></script>
 <script src="<?= base_url($libUrl . '/portal/js/customers.js'); ?>"></script>
-<script>
-    document.addEventListener("click", function(event) {
-        let navbarCollapse = document.getElementById("navbarCollapse");
-        let navbarToggler = document.querySelector(".navbar-toggler");
-
-        // Kiểm tra nếu click bên ngoài navbar và navbarToggler
-        if (!navbarCollapse.contains(event.target) && !navbarToggler.contains(event.target)) {
-            let bsCollapse = new bootstrap.Collapse(navbarCollapse, {
-                toggle: false
-            });
-            bsCollapse.hide();
-        }
-    });
-    $(document).ready(function() {
-        $('input').on('keyup', function() {
-            if ($(this).attr('required') !== undefined) {
-                if ($(this).val().trim() === '') {
-                    $(this).addClass('error-input');
-                } else {
-                    $(this).removeClass('error-input');
-                }
-            }
-        });
-    });
-</script>
 </body>
 
 </html>

@@ -28,3 +28,8 @@ input {
 .notification-error{
   background-color: rgb(180, 38, 38);
 }
+
+.required-field::after{
+  content: "* ";
+  color: red;
+}
