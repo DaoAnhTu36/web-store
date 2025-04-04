@@ -38,8 +38,9 @@ function onChangeQuantity(id, type) {
     success: function (response) {
       if (response.status) {
         $('.item-cart-' + id).text(response.data.sub_total);
-        $('#total_cart').text(response.data.total_cart);
-        $('#total_cart_with_fee').text(response.data.total_cart);
+        $('#total_amount_cart').text(response.data.total_amount_cart);
+        $('#total_sale_cart').text(response.data.total_sale_cart);
+        $('#total_pay_cart').text(response.data.total_pay_cart);
         $('#total-item-in-cart').text(response.data.total_item);
         
       }

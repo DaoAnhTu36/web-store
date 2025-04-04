@@ -75,4 +75,36 @@ class DiscountModel extends Model
     protected $useTimestamps = true;
     protected $createdField  = 'created_at';
     protected $updatedField  = 'updated_at';
+
+    public function get_discount_alive()
+    {
+        return $this
+            ->select('
+                product_discount_details.product_id
+                , discounts.id as discount_id
+                , discounts.name as discount_name
+                , discounts.discount_value
+                , discounts.min_order_amount
+                , discounts.max_discount
+                , discounts.coupon_code
+                , discounts.start_date
+                , discounts.end_date
+                , discounts.usage_limit
+                , discounts.used_count
+                , discount_types.name as discount_type_name
+                , discount_types.id as discount_type_id
+                ')
+            ->join('product_discounts', 'discounts.id = product_discounts.discount_id AND product_discounts.is_active = 1')
+            ->join('discount_types', 'discounts.discount_type_id = discount_types.id AND discount_types.is_active = 1')
+            ->join('product_discount_details', 'product_discounts.id = product_discount_details.product_discount_id AND product_discount_details.is_active = 1')
+            ->where('discounts.is_active', 1)
+            ->where('discounts.start_date <=', date('Y-m-d H:i:s'))
+            ->where('discounts.end_date >=', date('Y-m-d H:i:s'))
+            ->findAll();
+    }
+
+    public function get_discount_by_product_id($product_id)
+    {
+        return $this->where('product_id', $product_id)->findAll();
+    }
 }

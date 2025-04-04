@@ -181,3 +181,18 @@ function get_current_symboy()
 {
     return '₫';
 }
+
+function group_array_by_key($array, $key)
+{
+    $result = [];
+    foreach ($array as $item) {
+        if (isset($item[$key])) {
+            $value = $item[$key];
+            if (!isset($result[$value])) {
+                $result[$value] = [];
+            }
+            $result[$value][] = $item;
+        }
+    }
+    return $result;
+}
