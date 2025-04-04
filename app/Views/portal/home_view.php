@@ -94,14 +94,15 @@
                                     <?php foreach ($value as $item): ?>
                                         <div class="col-md-6 col-lg-4 col-xl-3">
                                             <div class="rounded position-relative fruite-item">
-                                                <div class="fruite-img" style="overflow: hidden;height: 300px;">
-                                                    <?php if (isset($item['image']) && $item['image'] !== ''): ?>
-                                                        <img src="<?= base_url(trim($item['image'])) ?>" class="img-fluid w-100 rounded-top" alt="">
-                                                    <?php else: ?>
-                                                        <img src="<?= base_url(trim(session()->get('web_configs')['image_product_default'])) ?>" class="img-fluid w-100 rounded-top" alt="">
-                                                    <?php endif ?>
-
-                                                </div>
+                                                <a href="<?= base_url('portal/product/detail-product/' . $item['id']) ?>">
+                                                    <div class="fruite-img" style="overflow: hidden;height: 300px;">
+                                                        <?php if (isset($item['image']) && $item['image'] !== ''): ?>
+                                                            <img src="<?= base_url(trim($item['image'])) ?>" class="img-fluid w-100 rounded-top" alt="">
+                                                        <?php else: ?>
+                                                            <img src="<?= base_url(trim(session()->get('web_configs')['image_product_default'])) ?>" class="img-fluid w-100 rounded-top" alt="">
+                                                        <?php endif ?>
+                                                    </div>
+                                                </a>
                                                 <div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;"><?= $item['category_name'] ?></div>
                                                 <?php if (isset($item['discount']) && is_array($item['discount'])): ?>
                                                     <div class="text-white bg-danger px-3 py-1 rounded position-absolute" style="top: 60px;left: 10px;">Giảm giá</div>
