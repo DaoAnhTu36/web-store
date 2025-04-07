@@ -78,10 +78,14 @@ class ProductModel extends Model
             , products.name
             , products.created_at
             , products.category_id
+            , categories.name AS category_name
             , products.is_active
             , products.image
+            , product_prices.price
             , IFNULL(GROUP_CONCAT(images.image_path SEPARATOR ', '),'') AS images")
             ->join('images', "images.record_id = products.id AND images.type = 'product'", 'left')
+            ->join('categories', "categories.id = products.category_id", 'left')
+            ->join('product_prices', "product_prices.product_id = products.id AND product_prices.is_active = 1", 'left')
             ->groupBy('products.id')
             ->orderBy('products.created_at', 'DESC')
             ->where('products.id', $id)
