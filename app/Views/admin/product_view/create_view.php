@@ -75,6 +75,12 @@
 
                                         </div>
                                     </div>
+                                    <div class="form-group">
+                                        <label class="col-md-2 control-label">Mô tả</label>
+                                        <div class="col-md-10">
+                                            <textarea name="description" id="description"></textarea>
+                                        </div>
+                                    </div>
                                 </fieldset>
                                 <?= view(
                                     "admin/Layouts/group_button_action_form_view.php",

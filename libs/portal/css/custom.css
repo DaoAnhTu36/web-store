@@ -33,3 +33,34 @@ input {
   content: "* ";
   color: red;
 }
+
+.rating {
+  display: inline-block;
+  width: 100px; /* Điều chỉnh chiều rộng theo ý muốn */
+  height: 20px; /* Điều chỉnh chiều cao theo ý muốn */
+  background: linear-gradient(to right, gold var(--rating-percent), lightgray var(--rating-percent));
+  border: 1px solid #ccc;
+}
+
+.rating::before {
+  content: '★★★★★'; /* Hoặc các biểu tượng bạn muốn dùng */
+  font-size: 20px;
+  color: lightgray;
+  position: absolute;
+  width: 100%;
+  overflow: hidden;
+  white-space: nowrap;
+  text-shadow: 0 0 1px rgba(0, 0, 0, 0.3); /* Tùy chọn bóng đổ */
+}
+
+.rating[data-rating]::before {
+  background: linear-gradient(to right, gold var(--rating-percent), transparent var(--rating-percent));
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+/* JavaScript để cập nhật giá trị --rating-percent */
+.rating[data-rating] {
+  --rating: attr(data-rating);
+  --rating-percent: calc(var(--rating) / 5 * 100%); /* Giả sử rating tối đa là 5 */
+}

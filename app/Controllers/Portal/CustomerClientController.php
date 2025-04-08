@@ -5,6 +5,7 @@ namespace App\Controllers\Portal;
 use App\Controllers\BaseController;
 use App\Models\CustomerModel;
 use App\Models\EmailTemplateModel;
+use App\Models\ReviewModel;
 
 use App\Libraries\MailService;
 
@@ -13,12 +14,14 @@ class CustomerClientController extends BaseController
     protected $model;
     protected $mailService;
     protected $emailTemplateModel;
+    protected $reviewModel;
 
     public function __construct()
     {
         $this->model = new CustomerModel();
         $this->mailService = new MailService();
         $this->emailTemplateModel = new EmailTemplateModel();
+        $this->reviewModel = new ReviewModel();
     }
 
     public function save()
@@ -215,5 +218,28 @@ class CustomerClientController extends BaseController
             session()->set($customer_info);
         }
         return apiResponse(data: $user);
+    }
+
+    public function add_new_feedback()
+    {
+        $fullname = $this->request->getPost('fullname');
+        $email = $this->request->getPost('email');
+        $content = $this->request->getPost('content');
+        $productId = $this->request->getPost('productId');
+        $data_reviews = [
+            'email' => $email,
+            'product_id' => $productId,
+            'comment' => $content,
+            'created_by' => $fullname,
+            'is_active' => 1,
+        ];
+
+        $query = $this->reviewModel->insert($data_reviews);
+        if ($query) {
+            $data = $this->reviewModel->where('id', $query)->first();
+            return apiResponse(true, 'Thêm phản hồi thành công', $data, '200');
+        } else {
+            return apiResponse(false, 'Thêm phản hồi thất bại', null, '200');
+        }
     }
 }

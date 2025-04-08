@@ -95,7 +95,7 @@
                                         <div class="col-md-6 col-lg-4 col-xl-3">
                                             <div class="rounded position-relative fruite-item">
                                                 <a href="<?= base_url('portal/product/detail-product/' . $item['id']) ?>">
-                                                    <div class="fruite-img" style="overflow: hidden;height: 300px;">
+                                                    <div class="fruite-img" style="overflow: hidden;height: 250px;">
                                                         <?php if (isset($item['image']) && $item['image'] !== ''): ?>
                                                             <img src="<?= base_url(trim($item['image'])) ?>" class="img-fluid w-100 rounded-top" alt="">
                                                         <?php else: ?>

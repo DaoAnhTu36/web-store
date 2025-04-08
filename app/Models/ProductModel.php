@@ -17,11 +17,13 @@ class ProductModel extends Model
         'updated_by',
         'is_active',
         'image',
+        'description',
     ];
 
     protected $validationRules    = [
         'name'        => 'required',
         'category_id' => 'required|integer',
+        'description' => 'required',
     ];
 
     protected $validationMessages = [
@@ -31,6 +33,9 @@ class ProductModel extends Model
         'category_id' => [
             'required' => 'Danh mục sản phẩm là bắt buộc.',
             'integer' => 'Danh mục phải là số',
+        ],
+        'description' => [
+            'required' => 'Mô tả sản phẩm là bắt buộc.',
         ],
     ];
 
@@ -64,6 +69,7 @@ class ProductModel extends Model
             , products.category_id
             , products.is_active
             , products.image
+            , products.description
             , IFNULL(GROUP_CONCAT(images.image_path SEPARATOR ', '),'') AS images")
             ->join('images', "images.record_id = products.id AND images.type = 'product'", 'left')
             ->groupBy('products.id')
@@ -81,6 +87,7 @@ class ProductModel extends Model
             , categories.name AS category_name
             , products.is_active
             , products.image
+            , products.description
             , product_prices.price
             , IFNULL(GROUP_CONCAT(images.image_path SEPARATOR ', '),'') AS images")
             ->join('images', "images.record_id = products.id AND images.type = 'product'", 'left')
