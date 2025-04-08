@@ -51,6 +51,7 @@ class ProductController extends BaseController
         $reviews = $this->reviewModel->get_reviews_by_product_id($id, 1, 10);
         $count_reviews = $this->reviewModel->where('product_id', $id)->countAllResults();
         $data_view = [
+            'title' => $detail_product['name'],
             'data' => $detail_product,
             'data_relations' => $data_relations,
             'reviews' => $reviews,
