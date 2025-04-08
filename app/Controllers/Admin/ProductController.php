@@ -66,6 +66,7 @@ class ProductController extends BaseController
         $attrs = $this->request->getPost('attribute_ids');
         $name = $this->request->getPost('name');
         $category_id = $this->request->getPost('category_id');
+        $description = $this->request->getPost('description');
         $files = $this->request->getFiles();
         $check_validate_files = get_validate_upload_file($files);
         $rules = $this->productModel->validationRules;
@@ -80,12 +81,15 @@ class ProductController extends BaseController
         $productId = $this->productModel->insert([
             'name' => $name,
             'category_id' => $category_id,
+            'description' => $description,
             'created_by' => session()->get('user_id'),
             'updated_by' => session()->get('user_id'),
             'is_active' => 1,
         ]);
-        $image_array = $this->imageModel->upload_image($files, $productId, 'product', $name);
-        $this->productModel->update($productId, ['image' => $image_array[0]]);
+        if (!empty($check_validate_files)) {
+            $image_array = $this->imageModel->upload_image($files, $productId, 'product', $name);
+            $this->productModel->update($productId, ['image' => $image_array[0]]);
+        }
         if (is_array($attrs) && count($attrs) > 0) {
             $this->productAttributeValueModel->delete_attribute_value($productId);
             foreach ($attrs as $attr) {
@@ -131,6 +135,7 @@ class ProductController extends BaseController
         $attrs = $this->request->getPost('attribute_ids');
         $name = $this->request->getPost('name');
         $category_id = $this->request->getPost('category_id');
+        $description = $this->request->getPost('description');
         $files = $this->request->getFiles();
         $check_validate_files = get_validate_upload_file($files);
         $rules = $this->productModel->validationRules;
@@ -145,10 +150,13 @@ class ProductController extends BaseController
         $this->productModel->update($id, [
             'name' => $name,
             'category_id' => $category_id,
+            'description' => $description,
             'updated_by' => session()->get('user_id'),
         ]);
-        $image_array = $this->imageModel->upload_image($files, $id, 'product', $name);
-        $this->productModel->update($id, ['image' => $image_array[0]]);
+        if (!empty($check_validate_files)) {
+            $image_array = $this->imageModel->upload_image($files, $id, 'product', $name);
+            $this->productModel->update($id, ['image' => $image_array[0]]);
+        }
         if (is_array($attrs) && count($attrs) > 0) {
             $this->productAttributeValueModel->delete_attribute_value($id);
             foreach ($attrs as $attr) {

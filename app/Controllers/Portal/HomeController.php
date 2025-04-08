@@ -33,12 +33,6 @@ class HomeController extends BaseController
         $products = $this->productPriceModel->get_product_for_portal();
         $discounts = $this->discountModel->get_discount_alive();
         $data = [];
-        $category_ids = array_column($categories, 'id');
-        foreach ($products as $item) {
-            if (in_array($item['category_id'], $category_ids)) {
-            } else {
-            }
-        }
         foreach ($products as $item) {
             if (in_array($item['id'], array_column($discounts, 'product_id'))) {
                 $item['discount'] = array_filter($discounts, function ($discount) use ($item) {
@@ -56,6 +50,7 @@ class HomeController extends BaseController
             array_push($data, $item);
         }
         $data = group_array_by_key($data, 'category_id');
+        // debug_object($data);
         $data_banners = $this->bannerModel->get_all_banner();
         $data_view = [
             'data' => $data,

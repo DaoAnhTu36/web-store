@@ -108,6 +108,7 @@
 <script src="<?= base_url($libUrl . '/portal/js/common_custom.js'); ?>"></script>
 <script src="<?= base_url($libUrl . '/portal/js/cart.js'); ?>"></script>
 <script src="<?= base_url($libUrl . '/portal/js/customers.js'); ?>"></script>
+<script src="<?= base_url($libUrl . '/portal/js/product.js'); ?>"></script>
 </body>
 
 </html>
