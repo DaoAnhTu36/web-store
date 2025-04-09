@@ -30,7 +30,7 @@ $method = isset($path_array[2]) ? $path_array[2] : '';
     <nav>
         <ul>
             <li class="<?= $controller == 'dashboard' ? 'active open' : ''; ?>">
-                <a href="<?= site_url('admin/dashboard') ?>" title=""><i class="fa fa-lg fa-fw fa-cube"></i> <span class="menu-item-parent">Dashboard</span></a>
+                <a href="<?= site_url('admin/dashboard') ?>" title=""><i class="fa fa-lg fa-fw fa-tachometer"></i> <span class="menu-item-parent">Dashboard</span></a>
             </li>
             <li class="<?= $controller == 'category' ? 'active' : ''; ?>">
                 <a href="<?= site_url('admin/category') ?>" title="">
@@ -45,14 +45,9 @@ $method = isset($path_array[2]) ? $path_array[2] : '';
                             <span class="menu-item-parent">Sản phẩm</span>
                         </a>
                     </li>
-                    <li class="<?= $controller == 'product' && $method == 'best-selling-management' ? 'active' : ''; ?>">
-                        <a href="<?= site_url('admin/product/best-selling-management') ?>" title="">
-                            <span class="menu-item-parent">Sản phẩm bán chạy</span>
-                        </a>
-                    </li>
                     <li class="<?= $controller == 'product' && $method == 'price-management' ? 'active' : ''; ?>">
                         <a href="<?= site_url('admin/product/price-management') ?>" title="">
-                            <span class="menu-item-parent">Quản lý giá sản phẩm</span>
+                            <span class="menu-item-parent">Giá sản phẩm</span>
                         </a>
                     </li>
                     <li class="<?= $controller == 'product-discount' ? 'active' : ''; ?>">
@@ -60,41 +55,26 @@ $method = isset($path_array[2]) ? $path_array[2] : '';
                             <span class="menu-item-parent">Sản phẩm khuyến mại</span>
                         </a>
                     </li>
-                    <li class="<?= $controller == 'product-attributes' ? 'active' : ''; ?>">
-                        <a href="<?= site_url('admin/product-attributes/index') ?>" title="">
-                            <span class="menu-item-parent">Thuộc tính sản phẩm</span>
-                        </a>
-                    </li>
-                </ul>
-            </li>
-            <li>
-                <a title=""><i class="fa fa-lg fa-fw fa-cube"></i><span class="menu-item-parent">Chương trình KM</span></a>
-                <ul>
                     <li class="<?= $controller == 'discount' ? 'active open' : ''; ?>">
                         <a href="<?= site_url('admin/discount') ?>" title=""></i>
-                            <span class="menu-item-parent">Danh sách chương trình</span>
+                            <span class="menu-item-parent">Chương trình khuyến mại</span>
                         </a>
                     </li>
-                    <li class="<?= $controller == 'discount-type' ? 'active open' : ''; ?>">
-                        <a href="<?= site_url('admin/discount-type') ?>" title=""></i>
-                            <span class="menu-item-parent">Loại khuyến mại</span>
+                    <li class="<?= $controller == 'product' && $method == 'best-selling-management' ? 'active' : ''; ?>">
+                        <a href="<?= site_url('admin/product/best-selling-management') ?>" title="">
+                            <span class="menu-item-parent">Sản phẩm bán chạy</span>
                         </a>
                     </li>
                 </ul>
             </li>
             <li>
-                <a title=""><i class="fa fa-lg fa-fw fa-cube"></i><span class="menu-item-parent">Kho hàng</span></a>
+                <a title=""><i class="fa fa-lg fa-fw fa-exchange"></i><span class="menu-item-parent">Giao dịch</span></a>
                 <ul>
                     <li class="<?= $controller == 'warehouse' ? 'active open' : ''; ?>">
-                        <a href="<?= site_url('admin/warehouse') ?>" title=""></i> <span class="menu-item-parent">Danh sách kho hàng</span></a>
+                        <a href="<?= site_url('admin/warehouse') ?>" title=""></i> <span class="menu-item-parent">Kho hàng</span></a>
                     </li>
-                </ul>
-            </li>
-            <li>
-                <a title=""><i class="fa fa-lg fa-fw fa-cube"></i><span class="menu-item-parent">Giao dịch</span></a>
-                <ul>
                     <li class="<?= $controller == 'transaction' && $method == 'create' ? 'active open' : ''; ?>">
-                        <a href="<?= site_url('admin/transaction/create') ?>" title=""></i> <span class="menu-item-parent">Thêm mới</span></a>
+                        <a href="<?= site_url('admin/transaction/create') ?>" title=""></i> <span class="menu-item-parent">Thêm giao dịch mới</span></a>
                     </li>
                     <li class="<?= $controller == 'transaction' && $method == 'import-list' ? 'active open' : ''; ?>">
                         <a href="<?= site_url('admin/transaction/import-list') ?>" title=""></i> <span class="menu-item-parent">Giao dịch nhập hàng</span></a>
@@ -105,16 +85,16 @@ $method = isset($path_array[2]) ? $path_array[2] : '';
                 </ul>
             </li>
             <li class="<?= $controller == 'order' ? 'active' : ''; ?>">
-                <a href="<?= site_url('admin/order') ?>" title=""><i class="fa fa-lg fa-fw fa-cube"></i><span class="menu-item-parent">Đơn hàng</span></a>
+                <a href="<?= site_url('admin/order') ?>" title=""><i class="fa fa-lg fa-fw fa-shopping-basket"></i><span class="menu-item-parent">Đơn hàng</span></a>
             </li>
             <li class="<?= $controller == 'customer' ? 'active' : ''; ?>">
-                <a href="<?= site_url('admin/customer') ?>" title=""><i class="fa fa-lg fa-fw fa-cube"></i><span class="menu-item-parent">Khách hàng</span></a>
+                <a href="<?= site_url('admin/customer') ?>" title=""><i class="fa fa-lg fa-fw fa-user"></i><span class="menu-item-parent">Khách hàng</span></a>
             </li>
             <li class="<?= $controller == 'supplier' ? 'active' : ''; ?>">
                 <a href="<?= site_url('admin/supplier') ?>" title=""><i class="fa fa-lg fa-fw fa-cube"></i><span class="menu-item-parent">Nhà cung cấp</span></a>
             </li>
             <li class="<?= $controller == 'account' ? 'active' : ''; ?>">
-                <a href="<?= site_url('admin/account') ?>" title=""><i class="fa fa-lg fa-fw fa-cube"></i><span class="menu-item-parent">Quản trị viên</span></a>
+                <a href="<?= site_url('admin/account') ?>" title=""><i class="fa fa-lg fa-fw fa-group"></i><span class="menu-item-parent">Quản trị viên</span></a>
             </li>
             <li>
                 <a title=""><i class="fa fa-lg fa-fw fa-cube"></i><span class="menu-item-parent">Quản lý quyền truy cập</span></a>
@@ -128,19 +108,37 @@ $method = isset($path_array[2]) ? $path_array[2] : '';
                 </ul>
             </li>
             <li>
-                <a title=""><i class="fa fa-lg fa-fw fa-cube"></i><span class="menu-item-parent">Cấu hình website</span></a>
+                <a title=""><i class="fa fa-lg fa-fw fa-gears"></i><span class="menu-item-parent">Cấu hình website</span></a>
                 <ul>
                     <li class="<?= $controller == 'route' ? 'active open' : ''; ?>">
-                        <a href="<?= site_url('admin/route') ?>" title=""></i> <span class="menu-item-parent">Routes</span></a>
+                        <a href="<?= site_url('admin/route') ?>" title=""></i>
+                            <span class="menu-item-parent">Routes</span>
+                        </a>
                     </li>
                     <li class="<?= $controller == 'website-config' ? 'active open' : ''; ?>">
-                        <a href="<?= site_url('admin/website-config') ?>" title=""></i> <span class="menu-item-parent">Settings</span></a>
+                        <a href="<?= site_url('admin/website-config') ?>" title=""></i>
+                            <span class="menu-item-parent">Settings</span>
+                        </a>
                     </li>
                     <li class="<?= $controller == 'email-template' ? 'active open' : ''; ?>">
-                        <a href="<?= site_url('admin/email-template') ?>" title=""></i> <span class="menu-item-parent">Email template</span></a>
+                        <a href="<?= site_url('admin/email-template') ?>" title=""></i>
+                            <span class="menu-item-parent">Email template</span>
+                        </a>
                     </li>
                     <li class="<?= $controller == 'banner' ? 'active open' : ''; ?>">
-                        <a href="<?= site_url('admin/banner') ?>" title=""></i> <span class="menu-item-parent">Banner</span></a>
+                        <a href="<?= site_url('admin/banner') ?>" title=""></i>
+                            <span class="menu-item-parent">Banner</span>
+                        </a>
+                    </li>
+                    <li class="<?= $controller == 'discount-type' ? 'active open' : ''; ?>">
+                        <a href="<?= site_url('admin/discount-type') ?>" title=""></i>
+                            <span class="menu-item-parent">Loại khuyến mại</span>
+                        </a>
+                    </li>
+                    <li class="<?= $controller == 'product-attributes' ? 'active' : ''; ?>">
+                        <a href="<?= site_url('admin/product-attributes/index') ?>" title="">
+                            <span class="menu-item-parent">Thuộc tính sản phẩm</span>
+                        </a>
                     </li>
                 </ul>
             </li>
