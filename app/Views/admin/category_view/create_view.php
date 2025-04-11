@@ -38,7 +38,7 @@
                                     <div class="form-group">
                                         <label class="col-md-2 control-label" for="description">Mô tả</label>
                                         <div class="col-md-10">
-                                            <textarea class="form-control" id="description_ckeditor" name="description"></textarea>
+                                            <textarea class="form-control" id="description" name="description"></textarea>
                                         </div>
                                     </div>
                                     <div class="form-group">
