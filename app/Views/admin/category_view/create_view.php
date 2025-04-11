@@ -25,6 +25,17 @@
                                         </div>
                                     </div>
                                     <div class="form-group">
+                                        <label class="col-md-2 control-label" for="name">Danh mục cha</label>
+                                        <div class="col-md-10">
+                                            <select class="form-control" name="parent_id" id="parent_id">
+                                                <option value="">Empty</option>
+                                                <?php foreach ($categories as $item): ?>
+                                                    <option value="<?= $item['id'] ?>"><?= $item['name'] ?></option>
+                                                <?php endforeach ?>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
                                         <label class="col-md-2 control-label" for="description">Mô tả</label>
                                         <div class="col-md-10">
                                             <textarea class="form-control" id="description_ckeditor" name="description"></textarea>

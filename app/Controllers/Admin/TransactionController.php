@@ -40,7 +40,7 @@ class TransactionController extends BaseController
     public function create()
     {
         $suppliers = $this->modelSupplier->select('id, name')->where('is_active', 1)->findAll();
-        $products  = $this->modelProduct->select('id, name')->where('is_active', 1)->findAll();
+        $products  = $this->modelProduct->get_products_with_category();
         $warehouses = $this->modelWarehouse->select('id, name')->where('is_active', 1)->findAll();
         $data_view = [
             "title" => "Thêm mới giao dịch hàng hóa",
@@ -109,6 +109,7 @@ class TransactionController extends BaseController
     }
 
     public function update($id) {}
+
 
     public function delete($id)
     {

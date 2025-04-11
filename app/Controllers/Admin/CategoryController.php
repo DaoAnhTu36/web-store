@@ -31,15 +31,18 @@ class CategoryController extends BaseController
 
     public function create()
     {
-        $data = [
+        $categories = $this->categoryModel->get_all_category();
+        $data_view = [
             'title' => 'Thêm mới danh mục',
+            'categories' => $categories,
         ];
-        return view('admin/category_view/create_view', $data);
+        return view('admin/category_view/create_view', $data_view);
     }
 
     public function save()
     {
         $name = $this->request->getPost('name');
+        $parent_id = $this->request->getPost('parent_id');
         $description = $this->request->getPost('description');
         $files = $this->request->getFiles();
         $check_validate_files = get_validate_upload_file($files);
@@ -56,6 +59,7 @@ class CategoryController extends BaseController
         $record_id = $this->categoryModel->insert([
             'name' => $name,
             'description' => $description,
+            'parent_id' => $parent_id,
         ]);
 
         $this->imageModel->upload_image($files, $record_id, $this->image_type);
@@ -72,16 +76,19 @@ class CategoryController extends BaseController
 
     public function detail($id)
     {
+        $categories = $this->categoryModel->get_all_category();
         $data = $this->categoryModel->get_category_with_image_by_id($id);
         $data_view = [
             'data' => $data,
-            'title' => 'Chi tiết danh mục'
+            'title' => 'Chi tiết danh mục',
+            'categories' => $categories,
         ];
         return view('admin/category_view/update_view', $data_view);
     }
 
     public function update($id)
     {
+        $parent_id = $this->request->getPost('parent_id');
         $name = $this->request->getPost('name');
         $description = $this->request->getPost('description');
         $files = $this->request->getFiles();
@@ -99,6 +106,7 @@ class CategoryController extends BaseController
         $this->categoryModel->update($id, [
             'name' => $name,
             'description' => $description,
+            'parent_id' => $parent_id,
         ]);
 
         $this->imageModel->upload_image($files, $id, $this->image_type);
