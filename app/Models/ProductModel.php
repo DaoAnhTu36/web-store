@@ -98,4 +98,17 @@ class ProductModel extends Model
             ->where('products.id', $id)
             ->first();
     }
+
+    public function get_products_with_category()
+    {
+        return $this->select("products.id
+            , products.name
+            , products.created_at
+            , products.is_active
+            , categories.name AS category_name")
+            ->join('categories', "categories.id = products.category_id", 'left')
+            ->where('products.is_active', 1)
+            ->orderBy('products.created_at', 'DESC')
+            ->findAll();
+    }
 }
