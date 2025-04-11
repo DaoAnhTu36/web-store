@@ -9,7 +9,7 @@ class CategoryModel extends Model
     protected $table = 'categories';
     protected $primaryKey = 'id';
 
-    protected $allowedFields = ['name', 'description', 'is_active', 'created_by', 'updated_by'];
+    protected $allowedFields = ['name', 'description', 'is_active', 'created_by', 'updated_by', 'parent_id'];
 
     protected $createdField  = 'created_at';
 
@@ -49,11 +49,12 @@ class CategoryModel extends Model
     public function get_category_with_image_by_id($id)
     {
         $result =  $this->select("categories.id
-        , categories.name
-        , categories.description
-        , categories.created_at
-        , categories.is_active
-        , IFNULL(GROUP_CONCAT(images.image_path SEPARATOR ', '),'') AS images")
+                                , categories.name
+                                , categories.description
+                                , categories.created_at
+                                , categories.is_active
+                                , categories.parent_id
+                                , IFNULL(GROUP_CONCAT(images.image_path SEPARATOR ', '),'') AS images")
             ->join('images', "images.record_id = categories.id AND images.type = 'category'", 'left')
             ->where("categories.id", $id)
             ->groupBy('categories.id')
@@ -64,7 +65,12 @@ class CategoryModel extends Model
 
     public function get_all_category()
     {
-        return $this->select("categories.id, categories.name, categories.description, categories.created_at, categories.is_active")
+        return $this->select("categories.id
+                            , categories.name
+                            , categories.description
+                            , categories.created_at
+                            , categories.is_active
+                            , categories.parent_id")
             ->where('categories.is_active', 1)
             // ->orderBy('categories.created_at', 'DESC')
             ->findAll();
