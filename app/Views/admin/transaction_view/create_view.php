@@ -85,7 +85,7 @@
                                             <input type="text" name="product_input" id="product_input" class="form-control" placeholder="Nhập tên hàng hóa" list="product_list" onkeyup="onGetAttributeProduct()" />
                                             <datalist id="product_list">
                                                 <?php foreach ($products as $product) : ?>
-                                                    <option data-id="<?= $product['id'] ?>" value="<?= $product['name'] ?>"><?= $product['name'] . ' - ' . $product['category_name'] . ' - ' . $product['total_quantity'] ?></option>
+                                                    <option data-id="<?= $product['id'] ?>" value="<?= $product['name'] . ' - ' . $product['category_name'] ?>"><?= $product['total_quantity'] ?></option>
                                                 <?php endforeach; ?>
                                             </datalist>
                                         </div>
