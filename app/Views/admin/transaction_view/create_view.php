@@ -84,9 +84,11 @@
                                             <input type="hidden" id="product_id" name="product_id">
                                             <input type="text" name="product_input" id="product_input" class="form-control" placeholder="Nhập tên hàng hóa" list="product_list" onkeyup="onGetAttributeProduct()" />
                                             <datalist id="product_list">
-                                                <?php foreach ($products as $product) : ?>
-                                                    <option data-id="<?= $product['id'] ?>" value="<?= $product['name'] . ' - ' . $product['category_name'] ?>">SL tồn: <?= $product['total_quantity'] ?></option>
-                                                <?php endforeach; ?>
+                                                <?php $idx = 1;
+                                                foreach ($products as $product) : ?>
+                                                    <option data-id="<?= $product['id'] ?>" value="<?= $idx . ': ' . $product['name'] . ' - ' . $product['category_name'] ?>">SL tồn: <?= $product['total_quantity'] ?></option>
+                                                <?php $idx++;
+                                                endforeach; ?>
                                             </datalist>
                                         </div>
                                     </div>
