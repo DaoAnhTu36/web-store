@@ -9,7 +9,7 @@ class CategoryModel extends Model
     protected $table = 'categories';
     protected $primaryKey = 'id';
 
-    protected $allowedFields = ['name', 'description', 'is_active', 'created_by', 'updated_by', 'parent_id'];
+    protected $allowedFields = ['name', 'description', 'is_active', 'created_by', 'updated_by', 'parent_id', 'is_display'];
 
     protected $createdField  = 'created_at';
 
@@ -34,6 +34,7 @@ class CategoryModel extends Model
             , categories.description
             , categories.created_at
             , categories.is_active
+            , categories.is_display
             , IFNULL(GROUP_CONCAT(images.image_path SEPARATOR ', '),'') AS images")
             ->join('images', "images.record_id = categories.id AND images.type = 'category'", 'left')
             ->groupBy('categories.id')
@@ -73,6 +74,19 @@ class CategoryModel extends Model
                             , categories.parent_id")
             ->where('categories.is_active', 1)
             // ->orderBy('categories.created_at', 'DESC')
+            ->findAll();
+    }
+
+    public function get_all_category_display()
+    {
+        return $this->select("categories.id
+                            , categories.name
+                            , categories.description
+                            , categories.created_at
+                            , categories.is_active
+                            , categories.parent_id")
+            ->where('categories.is_active', 1)
+            ->where('categories.is_display', 1)
             ->findAll();
     }
 }

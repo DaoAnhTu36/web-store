@@ -29,7 +29,7 @@ class HomeController extends BaseController
     public function index()
     {
         $title = "Cửa hàng trực tuyến";
-        $categories = $this->categoryModel->get_all_category();
+        $categories = $this->categoryModel->get_all_category_display();
         $products = $this->productPriceModel->get_product_for_portal();
         $discounts = $this->discountModel->get_discount_alive();
         $data = [];

@@ -23,14 +23,17 @@ class CommonController extends BaseController
         if (isset($server_current)) {
             $controller = explode('admin/', $server_current);
             if (isset($controller[1])) {
-                // echo $controller[1];
                 switch ($controller[1]) {
                     case 'account/index':
                     case 'account':
                         $this->updateStatusCommon($id, 'accounts');
                         break;
                     case 'category':
-                        $this->updateStatusCommon($id, 'categories');
+                        if ($type == 'display') {
+                            $this->updateDisplayStatusCommon($id, 'categories');
+                        } else {
+                            $this->updateStatusCommon($id, 'categories');
+                        }
                         break;
                     case 'product':
                         $this->updateStatusCommon($id, 'products');
@@ -126,6 +129,21 @@ class CommonController extends BaseController
             ->getRow();
         $data = [
             'is_ignore' => !$query->is_ignore,
+        ];
+        $builder->where('id', $id)->update($data);
+    }
+
+    public function updateDisplayStatusCommon($id, $table_name)
+    {
+        $db = \Config\Database::connect();
+        $builder = $db->table($table_name);
+        $query = $builder
+            ->where('id', $id)
+            ->limit(1)
+            ->get()
+            ->getRow();
+        $data = [
+            'is_display' => !$query->is_display,
         ];
         $builder->where('id', $id)->update($data);
     }

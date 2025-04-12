@@ -32,6 +32,7 @@
                                         <th>Tên danh mục</th>
                                         <th>Ảnh</th>
                                         <th>Thời gian tạo</th>
+                                        <th>Hiển thị portal</th>
                                         <th>Trạng thái</th>
                                         <th>#</th>
                                     </tr>
@@ -51,6 +52,15 @@
                                                 <?php  ?>
                                             </td>
                                             <td><?= $item['created_at'] ?></td>
+                                            <td>
+                                                <?= view(
+                                                    "admin/Layouts/button_display_index_view.php",
+                                                    [
+                                                        'is_display' => $item['is_display'],
+                                                        'id' => $item['id'],
+                                                    ]
+                                                ) ?>
+                                            </td>
                                             <td>
                                                 <?= view(
                                                     "admin/Layouts/button_active_index_view.php",
