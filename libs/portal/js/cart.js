@@ -1,6 +1,6 @@
 function onAddCart(id, name, price, type) {
-  if(type !== 'buyNow'){
-    $('#total-item-in-cart').text('Thêm giỏ hàng thành công');
+  if (type !== 'buyNow') {
+    $('#total-item-in-cart').html('Thêm giỏ hàng thành công');
     $("#notification").addClass('notification-success').toggle();
     setTimeout(() => {
       $("#notification").toggle();
@@ -16,8 +16,8 @@ function onAddCart(id, name, price, type) {
       quantity: 1,
     },
     success: function (response) {
-      if(response.status){
-        if(type === 'buyNow'){
+      if (response.status) {
+        if (type === 'buyNow') {
           window.location.href = baseURL + 'portal/cart-client';
         }
       }
@@ -43,7 +43,7 @@ function onChangeQuantity(id, type) {
         $('#total_sale_cart').text(response.data.total_sale_cart);
         $('#total_pay_cart').text(response.data.total_pay_cart);
         $('#total-item-in-cart').text(response.data.total_item);
-        
+
       }
     },
     error: function (xhr, status, error) {
@@ -117,7 +117,7 @@ function validateCustomerOrder(event) {
     address_tag.addClass('error-input');
     retVal = false;
   }
-  if(!retVal){
+  if (!retVal) {
     orderButton.textContent = "Đặt hàng";
     $("#notification").text('Kiểm tra lại thông tin đơn hàng').addClass('notification-error').toggle();
     setTimeout(() => {
