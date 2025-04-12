@@ -103,7 +103,8 @@
                                     "admin/Layouts/group_button_action_form_view.php",
                                     [
                                         'type_button' => "submit",
-                                        'label' => 'Cập nhật'
+                                        'label' => 'Cập nhật',
+                                        'function_back' => 'window.history.back()'
                                     ]
                                 ) ?>
                             </form>
