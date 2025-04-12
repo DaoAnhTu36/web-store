@@ -101,12 +101,17 @@ class ProductModel extends Model
 
     public function get_products_with_category()
     {
-        return $this->select("products.id
+        return $this->select(
+            "products.id
             , products.name
             , products.created_at
             , products.is_active
-            , categories.name AS category_name")
+            , categories.name AS category_name
+            , SUM(transaction_details.quantity) AS total_quantity"
+        )
             ->join('categories', "categories.id = products.category_id", 'left')
+            ->join('transaction_details', "products.id = transaction_details.product_id", 'left')
+            ->groupBy('products.id')
             ->where('products.is_active', 1)
             ->orderBy('products.created_at', 'DESC')
             ->findAll();
