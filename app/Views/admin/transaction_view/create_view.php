@@ -301,13 +301,9 @@
             type: 'POST',
             data: requestData,
             success: function(response) {
-                Toastify({
-                    text: response.message,
-                    duration: 1500,
-                    callback: function() {
-                        window.location.reload(true);
-                    }
-                }).showToast();
+                onToastrSuccess(response.message, () => {
+                    window.location.reload(true);
+                })
             },
             error: function(xhr, status, error) {
                 console.log('Error:', error);
