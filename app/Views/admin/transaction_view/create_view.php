@@ -103,13 +103,13 @@
                                     <div class="form-group">
                                         <label class="col-md-2 control-label">Số lượng</label>
                                         <div class="col-md-10">
-                                            <input type="text" class="form-control" value="10" placeholder="Nhập số lượng" id="quantity" name="quantity" />
+                                            <input type="text" class="form-control" value="<?= isset(session()->get('web_configs')['quantity_base_import']) ? session()->get('web_configs')['quantity_base_import'] : '' ?>" placeholder="Nhập số lượng" id="quantity" name="quantity" />
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-md-2 control-label">Đơn giá</label>
                                         <div class="col-md-10">
-                                            <input type="text" class="form-control" value="3000" placeholder="Nhập đơn giá" id="unit_price" name="unit_price" />
+                                            <input type="text" class="form-control" value="<?= isset(session()->get('web_configs')['unit_price_base_import']) ? session()->get('web_configs')['unit_price_base_import'] : '' ?>" placeholder="Nhập đơn giá" id="unit_price" name="unit_price" />
                                         </div>
                                     </div>
                                     <div class="form-group" style="text-align: center;">
