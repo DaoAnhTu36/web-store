@@ -74,17 +74,17 @@
                                     <div class="row g-4">
                                         <div class="col-lg-6">
                                             <div class="border-bottom rounded">
-                                                <input type="text" name="fullname" id="fullname" value="Trần Văn Tú" class="form-control border-0 me-4" placeholder="Tên người bình luận" required>
+                                                <input type="text" name="fullname" id="fullname" value="<?= isset(session()->get('customer_infor')['first_name']) ? session()->get('customer_infor')['first_name'] . ' ' . session()->get('customer_infor')['last_name'] : '' ?>" class="form-control border-0 me-4" placeholder="Tên người bình luận" required>
                                             </div>
                                         </div>
                                         <div class="col-lg-6">
                                             <div class="border-bottom rounded">
-                                                <input type="email" name="email" id="email" value="trailangnd96@gmail.com" class="form-control border-0" placeholder="Email" required>
+                                                <input type="email" name="email" id="email" value="<?= isset(session()->get('customer_infor')['email']) ? session()->get('customer_infor')['email'] : '' ?>" class="form-control border-0" placeholder="Email" required>
                                             </div>
                                         </div>
                                         <div class="col-lg-12">
                                             <div class="border-bottom rounded my-4">
-                                                <textarea name="content" id="content" class="form-control border-0" cols="30" rows="8" placeholder="Nội dung đánh giá" spellcheck="false" required>Sản phẩm rất tốt, sử dụng hiệu quả, giảm bớt căng thẳng</textarea>
+                                                <textarea name="content" id="content" class="form-control border-0" cols="30" rows="8" placeholder="Nội dung đánh giá" spellcheck="false" required></textarea>
                                             </div>
                                         </div>
                                         <div class="col-lg-12">

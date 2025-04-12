@@ -6,22 +6,22 @@ function onRegisterCustomer() {
   let email_register = $('#email_register').val();
   let phone_register = $('#phone_register').val();
   let password_register = $('#password_register').val();
-  if(!first_name_register || !last_name_register || !email_register || !phone_register || !password_register) {
+  if (!first_name_register || !last_name_register || !email_register || !phone_register || !password_register) {
     $('#registerModal #flash-message').show();
     $('#registerModal #flash-message .alert').text('Vui lòng nhập đầy đủ thông tin').removeClass('alert-success').addClass('alert-danger');
-    if(!first_name_register){
+    if (!first_name_register) {
       $('#first_name_register').addClass('error-input');
     }
-    if(!last_name_register){
+    if (!last_name_register) {
       $('#last_name_register').addClass('error-input');
     }
-    if(!email_register){
+    if (!email_register) {
       $('#email_register').addClass('error-input');
     }
-    if(!phone_register){
+    if (!phone_register) {
       $('#phone_register').addClass('error-input');
     }
-    if(!password_register){
+    if (!password_register) {
       $('#password_register').addClass('error-input');
     }
     return;
@@ -102,13 +102,13 @@ function onActiveCustomer() {
 function onSigninCustomer() {
   let username_signin = $('#username_signin').val();
   let password_signin = $('#password_signin').val();
-  if(!username_signin || !password_signin) {
+  if (!username_signin || !password_signin) {
     $('#signinModal #flash-message').show();
     $('#signinModal #flash-message .alert').text('Vui lòng nhập đầy đủ thông tin').removeClass('alert-success').addClass('alert-danger');
-    if(!username_signin){
+    if (!username_signin) {
       $('#username_signin').addClass('error-input');
     }
-    if(!password_signin){
+    if (!password_signin) {
       $('#password_signin').addClass('error-input');
     }
     return;
@@ -133,10 +133,20 @@ function onSigninCustomer() {
                             Xin chào <br />
                             ${response.data.first_name} ${response.data.last_name}
                         </a>`);
-          if ($('#order_infor_full_name')) $('#order_infor_full_name').val(response.data.first_name + ' ' + response.data.last_name);
-          if ($('#order_infor_email')) $('#order_infor_email').val(response.data.email);
-          if ($('#order_infor_phone')) $('#order_infor_phone').val(response.data.phone);
-          if ($('#order_infor_address')) $('#order_infor_address').val(response.data.address);
+          if ($('#order_infor_full_name')) {
+            $('#order_infor_full_name').val(response.data.first_name + ' ' + response.data.last_name);
+            $('#fullname').val(response.data.first_name + ' ' + response.data.last_name);
+          }
+          if ($('#order_infor_email')) {
+            $('#order_infor_email').val(response.data.email);
+            $('#email').val(response.data.email);
+          }
+          if ($('#order_infor_phone')) {
+            $('#order_infor_phone').val(response.data.phone);
+          }
+          if ($('#order_infor_address')) {
+            $('#order_infor_address').val(response.data.address);
+          }
         }, 1000);
       } else {
         $('#signinModal #flash-message').show();
@@ -173,6 +183,8 @@ function onSignupCustomer() {
                             <i class="fas fa-user fa-2x"></i>
                         </a>
                     </div>`);
+        $('#email').val('');
+        $('#fullname').val('');
       } else {
         $('#profileModal #flash-message').show();
         $('#profileModal #flash-message .alert').text(response.message).removeClass('alert-success').addClass('alert-danger');
