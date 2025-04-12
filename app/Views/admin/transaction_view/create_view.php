@@ -213,8 +213,8 @@
         }
         renderDataTransDetail();
         $('#product_id').val('');
-        $('#quantity').val('');
-        $('#unit_price').val('');
+        $('#quantity').val('10');
+        $('#unit_price').val('3000');
         $('#product_input').val('');
         $('#product-attribute-value').html('');
         $("#attribute-product").slideUp();
