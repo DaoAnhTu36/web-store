@@ -51,6 +51,7 @@ class TransactionDetailModel extends Model
         , transaction_details.subtotal
         , transaction_details.id as trans_detail_id
         , products.name as product_name
+        , categories.name as category_name
         , IFNULL(warehouses.name, "") as warehouse_name
         , IFNULL(suppliers.name, "") as supplier_name
         , IFNULL(product_attributes.attribute_value, "") as attribute_value'
@@ -59,6 +60,7 @@ class TransactionDetailModel extends Model
             ->join('warehouses', 'warehouses.id = transactions.warehouse_id', 'left')
             ->join('suppliers', 'suppliers.id = transactions.supplier_id', 'left')
             ->join('products', 'products.id = transaction_details.product_id', 'left')
+            ->join('categories', 'products.category_id = categories.id', 'left')
             ->join('product_attributes', 'product_attributes.id = transaction_details.product_attribute_id', 'left')
             ->where('transaction_details.transaction_id', $id)
             ->where('transaction_details.is_active', true)
