@@ -215,8 +215,8 @@
         }
         renderDataTransDetail();
         $('#product_id').val('');
-        $('#quantity').val('10');
-        $('#unit_price').val('3000');
+        $('#quantity').val(<?= isset(session()->get('web_configs')['quantity_base_import']) ? session()->get('web_configs')['quantity_base_import'] : '' ?>);
+        $('#unit_price').val(<?= isset(session()->get('web_configs')['unit_price_base_import']) ? session()->get('web_configs')['unit_price_base_import'] : '' ?>);
         $('#product_input').val('');
         $('#product-attribute-value').html('');
         $("#attribute-product").slideUp();

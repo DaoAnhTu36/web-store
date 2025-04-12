@@ -1,6 +1,5 @@
 function onAddCart(id, name, price, type) {
   if (type !== 'buyNow') {
-    $('#total-item-in-cart').html('Thêm giỏ hàng thành công');
     $("#notification").addClass('notification-success').toggle();
     setTimeout(() => {
       $("#notification").toggle();
