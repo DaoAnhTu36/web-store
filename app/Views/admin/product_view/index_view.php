@@ -1,152 +1,196 @@
 <?= $this->extend('admin/Layouts/main_view.php'); ?>
 <?= $this->section('content'); ?>
-
-<?php if (session()->getFlashdata('errors')): ?>
-    <div class="alert alert-danger">
-        <?= implode('<br>', session()->getFlashdata('errors')); ?>
-    </div>
-<?php endif; ?>
-
-<?php if (session()->getFlashdata('success')): ?>
-    <div class="alert alert-success">
-        <?= session()->getFlashdata('success'); ?>
-    </div>
-<?php endif; ?>
-
-<!-- MAIN CONTENT -->
 <div id="content">
     <div class="row">
-        <div class="col-xs-12 col-sm-7 col-md-7 col-lg-4">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
             <h1 class="page-title txt-color-blueDark">
-                <i class="fa fa-table fa-fw "></i>
-                Danh sách sản phẩm
-                <!-- <span>>
-                    Normal Tables
-                </span> -->
+                <i class="fa fa-list-alt fa-fw "></i>
+                <?= $title ?>
             </h1>
         </div>
-        <!-- <div class="col-xs-12 col-sm-5 col-md-5 col-lg-8">
-            <ul id="sparks" class="">
-                <li class="sparks-info">
-                    <h5> My Income <span class="txt-color-blue">$47,171</span></h5>
-                    <div class="sparkline txt-color-blue hidden-mobile hidden-md hidden-sm">
-                        1300, 1877, 2500, 2577, 2000, 2100, 3000, 2700, 3631, 2471, 2700, 3631, 2471
-                    </div>
-                </li>
-                <li class="sparks-info">
-                    <h5> Site Traffic <span class="txt-color-purple"><i class="fa fa-arrow-circle-up" data-rel="bootstrap-tooltip" title="Increased"></i>&nbsp;45%</span></h5>
-                    <div class="sparkline txt-color-purple hidden-mobile hidden-md hidden-sm">
-                        110,150,300,130,400,240,220,310,220,300, 270, 210
-                    </div>
-                </li>
-                <li class="sparks-info">
-                    <h5> Site Orders <span class="txt-color-greenDark"><i class="fa fa-shopping-cart"></i>&nbsp;2447</span></h5>
-                    <div class="sparkline txt-color-greenDark hidden-mobile hidden-md hidden-sm">
-                        110,150,300,130,400,240,220,310,220,300, 270, 210
-                    </div>
-                </li>
-            </ul>
-        </div> -->
-    </div>
-
-    <!-- widget grid -->
-    <section id="widget-grid" class="">
-
-        <!-- row -->
-        <div class="row">
-
-
-            <!-- Widget ID (each widget will need unique ID)-->
-            <div class="jarviswidget jarviswidget-color-darken" id="wid-id-0" data-widget-editbutton="false">
-                <!-- widget options:
-								usage: <div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false">
-				
-								data-widget-colorbutton="false"
-								data-widget-editbutton="false"
-								data-widget-togglebutton="false"
-								data-widget-deletebutton="false"
-								data-widget-fullscreenbutton="false"
-								data-widget-custombutton="false"
-								data-widget-collapsed="true"
-								data-widget-sortable="false"
-				
-								-->
-
-                <!-- widget div-->
-                <div>
-
-                    <!-- widget edit box -->
-                    <div class="jarviswidget-editbox">
-                        <!-- This area used as dropdown edit box -->
-
-                    </div>
-                    <!-- end widget edit box -->
-
-                    <!-- widget content -->
-                    <div class="widget-body no-padding">
-
-                        <table id="dt_basic" class="table table-striped table-bordered table-hover" width="100%">
-
-                            <thead>
-                                <tr>
-                                    <th>STT</th>
-                                    <th>Tên sản phẩm</th>
-                                    <th>ID Danh mục</th>
-                                    <th>Giá</th>
-                                    <th>Số lượng tồn</th>
-                                    <!-- <th>Mô tả</th> -->
-                                    <th>Ảnh</th>
-                                    <th>Thời gian tạo</th>
-                                    <th>#</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php $i = 1;
-                                foreach ($data as $item) {
-                                ?>
-                                    <tr>
-                                        <td><?= $i ?></td>
-                                        <td><?= $item['name'] ?></td>
-                                        <td><?= $item['category_id'] ?></td>
-                                        <td><?= number_format($item['price'], 0, ',', '.'); ?> ₫</td>
-                                        <td><?= number_format($item['stock'], 0, ',', '.'); ?></td>
-                                        <!-- <td><?= $item['description'] ?></td> -->
-                                        <td>
-                                            <?php
-                                            $images = trim(explode(', ', $item['images'])[0]);
-                                            ?>
-                                            <img src="<?= base_url($images) ?>" alt="" width="50">
-                                            <?php  ?>
-                                        </td>
-                                        <td><?= $item['created_at'] ?></td>
-                                        <td class="action-icons">
-                                            <a href="<?= site_url('admin/product/detail/' . $item['id']); ?>" class="btn btn-default"><i class="fa fa-eye" aria-hidden="true"></i></a>
-                                            <a href="<?= site_url('admin/product/detail/' . $item['id']); ?>" class="btn btn-default"><i class="fa fa-pencil" aria-hidden="true"></i></a>
-                                            <a href="<?= site_url('admin/product/delete/' . $item['id']); ?>" class="btn btn-default" onclick="return confirm('Bạn có chắc muốn xóa?');"><i class="fa fa-trash" aria-hidden="true"></i></a>
-
-                                        </td>
-                                    </tr>
-                                <?php $i++;
-                                }  ?>
-                            </tbody>
-                        </table>
-
-                    </div>
-                    <!-- end widget content -->
-
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <div class="well">
+                <div class="btn-group">
+                    <a href="<?= site_url('admin/product/create'); ?>" class="btn btn-default"><i class="fa fa-plus" aria-hidden="true"></i> Thêm mới</a>
                 </div>
-                <!-- end widget div -->
-
             </div>
-            <!-- end widget -->
-
         </div>
-
-        <!-- end row -->
-
+    </div>
+    <section id="widget-grid" class="">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <div class="jarviswidget jarviswidget-color-darken" id="wid-id-0" data-widget-editbutton="false">
+                    <div>
+                        <div class="jarviswidget-editbox">
+                        </div>
+                        <div class="widget-body no-padding">
+                            <table id="dt_basic" class="table table-striped table-bordered table-hover" width="100%">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Mã sản phẩm</th>
+                                        <th>Tên sản phẩm</th>
+                                        <th>Danh mục</th>
+                                        <th>Ảnh</th>
+                                        <th>Trạng thái</th>
+                                        <th>#</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php $i = 1;
+                                    foreach ($data as $item) {
+                                    ?>
+                                        <tr onclick="profile_product(<?= $item['id'] ?>)">
+                                            <td><?= $i ?></td>
+                                            <td><?= $item['id'] ?></td>
+                                            <td><?= $item['name'] ?></td>
+                                            <td><?= $item['category_name'] ?></td>
+                                            <td>
+                                                <?php if ($item['image'] != '') : ?>
+                                                    <img src="<?= base_url($item['image']) ?>" alt="<?= $item['name'] ?>" width="50">
+                                                <?php endif; ?>
+                                                <!-- <?php if ($item['images'] != '') : ?>
+                                                    <?php if (count(explode(',', $item['images'])) > 0) : ?>
+                                                        <img src="<?= base_url(explode(',', $item['images'])[0]) ?>" alt="<?= $item['name'] ?>" width="50">
+                                                    <?php endif ?>
+                                                <?php endif; ?> -->
+                                            </td>
+                                            <td>
+                                                <?= view(
+                                                    "admin/Layouts/button_active_index_view.php",
+                                                    [
+                                                        'is_active' => $item['is_active'],
+                                                        'id' => $item['id'],
+                                                    ]
+                                                ) ?>
+                                            </td>
+                                            <td class="action-icons">
+                                                <?= view(
+                                                    "admin/Layouts/group_button_action_index_view.php",
+                                                    [
+                                                        'uri_update' => site_url('admin/product/detail/' . $item['id']),
+                                                        'uri_delete' => site_url('admin/product/delete/' . $item['id']),
+                                                    ]
+                                                ) ?>
+                                            </td>
+                                        </tr>
+                                    <?php $i++;
+                                    }  ?>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </section>
-    <!-- end widget grid -->
 </div>
-<!-- END MAIN CONTENT -->
+<!-- Bootstrap Modal -->
+<div class="modal fade" id="detailModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Lịch sử giá sản phẩm nhập hàng</h5>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <table class="table table-striped table-bordered table-hover" width="100%">
+                    <thead>
+                        <tr>
+                            <th>STT</th>
+                            <th>Giá</th>
+                            <th>Ngày tạo</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+                <form class="form-horizontal">
+                    <fieldset>
+                        <div class="form-group" id="form-current-price" style="display: none;">
+                            <label class="col-md-4 control-label text-left">Giá bán hiện tại</label>
+                            <div class="col-md-6">
+                                <input class="form-control currency-input" disabled value="" placeholder="" type="text" id="current_price" name="current_price">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-4 control-label text-left">Thay đổi giá bán</label>
+                            <div class="col-md-6">
+                                <input class="form-control currency-input" value="" placeholder="" type="text" id="price" name="price">
+                            </div>
+                        </div>
+                    </fieldset>
+                    <?= view(
+                        "admin/Layouts/group_button_action_form_view.php",
+                        [
+                            'function' => "savePrice()",
+                            'label' => 'Cập nhật',
+                            'function_back' => "onCloseModal()"
+                        ]
+                    ) ?>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    var product_id = 0;
 
+    function profile_product(id) {
+        product_id = id;
+        if ($(event.target).closest('.switch-button, .slider1, .switch1').length >= 1) {
+            return;
+        }
+
+        $.ajax({
+            url: '<?= site_url('admin/transaction/get-price-history') ?>',
+            type: 'POST',
+            data: {
+                product_id: id
+            },
+            success: function(response) {
+                let html = '';
+                if (Array.isArray(response.data.history_price) && response.data.history_price.length > 0) {
+                    response.data.history_price.forEach((item, index) => {
+                        html += '<tr></tr><td>' + (index + 1) + '</td>';
+                        html += '<td>' + formatCurrency(item.unit_price, getDefaultSymbolCurrency()) + ' </td>';
+                        html += '<td>' + item.created_at + '</td></tr>';
+                    });
+                    if (response.data.current_price && response.data.current_price != null && response.data.current_price.price !== '') {
+                        $("#form-current-price").show();
+                        $("#current_price").val(formatCurrency(response.data.current_price.price))
+                    } else {
+                        $("#form-current-price").hide();
+                        $("#current_price").val('')
+                    }
+                    $("#detailModal tbody").html(html);
+                    $('#detailModal').modal('show');
+                }
+            }
+        });
+    }
+
+    function savePrice() {
+        let price = getValueWithoutDots(document.querySelector('#price'));
+        $.ajax({
+            url: '<?= site_url('admin/product/set-price-product') ?>',
+            type: 'POST',
+            data: {
+                product_id: product_id,
+                price: price
+            },
+            success: function(response) {
+                if (response.status == true) {
+                    $('#detailModal').modal('hide');
+                    $('#price').val('');
+                    onToastrSuccess(response.message);
+                }
+            }
+        });
+    }
+
+    function onCloseModal() {
+        $('#detailModal button[class="close"]').click();
+    }
+</script>
 <?= $this->endSection(); ?>

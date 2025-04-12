@@ -8,6 +8,7 @@ use CodeIgniter\HTTP\IncomingRequest;
 use CodeIgniter\HTTP\RequestInterface;
 use CodeIgniter\HTTP\ResponseInterface;
 use Psr\Log\LoggerInterface;
+use App\Models\WebsiteConfigModel;
 
 /**
  * Class BaseController
@@ -35,7 +36,7 @@ abstract class BaseController extends Controller
      *
      * @var list<string>
      */
-    protected $helpers = [];
+    protected $helpers = ['response'];
 
     /**
      * Be sure to declare properties for any property fetch you initialized.
@@ -46,6 +47,8 @@ abstract class BaseController extends Controller
     /**
      * @return void
      */
+    protected $lang;
+    protected $websiteConfigModel;
     public function initController(RequestInterface $request, ResponseInterface $response, LoggerInterface $logger)
     {
         // Do Not Edit This Line
@@ -55,5 +58,30 @@ abstract class BaseController extends Controller
 
         // E.g.: $this->session = \Config\Services::session();
         helper("url");
+        $this->websiteConfigModel = new WebsiteConfigModel();
+
+
+        $session = session();
+        if ($session->has('site_lang')) {
+            $this->lang = $session->get('site_lang');
+        } else {
+            $this->lang = $this->request->getLocale();
+        }
+
+        service('request')->setLocale($this->lang);
+        if (!isset(session()->get('web_configs')['site_name_admin'])) {
+            $webConfigs = $this->websiteConfigModel->getAllConfigs();
+            $session->set('web_configs', $webConfigs);
+        }
+    }
+
+    // app/Controllers/BaseController.php
+
+    protected function checkLogin()
+    {
+        $session = session();
+        if (!$session->get('is_logged_in')) {
+            return redirect()->to('admin/account/login')->send();
+        }
     }
 }

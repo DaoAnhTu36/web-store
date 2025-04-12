@@ -3,23 +3,27 @@
 namespace App\Controllers\Admin;
 
 use App\Controllers\BaseController;
+use App\Models\CategoryModel;
+use App\Models\ImageModel;
 
 class CategoryController extends BaseController
 {
+    protected $categoryModel;
+    protected $imageModel;
+    protected $image_type;
+
     public function __construct()
     {
-        helper("common");
+        $this->categoryModel = new CategoryModel();
+        $this->imageModel = new ImageModel();
+        $this->image_type = 'category';
     }
 
     public function index()
     {
-        $model = new \App\Models\CategoryModel();
-        $data = $model->getCategoriesWithImages();
-        // EchoCommon($data);
+        $data = $this->categoryModel->get_category_with_image();
         $data_view = [
             'title' => 'Danh sách danh mục sản phẩm',
-            "controller" => "Danh mục",
-            "method" => "Danh sách",
             'data' => $data,
         ];
         return view('admin/category_view/index_view', $data_view);
@@ -27,72 +31,86 @@ class CategoryController extends BaseController
 
     public function create()
     {
-        $data = [
-            "controller" => "Danh mục",
-            "method" => "Thêm mới",
+        $categories = $this->categoryModel->get_all_category();
+        $data_view = [
+            'title' => 'Thêm mới danh mục',
+            'categories' => $categories,
         ];
-        return view('admin/category_view/add_view', $data);
+        return view('admin/category_view/create_view', $data_view);
+    }
+
+    public function save()
+    {
+        $name = $this->request->getPost('name');
+        $parent_id = $this->request->getPost('parent_id');
+        $description = $this->request->getPost('description');
+        $files = $this->request->getFiles();
+        $check_validate_files = get_validate_upload_file($files);
+        $rules = $this->categoryModel->validationRules;
+        $messages = $this->categoryModel->validationMessages;
+        if (!empty($check_validate_files)) {
+            $rules['images'] = $check_validate_files;
+            $messages['images'] = get_message_error_file();
+        }
+        if (!$this->validate($rules, $messages)) {
+            return redirect()->back()->with('errors', $this->validator->getErrors());
+        }
+
+        $record_id = $this->categoryModel->insert([
+            'name' => $name,
+            'description' => $description,
+            'parent_id' => $parent_id,
+        ]);
+
+        $this->imageModel->upload_image($files, $record_id, $this->image_type);
+
+        return redirect()->to('admin/category')->with('success', 'Thêm mới danh mục thành công');
     }
 
     public function delete($id)
     {
-        $categoryModel = new \App\Models\CategoryModel();
-
-        if ($categoryModel->find($id)) {
-            $categoryModel->deleteCategory($id);
-            return redirect()->to('admin/category')->with('success', 'Xóa danh mục thành công.');
-        } else {
-            return redirect()->to('admin/category')->with('error', 'Danh mục không tồn tại.');
-        }
+        $this->categoryModel->delete_category($id);
+        $this->imageModel->delete_image($id, $this->image_type);
+        return redirect()->to('admin/category')->with('success', 'Xóa danh mục thành công.');
     }
 
     public function detail($id)
     {
-        $categoryModel = new \App\Models\CategoryModel();
-        $item = $categoryModel->find($id);
-        if ($item) {
-            EchoCommon($item);
-        } else {
-            return redirect()->to('admin/category')->with('error', 'Danh mục không tồn tại.');
-        }
+        $categories = $this->categoryModel->get_all_category();
+        $data = $this->categoryModel->get_category_with_image_by_id($id);
+        $data_view = [
+            'data' => $data,
+            'title' => 'Chi tiết danh mục',
+            'categories' => $categories,
+        ];
+        return view('admin/category_view/update_view', $data_view);
     }
 
-    public function insert()
+    public function update($id)
     {
-        helper(['form', 'url']);
-        $validation = \Config\Services::validation();
-        $validation->setRules([
-            'name' => 'required|min_length[3]',
-            'description_record' => 'required',
-            'images' => 'uploaded[images]|max_size[images,2048]|is_image[images]|mime_in[images,image/jpg,image/jpeg,image/png]',
-        ]);
-
-        if (!$validation->withRequest($this->request)->run()) {
-            return redirect()->back()->withInput()->with('errors', $validation->getErrors());
-        }
-
-        $model = new \App\Models\CategoryModel();
-        $record_id = $model->insert([
-            'name' => $this->request->getPost('name'),
-            'description' => $this->request->getPost('description_record'),
-        ]);
-
+        $parent_id = $this->request->getPost('parent_id');
+        $name = $this->request->getPost('name');
+        $description = $this->request->getPost('description');
         $files = $this->request->getFiles();
-        if ($files) {
-            foreach ($files['images'] as $img) {
-                if ($img->isValid() && !$img->hasMoved()) {
-                    $newName = $img->getRandomName();
-                    $img->move('uploads/', $newName);
-
-                    $imageModel = new \App\Models\ImageModel();
-                    $imageModel->save([
-                        'record_id' => $record_id,
-                        'image_path' => 'uploads/' . $newName,
-                    ]);
-                }
-            }
+        $check_validate_files = get_validate_upload_file($files);
+        $rules = $this->categoryModel->validationRules;
+        $messages = $this->categoryModel->validationMessages;
+        if (!empty($check_validate_files)) {
+            $rules['images'] = $check_validate_files;
+            $messages['images'] = get_message_error_file();
+        }
+        if (!$this->validate($rules, $messages)) {
+            return redirect()->back()->with('errors', $this->validator->getErrors());
         }
 
-        return redirect()->to('admin/category')->with('success', 'Danh mục đã được thêm!');
+        $this->categoryModel->update($id, [
+            'name' => $name,
+            'description' => $description,
+            'parent_id' => $parent_id,
+        ]);
+
+        $this->imageModel->upload_image($files, $id, $this->image_type);
+
+        return redirect()->to('admin/category')->with('success', 'Cập nhật danh mục thành công');
     }
 }

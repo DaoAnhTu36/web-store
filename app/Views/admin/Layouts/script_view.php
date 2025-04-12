@@ -2,7 +2,6 @@
 <script data-pace-options='{ "restartOnRequestAfter": true }' src="<?= base_url($libUrl . '/js/plugin/pace/pace.min.js'); ?>"></script>
 
 <!-- Link to Google CDN's jQuery + jQueryUI; fall back to local -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script>
     if (!window.jQuery) {
         document.write('<script src="<?= base_url($libUrl . '/js/libs/jquery-3.2.1.min.js'); ?>"><\/script>');
@@ -97,13 +96,84 @@
 <script src="<?= base_url($libUrl . '/js/plugin/datatables/dataTables.tableTools.min.js'); ?>"></script>
 <script src="<?= base_url($libUrl . '/js/plugin/datatables/dataTables.bootstrap.min.js'); ?>"></script>
 <script src="<?= base_url($libUrl . '/js/plugin/datatable-responsive/datatables.responsive.min.js'); ?>"></script>
-<script src="<?= base_url($libUrl . '/js/plugin/ckeditor/ckeditor.js'); ?>"></script>
+<script src="<?= base_url($libUrl . '/js/ckeditor.js'); ?>"></script>
+<!-- <script src="<?= base_url($libUrl . '/js/plugin/ckeditor/ckeditor.js'); ?>"></script> -->
+<!-- <script src="<?= base_url($libUrl . '/js/plugin/ckfinder/ckfinder.js'); ?>"></script> -->
+<script src="<?= base_url($libUrl . '/js/common_custom.js'); ?>"></script>
+<script src="<?= base_url($libUrl . '/js/toastify-js.js'); ?>"></script>
 
+<script>
+    // $(document).ajaxStart(function() {
+    //     $('#ajax-loader').show(); // Show loader khi bất kỳ ajax nào bắt đầu
+    // }).ajaxStop(function() {
+    //     $('#ajax-loader').hide(); // Hide loader khi tất cả ajax hoàn thành
+    // });
+
+    function onChangeStatus(id, type = '') {
+        $.ajax({
+            url: '<?= base_url('admin/common/change-status') ?>',
+            type: 'POST',
+            data: {
+                'id': id,
+                'server_current': '<?= $server_current ?>',
+                'type': type
+            },
+            success: function(response) {
+                if (response.status) {
+                    onToastrSuccess(response.message);
+                } else {
+                    onToastrError(response.message);
+                }
+            },
+            error: function(xhr, status, error) {
+                console.log('Error:', error);
+            }
+        });
+    }
+</script>
 <script>
     $(document).ready(function() {
 
         // DO NOT REMOVE : GLOBAL FUNCTIONS!
         pageSetUp();
+        !(function(a) {
+            a.fn.SuperBox = function(b) {
+                var c = a('<div class="superbox-show"></div>'),
+                    d = a(
+                        '<div id="imgInfoBox" class="superbox-imageinfo inline-block"> <span><p><a href="javascript:void(0);" class="btn btn-danger btn-sm">Delete</a></p></span> </div>'
+                    ),
+                    e = a('');
+                c.append(d).append(e);
+                a('.superbox-imageinfo');
+                return this.each(function() {
+                    a('.superbox-list').click(function() {
+                        $this = a(this);
+                        var b = $this.find('.superbox-img'),
+                            e = b.data('img'),
+                            f = b.attr('alt'),
+                            g = e,
+                            h = b.attr('title');
+                        d.attr('src', e),
+                            a('.superbox-list').removeClass('active'),
+                            $this.addClass('active'),
+                            d.find('em').text(g),
+                            d.find('>:first-child').text(h),
+                            d.find('.superbox-img-description').text(f),
+                            0 == a('.superbox-current-img').css('opacity') && a('.superbox-current-img').animate({
+                                opacity: 1
+                            }),
+                            a(this).next().hasClass('superbox-show') ?
+                            (c.is(':visible') && a('.superbox-list').removeClass('active'), c.toggle()) :
+                            (c.insertAfter(this).css('display', 'block'), $this.addClass('active')),
+                            a('html, body').animate({
+                                scrollTop: c.position().top - b.width()
+                            }, 'medium');
+                    })
+                });
+            };
+        })(jQuery);
+
+        $('.superbox').SuperBox();
 
         /*
          * PAGE RELATED SCRIPTS
@@ -903,7 +973,53 @@
         })
     });
 </script>
+<script>
+    $(document).ready(function() {
 
+        // CKEDITOR.on('dialogDefinition', function(ev) {
+        //     var dialogName = ev.data.name;
+        //     var dialogDefinition = ev.data.definition;
+
+        //     if (dialogName === 'image') {
+        //         dialogDefinition.width = 700;
+        //         dialogDefinition.height = 500;
+        //     }
+        // });
+
+        // CKEDITOR.replace('description_record', {
+        //     height: '720px',
+        //     filebrowserUploadUrl: "<?= base_url('/upload'); ?>",
+        //     filebrowserUploadMethod: 'form',
+        //     // filebrowserBrowseUrl: '<?= base_url('/manager-file'); ?>',
+        //     // filebrowserImageBrowseUrl: '<?= base_url('/manager-file'); ?>?type=Images',
+
+        //     filebrowserBrowseUrl: '<?= base_url('/libs/js/plugin/ckfinder/ckfinder.html?type=Images'); ?>',
+        //     filebrowserImageBrowseUrl: '<?= base_url('/libs/js/plugin/ckfinder/ckfinder.html?type=Images'); ?>',
+        // });
+        let editorInstance;
+        if (document.querySelector('#description')) {
+            ClassicEditor
+                .create(document.querySelector('#description'), {
+                    ckfinder: {
+                        uploadUrl: '<?= base_url('/upload'); ?>',
+                        options: {
+                            resourceType: 'Images'
+                        }
+                    }
+                })
+                .then(editor => {
+                    editorInstance = editor;
+                })
+                .catch(error => {
+                    console.error(error);
+                });
+            // document.querySelector('#form-common').addEventListener('submit', function() {
+            //     document.querySelector('#description').value = editorInstance.getData();
+            // });
+        }
+
+    });
+</script>
 <!-- Your GOOGLE ANALYTICS CODE Below -->
 <script>
     var _gaq = _gaq || [];
@@ -918,11 +1034,35 @@
         var s = document.getElementsByTagName('script')[0];
         s.parentNode.insertBefore(ga, s);
     })();
+</script>
+<script>
+    const currencyInputs = document.querySelectorAll('.currency-input');
+    currencyInputs.forEach(input => {
+        input.addEventListener('input', function(e) {
+            let value = this.value.replace(/\D/g, '');
+            value = new Intl.NumberFormat('vi-VN').format(value);
+            this.value = value;
+        });
 
-    CKEDITOR.replace('description_record', {
-        height: '500px',
-        startupFocus: true
+        input.addEventListener('keypress', function(e) {
+            if (!/[0-9]/.test(e.key)) {
+                e.preventDefault();
+            }
+        });
     });
+
+    function formatCurrency(number, symbol = '') {
+        let formatter = new Intl.NumberFormat('vi-VN');
+        return formatter.format(number) + ' ' + symbol;
+    }
+
+    function getDefaultSymbolCurrency() {
+        return '₫';
+    }
+
+    function getValueWithoutDots(inputElement) {
+        return inputElement.value.replace(/\./g, '');
+    }
 </script>
 
 </body>

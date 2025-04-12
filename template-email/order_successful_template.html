@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đặt hàng thành công</title>
+</head>
+
+<body style="margin: 0; padding: 0; background-color: #f4f4f4; font-family: sans-serif;">
+    <div style="text-align: center">
+        <img src="{{logo}}" style="padding-top:10px" alt="{{website_name}}" />
+    </div>
+    <div class="success-message" style="color: #28a745; margin-bottom: 20px;text-align: center">
+        <h1>Đặt hàng thành công!</h1>
+        <p>Cảm ơn bạn đã đặt hàng. Đơn hàng của bạn đã được ghi nhận.</p>
+    </div>
+    <table cellspacing="10" cellpadding="10" width="600px"
+        style="background-color: #ffffff; margin: auto;padding:10px;">
+        <tr>
+            <td style="text-align: left">Mã đơn hàng</td>
+            <td style="text-align: left">{{order_id}}</td>
+        </tr>
+        <tr>
+            <td style="text-align: left">Ngày đặt hàng</td>
+            <td style="text-align: left">{{order_date}}</td>
+        </tr>
+        <tr>
+            <td style="text-align: left">Tổng tiền</td>
+            <td style="text-align: left">{{total_amount}}</td>
+        </tr>
+        <tr>
+            <td style="text-align: left">Địa chỉ giao hàng</td>
+            <td style="text-align: left">{{address}}</td>
+        </tr>
+    </table>
+    <table cellspacing="10" cellpadding="10" width="600px"
+        style="background-color: #ffffff; margin: auto;padding:10px;margin-bottom: 20px;">
+        <thead>
+            <tr>
+                <th style="text-align: left">STT</th>
+                <th style="text-align: left">Tên hàng hóa</th>
+                <th style="text-align: left">Đơn giá</th>
+                <th style="text-align: left">Giảm giá</th>
+                <th style="text-align: left">Số lượng</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{body_table_order}}
+        </tbody>
+    </table>
+</body>
+
+</html>

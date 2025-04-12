@@ -1,4 +1,32 @@
 <?php
 
-// override core en language system validation or define your own en language validation message
-return [];
+return [
+    "description_label" => "Description",
+    "cancel_button_label" => "Cancel",
+    "save_button_label" => "Save",
+    "image_label" => "Choose image",
+    "category_controller_label" => "Category",
+    "category_method_label" => "Add new category",
+    "category_title_label" => "Update information category",
+    "category_title_infor_label" => "Information category",
+    "category_name_label" => "Category name",
+    "" => "",
+    "" => "",
+    "" => "",
+    "" => "",
+    "" => "",
+    "" => "",
+    "" => "",
+    "" => "",
+    "" => "",
+    "" => "",
+    "" => "",
+    "" => "",
+    "" => "",
+    "" => "",
+    "" => "",
+    "" => "",
+    "" => "",
+    "" => "",
+    "" => "",
+];

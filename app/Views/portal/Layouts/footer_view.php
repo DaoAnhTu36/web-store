@@ -1,148 +1,114 @@
-<footer class="py-5">
-    <div class="container-lg">
-        <div class="row">
-
-            <div class="col-lg-3 col-md-6 col-sm-6">
-                <div class="footer-menu">
-                    <!-- <img src="images/logo.svg" width="240" height="70" alt="logo"> -->
-                    <div class="social-links mt-3">
-                        <ul class="d-flex list-unstyled gap-2">
-                            <li>
-                                <a href="#" class="btn btn-outline-light">
-                                    <svg width="16" height="16">
-                                        <use xlink:href="#facebook"></use>
-                                    </svg>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#" class="btn btn-outline-light">
-                                    <svg width="16" height="16">
-                                        <use xlink:href="#twitter"></use>
-                                    </svg>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#" class="btn btn-outline-light">
-                                    <svg width="16" height="16">
-                                        <use xlink:href="#youtube"></use>
-                                    </svg>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#" class="btn btn-outline-light">
-                                    <svg width="16" height="16">
-                                        <use xlink:href="#instagram"></use>
-                                    </svg>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#" class="btn btn-outline-light">
-                                    <svg width="16" height="16">
-                                        <use xlink:href="#amazon"></use>
-                                    </svg>
-                                </a>
-                            </li>
-                        </ul>
+<!-- Footer Start -->
+<div class="container-fluid bg-dark text-white-50 footer pt-5 mt-5">
+    <div class="container py-5">
+        <div class="pb-4 mb-4" style="border-bottom: 1px solid rgba(226, 175, 24, 0.5) ;">
+            <div class="row g-4">
+                <div class="col-lg-3">
+                    <a href="#">
+                        <h1 class="text-primary mb-0"><?= session()->get('web_configs')['site_name'] ?></h1>
+                        <!-- <p class="text-secondary mb-0">Fresh products</p> -->
+                    </a>
+                </div>
+                <div class="col-lg-6">
+                    <div class="position-relative mx-auto">
+                        <input class="form-control border-0 w-100 py-3 px-4 rounded-pill" type="number" id="mail_subcri" name="mail_subcri" placeholder="Your Email">
+                        <button type="submit" class="btn btn-primary border-0 border-secondary py-3 px-4 position-absolute rounded-pill text-white" style="top: 0; right: 0;">Subscribe Now</button>
+                    </div>
+                </div>
+                <div class="col-lg-3">
+                    <div class="d-flex justify-content-end pt-3">
+                        <a class="btn  btn-outline-secondary me-2 btn-md-square rounded-circle" href=""><i class="fab fa-twitter"></i></a>
+                        <a class="btn btn-outline-secondary me-2 btn-md-square rounded-circle" href=""><i class="fab fa-facebook-f"></i></a>
+                        <a class="btn btn-outline-secondary me-2 btn-md-square rounded-circle" href=""><i class="fab fa-youtube"></i></a>
+                        <a class="btn btn-outline-secondary btn-md-square rounded-circle" href=""><i class="fab fa-linkedin-in"></i></a>
                     </div>
                 </div>
             </div>
+        </div>
+        <!-- <div class="row g-5">
+            <div class="col-lg-3 col-md-6">
+                <div class="footer-item">
+                    <h4 class="text-light mb-3">Why People Like us!</h4>
+                    <p class="mb-4">typesetting, remaining essentially unchanged. It was
+                        popularised in the 1960s with the like Aldus PageMaker including of Lorem Ipsum.</p>
+                    <a href="" class="btn border-secondary py-2 px-4 rounded-pill text-primary">Read More</a>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <div class="d-flex flex-column text-start footer-item">
+                    <h4 class="text-light mb-3">Shop Info</h4>
+                    <a class="btn-link" href="">About Us</a>
+                    <a class="btn-link" href="">Contact Us</a>
+                    <a class="btn-link" href="">Privacy Policy</a>
+                    <a class="btn-link" href="">Terms & Condition</a>
+                    <a class="btn-link" href="">Return Policy</a>
+                    <a class="btn-link" href="">FAQs & Help</a>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <div class="d-flex flex-column text-start footer-item">
+                    <h4 class="text-light mb-3">Account</h4>
+                    <a class="btn-link" href="">My Account</a>
+                    <a class="btn-link" href="">Shop details</a>
+                    <a class="btn-link" href="">Shopping Cart</a>
+                    <a class="btn-link" href="">Wishlist</a>
+                    <a class="btn-link" href="">Order History</a>
+                    <a class="btn-link" href="">International Orders</a>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <div class="footer-item">
+                    <h4 class="text-light mb-3">Contact</h4>
+                    <p>Address: 1429 Netus Rd, NY 48247</p>
+                    <p>Email: Example@gmail.com</p>
+                    <p>Phone: +0123 4567 8910</p>
+                    <p>Payment Accepted</p>
+                    <img src="<?= base_url($libUrl . '/template/img/payment.png') ?>" class="img-fluid" alt="">
+                </div>
+            </div>
+        </div> -->
+    </div>
+</div>
+<!-- Footer End -->
 
-            <!-- <div class="col-md-2 col-sm-6">
-                <div class="footer-menu">
-                    <h5 class="widget-title">Organic</h5>
-                    <ul class="menu-list list-unstyled">
-                        <li class="menu-item">
-                            <a href="#" class="nav-link">About us</a>
-                        </li>
-                        <li class="menu-item">
-                            <a href="#" class="nav-link">Conditions </a>
-                        </li>
-                        <li class="menu-item">
-                            <a href="#" class="nav-link">Our Journals</a>
-                        </li>
-                        <li class="menu-item">
-                            <a href="#" class="nav-link">Careers</a>
-                        </li>
-                        <li class="menu-item">
-                            <a href="#" class="nav-link">Affiliate Programme</a>
-                        </li>
-                        <li class="menu-item">
-                            <a href="#" class="nav-link">Ultras Press</a>
-                        </li>
-                    </ul>
-                </div>
+<!-- Copyright Start -->
+<div class="container-fluid copyright bg-dark py-4">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
+                <span class="text-light"><a href="#"><i class="fas fa-copyright text-light me-2"></i><strong><?= session()->get('web_configs')['site_name'] ?></strong></a>, All right reserved.</span>
             </div>
-            <div class="col-md-2 col-sm-6">
-                <div class="footer-menu">
-                    <h5 class="widget-title">Quick Links</h5>
-                    <ul class="menu-list list-unstyled">
-                        <li class="menu-item">
-                            <a href="#" class="nav-link">Offers</a>
-                        </li>
-                        <li class="menu-item">
-                            <a href="#" class="nav-link">Discount Coupons</a>
-                        </li>
-                        <li class="menu-item">
-                            <a href="#" class="nav-link">Stores</a>
-                        </li>
-                        <li class="menu-item">
-                            <a href="#" class="nav-link">Track Order</a>
-                        </li>
-                        <li class="menu-item">
-                            <a href="#" class="nav-link">Shop</a>
-                        </li>
-                        <li class="menu-item">
-                            <a href="#" class="nav-link">Info</a>
-                        </li>
-                    </ul>
-                </div>
+            <div class="col-md-6 my-auto text-center text-md-end text-white">
+                <!--/*** This template is free as long as you keep the below author’s credit link/attribution link/backlink. ***/-->
+                <!--/*** If you'd like to use the template without the below author’s credit link/attribution link/backlink, ***/-->
+                <!--/*** you can purchase the Credit Removal License from "https://htmlcodex.com/credit-removal". ***/-->
+                Designed By <strong><?= session()->get('web_configs')['admin_email'] ?></strong>
             </div>
-            <div class="col-md-2 col-sm-6">
-                <div class="footer-menu">
-                    <h5 class="widget-title">Customer Service</h5>
-                    <ul class="menu-list list-unstyled">
-                        <li class="menu-item">
-                            <a href="#" class="nav-link">FAQ</a>
-                        </li>
-                        <li class="menu-item">
-                            <a href="#" class="nav-link">Contact</a>
-                        </li>
-                        <li class="menu-item">
-                            <a href="#" class="nav-link">Privacy Policy</a>
-                        </li>
-                        <li class="menu-item">
-                            <a href="#" class="nav-link">Returns & Refunds</a>
-                        </li>
-                        <li class="menu-item">
-                            <a href="#" class="nav-link">Cookie Guidelines</a>
-                        </li>
-                        <li class="menu-item">
-                            <a href="#" class="nav-link">Delivery Information</a>
-                        </li>
-                    </ul>
-                </div>
-            </div> -->
-            <div class="col-lg-3 col-md-6 col-sm-6">
-                <div class="footer-menu">
-                    <h5 class="widget-title">Subscribe Us</h5>
-                    <p>Subscribe to our newsletter to get updates about our grand offers.</p>
-                    <form class="d-flex mt-3 gap-0" action="index.html">
-                        <input class="form-control rounded-start rounded-0 bg-light" type="email" placeholder="Email Address" aria-label="Email Address">
-                        <button class="btn btn-dark rounded-end rounded-0" type="submit">Subscribe</button>
-                    </form>
-                </div>
-            </div>
-
         </div>
     </div>
-</footer>
+</div>
+<!-- Copyright End -->
 
 
-<script src="<?= base_url($libUrl . '/portal/js/jquery-1.11.0.min.js'); ?>"></script>
-<script src="<?= base_url($libUrl . '/portal/js/swiper-bundle.min.js'); ?>"></script>
+
+<!-- Back to Top -->
+<a href="#" class="btn btn-primary border-3 border-primary rounded-circle back-to-top"><i class="fa fa-arrow-up"></i></a>
+<script src="<?= base_url($libUrl . '/portal/js/jquery.min.js'); ?>"></script>
 <script src="<?= base_url($libUrl . '/portal/js/bootstrap.bundle.min.js'); ?>"></script>
-<script src="<?= base_url($libUrl . '/portal/js/plugins.js'); ?>"></script>
-<script src="<?= base_url($libUrl . '/portal/js/script.js'); ?>"></script>
+<script src="<?= base_url($libUrl . '/template/lib/easing/easing.min.js'); ?>"></script>
+<script src="<?= base_url($libUrl . '/template/lib/waypoints/waypoints.min.js'); ?>"></script>
+<script src="<?= base_url($libUrl . '/template/lib/lightbox/js/lightbox.min.js'); ?>"></script>
+<script src="<?= base_url($libUrl . '/template/lib/owlcarousel/owl.carousel.min.js'); ?>"></script>
+
+<!-- Template Javascript -->
+<script src="<?= base_url($libUrl . '/template/js/main.js'); ?>"></script>
+<script>
+    var baseURL = "<?= base_url(); ?>";
+</script>
+<script src="<?= base_url($libUrl . '/portal/js/common_custom.js'); ?>"></script>
+<script src="<?= base_url($libUrl . '/portal/js/cart.js'); ?>"></script>
+<script src="<?= base_url($libUrl . '/portal/js/customers.js'); ?>"></script>
+<script src="<?= base_url($libUrl . '/portal/js/product.js'); ?>"></script>
 </body>
 
 </html>

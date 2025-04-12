@@ -29,7 +29,7 @@ class Database extends Config
     public array $default = [
         'DSN'          => '',
         'hostname'     => 'localhost',
-        'username'     => 'taphoagi',
+        'username'     => 'taphoagi_admin',
         'password'     => 'Daoanhtu020996@@#',
         'database'     => 'taphoagi_store_web',
         'DBDriver'     => 'MySQLi',
