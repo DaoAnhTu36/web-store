@@ -23,9 +23,10 @@ class ProductController extends BaseController
         $this->reviewModel = new ReviewModel();
     }
 
-    public function detail_product($id)
+    public function detail_product($slug)
     {
-        $detail_product = $this->productModel->get_detail_product_by_id($id);
+        $slug = str_replace('.html', '', $slug);
+        $detail_product = $this->productModel->get_detail_product_by_slug($slug);
         // debug_object($detail_product);
         $products = $this->productPriceModel->get_product_for_portal();
         $discounts = $this->discountModel->get_discount_alive();
@@ -48,15 +49,15 @@ class ProductController extends BaseController
                 array_push($data_relations, $item);
             }
         }
-        $reviews = $this->reviewModel->get_reviews_by_product_id($id, 1, 10);
-        $count_reviews = $this->reviewModel->where('product_id', $id)->countAllResults();
+        $reviews = $this->reviewModel->get_reviews_by_product_id($detail_product['id'], 1, 10);
+        $count_reviews = $this->reviewModel->where('product_id', $detail_product['id'])->countAllResults();
         $data_view = [
             'title' => $detail_product['name'],
             'data' => $detail_product,
             'data_relations' => $data_relations,
             'reviews' => $reviews,
             'page' => 1,
-            'product_id' => $id,
+            'product_id' => $detail_product['id'],
             'count_reviews' => $count_reviews,
             'count_reviews_page' => ceil($count_reviews / 10)
         ];
