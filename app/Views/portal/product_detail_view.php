@@ -321,9 +321,9 @@
                                     <img src="<?= base_url(trim(session()->get('web_configs')['image_product_default'])) ?>" class="img-fluid w-100 rounded-top" alt="">
                                 <?php endif ?>
                             </div>
-                            <div class="text-white bg-primary px-3 py-1 rounded position-absolute" style="top: 10px; right: 10px;">
-                                <?= $item['category_name'] ?>
-                            </div>
+<!--                            <div class="text-white bg-primary px-3 py-1 rounded position-absolute" style="top: 10px; right: 10px;">-->
+<!--                                --><?php //= $item['category_name'] ?>
+<!--                            </div>-->
                             <?php if (isset($item['discount']) && is_array($item['discount'])): ?>
                                 <div class="text-white bg-danger px-3 py-1 rounded position-absolute" style="top: 60px;right: 10px;">Giảm giá</div>
                             <?php endif ?>
