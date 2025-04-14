@@ -309,22 +309,28 @@
             <div class="owl-carousel vegetable-carousel justify-content-center">
                 <?php foreach ($data_relations as $item) { ?>
                     <div class="border border-primary rounded position-relative vesitable-item">
-                        <div class="vesitable-img">
-                            <img src="<?= base_url($item['image']) ?>" class="img-fluid w-100 rounded-top" alt="">
-                        </div>
-                        <div class="text-white bg-primary px-3 py-1 rounded position-absolute" style="top: 10px; right: 10px;">
-                            <?= $item['category_name'] ?>
-                        </div>
-                        <?php if (isset($item['discount']) && is_array($item['discount'])): ?>
-                            <div class="text-white bg-danger px-3 py-1 rounded position-absolute" style="top: 60px;right: 10px;">Giảm giá</div>
-                        <?php endif ?>
-                        <div class="p-4 pb-0 rounded-bottom">
-                            <h4><?= $item['name'] ?></h4>
-                            <div class="d-flex justify-content-between flex-lg-wrap">
-                                <p class="text-dark fs-5 fw-bold"><?= format_currency($item['price'], get_current_symboy()) ?></p>
-                                <a onclick="onAddCart('<?= $item['id'] ?>','<?= $item['name'] ?>','<?= $item['price'] ?>','buyNow')" class="btn border border-secondary rounded-pill px-3 py-1 mb-4 text-primary"><i class="fa fa-shopping-bag me-2 text-primary"></i> Mua ngay</a>
+                        <a href="<?= base_url('portal/chi-tiet-san-pham/' . $item['slug']) . '.html' ?>">
+                            <div class="vesitable-img">
+                                <?php if (isset($item['image']) && $item['image'] !== ''): ?>
+                                    <img src="<?= base_url(trim($item['image'])) ?>" class="img-fluid w-100 rounded-top" alt="">
+                                <?php else: ?>
+                                    <img src="<?= base_url(trim(session()->get('web_configs')['image_product_default'])) ?>" class="img-fluid w-100 rounded-top" alt="">
+                                <?php endif ?>
                             </div>
-                        </div>
+                            <div class="text-white bg-primary px-3 py-1 rounded position-absolute" style="top: 10px; right: 10px;">
+                                <?= $item['category_name'] ?>
+                            </div>
+                            <?php if (isset($item['discount']) && is_array($item['discount'])): ?>
+                                <div class="text-white bg-danger px-3 py-1 rounded position-absolute" style="top: 60px;right: 10px;">Giảm giá</div>
+                            <?php endif ?>
+                            <div class="p-4 pb-0 rounded-bottom">
+                                <h4><?= $item['name'] ?></h4>
+                                <div class="d-flex justify-content-between flex-lg-wrap">
+                                    <p class="text-dark fs-5 fw-bold"><?= format_currency($item['price'], get_current_symboy()) ?></p>
+                                    <a onclick="onAddCart('<?= $item['id'] ?>','<?= $item['name'] ?>','<?= $item['price'] ?>','buyNow')" class="btn border border-secondary rounded-pill px-3 py-1 mb-4 text-primary"><i class="fa fa-shopping-bag me-2 text-primary"></i> Mua ngay</a>
+                                </div>
+                            </div>
+                        </a>
                     </div>
                 <?php } ?>
             </div>
