@@ -145,7 +145,7 @@ class ProductController extends BaseController
             $messages['images'] = get_message_error_file();
         }
         if (!$this->validate($rules, $messages)) {
-            return redirect()->to('admin/product/update/'.$id)->with('errors', $this->validator->getErrors());
+            return redirect()->to('admin/product/detail/'.$id)->with('errors', $this->validator->getErrors());
         }
         $this->productModel->update($id, [
             'name' => $name,
