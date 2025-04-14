@@ -19,7 +19,8 @@ class App extends BaseConfig
 
     // public $baseURL = 'http://localhost:8080/web-store/';
     // public $baseURL = 'http://localhost/web-store/';
-    public $baseURL = 'https://taphoagiadinh.info.vn/';
+    // public $baseURL = 'https://taphoagiadinh.info.vn/';
+    public $baseURL = 'https://peatun.com/';
 
     /**
      * Allowed Hostnames in the Site URL other than the hostname in the baseURL.
