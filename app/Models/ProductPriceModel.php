@@ -16,6 +16,7 @@ class ProductPriceModel extends Model
         return $this->select("product_prices.price
             , products.id
             , products.name
+            , products.slug
             , products.created_at
             , products.is_active
             , products.image
