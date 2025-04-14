@@ -103,7 +103,7 @@
                                                         <?php endif ?>
                                                     </div>
                                                 </a>
-                                                <div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;"><?= $item['category_name'] ?></div>
+<!--                                                <div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">--><?php //= $item['category_name'] ?><!--</div>-->
                                                 <?php if (isset($item['discount']) && is_array($item['discount'])): ?>
                                                     <div class="text-white bg-danger px-3 py-1 rounded position-absolute" style="top: 60px;left: 10px;">Giảm giá</div>
                                                 <?php endif ?>
