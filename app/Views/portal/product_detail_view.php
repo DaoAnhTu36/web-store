@@ -20,8 +20,12 @@
                 <div class="row g-4">
                     <div class="col-lg-6">
                         <div class="border rounded">
-                            <a href="#">
-                                <img src="<?= base_url($data['image']) ?>" class="img-fluid rounded" alt="Image">
+                            <a>
+                                <?php if (isset($data['image']) && $data['image'] !== ''): ?>
+                                    <img src="<?= base_url(trim($data['image'])) ?>" class="img-fluid w-100 rounded-top" alt="">
+                                <?php else: ?>
+                                    <img src="<?= base_url(trim(session()->get('web_configs')['image_product_default'])) ?>" class="img-fluid w-100 rounded-top" alt="">
+                                <?php endif ?>
                             </a>
                         </div>
                     </div>
