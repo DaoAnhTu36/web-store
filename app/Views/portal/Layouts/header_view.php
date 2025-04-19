@@ -113,7 +113,7 @@
     ">
         Đã thêm vào giỏ hàng
     </div>
-    <canvas id="snow"></canvas>
+    <!-- <canvas id="snow"></canvas> -->
     <div class="contact-group">
         <a href="tel:<?php echo isset(session()->get('web_configs')['tel']) ? session()->get('web_configs')['tel'] : ''; ?>" class="contact-btn phone" title="Gọi ngay">
             <i class="fa fa-phone" aria-hidden="true"></i>
