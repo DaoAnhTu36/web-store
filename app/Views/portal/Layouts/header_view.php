@@ -93,18 +93,14 @@
             background-color: #dc3545;
         }
     </style>
-    <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
-    <script>
-        window.OneSignalDeferred = window.OneSignalDeferred || [];
-        OneSignalDeferred.push(async function(OneSignal) {
-            await OneSignal.init({
-                appId: "a61ed9c4-8b28-4114-a1a7-067abb945fe6",
-            });
-        });
+    <script async defer crossorigin="anonymous"
+        src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v19.0"
+        nonce="xyz123">
     </script>
 </head>
 
 <body>
+    <div id="fb-root"></div>
     <!-- <div id="ajax-loader" style="display:none; position:fixed; top:50%; left:50%; transform:translate(-50%, -50%); z-index:9999;">
         <div class="spinner-border text-primary" role="status">
             <span class="visually-hidden">Đã thêm vào giỏ hàng</span>
