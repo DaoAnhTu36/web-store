@@ -164,4 +164,21 @@ class ProductModel extends Model
             ->orderBy('products.created_at', 'DESC')
             ->findAll();
     }
+
+    public function search_product($keyword)
+    {
+        return $this->select("products.id
+            , products.name
+            , products.created_at
+            , products.is_active
+            , products.slug
+            , categories.name AS category_name")
+            ->join('categories', "categories.id = products.category_id", 'left')
+            ->like('products.name', $keyword)
+            ->orLike('categories.name', $keyword)
+            ->groupBy('products.id')
+            ->where('products.is_active', 1)
+            ->orderBy('products.created_at', 'DESC')
+            ->findAll();
+    }
 }

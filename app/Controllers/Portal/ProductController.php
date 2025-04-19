@@ -71,4 +71,11 @@ class ProductController extends BaseController
         $reviews = $this->reviewModel->get_reviews_by_product_id($product_id, $page, 10);
         return apiResponse(200, 'success', $reviews);
     }
+
+    public function search_product()
+    {
+        $keyword = $this->request->getPost('keyword');
+        $resutl_search = $this->productModel->search_product($keyword);
+        return apiResponse(200, 'success', $resutl_search);
+    }
 }

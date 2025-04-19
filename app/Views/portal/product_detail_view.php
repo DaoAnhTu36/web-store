@@ -93,7 +93,7 @@
                                         </div>
                                         <div class="col-lg-12">
                                             <div class="d-flex justify-content-between py-3 mb-5">
-                                                <div class="d-flex align-items-center">
+                                                <!-- <div class="d-flex align-items-center">
                                                     <p class="mb-0 me-3">Đanh giá:</p>
                                                     <div class="d-flex align-items-center" style="font-size: 12px;">
                                                         <i class="fa fa-star text-muted"></i>
@@ -102,7 +102,7 @@
                                                         <i class="fa fa-star"></i>
                                                         <i class="fa fa-star"></i>
                                                     </div>
-                                                </div>
+                                                </div> -->
                                                 <a onclick="onFeedback('<?= $data['id'] ?>')" class="btn border border-secondary text-primary rounded-pill px-4 py-3"> Bình luận</a>
                                             </div>
                                         </div>
@@ -124,13 +124,13 @@
                                                 <p class="mb-2" style="font-size: 14px;"><?= $review['created_at'] ?></p>
                                                 <div class="d-flex justify-content-between">
                                                     <h5><?= $review['created_by'] ?></h5>
-                                                    <div class="d-flex mb-3">
+                                                    <!-- <div class="d-flex mb-3">
                                                         <i class="fa fa-star text-secondary"></i>
                                                         <i class="fa fa-star text-secondary"></i>
                                                         <i class="fa fa-star text-secondary"></i>
                                                         <i class="fa fa-star text-secondary"></i>
                                                         <i class="fa fa-star text-secondary"></i>
-                                                    </div>
+                                                    </div> -->
                                                 </div>
                                                 <p style="width:100%; word-wrap: break-word;"><?= $review['comment'] ?></p>
                                             </div>

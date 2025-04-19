@@ -1,5 +1,5 @@
 <!-- Footer Start -->
-<div class="container-fluid bg-dark text-white-50 footer pt-5 mt-5">
+<div class="container-fluid bg-dark text-white-50 footer pt-5">
     <div class="container py-5">
         <div class="pb-4 mb-4" style="border-bottom: 1px solid rgba(226, 175, 24, 0.5) ;">
             <div class="row g-4">
@@ -89,8 +89,6 @@
 </div>
 <!-- Copyright End -->
 
-
-
 <!-- Back to Top -->
 <a href="#" class="btn btn-primary border-3 border-primary rounded-circle back-to-top"><i class="fa fa-arrow-up"></i></a>
 <script src="<?= base_url($libUrl . '/portal/js/jquery.min.js'); ?>"></script>
@@ -109,6 +107,7 @@
 <script src="<?= base_url($libUrl . '/portal/js/cart.js'); ?>"></script>
 <script src="<?= base_url($libUrl . '/portal/js/customers.js'); ?>"></script>
 <script src="<?= base_url($libUrl . '/portal/js/product.js'); ?>"></script>
+<script src="<?= base_url($libUrl . '/portal/js/search.js'); ?>"></script>
 <script>
     // const canvas = document.getElementById('snow');
     // const ctx = canvas.getContext('2d');
