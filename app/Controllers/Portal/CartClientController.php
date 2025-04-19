@@ -248,7 +248,7 @@ class CartClientController extends BaseController
         }
 
         $this->session->remove('cart');
-        return redirect()->to('portal/cart-client/order-successfull')->with("success", "Đặt hàng thành công");
+        return redirect()->to('portal/gio-hang/dat-hang-thanh-cong')->with("success", "Đặt hàng thành công");
     }
 
     public function order_successfull()

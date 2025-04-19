@@ -16,13 +16,14 @@ class ProductPriceModel extends Model
         return $this->select("product_prices.price
             , products.id
             , products.name
+            , products.slug
             , products.created_at
             , products.is_active
             , products.image
             , categories.id AS category_id
             , categories.name AS category_name")
             ->join("products", "products.id = product_prices.product_id AND products.is_active = 1", "left")
-            ->join('categories', 'categories.id = products.category_id AND categories.is_active = 1', 'left')
+            ->join('categories', 'categories.id = products.category_id AND categories.is_active = 1 AND categories.is_display = 1', 'left')
             ->where('product_prices.is_active', 1)
             ->groupBy('products.id')
             ->orderBy('products.created_at', 'DESC')

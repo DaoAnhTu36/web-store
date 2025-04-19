@@ -59,45 +59,21 @@
 <div class="container-fluid fruite py-5">
     <div class="container py-5">
         <?php foreach ($data as $key => $value): ?>
-            <div class="tab-class text-center mt-5">
+            <div class="tab-class text-center">
                 <div class="row g-4">
                     <div class="col-lg-4 text-start">
-                        <h1>
-                            <span class="text-secondary"><?= $categories[array_search($key, array_column($categories, 'id'))]['name'] ?></span>
-                        </h1>
+                        <h1><?= $key ?></h1>
                     </div>
-                    <!-- <div class="col-lg-8 text-end">
-                    <ul class="nav nav-pills d-inline-flex text-center mb-5">
-                        <?php if (isset($categories) && is_array($categories)): ?>
-                            <?php foreach ($categories as $category): ?>
-                                <?php if ($category['id'] == session()->get('web_configs')['tab_active_home_page']): ?>
-                                    <li class="nav-item">
-                                        <a class="d-flex py-2 m-2 bg-light rounded-pill active" data-bs-toggle="pill" href="#tab-<?= $category['id'] ?>">
-                                            <span class="text-dark" style="width: 130px;"><?= $category['name'] ?></span>
-                                        </a>
-                                    </li>
-                                <?php else: ?>
-                                    <li class="nav-item">
-                                        <a class="d-flex py-2 m-2 bg-light rounded-pill" data-bs-toggle="pill" href="#tab-<?= $category['id'] ?>">
-                                            <span class="text-dark" style="width: 130px;"><?= $category['name'] ?></span>
-                                        </a>
-                                    </li>
-                                <?php endif ?>
-                            <?php endforeach; ?>
-                        <?php endif; ?>
-                    </ul>
-                </div> -->
                 </div>
                 <div class="tab-content">
-                    <!-- <div id="tab-<?= $key ?>" class="tab-pane fade show p-0 <?= session()->get('web_configs')['tab_active_home_page'] == $key ? 'active' : '' ?>"> -->
                     <div class="row g-4">
                         <div class="col-lg-12">
                             <div class="row g-4">
                                 <?php foreach ($value as $item): ?>
                                     <div class="col-md-6 col-lg-4 col-xl-3">
                                         <div class="rounded position-relative fruite-item">
-                                            <a href="<?= base_url('portal/chi-tiet-san-pham/' . $item['slug']) . '.html' ?>">
-                                                <div class="fruite-img" style="overflow: hidden;">
+                                            <a href="<?= base_url('portal/product/detail-product/' . $item['id']) ?>">
+                                                <div class="fruite-img" style="overflow: hidden;height: 250px;">
                                                     <?php if (isset($item['image']) && $item['image'] !== ''): ?>
                                                         <img src="<?= base_url(trim($item['image'])) ?>" class="img-fluid w-100 rounded-top" alt="">
                                                     <?php else: ?>
@@ -105,14 +81,9 @@
                                                     <?php endif ?>
                                                 </div>
                                             </a>
-                                            <!--                                                <div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">--><?php //= $item['category_name'] 
-                                                                                                                                                                                                            ?><!--</div>-->
+                                            <div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;"><?= $item['category_name'] ?></div>
                                             <?php if (isset($item['discount']) && is_array($item['discount'])): ?>
-                                                <div class="text-white bg-danger px-3 py-1 rounded position-absolute" style="top: 10px;right: 10px;">
-                                                    <?php if ($item['discount']['discount_type_id'] == 1): ?>
-                                                        <?= format_currency($item['discount']['discount_value']) ?>%
-                                                    <?php endif ?>
-                                                </div>
+                                                <div class="text-white bg-danger px-3 py-1 rounded position-absolute" style="top: 60px;left: 10px;">Giảm giá</div>
                                             <?php endif ?>
                                             <div class="p-4 rounded-bottom">
                                                 <h5><?= $item['name'] ?></h5>
@@ -144,7 +115,6 @@
                             </div>
                         </div>
                     </div>
-                    <!-- </div> -->
                 </div>
             </div>
         <?php endforeach ?>

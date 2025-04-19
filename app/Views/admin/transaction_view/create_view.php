@@ -84,9 +84,11 @@
                                             <input type="hidden" id="product_id" name="product_id">
                                             <input type="text" name="product_input" id="product_input" class="form-control" placeholder="Nhập tên hàng hóa" list="product_list" onkeyup="onGetAttributeProduct()" />
                                             <datalist id="product_list">
-                                                <?php foreach ($products as $product) : ?>
-                                                    <option data-id="<?= $product['id'] ?>" value="<?= $product['name'] ?>"><?= $product['name'] . ' - ' . $product['category_name'] ?></option>
-                                                <?php endforeach; ?>
+                                                <?php $idx = 1;
+                                                foreach ($products as $product) : ?>
+                                                    <option data-id="<?= $product['id'] ?>" value="<?= $idx . ': ' . $product['name'] . ' - ' . $product['category_name'] ?>">SL tồn: <?= $product['total_quantity'] ?></option>
+                                                <?php $idx++;
+                                                endforeach; ?>
                                             </datalist>
                                         </div>
                                     </div>
@@ -101,13 +103,13 @@
                                     <div class="form-group">
                                         <label class="col-md-2 control-label">Số lượng</label>
                                         <div class="col-md-10">
-                                            <input type="text" class="form-control" value="" placeholder="Nhập số lượng" id="quantity" name="quantity" />
+                                            <input type="text" class="form-control" value="<?= isset(session()->get('web_configs')['quantity_base_import']) ? session()->get('web_configs')['quantity_base_import'] : '' ?>" placeholder="Nhập số lượng" id="quantity" name="quantity" />
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-md-2 control-label">Đơn giá</label>
                                         <div class="col-md-10">
-                                            <input type="text" class="form-control" value="" placeholder="Nhập đơn giá" id="unit_price" name="unit_price" />
+                                            <input type="text" class="form-control" value="<?= isset(session()->get('web_configs')['unit_price_base_import']) ? session()->get('web_configs')['unit_price_base_import'] : '' ?>" placeholder="Nhập đơn giá" id="unit_price" name="unit_price" />
                                         </div>
                                     </div>
                                     <div class="form-group" style="text-align: center;">
@@ -213,8 +215,8 @@
         }
         renderDataTransDetail();
         $('#product_id').val('');
-        $('#quantity').val('');
-        $('#unit_price').val('');
+        $('#quantity').val(<?= isset(session()->get('web_configs')['quantity_base_import']) ? session()->get('web_configs')['quantity_base_import'] : '' ?>);
+        $('#unit_price').val(<?= isset(session()->get('web_configs')['unit_price_base_import']) ? session()->get('web_configs')['unit_price_base_import'] : '' ?>);
         $('#product_input').val('');
         $('#product-attribute-value').html('');
         $("#attribute-product").slideUp();
@@ -301,13 +303,9 @@
             type: 'POST',
             data: requestData,
             success: function(response) {
-                Toastify({
-                    text: response.message,
-                    duration: 1500,
-                    callback: function() {
-                        window.location.reload(true);
-                    }
-                }).showToast();
+                onToastrSuccess(response.message, () => {
+                    window.location.reload(true);
+                })
             },
             error: function(xhr, status, error) {
                 console.log('Error:', error);

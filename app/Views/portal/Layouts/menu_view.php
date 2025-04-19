@@ -22,7 +22,10 @@
     <div class="container px-0">
         <nav class="navbar navbar-light bg-white navbar-expand-xl">
             <a href="<?= base_url('portal/home') ?>" class="navbar-brand">
-                <h1 class="text-primary display-6"><?= session()->get('web_configs')['site_name']; ?></h1>
+                <h1 class="text-primary display-6">
+                    <img style="width: 50px;" src="<?= base_url(session()->get('web_configs')['logo']) ?>" class="d-none d-md-inline">
+                    <?= session()->get('web_configs')['site_name']; ?>
+                </h1>
             </a>
             <button class="navbar-toggler py-2 px-3" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
                 <span class="fa fa-bars text-primary"></span>
@@ -46,7 +49,7 @@
                 </div>
                 <div class="d-flex m-3 me-0">
                     <!-- <button class="btn-search btn border border-secondary btn-md-square rounded-circle bg-white me-4"><i class="fas fa-search text-primary"></i></button> -->
-                    <a href="<?= base_url('portal/cart-client') ?>" class="position-relative me-4 my-auto">
+                    <a href="<?= base_url('portal/gio-hang') ?>" class="position-relative me-4 my-auto">
                         <i class="fa fa-shopping-bag fa-2x"></i>
                         <span class="position-absolute bg-secondary rounded-circle d-flex align-items-center justify-content-center text-dark px-1" id="total-item-in-cart" style="top: -5px; left: 15px; height: 20px; min-width: 20px;"><?php echo (session()->get('cart') != null ? array_sum(array_column(session()->get('cart'), 'quantity')) : 0); ?></span>
                     </a>

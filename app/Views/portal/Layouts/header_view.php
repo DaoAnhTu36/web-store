@@ -35,14 +35,78 @@
     <link href="<?= base_url($libUrl . '/template/css/style.css'); ?>" rel="stylesheet">
     <link href="<?= base_url($libUrl . '/portal/css/custom.css'); ?>" rel="stylesheet">
 
+    <style>
+        #snow {
+            position: fixed;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            width: 100%;
+            height: 100%;
+            z-index: 9999;
+        }
+
+        .contact-group {
+            position: fixed;
+            bottom: 100px;
+            right: 20px;
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .contact-group a {
+            text-decoration: none;
+        }
+
+        .contact-group a:hover {
+            color: white !important;
+        }
+
+        .contact-btn {
+            width: 50px;
+            height: 50px;
+            color: white;
+            font-size: 24px;
+            text-align: center;
+            line-height: 50px;
+            border-radius: 50%;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .contact-btn:hover {
+            transform: scale(1.1);
+        }
+
+        .contact-btn.zalo {
+            background-color: #0084ff;
+        }
+
+        .contact-btn.sms {
+            background-color: #28a745;
+        }
+
+        .contact-btn.phone {
+            background-color: #dc3545;
+        }
+    </style>
+    <script async defer crossorigin="anonymous"
+        src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v19.0"
+        nonce="xyz123">
+    </script>
 </head>
 
 <body>
+    <div id="fb-root"></div>
     <!-- <div id="ajax-loader" style="display:none; position:fixed; top:50%; left:50%; transform:translate(-50%, -50%); z-index:9999;">
         <div class="spinner-border text-primary" role="status">
             <span class="visually-hidden">Đã thêm vào giỏ hàng</span>
         </div>
     </div> -->
+
     <div id="notification" style="display:none; position: fixed;
     top: 50%;
     left: 50%;
@@ -53,4 +117,16 @@
     border-radius: 10px;
     ">
         Đã thêm vào giỏ hàng
+    </div>
+    <canvas id="snow"></canvas>
+    <div class="contact-group">
+        <a href="tel:<?php echo isset(session()->get('web_configs')['tel']) ? session()->get('web_configs')['tel'] : ''; ?>" class="contact-btn phone" title="Gọi ngay">
+            <i class="fa fa-phone" aria-hidden="true"></i>
+        </a>
+        <a href="sms:<?php echo isset(session()->get('web_configs')['tel']) ? session()->get('web_configs')['tel'] : ''; ?>" class="contact-btn sms" title="Nhắn tin">
+            <i class="fa fa-comment" aria-hidden="true"></i>
+        </a>
+        <a href="https://zalo.me/<?php echo isset(session()->get('web_configs')['zalo']) ? session()->get('web_configs')['zalo'] : ''; ?>" target="_blank" class="contact-btn zalo" title="Zalo Chat">
+            Zalo
+        </a>
     </div>

@@ -20,8 +20,12 @@
                 <div class="row g-4">
                     <div class="col-lg-6">
                         <div class="border rounded">
-                            <a href="#">
-                                <img src="<?= base_url($data['image']) ?>" class="img-fluid rounded" alt="Image">
+                            <a>
+                                <?php if (isset($data['image']) && $data['image'] !== ''): ?>
+                                    <img src="<?= base_url(trim($data['image'])) ?>" class="img-fluid w-100 rounded-top" alt="">
+                                <?php else: ?>
+                                    <img src="<?= base_url(trim(session()->get('web_configs')['image_product_default'])) ?>" class="img-fluid w-100 rounded-top" alt="">
+                                <?php endif ?>
                             </a>
                         </div>
                     </div>
@@ -74,17 +78,17 @@
                                     <div class="row g-4">
                                         <div class="col-lg-6">
                                             <div class="border-bottom rounded">
-                                                <input type="text" name="fullname" id="fullname" value="Trần Văn Tú" class="form-control border-0 me-4" placeholder="Tên người bình luận" required>
+                                                <input type="text" name="fullname" id="fullname" value="<?= isset(session()->get('customer_infor')['first_name']) ? session()->get('customer_infor')['first_name'] . ' ' . session()->get('customer_infor')['last_name'] : '' ?>" class="form-control border-0 me-4" placeholder="Tên người bình luận" required>
                                             </div>
                                         </div>
                                         <div class="col-lg-6">
                                             <div class="border-bottom rounded">
-                                                <input type="email" name="email" id="email" value="trailangnd96@gmail.com" class="form-control border-0" placeholder="Email" required>
+                                                <input type="email" name="email" id="email" value="<?= isset(session()->get('customer_infor')['email']) ? session()->get('customer_infor')['email'] : '' ?>" class="form-control border-0" placeholder="Email" required>
                                             </div>
                                         </div>
                                         <div class="col-lg-12">
                                             <div class="border-bottom rounded my-4">
-                                                <textarea name="content" id="content" class="form-control border-0" cols="30" rows="8" placeholder="Nội dung đánh giá" spellcheck="false" required>Sản phẩm rất tốt, sử dụng hiệu quả, giảm bớt căng thẳng</textarea>
+                                                <textarea name="content" id="content" class="form-control border-0" cols="30" rows="8" placeholder="Nội dung đánh giá" spellcheck="false" required></textarea>
                                             </div>
                                         </div>
                                         <div class="col-lg-12">
@@ -100,6 +104,14 @@
                                                     </div>
                                                 </div>
                                                 <a onclick="onFeedback('<?= $data['id'] ?>')" class="btn border border-secondary text-primary rounded-pill px-4 py-3"> Bình luận</a>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="fb-comments"
+                                                data-href="https://peatum.com/portal/chi-tiet-san-pham/<?= $data['slug'] ?>.html"
+                                                data-width="100%"
+                                                data-numposts="5"
+                                                data-order-by="reverse_time">
                                             </div>
                                         </div>
                                     </div>
@@ -309,22 +321,29 @@
             <div class="owl-carousel vegetable-carousel justify-content-center">
                 <?php foreach ($data_relations as $item) { ?>
                     <div class="border border-primary rounded position-relative vesitable-item">
-                        <div class="vesitable-img">
-                            <img src="<?= base_url($item['image']) ?>" class="img-fluid w-100 rounded-top" alt="">
-                        </div>
-                        <div class="text-white bg-primary px-3 py-1 rounded position-absolute" style="top: 10px; right: 10px;">
-                            <?= $item['category_name'] ?>
-                        </div>
-                        <?php if (isset($item['discount']) && is_array($item['discount'])): ?>
-                            <div class="text-white bg-danger px-3 py-1 rounded position-absolute" style="top: 60px;right: 10px;">Giảm giá</div>
-                        <?php endif ?>
-                        <div class="p-4 pb-0 rounded-bottom">
-                            <h4><?= $item['name'] ?></h4>
-                            <div class="d-flex justify-content-between flex-lg-wrap">
-                                <p class="text-dark fs-5 fw-bold"><?= format_currency($item['price'], get_current_symboy()) ?></p>
-                                <a onclick="onAddCart('<?= $item['id'] ?>','<?= $item['name'] ?>','<?= $item['price'] ?>','buyNow')" class="btn border border-secondary rounded-pill px-3 py-1 mb-4 text-primary"><i class="fa fa-shopping-bag me-2 text-primary"></i> Mua ngay</a>
+                        <a href="<?= base_url('portal/chi-tiet-san-pham/' . $item['slug']) . '.html' ?>">
+                            <div class="vesitable-img">
+                                <?php if (isset($item['image']) && $item['image'] !== ''): ?>
+                                    <img src="<?= base_url(trim($item['image'])) ?>" class="img-fluid w-100 rounded-top" alt="">
+                                <?php else: ?>
+                                    <img src="<?= base_url(trim(session()->get('web_configs')['image_product_default'])) ?>" class="img-fluid w-100 rounded-top" alt="">
+                                <?php endif ?>
                             </div>
-                        </div>
+                            <!--                            <div class="text-white bg-primary px-3 py-1 rounded position-absolute" style="top: 10px; right: 10px;">-->
+                            <!--                                --><?php //= $item['category_name'] 
+                                                                    ?>
+                            <!--                            </div>-->
+                            <?php if (isset($item['discount']) && is_array($item['discount'])): ?>
+                                <div class="text-white bg-danger px-3 py-1 rounded position-absolute" style="top: 60px;right: 10px;">Giảm giá</div>
+                            <?php endif ?>
+                            <div class="p-4 pb-0 rounded-bottom">
+                                <h4><?= $item['name'] ?></h4>
+                                <div class="d-flex justify-content-between flex-lg-wrap">
+                                    <p class="text-dark fs-5 fw-bold"><?= format_currency($item['price'], get_current_symboy()) ?></p>
+                                    <a onclick="onAddCart('<?= $item['id'] ?>','<?= $item['name'] ?>','<?= $item['price'] ?>','buyNow')" class="btn border border-secondary rounded-pill px-3 py-1 mb-4 text-primary"><i class="fa fa-shopping-bag me-2 text-primary"></i> Mua ngay</a>
+                                </div>
+                            </div>
+                        </a>
                     </div>
                 <?php } ?>
             </div>

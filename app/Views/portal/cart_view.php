@@ -6,7 +6,7 @@
         <div class="table-responsive">
             <a href="<?= base_url('portal/home') ?>" style="margin-top:100px" class="btn border-secondary rounded-pill px-4 py-3 text-primary">Tiếp tục mua hàng</a>
             <?php if (session()->get('cart')): ?>
-                <a href="<?= base_url('portal/cart-client/clear-cart') ?>" style="margin-top:100px" class="btn border-secondary rounded-pill px-4 py-3 text-danger">Xóa giỏ hàng</a>
+                <a href="<?= base_url('portal/gio-hang/xoa-gio-hang') ?>" style="margin-top:100px" class="btn border-secondary rounded-pill px-4 py-3 text-danger">Xóa giỏ hàng</a>
             <?php endif ?>
             <table class="table">
                 <table class="table">
@@ -71,7 +71,7 @@
             <input type="text" style="outline: none;padding-left:15px" class="border-0 border-bottom rounded me-5 py-3 mb-4" placeholder="Nhập mã giảm giá" name="id_coupon" id="id_coupon">
         </div> -->
         <div class="row g-4 justify-content-end">
-            <form action="<?= site_url('portal/cart-client/complete-order') ?>" method="POST">
+            <form action="<?= site_url('portal/gio-hang/dat-hang') ?>" method="POST">
                 <div class="row">
                     <div class="col-8">
                         <div class="row">

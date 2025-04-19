@@ -1,14 +1,13 @@
 function onAddCart(id, name, price, type) {
   if (type !== 'buyNow') {
-    $('#total-item-in-cart').html('Thêm giỏ hàng thành công');
     $("#notification").addClass('notification-success').toggle();
     setTimeout(() => {
       $("#notification").toggle();
-    }, 1500);
+    }, 1000);
   }
   $.ajax({
     type: 'POST',
-    url: baseURL + 'portal/cart-client/add-to-cart',
+    url: baseURL + 'portal/gio-hang/them-vao-gio-hang',
     data: {
       id,
       name,
@@ -18,7 +17,9 @@ function onAddCart(id, name, price, type) {
     success: function (response) {
       if (response.status) {
         if (type === 'buyNow') {
-          window.location.href = baseURL + 'portal/cart-client';
+          window.location.href = baseURL + 'portal/gio-hang';
+        } else {
+          $('#total-item-in-cart').html(response.data.total_item);
         }
       }
     },
@@ -31,7 +32,7 @@ function onAddCart(id, name, price, type) {
 function onChangeQuantity(id, type) {
   $.ajax({
     type: 'POST',
-    url: baseURL + 'portal/cart-client/change-quantity',
+    url: baseURL + 'portal/gio-hang/thay-doi-so-luong-san-pham-gio-hang',
     data: {
       id,
       type,
@@ -55,7 +56,7 @@ function onChangeQuantity(id, type) {
 function removeItemCart(id) {
   $.ajax({
     type: 'POST',
-    url: baseURL + 'portal/cart-client/remove-item-cart',
+    url: baseURL + 'portal/gio-hang/xoa-san-pham-khoi-gio-hang',
     data: {
       id,
     },
