@@ -135,6 +135,7 @@ class ProductModel extends Model
             , products.is_active
             , products.image
             , products.description
+            , products.slug
             , product_prices.price
             , IFNULL(GROUP_CONCAT(images.image_path SEPARATOR ', '),'') AS images")
             ->join('images', "images.record_id = products.id AND images.type = 'product'", 'left')

@@ -106,6 +106,14 @@
                                                 <a onclick="onFeedback('<?= $data['id'] ?>')" class="btn border border-secondary text-primary rounded-pill px-4 py-3"> Bình luận</a>
                                             </div>
                                         </div>
+                                        <div class="col-md-12">
+                                            <div class="fb-comments"
+                                                data-href="https://peatum.com/portal/chi-tiet-san-pham/<?= $data['slug'] ?>.html"
+                                                data-width="100%"
+                                                data-numposts="5"
+                                                data-order-by="reverse_time">
+                                            </div>
+                                        </div>
                                     </div>
                                 </form>
                                 <div class="comments" id="comments">
