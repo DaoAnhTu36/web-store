@@ -64,3 +64,13 @@ input {
   --rating: attr(data-rating);
   --rating-percent: calc(var(--rating) / 5 * 100%); /* Giả sử rating tối đa là 5 */
 }
+
+.fruite-item::before{
+  content: url('icons8-sale-48.png');
+  display: block;
+  height: 0px;
+  z-index: 1;   
+  top:-5%;
+  left: 0;
+  position: absolute;
+}
