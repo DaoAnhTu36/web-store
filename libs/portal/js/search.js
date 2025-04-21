@@ -36,3 +36,36 @@ function onSearchProduct() {
         });
     }, 500); // ⏱ Delay 400ms
 }
+
+function subscriptionEmail(buttonElement) {
+    buttonElement.textContent = "Đang xử lý...";
+    buttonElement.disabled = true;
+    const email_subscription = document.getElementById('email_subscription').value;
+    if (email_subscription == "") {
+        alert("Vui lòng nhập email của bạn!");
+        return;
+    }
+    if (!validateEmail(email_subscription)) {
+        alert("Email không hợp lệ!");
+        return;
+    }
+    $.ajax({
+        url: baseURL + 'admin/subscription',
+        type: "POST",
+        data: { email_subscription: email_subscription },
+        success: function (response) {
+            if (response.status) {
+                alert("Đăng ký nhận thông tin thành công!");
+                document.getElementById('email_subscription').value = '';
+                buttonElement.disabled = false;
+            } else {
+                alert("Đăng ký nhận thông tin thất bại!");
+            }
+        },
+        error: function (xhr, status, error) {
+            console.log("Error: " + error);
+            console.log("Status: " + status);
+        }
+    });
+}
+
