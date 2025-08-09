@@ -65,7 +65,7 @@ input {
   --rating-percent: calc(var(--rating) / 5 * 100%); /* Giả sử rating tối đa là 5 */
 }
 
-.fruite-item::before{
+/* .fruite-item::before{
   content: url('icons8-sale-48.png');
   display: block;
   height: 0px;
@@ -73,4 +73,12 @@ input {
   top:-5%;
   left: 0;
   position: absolute;
+} */
+
+.search-item{
+  padding : 5px 20px;
+}
+.search-item:hover{
+  background-color: #f0f0f0;
+  cursor: pointer;
 }

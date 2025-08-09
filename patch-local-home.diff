@@ -1,0 +1,46 @@
+diff --git a/.env b/.env
+index d964341..6f7225c 100644
+--- a/.env
++++ b/.env
+@@ -13,8 +13,8 @@
+ #--------------------------------------------------------------------
+ # ENVIRONMENT
+ #--------------------------------------------------------------------
+-CI_ENVIRONMENT = production
+-# CI_ENVIRONMENT = development
++# CI_ENVIRONMENT = production
++CI_ENVIRONMENT = development
+ 
+ #--------------------------------------------------------------------
+ # APP
+diff --git a/app/Config/App.php b/app/Config/App.php
+index 52d254c..489cbc9 100644
+--- a/app/Config/App.php
++++ b/app/Config/App.php
+@@ -18,9 +18,9 @@ class App extends BaseConfig
+      */
+ 
+     // public $baseURL = 'http://localhost:8080/web-store/';
+-    // public $baseURL = 'http://localhost/web-store/';
++    public $baseURL = 'http://localhost/web-store/';
+     // public $baseURL = 'https://taphoagiadinh.info.vn/';
+-    public $baseURL = 'https://peatun.com/';
++    // public $baseURL = 'https://peatun.com/';
+ 
+     /**
+      * Allowed Hostnames in the Site URL other than the hostname in the baseURL.
+diff --git a/app/Config/Database.php b/app/Config/Database.php
+index 59ef750..0b3592e 100644
+--- a/app/Config/Database.php
++++ b/app/Config/Database.php
+@@ -29,8 +29,8 @@ class Database extends Config
+     public array $default = [
+         'DSN'          => '',
+         'hostname'     => 'localhost',
+-        'username'     => 'taphoagi_admin',
+-        'password'     => 'Daoanhtu020996@@#',
++        'username'     => 'root',
++        'password'     => '',
+         'database'     => 'taphoagi_store_web',
+         'DBDriver'     => 'MySQLi',
+         'DBPrefix'     => '',

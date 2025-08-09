@@ -1,4 +1,4 @@
-document.addEventListener("click", function(event) {
+document.addEventListener("click", function (event) {
     let navbarCollapse = document.getElementById("navbarCollapse");
     let navbarToggler = document.querySelector(".navbar-toggler");
     if (!navbarCollapse.contains(event.target) && !navbarToggler.contains(event.target)) {
@@ -8,8 +8,8 @@ document.addEventListener("click", function(event) {
         bsCollapse.hide();
     }
 });
-$(document).ready(function() {
-    $('input').on('keyup', function() {
+$(document).ready(function () {
+    $('input').on('keyup', function () {
         if ($(this).attr('required') !== undefined) {
             if ($(this).val().trim() === '') {
                 $(this).addClass('error-input');
@@ -19,8 +19,8 @@ $(document).ready(function() {
         }
     });
 });
-$(document).ready(function() {
-    $('.input-type-email').on('keyup', function() {
+$(document).ready(function () {
+    $('.input-type-email').on('keyup', function () {
         if ($(this).attr('required') !== undefined) {
             if ($(this).val().trim() === '') {
                 $(this).addClass('error-input');
@@ -29,9 +29,14 @@ $(document).ready(function() {
             }
         }
         const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if($(this).val().trim() !== '' && !regex.test($(this).val())) {
+        if ($(this).val().trim() !== '' && !regex.test($(this).val())) {
             $(this).addClass('error-input');
             $(this).addClass('error-input-email');
         }
     });
 });
+
+function validateEmail(email) {
+    const regex = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return regex.test(email);
+}

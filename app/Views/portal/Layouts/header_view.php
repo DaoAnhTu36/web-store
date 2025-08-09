@@ -93,14 +93,9 @@
             background-color: #dc3545;
         }
     </style>
-    <script async defer crossorigin="anonymous"
-        src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v19.0"
-        nonce="xyz123">
-    </script>
 </head>
 
 <body>
-    <div id="fb-root"></div>
     <!-- <div id="ajax-loader" style="display:none; position:fixed; top:50%; left:50%; transform:translate(-50%, -50%); z-index:9999;">
         <div class="spinner-border text-primary" role="status">
             <span class="visually-hidden">Đã thêm vào giỏ hàng</span>
@@ -118,7 +113,7 @@
     ">
         Đã thêm vào giỏ hàng
     </div>
-    <canvas id="snow"></canvas>
+    <!-- <canvas id="snow"></canvas> -->
     <div class="contact-group">
         <a href="tel:<?php echo isset(session()->get('web_configs')['tel']) ? session()->get('web_configs')['tel'] : ''; ?>" class="contact-btn phone" title="Gọi ngay">
             <i class="fa fa-phone" aria-hidden="true"></i>
