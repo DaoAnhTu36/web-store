@@ -1,5 +1,5 @@
 <!-- Featurs Section Start -->
-<div class="container-fluid featurs py-5" style="background-color: #d7d7d7;">
+<!-- <div class="container-fluid featurs py-5" style="background-color: #d7d7d7;">
     <div class="container py-5">
         <div class="row g-4">
             <div class="col-lg-12 text-center">
@@ -48,5 +48,5 @@
             </div>
         </div>
     </div>
-</div>
+</div> -->
 <!-- Featurs Section End -->
