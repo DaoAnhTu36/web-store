@@ -108,6 +108,14 @@ $method = isset($path_array[2]) ? $path_array[2] : '';
                 </ul>
             </li>
             <li>
+                <a title=""><i class="fa fa-lg fa-fw fa-cube"></i><span class="menu-item-parent">Quản lý tệp</span></a>
+                <ul>
+                    <li class="<?= $controller == 'manager_file' ? 'active open' : ''; ?>">
+                        <a href="<?= site_url('admin/manager_file') ?>" title=""></i> <span class="menu-item-parent">Danh sách tệp</span></a>
+                    </li>
+                </ul>
+            </li>
+            <li>
                 <a title=""><i class="fa fa-lg fa-fw fa-gears"></i><span class="menu-item-parent">Cấu hình website</span></a>
                 <ul>
                     <li class="<?= $controller == 'route' ? 'active open' : ''; ?>">

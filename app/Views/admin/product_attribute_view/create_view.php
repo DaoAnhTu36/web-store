@@ -33,7 +33,10 @@
                                         </div>
                                     </div>
                                 </fieldset>
-                                <?= view("admin/Layouts/group_button_action_form_view.php") ?>
+                                <?= view("admin/Layouts/group_button_action_form_view.php", [
+                                    'type_button' => "submit",
+                                    'label' => 'Lưu'
+                                ]) ?>
                             </form>
                         </div>
                     </div>
