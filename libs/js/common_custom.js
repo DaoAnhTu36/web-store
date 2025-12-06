@@ -43,7 +43,7 @@ function updateFileList() {
       if (element) {
         const reader = new FileReader();
         reader.onload = function (e) {
-          listItem.innerHTML = `<div class="item_preview"><span>${index + 1}.</span><img src="${e.target.result}" style="width: 250px; margin: 5px;"></div>`;
+          listItem.innerHTML = `<img src="${e.target.result}" style="width: 250px; margin: 5px;">`;
         };
         reader.readAsDataURL(element); // Đọc file dưới dạng URL
       }

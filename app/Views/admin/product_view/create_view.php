@@ -18,14 +18,14 @@
                             <form class="form-horizontal" action="<?= base_url('admin/product/save'); ?>" method="POST" enctype="multipart/form-data">
                                 <fieldset>
                                     <legend>Thêm mới sản phẩm</legend>
-                                    <div class="form-group">
-                                        <label class="col-md-2 control-label">Tên</label>
+                                    <div class="form-group row">
+                                        <div class="col-md-2 control-label">Tên</div>
                                         <div class="col-md-10">
                                             <input class="form-control" value="" placeholder="" type="text" id="name" name="name">
                                         </div>
                                     </div>
-                                    <div class="form-group">
-                                        <label class="col-md-2 control-label">Danh mục</label>
+                                    <div class="form-group row">
+                                        <div class="col-md-2 control-label">Danh mục</div>
                                         <div class="col-md-10">
                                             <input class="form-control" placeholder="" type="text" list="list" id="category_id" name="category_id">
                                             <datalist id="list">
@@ -35,7 +35,7 @@
                                             </datalist>
                                         </div>
                                     </div>
-                                    <div class="form-group">
+                                    <div class="form-group row">
                                         <div class="col-md-2 control-label">Thuộc tính</div>
                                         <div class="col-md-10">
                                             <table class="table table-bordered table-striped">
@@ -60,8 +60,8 @@
                                             </table>
                                         </div>
                                     </div>
-                                    <div class="form-group">
-                                        <label class="col-md-2 control-label">Hình ảnh</label>
+                                    <div class="form-group row">
+                                        <div class="col-md-2 control-label">Hình ảnh</div>
                                         <div class="col-md-10">
                                             <input type="file" class="btn btn-default" id="images" name="images[]" multiple>
                                             <p class="help-block">
@@ -69,16 +69,15 @@
                                             </p>
                                         </div>
                                     </div>
-                                    <div class="form-group" id="image_preview_container">
-                                        <label class="col-md-2 control-label"> </label>
-                                        <div class="col-md-10" id="item_preview">
-
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-md-2 control-label">Mô tả</label>
+                                    <div class="form-group row">
+                                        <div class="col-md-2 control-label">Mô tả</div>
                                         <div class="col-md-10">
                                             <textarea name="description" id="description"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row" id="image_preview_container">
+                                        <div class="col-md-12" id="item_preview">
+
                                         </div>
                                     </div>
                                 </fieldset>

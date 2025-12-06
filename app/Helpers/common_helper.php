@@ -196,3 +196,20 @@ function group_array_by_key($array, $key)
     }
     return $result;
 }
+
+function compressImage($source, $destination, $quality = 70)
+{
+    $info = getimagesize($source);
+
+    if ($info['mime'] == 'image/jpeg') {
+        $image = imagecreatefromjpeg($source);
+    } elseif ($info['mime'] == 'image/png') {
+        $image = imagecreatefrompng($source);
+    } elseif ($info['mime'] == 'image/webp') {
+        $image = imagecreatefromwebp($source);
+    }
+
+    // Nén ảnh
+    imagejpeg($image, $destination, $quality);
+    return $destination;
+}
