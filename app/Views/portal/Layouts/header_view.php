@@ -113,8 +113,8 @@
     ">
         Đã thêm vào giỏ hàng
     </div> -->
-    <!-- <canvas id="snow"></canvas> -->
-    <!-- <div class="contact-group">
+    <canvas id="snow"></canvas>
+    <div class="contact-group">
         <a href="tel:<?php echo isset(session()->get('web_configs')['tel']) ? session()->get('web_configs')['tel'] : ''; ?>" class="contact-btn phone" title="Gọi ngay">
             <i class="fa fa-phone" aria-hidden="true"></i>
         </a>
@@ -124,4 +124,4 @@
         <a href="https://zalo.me/<?php echo isset(session()->get('web_configs')['zalo']) ? session()->get('web_configs')['zalo'] : ''; ?>" target="_blank" class="contact-btn zalo" title="Zalo Chat">
             Zalo
         </a>
-    </div> -->
+    </div>
