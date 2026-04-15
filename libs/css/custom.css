@@ -163,3 +163,9 @@
   opacity: 1;
   /* hover thì hiện */
 }
+
+.one-line-ellipsis {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

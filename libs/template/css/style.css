@@ -24,6 +24,7 @@
   transition: 0.5s;
   z-index: 99;
 }
+
 /*** Spinner End ***/
 
 /*** Button Start ***/
@@ -112,6 +113,7 @@
 .topbar .top-link a small:hover i {
   color: var(--bs-primary) !important;
 }
+
 /*** Topbar End ***/
 
 /*** Navbar Start ***/
@@ -172,6 +174,7 @@
 #searchModal .modal-content {
   background: white;
 }
+
 /*** Navbar End ***/
 
 /*** Hero Header ***/
@@ -217,13 +220,14 @@
 
 .page-header {
   position: relative;
-  background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url(../img/cart-page-header-img.jpg);
-  background-position: center center;
+  background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url(../img/banner-shop.jpg);
+  background-position: top;
   background-repeat: no-repeat;
   background-size: cover;
 }
 
 @media (min-width: 992px) {
+
   .hero-header,
   .page-header {
     margin-top: 152px !important;
@@ -231,11 +235,13 @@
 }
 
 @media (max-width: 992px) {
+
   .hero-header,
   .page-header {
     margin-top: 97px !important;
   }
 }
+
 /*** Hero Header end ***/
 
 /*** featurs Start ***/
@@ -256,6 +262,7 @@
   transform: rotate(45deg);
   background: var(--bs-secondary);
 }
+
 /*** featurs End ***/
 
 /*** service Start ***/
@@ -296,6 +303,7 @@
   transition: 0.5s;
   border: 1px solid #ffb524;
 }
+
 .fruite .fruite-item:hover {
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.4);
   cursor: pointer;
@@ -314,6 +322,7 @@
 .fruite .fruite-item .fruite-img img:hover {
   transform: scale(1.1);
 }
+
 /*** Fruits End ***/
 
 /*** vesitable Start ***/
@@ -377,12 +386,14 @@
   background: var(--bs-secondary);
   color: var(--bs-white);
 }
+
 /*** vesitable End ***/
 
 /*** Banner Section Start ***/
 .banner .banner-btn:hover {
   background: var(--bs-primary);
 }
+
 /*** Banner Section End ***/
 
 /*** Facts Start ***/
@@ -406,6 +417,7 @@
 .counter h1 {
   margin-bottom: 0;
 }
+
 /*** Facts End ***/
 
 /*** testimonial Start ***/
@@ -440,6 +452,7 @@
   background: var(--bs-secondary);
   color: var(--bs-white);
 }
+
 /*** testimonial End ***/
 
 /*** Single Page Start ***/
@@ -469,6 +482,7 @@
 .nav.nav-tabs .nav-link.active {
   border-bottom: 2px solid var(--bs-secondary) !important;
 }
+
 /*** Single Page End ***/
 
 /*** Footer Start ***/
@@ -485,6 +499,7 @@
 .footer .footer-item p.mb-4 {
   line-height: 35px;
 }
+
 /*** Footer End ***/
 
 .form-item {
@@ -503,13 +518,14 @@
   font-size: 14px;
   color: #57575791;
   transition: all 0.3s ease-in-out;
-  pointer-events: none; /* Để tránh label bị chọn khi click */
+  pointer-events: none;
+  /* Để tránh label bị chọn khi click */
 }
 
 /* Khi input có nội dung hoặc hover vào input, label sẽ di chuyển lên trên */
-.form-item input:focus + label,
-.form-item input:hover + label,
-.form-item input:not(:placeholder-shown) + label {
+.form-item input:focus+label,
+.form-item input:hover+label,
+.form-item input:not(:placeholder-shown)+label {
   top: -10px;
   left: 8px;
   font-size: 12px;
@@ -530,9 +546,11 @@
 .form-item input:focus {
   border-color: #4f4f4f;
 }
+
 .strike-text {
   text-decoration: line-through;
 }
+
 .error-input {
   border: 1px solid red;
 }

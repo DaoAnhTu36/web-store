@@ -3,7 +3,7 @@
 
 
 <!-- Single Page Header start -->
-<div class="container-fluid page-header py-5">
+<div class="container-fluid page-header py-5" style="height: 250px !important;">
     <h1 class="text-center text-white display-6"><?= $data['name'] ?></h1>
     <ol class="breadcrumb justify-content-center mb-0">
         <li class="breadcrumb-item"><a href="#">Trang chủ</a></li>
@@ -38,11 +38,11 @@
                             <i class="fa fa-star text-secondary"></i>
                             <i class="fa fa-star text-secondary"></i>
                             <i class="fa fa-star text-secondary"></i>
-                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star text-secondary"></i>
                         </div>
                         <!-- <p class="mb-4">The generated Lorem Ipsum is therefore always free from repetition injected humour, or non-characteristic words etc.</p>
-                        <p class="mb-4">Susp endisse ultricies nisi vel quam suscipit. Sabertooth peacock flounder; chain pickerel hatchetfish, pencilfish snailfish</p> -->
-                        <!-- <div class="input-group quantity mb-5" style="width: 100px;">
+                        <p class="mb-4">Susp endisse ultricies nisi vel quam suscipit. Sabertooth peacock flounder; chain pickerel hatchetfish, pencilfish snailfish</p>
+                        <div class="input-group quantity mb-5" style="width: 100px;">
                             <div class="input-group-btn">
                                 <button class="btn btn-sm btn-minus rounded-circle bg-light border">
                                     <i class="fa fa-minus"></i>
@@ -337,7 +337,7 @@
                                 <div class="text-white bg-danger px-3 py-1 rounded position-absolute" style="top: 60px;right: 10px;">Giảm giá</div>
                             <?php endif ?>
                             <div class="p-4 pb-0 rounded-bottom">
-                                <h4><?= $item['name'] ?></h4>
+                                <h4 class="one-line-ellipsis"><?= $item['name'] ?></h4>
                                 <div class="d-flex justify-content-between flex-lg-wrap">
                                     <p class="text-dark fs-5 fw-bold"><?= format_currency($item['price'], get_current_symboy()) ?></p>
                                     <a onclick="onAddCart('<?= $item['id'] ?>','<?= $item['name'] ?>','<?= $item['price'] ?>','buyNow')" class="btn border border-secondary rounded-pill px-3 py-1 mb-4 text-primary"><i class="fa fa-shopping-bag me-2 text-primary"></i> Mua ngay</a>
