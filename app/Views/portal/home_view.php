@@ -20,11 +20,10 @@
                                 <?php foreach ($value as $item): ?>
                                     <div class="col-md-6 col-lg-4 col-xl-3">
                                         <div class="rounded position-relative fruite-item">
-                                            <!-- <a href="<?= base_url('portal/chi-tiet-san-pham/' . $item['slug']) . '.html' ?>"> -->
-                                            <a href="#">
-                                                <div class="fruite-img" style="overflow: hidden;">
+                                            <a href="<?= base_url('portal/chi-tiet-san-pham/' . $item['slug']) . '.html' ?>">
+                                                <div class="fruite-img" style="overflow: hidden; height: 60%;display: flex;align-items: center;">
                                                     <?php if (isset($item['image']) && $item['image'] !== ''): ?>
-                                                        <img src="<?= base_url(trim($item['image'])) ?>" class="img-fluid w-100 rounded-top" alt="">
+                                                        <img style="" src="<?= base_url(trim($item['image'])) ?>" class="img-fluid w-100 rounded-top" alt="">
                                                     <?php else: ?>
                                                         <img src="<?= base_url(trim(session()->get('web_configs')['image_product_default'])) ?>" class="img-fluid w-100 rounded-top" alt="">
                                                     <?php endif ?>
@@ -38,7 +37,7 @@
                                                 </div>
                                             <?php endif ?>
                                             <div class="p-4 rounded-bottom">
-                                                <h5><?= $item['name'] ?></h5>
+                                                <h5 class="one-line-ellipsis" style="width:100%"><?= $item['name'] ?></h5>
                                                 <div class="row">
                                                     <div class="col-md-12 col-sm-12 col-xs-12 mb-1" style="display: flex;">
                                                         <?php if (isset($item['discount']) && is_array($item['discount'])): ?>
