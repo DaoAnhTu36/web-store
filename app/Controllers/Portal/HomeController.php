@@ -26,6 +26,24 @@ class HomeController extends BaseController
         $this->categoryModel = new CategoryModel();
     }
 
+    public function term()
+    {
+        $title = "Term";
+        $data_view = [
+            'title' => $title,
+        ];
+        return view('portal/term_view', $data_view);
+    }
+
+    public function privacy()
+    {
+        $title = "Privacy";
+        $data_view = [
+            'title' => $title,
+        ];
+        return view('portal/privacy_view', $data_view);
+    }
+
     public function index()
     {
         $title = "Cửa hàng trực tuyến";
